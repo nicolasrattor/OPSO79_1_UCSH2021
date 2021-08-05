@@ -6,7 +6,15 @@
       "description": "El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.",
       "author": [],
       "contents": "\r\nEste curso se basa en “Metodología I” de Rodrigo Medel y Nicolás Ratto, realizado el primer semestre de 2021 en el Magíster en Ciencias Sociales de la Universidad de Chile.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-05T19:07:49-04:00"
+      "last_modified": "2021-08-05T19:12:51-04:00"
+    },
+    {
+      "path": "calendario.html",
+      "title": "Acerca del curso",
+      "description": "El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.",
+      "author": [],
+      "contents": "\r\nEste curso se basa en “Metodología I” de Rodrigo Medel y Nicolás Ratto, realizado el primer semestre de 2021 en el Magíster en Ciencias Sociales de la Universidad de Chile.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-08-05T19:12:52-04:00"
     },
     {
       "path": "clases.html",
@@ -14,7 +22,7 @@
       "description": "El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.",
       "author": [],
       "contents": "\r\nClase 1\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-05T19:07:51-04:00"
+      "last_modified": "2021-08-05T19:12:54-04:00"
     },
     {
       "path": "index.html",
@@ -22,7 +30,37 @@
       "description": "Bienvenidos/as a curso electivo Metodología Cuantitativa de la Investigación Social (Segundo Semestre 2021).\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-05T19:07:52-04:00"
+      "last_modified": "2021-08-05T19:12:56-04:00"
+    },
+    {
+      "path": "programa.html",
+      "title": "Programa",
+      "description": "A new article created using the Distill format.\n",
+      "author": [
+        {
+          "name": "Nora Jones",
+          "url": "https://example.com/norajones"
+        }
+      ],
+      "date": "`r Sys.Date()`",
+      "contents": "\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill for R Markdown at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-08-05T19:14:11-04:00"
+    },
+    {
+      "path": "proyecto.html",
+      "title": "Acerca del curso",
+      "description": "El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.",
+      "author": [],
+      "contents": "\r\nEste curso se basa en “Metodología I” de Rodrigo Medel y Nicolás Ratto, realizado el primer semestre de 2021 en el Magíster en Ciencias Sociales de la Universidad de Chile.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-08-05T19:12:58-04:00"
+    },
+    {
+      "path": "tareas.html",
+      "title": "Acerca del curso",
+      "description": "El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.",
+      "author": [],
+      "contents": "\r\nEste curso se basa en “Metodología I” de Rodrigo Medel y Nicolás Ratto, realizado el primer semestre de 2021 en el Magíster en Ciencias Sociales de la Universidad de Chile.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-08-05T19:13:00-04:00"
     }
   ],
   "collections": []

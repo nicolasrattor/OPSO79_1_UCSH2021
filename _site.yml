@@ -8,15 +8,15 @@ navbar:
     - text: "Acerca de"
       href: about.html
     - text: "Programa"
-      href: about.html
+      href: programa.html
     - text: "Calendario"
-      href: about.html
+      href: calendario.html
     - text: "Clases"
       href: clases.html
     - text: "Tareas"
-      href: about.html
+      href: tareas.html
     - text: "Proyecto"
-      href: about.html
+      href: proyecto.html
     - icon: fab fa-github
       href: https://github.com/nicolasrattor
 output: distill::distill_article
