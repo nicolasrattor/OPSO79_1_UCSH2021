@@ -1,0 +1,65 @@
+name: "bayesian-stats-with-R"
+title: "Bayesian statistics with R"
+output_dir: "docs"
+include: [".nojekyll"]
+navbar:
+#  logo:
+#    image: images/cefe.png
+#    href: https://www.cefe.cnrs.fr/en/
+  source_url: true
+  left:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Slides"
+      menu:
+        - text: "Motivations"
+          href: slides/motivations.pdf
+        - text: "The likelihood"
+          href: slides/likelihood.pdf
+        - text: "Bayesian analyses by hand"
+          href: slides/example.pdf
+        - text: "A detour to explore priors"
+          href: slides/priors.pdf
+        - text: "Markov chains Monte Carlo methods (MCMC)"
+          href: slides/mcmc.pdf
+        - text: "Bayesian analyses in R with the Jags software"
+          href: slides/jags.pdf
+        - text: "Contrast scientific hypotheses with model selection"
+          href: slides/modelselection.pdf
+        - text: "Heterogeneity and multilevel models (aka mixed models)"
+          href: slides/mixedmodels.pdf
+    - text: "R scripts"
+      menu:
+        - text: "Jags introduction: Storks example"
+          href: Rscripts/jags_introduction_storks_example.R
+        - text: "Multilevel models: Plants example"
+          href: Rscripts/multilevel_models_plants_example.R
+    - text: "Worksheets"
+      menu:
+        - text: "Motivations: Practical 1"
+          href: practicals/practical1.html
+        - text: "The likelihood: Practical 2"
+          href: practicals/practical2.html
+        - text: "A detour to explore priors: Practical 3"
+          href: practicals/practical3.html
+        - text: "A detour to explore priors: Practical 4"
+          href: practicals/practical4.html
+        - text: "Bayesian analyses in R with the Jags software: Practical 5"
+          href: practicals/practical5.html
+        - text: "Bayesian analyses in R with the Jags software: Practical 6"
+          href: practicals/practical6.html
+        - text: "Contrast scientific hypotheses with model selection: Practical 7"
+          href: practicals/practical7.html
+        - text: "Heterogeneity and multilevel models: Practical 8"
+          href: practicals/practical8.html
+        - text: "Heterogeneity and multilevel models: Practical 9"
+          href: practicals/practical9.html
+    - icon: fab fa-github
+      href: https://github.com/oliviergimenez/bayesian-stats-with-R
+    - icon: fab fa-twitter
+      href: https://twitter.com/oaggimenez
+output: 
+  distill::distill_article:
+    toc: TRUE
+    theme: theme.css
