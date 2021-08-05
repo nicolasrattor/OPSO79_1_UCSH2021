@@ -2,19 +2,27 @@
   "articles": [
     {
       "path": "about.html",
-      "title": "About this site",
-      "description": "Some additional details about the website",
+      "title": "Acerca del curso",
+      "description": "El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.",
       "author": [],
-      "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-05T18:03:14-04:00"
+      "contents": "\r\nEste curso se basa en “Metodología I” de Rodrigo Medel y Nicolás Ratto, realizado el primer semestre de 2021 en el Magíster en Ciencias Sociales de la Universidad de Chile.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-08-05T19:07:49-04:00"
+    },
+    {
+      "path": "clases.html",
+      "title": "Clases",
+      "description": "El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.",
+      "author": [],
+      "contents": "\r\nClase 1\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-08-05T19:07:51-04:00"
     },
     {
       "path": "index.html",
       "title": "MC1_USH2021",
-      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "description": "Bienvenidos/as a curso electivo Metodología Cuantitativa de la Investigación Social (Segundo Semestre 2021).\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-08-05T18:03:15-04:00"
+      "last_modified": "2021-08-05T19:07:52-04:00"
     }
   ],
   "collections": []

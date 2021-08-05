@@ -1,0 +1,11 @@
+---
+title: "Clases"
+description: |
+  El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+[Clase 1](https://mc1ush2021.netlify.app/clases/clase1/clase1.html)

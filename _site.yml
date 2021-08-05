@@ -5,20 +5,18 @@ description: |
 output_dir: "_site"
 navbar:
   right:
-    - text: "Home"
-      href: index.html
+    - text: "Acerca de"
+      href: about.html
     - text: "Programa"
       href: about.html
     - text: "Calendario"
       href: about.html
     - text: "Clases"
-      href: about.html
+      href: clases.html
     - text: "Tareas"
       href: about.html
     - text: "Proyecto"
       href: about.html
     - icon: fab fa-github
-      href: https://github.com/oliviergimenez/bayesian-stats-with-R
-    - icon: fab fa-twitter
-      href: https://twitter.com/oaggimenez
+      href: https://github.com/nicolasrattor
 output: distill::distill_article
