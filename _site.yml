@@ -13,8 +13,6 @@ navbar:
       href: clases.html
     - text: "Tareas"
       href: tareas.html
-    - text: "Proyecto"
-      href: proyecto.html
     - text: "Material de apoyo"
       href: material.html
     - icon: fab fa-github

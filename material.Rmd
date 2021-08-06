@@ -7,3 +7,7 @@ description: Tutoriales, link con bibliografía y otros apoyos
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+# Para comenzar el curso:
+
++ Instalar R y RStudio. [Tutorial](https://dadc1ucsh2021.netlify.app/material/instalarR.html)
+

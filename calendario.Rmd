@@ -1,6 +1,8 @@
 ---
 title: "Calendario"
 description: |
+bibliography: [bibliografia/bib.bib]
+link-citations: true
 ---
 
 ```{r setup, include=FALSE}
@@ -12,34 +14,34 @@ knitr::opts_chunk$set(echo = FALSE)
 
 |  Sesiones | Fecha  |  1er bloque | 2do bloque | Lectura obligatoria  | Lectura complementaria |
 |---|---|---|---|---|---|
-| [**Sesión 1**](https://metodologia1uch.netlify.app/slides/clase1/clase1.html#1)  |  22 de marzo | Introducción al curso, a la plataforma web del curso y revisión del  temario. | Introducción a R-Studio: interfaz, operaciones básicas y uso de Markdown para generar documentos  | - | @dellaPorta2013[Cap. I y II], @Kastellec2016 |   
-| **Sesión  2** | 29 de marzo| Epistemología de la investigación cuantitativa (Profesor invitado: Rodrigo Asún) | -  |  @Asun2006 | - |
-| **Sesión 3**|  5 de abril | [Diseños de Investigación cuantitativa:](https://onedrive.live.com/?authkey=%21ANPcrjltLzVPrzg&cid=AB56267F288DC2E8&id=AB56267F288DC2E8%21125498&parId=AB56267F288DC2E8%21125495&o=OneUp) diseños experimentales, fases de un diseño de investigación.  | [Práctica en R:](https://metodologia1uch.netlify.app/slides/clase3/clase3.html#1) tipos de objetos; data frames: edición y agrupación de datos I  |  @Schmitter2013, @Lieberson2002 | @Corbetta2007[Cap. 1 y 3], @Burawoy1990   |
-| [**Sesión 4**](https://metodologia1uch.netlify.app/slides/clase4/clase4.html#1) |  19 de abril | Diseños de Investigación cuantitativa: diseños observacionales; tipos de diseños observacionales | Práctica en R: manipulación básica de datos y Rproject |  @Schmitter2013, @Lieberson2002 | @Corbetta2007[Cap. 1 y 3]  |
-| **Sesión 5** |  26 de abril | [Recolección de datos:](https://onedrive.live.com/?authkey=%21ANPcrjltLzVPrzg&cid=AB56267F288DC2E8&id=AB56267F288DC2E8%21125976&parId=AB56267F288DC2E8%21125495&o=OneUp) Datos de individuos, de información secundaria o de observación directa.  | [Bases de datos para las ciencias sociales: ](https://metodologia1uch.netlify.app/slides/clase5b/clase5b.html#1) Aprendiendo a abrirlas y manipularlas con R. |  @Babbie2014[Cap. 9 y 11] | - |
-| **Sesión 6** | 10 de mayo  | [Estadística descriptiva I:](https://onedrive.live.com/?authkey=%21ANPcrjltLzVPrzg&cid=AB56267F288DC2E8&id=AB56267F288DC2E8%21126003&parId=AB56267F288DC2E8%21125495&o=OneUp) Análisis univariado, descripción de una muestra.  |  [Práctica en R:](https://metodologia1uch.netlify.app/slides/clase6/clase6b#1) Manipulación de data frames. Edición y agrupamiento  | @Agresti2018[Cap.2] | @Wickham2011, @Kabacoff2011[Cap.4] |
-| **Sesión 7** | 17 de mayo  | [Estadística descriptiva II:](https://onedrive.live.com/?authkey=%21ANPcrjltLzVPrzg&cid=AB56267F288DC2E8&id=AB56267F288DC2E8%21126007&parId=AB56267F288DC2E8%21125495&o=OneUp) Análisis descriptivo bivariado y multivariado.  |  [Práctica en R:](https://metodologia1uch.netlify.app/slides/clase7/clase7.html#1) Visualización de datos con ggplot2 | @Agresti2018[Cap.3]  | @Kastellec2007, @Teutonico2015  |
-| **Sesión 8** | 24 de mayo | [Muestreo y selección de casos](https://onedrive.live.com/?authkey=%21ANPcrjltLzVPrzg&cid=AB56267F288DC2E8&id=AB56267F288DC2E8%21126010&parId=AB56267F288DC2E8%21125495&o=OneUp)  | [Estadística Inferencia I y Práctica en R:](https://metodologia1uch.netlify.app/slides/clase8/clase8.html#1) muestreo de datos, trabajar con muestras complejas y visualizar la incertidumbre | @Vivanco2006, @Agresti2018[Cap.8], @Lohr2000[Cap. 1 y 2]  | @Canals2019, @Lax2009 |
-| **Sesión 9** | 31 de mayo   |  La medición en ciencias sociales: Diferencia entre escalas, índices y tipologías.  | Introducción a la [ciencia abierta y elaboración de reportes reproducibles](https://metodologia1uch.netlify.app/slides/clase9/clase9#1) en RMarkdown.  | @Asun2006a, @Perea2009  |  @Healy2018;  @Breznau2021 |
-| **Sesión 10** |14 de junio   | Constructos unidimensionales: Validez de contenido y de constructo; conﬁabilidad; *alpha* de *Cronbach*. Escalas acumulativas Guttnam y Mokken.   | - | @McIver1981   | @Spector1992, @VanderArk2007 |
-| **Sesión 11** | 05 de julio   | Presentaciones individuales de investigación cuantitativa  |  -  |  - | @Salmond2011; Xie [(2021)](https://bookdown.org/yihui/rmarkdown/xaringan.html)   |
-| **Sesión 12** | 12 de julio   |  Presentaciones individuales de investigación cuantitativa | -  | -  | @Salmond2011; Xie [(2021)](https://bookdown.org/yihui/rmarkdown/xaringan.html)   |
+| [**Sesión 1**]()  |  13 de agosto | Introducción al curso | Introducción a R, R-Studio y Markdown para generar documentos | - | - |   
+| [**Sesión 2**]() | 20 de agosto | Medir la realidad social  | Data frames I  |  @Asun2006 | - |
+| [**Sesión 3**]()|  27 de agosto | Diseños de Investigación   | Data frames II | @Schmitter2013 | @Corbetta2007, @Burawoy1990  |
+| [**Sesión 4**]() |  03 de septiembre |  | |   |  |
+| [**Sesión 5**]() |  10 de septiembre |  | Citar en texto plano | @Babbie2014 | - |
+| [**Sesión 6**]() | 01 de octubre  |   | @Agresti2018 | @Kabacoff2011 |
+| [**Sesión 7**]() | 08 de octubre  |   |   | @Agresti2018  |   |
+| [**Sesión 8**]() | 29 de octubre|  | | @Vivanco2006, @Agresti2018  |   |
+| [**Sesión 9**]() | 05 noviembre   |   |   |  |  @Healy2018;  @Breznau2021 |
+| [**Sesión 10**]() | 12 de noviembre   |   | - |    |  |
+| [**Sesión 11**]() | 19 de noviembre   |  |  -  |  - |   |
+| [**Sesión 12**]() | 03 de diciembre   |  Más allá de DADC1: el universo de posibilidades en R (clase según intereses de los/as estudiantes)  | Continuación de primer bloque  | -  | -  |
 
-## Talleres
+## Semanas de receso o consolidación:
 
-Taller 1. 26 de abril, 18:00-18:30. Citar en texto plano. Introducción a Zotero, Z Connector y bibtex en R
-
-## Semanas de receso:
-
-12 de abril semana de receso. Se realizó sesión de reforzamiento R opcional
-
-03 de mayo semana de receso. 
-
-07 de junio semana de receso.
+15 de octubre semana de receso.
 
 ## Feriados:
 
-21 de junio feriado día de los pueblos indígenas.
+17 de septiembre. Fiestas Patrias. 
 
-28 de junio feriado San Pedro y San Pablo.
+## Evaluaciones tipo prueba:
+
+24 de septiembre
+
+22 de octubre
+
+26 de noviembre
+
+10 de diciembre (integrativa final)
 
