@@ -1,5 +1,5 @@
 ---
-title: "MC1_UCSH2021"
+title: "DADC1_UCSH2021"
 description: |
  Bienvenidos/as al curso electivo "Diseño y Análisis de Datos Cuantiativos (en R)" (Segundo Semestre 2021).
 creative_commons: CC BY-NC-SA
