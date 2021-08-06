@@ -1,0 +1,9 @@
+---
+title: "Material de apoyo"
+description: Tutoriales, link con bibliografía y otros apoyos
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
