@@ -7,7 +7,7 @@ output:
  distill::distill_article
 ---
 
-## Institución y horarios {.appendix}
+## Institución {.appendix}
 
 Universidad Católica Silva Henríquez.
 
