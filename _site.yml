@@ -1,12 +1,10 @@
-name: "MC1_USH2021"
-title: "MC1_USH2021"
+name: "MC1_UCSH2021"
+title: "MC1_UCSH2021"
 description: |
-  MC1_USH2021
+  MC1_UCSH2021
 output_dir: "_site"
 navbar:
   right:
-    - text: "Acerca de"
-      href: about.html
     - text: "Programa"
       href: programa.html
     - text: "Calendario"

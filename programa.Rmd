@@ -1,25 +1,147 @@
 ---
-title: "Programa"
+title: "Programa curso Diseño y Análisis de Datos Cuantiativos (en R)"
 description: |
-  A new article created using the Distill format.
+  Sociología, Universidad Católica Silva Henríquez
 author:
-  - name: Nora Jones 
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: Nicolás Ratto
+    url: https://www.researchgate.net/profile/Nicolas-Ratto 
 date: "`r Sys.Date()`"
-output: distill::distill_article
+journal: "Borrador"
+output: 
+ distill::distill_article:
+   toc: true
+   toc_depth: 2
+   toc_float: TRUE
+# rmarkdown::render(input = "programa.Rmd", output_format = "pdf_document")
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Distill is a publication format for scientific and technical writing, native to the web. 
+# Objetivo general
 
-Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+Entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.
+
+# Aprendizajes esperados
+
++ Comprender el contexto epistemológico en que se desarrolla la investigación social
+
++ Formular diseños de investigación social cuantitativa
+
++ Conocer el panorama de instrumentos de medición y tipos de estudios cuantitativos
+
++ Interpretar y analizar los elementos centrales de una base de datos con información social
+
++ Aplicar las técnicas más pertinentes de estadística descriptiva según las distintas características de los datos (en lenguaje R).
+
++ Presentar de manera visual y efectiva los datos cuantitativos (en lenguaje R).
+
++ Comprender la lógica de construcción de índices, escalas y tipologías
+
++ Conocer y ejecutar junto a R otras herramientas y lenguajes de la ciencia abierta (Markdown, Zotero, Github, entre otras)
 
 
+# Contenidos
+
+## I. Epistemología y Diseño 
+
+a.	Fundamentos epistemológicos de la investigación social cuantitativa.
+b.	Traducción empírica de la teoría: hipótesis, conceptos, dimensiones, indicadores, variables, unidades de análisis y unidades de observación.
+c.	Sobre la Rreproducibilidad y apertura de la investigación social.
+d.	Diseños de Investigación cuantitativos: descriptivo, correlacional, causal; observacional,  experimental. Instrumentos de producción y ordenamiento de la información: encuestas, bases de datos agregadas, registros administrativos, análisis de contenido cuantitativo, codificación de prensa.
+e.	Estructura de las bases de datos: Datos de corte transversal; Datos de series de tiempo; Combinación de cortes transversales; y Datos de panel o longitudinales.
+f.	Muestreo en la investigación social: muestreo aleatorio simple, muestreo estratificado, muestreo por conglomerados. Ponderación y post estratificación. 
+
+## II. Interpretación y visualización de estadística descriptiva.
+
+a.	Introducción a R y R-Studio.
+b.	Manipulación de bases de datos con funciones de R base y paquete dplyr: ﬁltrar, agregar, ranquear, combinar, recodificar y crear nuevas variables a partir de otras.
+c.	Construcción de tablas univariadas y de contingencia con funciones de R base.
+d.	Elaboración de gráﬁcos de cajas, gráficos de barras, gráﬁcos de dispersión, histogramas y gráﬁcos de densidad con funciones de ggplot2.
+e.	Elaborar reportes descriptivos y reproducibles con RMarkdown. 
+
+## III. Medición y análisis unidimensional
+
+a. Combinación de variables para la construcción de indicadores, índices y tipologías.
+b. Reducción de variables con constructos unidimensionales: escala sumatoria, escala Guttman y escala Mokken.
+
+## IV. Interpretación y visualización de estadística inferencial
+
+a. Introducción a al concepto de estimadores y parámetros
+b. Pesos, factores de expansión e intervalos de confianza
+
+
+# Dinámica del curso
+
+El curso se realizará por medio de la plataforma *zoom* al menos durante agosto y septiembre, donde la metodología será una combinación de clases expositivas y de ejercicios prácticos. En la exposición se presentarán los contenidos de la sesión, usando distintos ejemplos a partir de datos reales y de preguntas concretas que surgen a partir de materias de interés sociológico. En este espacio se responderán dudas y discutirá la materia, por lo que se espera una participación de los estudiantes. Luego, se realizarán ejercicios prácticos para aplicar lo aprendido en clases en modalidad de taller virtual. En este espacio, los y las estudiantes podrán ir avanzando en la realización de una aplicación práctica de la materia en su computadora personal con ayuda constante del profesor. Se trabajará con variadas bases de datos disponibles de uso público, cuyas direcciones web o archivos serán facilitadas el docente -al igual que el material de las presentaciones-. Todo el material bibliográfico estará disponible en la [plataforma](https://mc1ush2021.netlify.app/) del curso.
+
+# Evaluaciones
+
+La nota final del estudiante consistirá en la realización de un mini proyecto de investigación cuantitativo (30%) y la presentación de tareas prácticas (70%). Ambas serán de carácter individual.
+
+1. **Realización de mini proyecto investigación cuantitativo:** El proyecto de investigación tendrá entregas parciales a lo largo del semestre que consistirán en 1) la pregunta de investigación, selección de base de datos a utilizar, una breve revisión bibliográfica, marco teórico e hipótesis de investigación (10%); 2) la entrega de la metodología y los resultados del análisis (10%); 3) la presentación oral del proyecto a fin de semestre y la entrega final (10%). Cada una de las etapas tendrá retroalimentación por parte del equipo docente, las que se deben ir incorporando en las siguiente entregas. 
+
+2. **Tareas prácticas:** en la segunda sección de cada clase se dejará a disposición una guía para ser trabajada por los y las estudiantes. Dicha tarea debe ser entregada máximo tres días después de la clase.
+
+
+## Fechas de entrega
+
+**Mini  proyecto investigación cuantitativo (60%)**
+
+1) Entrega 1 (10%)
+2) Entrega 2 (10%)
+2) Presentación y entrega final (10%)
+
+**Tareas prácticas (40%)**
+
+1. Entrega 1 hasta las 23:59 hrs.
+2. Entrega 2 hasta las 23:59 hrs.
+3. Entrega 3 hasta las 23:59 hrs.
+4. Entrega 4 hasta las 23:59 hrs.
+5. Entrega 5 hasta las 23:59 hrs.
+6. Entrega 6 hasta las 23:59 hrs.
+7. Entrega 7 hasta las 23:59 hrs.
+8. Entrega 8 hasta las 23:59 hrs.
+
+Todas las entregas del proyecto de investigación y de las tareas deben ser enviadas al correo de Nicolás Ratto (<nicolasrattor@gmail.com>)
+
+
+
+#	Requisitos de aprobación
+
+NOTA DE APROBACIÓN MÍNIMA (Escala de 1.0 a 7.0): 4,0
+
+REQUISITOS PARA PRESENTACIÓN A EXÁMEN: 3,0
+
+
+# Normas éticas
+
++ **Relación de confianza e igualdad de trato con las y los estudiantes**
+
+Con trabajo y motivación se pueden llegar a elaborar productos de alta calidad. Se evitan controles de lectura, confiando en que la literatura será revisada clase a clase. 
+
+La opinión de las y los estudiantes en clase es siempre válida y provechosa. 
+
++ **Apoyo constante en el aprendizaje y compañerismo**
+
+R puede ser muy difícil en sus primeras aproximaciones, por lo que se requiere paciencia y apoyo de parte de las y los compañeros que les resulte más sencillo. 
+
++ **Reconocimiento y respeto por el trabajo e ideas de otros/as**
+
+Se tendrá tolerancia cero ante el plagio. 
+
+*“Plagio es el acto de presentar las ideas de otras personas como si fueran propias sin indicar la fuente de donde se obtuvo”* (Real Academia Española). 
+
+Se considera plagio, aún sin intención de hacerlo, el hecho de copiar, adaptar, parafrasear o usar la idea, opinión o teoría de otra persona como si fuera propia sin mencionar al autor. De esta manera, instancias de plagios incluyen, entre otras, las siguientes prácticas:
+
++ Hacer pasar el trabajo de otra persona como propio.
+
++ Copiar fragmentos de la obra de otra persona palabra por palabra sin citar la fuente.
+
++ Parafrasear sin citar la fuente.
+
+Cualquier instancia de plagio detectada será elevada sumariamente a las autoridades del departamento. El manejo de citas es fundamental en cualquier disciplina de investigación, de estimarlo necesario podemos dedicar parte de una de las reuniones a hacer un breve repaso de las formas de citar más comunes en ciencias sociales. 
 
 
 

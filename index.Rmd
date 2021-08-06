@@ -1,15 +1,22 @@
 ---
-title: "MC1_USH2021"
+title: "MC1_UCSH2021"
 description: |
-  Bienvenidos/as a curso electivo Metodología Cuantitativa de la Investigación Social (Segundo Semestre 2021).
-site: distill::distill_website
+ Bienvenidos/as al curso electivo "Diseño y Análisis de Datos Cuantiativos (en R)" (Segundo Semestre 2021).
+creative_commons: CC BY-NC-SA
+output: 
+ distill::distill_article
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+## Institución y horarios {.appendix}
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
+Universidad Católica Silva Henríquez.
 
-```
+Carrera de Sociología. Segundo Semestre de 2021.
 
+Viernes de 15:20 a 17:50. Clases virtuales.
+
+## Contribuciones {.appendix}
+
+La mayor parte del contenido del curso proviene del curso ["Metodología I"](https://metodologia1uch.netlify.app/), de Rodrigo Medel y Nicolás Ratto.
+
+El diseño de la página corresponde al formato predeterminado de páginas web y artículos de [Distill](https://rstudio.github.io/distill/)

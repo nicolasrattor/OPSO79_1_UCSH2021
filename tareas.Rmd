@@ -1,11 +1,10 @@
 ---
-title: "Acerca del curso"
+title: "Tareas prácticas"
 description: |
-  El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Este curso se basa en ["Metodología I"](https://metodologia1uch.netlify.app/) de Rodrigo Medel y Nicolás Ratto, realizado el primer semestre de 2021 en el Magíster en Ciencias Sociales de la Universidad de Chile.
+En total habrán 8 tareas prácticas. 
