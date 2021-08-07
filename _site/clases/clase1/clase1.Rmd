@@ -55,15 +55,38 @@ class: inverse, center, middle
 # Introducción
 
 ---
-# Introducción
 
-El objetivo del curso es entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R.
+# Objetivo del curso
 
---
-
-Curso de múltiples dimensiones: epistemológica; metodológica; de revisión de investigaciones específicas; y "técnica" (uso de *softwares* y de técnicas de análisis de datos). 
+Entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R.
 
 --
+
+## Curso de múltiples dimensiones:
+
++ ¿es posible medir la realidad social?, ¿que implica?
+
++ ¿cómo medimos y registramos la realidad social? 
+
++ ¿cómo se hace esto para el caso chileno?
+
++ ¿cuál es la mejor forma de describir cada tipo de dato cuantitativo?
+
++ herramientas para analizar y reportar lo registrado en las bases de datos (R)
+
+
+---
+
+El [programa](https://dadc1ucsh2021.netlify.app/programa.html) se divide en cuatro puntos: 
+
++ Epistemología y consideraciones generales sobre la ciencia
+
++ Diseños de investigación social
+
++ Tipos de datos cuantitativos, estructura de los datos y análisis pertinentes (estadísticas)
+
++ Lenguajes y herramientas para el análisis de datos y reporte (R)
+
 
 ---
 class: inverse, center, middle

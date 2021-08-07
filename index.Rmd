@@ -1,11 +1,11 @@
 ---
 title: "DADC1_UCSH2021"
-description: |
- Bienvenidos/as al curso electivo "Diseño y Análisis de Datos Cuantiativos (en R)" (Segundo Semestre 2021).
 creative_commons: CC BY-NC-SA
 output: 
  distill::distill_article
 ---
+
+Bienvenidos/as al curso electivo “Diseño y Análisis de Datos Cuantitativos (en R)” (Segundo Semestre 2021).
 
 ## Institución {.appendix}
 
@@ -13,7 +13,7 @@ Universidad Católica Silva Henríquez.
 
 Carrera de Sociología. Segundo Semestre de 2021.
 
-Viernes de 15:20 a 17:50. Clases virtuales.
+Viernes de 15:20 a 18:10. Clases virtuales.
 
 ## Contribuciones {.appendix}
 

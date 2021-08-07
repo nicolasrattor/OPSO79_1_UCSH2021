@@ -13,21 +13,38 @@ output:
    toc_depth: 2
    toc_float: TRUE
 # rmarkdown::render(input = "programa.Rmd", output_format = "pdf_document")
+bibliography: [bibliografia/bib.bib]
+link-citations: true
+nocite: |
+ @Asun2006, @Burawoy1990, @Agresti2018, @Schmitter2013, @Corbetta2007, @Breznau2021, @Healy2018, @Vivanco2006
 ---
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# Objetivo general
+# Pre-requisitos (*)
 
-Entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.
+Teoría sociológica
+
+Metodología de la Investigación Cuantitativa
+
+# Descriptor
+
+El curso busca entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.
+
+# Condiciones de entrada
+
+-	Sabe problematizar fenómenos de investigación desde la perspectiva cuantitativa.
+-	Reconoce el contenido de un diseño de investigación cuantitativa.
+-	Sabe identificar y/o construir variables cuantitativas de investigación. 
+- Manejo básico de teoría sociológica (al menos los clásicos Weber, Marx y Durkheim)
 
 # Aprendizajes esperados
 
 + Comprender el contexto epistemológico en que se desarrolla la investigación social
-
-+ Formular diseños de investigación social cuantitativa
 
 + Conocer el panorama de instrumentos de medición y tipos de estudios cuantitativos
 
@@ -42,41 +59,49 @@ Entregar una comprensión general del proceso de investigación social cuantitat
 + Conocer y ejecutar junto a R otras herramientas y lenguajes de la ciencia abierta (Markdown, Zotero, Github, entre otras)
 
 
-# Contenidos
+# Contenidos de la actividad curricular
 
-## I. Epistemología y Diseño 
+## I. Epistemología y consideraciones generales sobre la ciencia
 
-a.	Fundamentos epistemológicos de la investigación social cuantitativa.
-b.	Traducción empírica de la teoría: hipótesis, conceptos, dimensiones, indicadores, variables, unidades de análisis y unidades de observación.
-c.	Sobre la Rreproducibilidad y apertura de la investigación social.
-d.	Diseños de Investigación cuantitativos: descriptivo, correlacional, causal; observacional,  experimental. Instrumentos de producción y ordenamiento de la información: encuestas, bases de datos agregadas, registros administrativos, análisis de contenido cuantitativo, codificación de prensa.
-e.	Estructura de las bases de datos: Datos de corte transversal; Datos de series de tiempo; Combinación de cortes transversales; y Datos de panel o longitudinales.
-f.	Muestreo en la investigación social: muestreo aleatorio simple, muestreo estratificado, muestreo por conglomerados. Ponderación y post estratificación. 
+a. Fundamentos epistemológicos de la investigación social cuantitativa.
+b. Traducción empírica de la teoría: hipótesis, conceptos, dimensiones, indicadores, variables, unidades de análisis y unidades de observación.
+c. Programas de investigación en ciencias sociales
+d. Apertura y reproducibilidad de la investigación social.
 
-## II. Interpretación y visualización de estadística descriptiva.
+## II. Diseños de investigación social
 
-a.	Introducción a R y R-Studio.
-b.	Manipulación de bases de datos con funciones de R base y paquete dplyr: ﬁltrar, agregar, ranquear, combinar, recodificar y crear nuevas variables a partir de otras.
-c.	Construcción de tablas univariadas y de contingencia con funciones de R base.
-d.	Elaboración de gráﬁcos de cajas, gráficos de barras, gráﬁcos de dispersión, histogramas y gráﬁcos de densidad con funciones de ggplot2.
-e.	Elaborar reportes descriptivos y reproducibles con RMarkdown. 
+a. Diseños de Investigación cuantitativos: descriptivo, correlacional, causal; observacional, experimental. 
+b. Instrumentos de producción y ordenamiento de la información: encuestas, bases de datos agregadas, registros administrativos, análisis de contenido cuantitativo, codificación de prensa.
+c. Estructura de las bases de datos: Datos de corte transversal; Datos de series de tiempo; Combinación de cortes transversales; y Datos de panel o longitudinales.
 
-## III. Medición y análisis unidimensional
+## III. Tipos de datos cuantitativos, estructura de los datos, muestras, inferencia y análisis pertinentes (estadísticas)
 
-a. Combinación de variables para la construcción de indicadores, índices y tipologías.
-b. Reducción de variables con constructos unidimensionales: escala sumatoria, escala Guttman y escala Mokken.
+a. Tipos de datos cuantitativos (nominales, ordinales, numéricos)
+b. Estructura de los datos (estructurados y des estructurados; transversales y longitudinales)
+c. La lógica del muestreo. Como conocer lo totalidad a partir de una parte (inferencia). Tipos de muestreo: muestreo aleatorio simple, muestreo estratificado, muestreo por conglomerados.
+d. Estimadores y parámetros.
+e. Pesos, factores de expansión y medidas de precisión de las inferencias (intervalos de confianza principalmente)
+f. Variables latentes. Construcción de indicadores, índices y tipologías.
 
-## IV. Interpretación y visualización de estadística inferencial
+## IV. Lenguajes y herramientas para el análisis de datos y reporte (R)
 
-a. Introducción a al concepto de estimadores y parámetros
-b. Pesos, factores de expansión e intervalos de confianza
+a. Introducción a R y R-Studio.
+b. Introducción a RMarkdown
+b. Manipulación de bases de datos con funciones de R base y paquete dplyr: ﬁltrar, agregar, ranquear, combinar, recodificar y crear nuevas variables a partir de otras.
+c. Construcción de tablas univariadas y de contingencia.
+d. Elaboración de gráﬁcos de cajas, gráficos de barras, gráﬁcos de dispersión, histogramas y gráﬁcos de densidad con funciones de ggplot2.
+e. Elaborar reportes descriptivos y reproducibles con RMarkdown. 
 
 
-# Dinámica del curso
+# Criterios metodológicos de la actividad curricular
 
 El curso se realizará por medio de la plataforma *zoom* al menos durante agosto y septiembre, donde la metodología será una combinación de clases expositivas y de ejercicios prácticos. En la exposición se presentarán los contenidos de la sesión, usando distintos ejemplos a partir de datos reales y de preguntas concretas que surgen a partir de materias de interés sociológico. En este espacio se responderán dudas y discutirá la materia, por lo que se espera una participación de los estudiantes. Luego, se realizarán ejercicios prácticos para aplicar lo aprendido en clases en modalidad de taller virtual. En este espacio, los y las estudiantes podrán ir avanzando en la realización de una aplicación práctica de la materia en su computadora personal con ayuda constante del profesor. Se trabajará con variadas bases de datos disponibles de uso público, cuyas direcciones web o archivos serán facilitadas el docente -al igual que el material de las presentaciones-. Todo el material bibliográfico estará disponible en la [plataforma](https://mc1ush2021.netlify.app/) del curso.
 
-# Evaluaciones
+# Recursos didácticos de la actividad curricular. 
+
+
+
+# Criterios evaluativos de la actividad curricular. 
 
 La nota final del estudiante consistirá en la realización de un mini proyecto de investigación cuantitativo (30%) y la presentación de tareas prácticas (70%). Ambas serán de carácter individual.
 
@@ -84,35 +109,7 @@ La nota final del estudiante consistirá en la realización de un mini proyecto 
 
 2. **Tareas prácticas:** en la segunda sección de cada clase se dejará a disposición una guía para ser trabajada por los y las estudiantes. Dicha tarea debe ser entregada máximo tres días después de la clase.
 
-
-## Fechas de entrega
-
-**Mini  proyecto investigación cuantitativo (60%)**
-
-1) Entrega 1 (10%)
-2) Entrega 2 (10%)
-2) Presentación y entrega final (10%)
-
-**Tareas prácticas (40%)**
-
-1. Entrega 1 hasta las 23:59 hrs.
-2. Entrega 2 hasta las 23:59 hrs.
-3. Entrega 3 hasta las 23:59 hrs.
-4. Entrega 4 hasta las 23:59 hrs.
-5. Entrega 5 hasta las 23:59 hrs.
-6. Entrega 6 hasta las 23:59 hrs.
-7. Entrega 7 hasta las 23:59 hrs.
-8. Entrega 8 hasta las 23:59 hrs.
-
 Todas las entregas del proyecto de investigación y de las tareas deben ser enviadas al correo de Nicolás Ratto (<nicolasrattor@gmail.com>)
-
-
-
-#	Requisitos de aprobación
-
-NOTA DE APROBACIÓN MÍNIMA (Escala de 1.0 a 7.0): 4,0
-
-REQUISITOS PARA PRESENTACIÓN A EXÁMEN: 3,0
 
 
 # Normas éticas
@@ -142,6 +139,19 @@ Se considera plagio, aún sin intención de hacerlo, el hecho de copiar, adaptar
 + Parafrasear sin citar la fuente.
 
 Cualquier instancia de plagio detectada será elevada sumariamente a las autoridades del departamento. El manejo de citas es fundamental en cualquier disciplina de investigación, de estimarlo necesario podemos dedicar parte de una de las reuniones a hacer un breve repaso de las formas de citar más comunes en ciencias sociales. 
+
+
+# Recursos bibliográficos y de Información de la actividad curricular. 
+
+## Material de apoyo
+
+El curso cuenta con una [página web](https://dadc1ucsh2021.netlify.app/), en la cuál se irá subiendo material de apoyo para los talleres prácticos (tutoriales y manuales de R principalmente).
+
+La bibliografía será facilitada a los/as estudiante por el profesor. En clases se señalará que capítulos o secciones de los textos son obligatorias (en el sentido de que se evaluarán sus contenidos). Al final de la página la bibliografía se encuentra listada. 
+
+## Bibliografía
+
+
 
 
 

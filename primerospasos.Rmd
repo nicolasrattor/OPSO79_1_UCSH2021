@@ -1,0 +1,21 @@
+---
+title: Primeros pasos R
+description: | 
+ Como repasar la materia, donde resolver dudas y otros temas
+bibliography: [bibliografia/bib.bib]
+link-citations: true
+---
+
+## Aspectos básicos de R en español (manuales, videos y otros)
+
+
+
+
+## Donde resolver dudas
+
+
+
+
+## Ir un poco más allá (libros sobre R)
+
+@Kabacoff2011

@@ -1,9 +1,8 @@
 ---
-title: Clase cero
+title: Instalar R
+description: | 
+ Instrucciones para la primera clase
 ---
-
-
-## Instrucciones para la primera clase:
 
 La primera actividad consiste es instalar los *softwares* R y RStudio (hacerlo antes de la primera clase). El objetivo de pedirles que descaguen e instalen previamente los *softwares* es aprovechar mejor el tiempo durante la primera sesión. En caso de que tengan algún inconveniente con la instalación les pedimos que se contacten con alguno de los profesores. 
 
