@@ -1,0 +1,72 @@
+---
+title: "Diseño y Análisis de Datos Cuantiativos (en R)"
+subtitle: "Introducción al curso"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      ratio: '3:2'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+
+library(xaringanthemer)
+
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+
+```
+
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+#pagedown::chrome_print("clase0.html")
+
+```
+
+---
+class: inverse, center, middle
+
+# Introducción
+
+---
+
+# Objetivo del curso
+
+Entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R.
+
+---
+
+
+
+
+
+
+
+

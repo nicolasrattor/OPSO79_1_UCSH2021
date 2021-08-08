@@ -10,13 +10,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Introducción al curso y a R
 
-[Clase 1. Bloque 1](https://dadc1ucsh2021.netlify.app/clases/clase1/clase1.html)
+[Clase 1. Bloque 1](https://dadc1ucsh2021.netlify.app/clases/clase0/clase0.html)
 
-[Clase 1. Bloque 2]()
-
-
-# Epistemología de la investigación cuantitativa 
-
-[Clase 2. Bloque 1]()
-
-[Clase 2. Bloque 2]()
+[Clase 1. Bloque 2](https://dadc1ucsh2021.netlify.app/clases/clase0/clase0.html)
