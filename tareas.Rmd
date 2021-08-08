@@ -7,4 +7,8 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-En total habrán 8 tareas prácticas. 
+En total habrán 8 tareas prácticas a lo largo del curso, las cuáles tendrán un componente principalmente práctico de uso de R.
+
+# Tarea N°1
+
+Elaborar documento desde RMarkdown con presentación de estudiante y foto de científico social favorito. [Descargar aquí](tareas/tarea1/tarea1.pdf). 

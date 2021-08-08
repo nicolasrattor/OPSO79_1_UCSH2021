@@ -5,7 +5,7 @@ date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [xaringan-themer.css, custom.css]
+    css: [xaringan-themer.css]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -45,7 +45,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-#pagedown::chrome_print("clase1.html")
+pagedown::chrome_print("clase1.html")
 
 ```
 

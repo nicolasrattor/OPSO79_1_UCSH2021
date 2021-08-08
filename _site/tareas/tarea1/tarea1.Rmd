@@ -1,0 +1,26 @@
+---
+title: "Taréa práctica 1"
+subtitle: "Curso DADC1, UCSH."
+author: "Nicolás Ratto"
+output: pdf_document
+date: "Viernes 13 de agosto de 2021"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tarea práctica N°1
+
+Generar en RMarkdown un reporte simple, en formato `html` o `pdf`, que contenga los siguientes elementos:
+
++ Nombre del estudiante
+
++ No más de cinco párrafos que contengan una presentación de quién escribe (qué cosas te gusta hacer; por qué decidiste estudiar sociología; si es que has trabajado, en qué cosas; que cosas has investigado en trabajos de la universidad; a futuro, en que te ves trabajando)
+
++ Foto de tú sociólogo o cientista social favorito. Comentar brevemente las razones del favoritismo (no más de un párrafo).
+
+Entrega a más tardar el **lunes 16 de agosto hasta las 23:59 hrs**, vía correo electrónico a profesor y ayudante: <nicolasrattor@gmail.com> y <kevin.carrasco@ug.uchile.cl> 
+
+Adjuntar comprimido con código en `.rmd`, archivos `.html` o `.pdf`, y la foto utilizada. Mandar todo comprimido en un `.zip` o `.rar`, que debe ser nombrado con el nombre y el primer apellido de él o la estudiante. 
+

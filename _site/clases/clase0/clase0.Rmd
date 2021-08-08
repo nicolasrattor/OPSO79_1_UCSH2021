@@ -5,18 +5,18 @@ date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: [xaringan-themer.css, custom.css]
+    css: [xaringan-themer.css]
     nature:
+      ratio: '3:2'
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
 ---
 
-```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
-```
+
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
+
 library(xaringanthemer)
 
 
@@ -41,6 +41,7 @@ style_duo(
   text_font_google = google_font("Lato"),
   code_font_google = google_font("Fira Mono")
 )
+
 ```
 
 ```{r echo=FALSE,include=FALSE}
