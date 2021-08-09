@@ -6,7 +6,7 @@ author:
   - name: Nicolás Ratto
     url: https://www.researchgate.net/profile/Nicolas-Ratto 
 date: "`r Sys.Date()`"
-journal: "Borrador"
+journal: "Sociología, Universidad Católica Silva Henríquez"
 output: 
  distill::distill_article:
    toc: true
@@ -16,7 +16,7 @@ output:
 bibliography: [bibliografia/bib.bib]
 link-citations: true
 nocite: |
- @Asun2006, @Burawoy1990, @Agresti2018, @Schmitter2013, @Corbetta2007, @Breznau2021, @Healy2018, @Vivanco2006
+ @Asun2006,  @Asun2006a, @Burawoy1990, @Schmitter2013, @Corbetta2007,@Lohr2000, @Rodriguez-Sanchez2016, @Vivanco2006, @Wickham2021, @Agresti2018; @Babbie2014; @Breznau2021; @Healy2018; @Kabacoff2011; @Lieberman2005; @Wooldridge2006
 ---
 
 
@@ -37,24 +37,29 @@ El curso busca entregar una comprensión general del proceso de investigación s
 
 # Condiciones de entrada
 
+- 	Es capaz de diferenciar paradigmas teóricos y metodológicos.
 -	Sabe problematizar fenómenos de investigación desde la perspectiva cuantitativa.
 -	Reconoce el contenido de un diseño de investigación cuantitativa.
 -	Sabe identificar y/o construir variables cuantitativas de investigación. 
-- Manejo básico de teoría sociológica (al menos los clásicos Weber, Marx y Durkheim)
+
 
 # Aprendizajes esperados
 
-+ Comprender el contexto epistemológico en que se desarrolla la investigación social
++ Comprender las posibilidades y limitaciones de la representación numérica de la realidad social.
 
-+ Conocer el panorama de instrumentos de medición y tipos de estudios cuantitativos
++ Comprender la lógica de la investigación científica en sociología, su particularidad cuantitativa y los principales desafíos que enfrenta.
+
++ Conocer el panorama de instrumentos de medición y tipos de estudios cuantitativos.
+
++ Adquirir un panorama general de las bases de datos en ciencias sociales (para el caso chileno).
 
 + Interpretar y analizar los elementos centrales de una base de datos con información social
+
++ Procesamiento simple de bases de datos (data frames) en R.
 
 + Aplicar las técnicas más pertinentes de estadística descriptiva según las distintas características de los datos (en lenguaje R).
 
 + Presentar de manera visual y efectiva los datos cuantitativos (en lenguaje R).
-
-+ Comprender la lógica de construcción de índices, escalas y tipologías
 
 + Conocer y ejecutar junto a R otras herramientas y lenguajes de la ciencia abierta (Markdown, Zotero, Github, entre otras)
 
@@ -64,65 +69,62 @@ El curso busca entregar una comprensión general del proceso de investigación s
 ## I. Epistemología y consideraciones generales sobre la ciencia
 
 a. Fundamentos epistemológicos de la investigación social cuantitativa.
-b. Traducción empírica de la teoría: hipótesis, conceptos, dimensiones, indicadores, variables, unidades de análisis y unidades de observación.
-c. Programas de investigación en ciencias sociales
+b. El proceso de investigación y la traducción empírica de la teoría.
+c. Los programas de investigación en ciencias sociales (¿cómo representar el progreso científico?).
 d. Apertura y reproducibilidad de la investigación social.
 
 ## II. Diseños de investigación social
 
-a. Diseños de Investigación cuantitativos: descriptivo, correlacional, causal; observacional, experimental. 
+a. Diseños de Investigación cuantitativos: descriptivo / causal; observacional / experimental. 
 b. Instrumentos de producción y ordenamiento de la información: encuestas, bases de datos agregadas, registros administrativos, análisis de contenido cuantitativo, codificación de prensa.
-c. Estructura de las bases de datos: Datos de corte transversal; Datos de series de tiempo; Combinación de cortes transversales; y Datos de panel o longitudinales.
+c. Construcción de cuestionarios.
+d. El proceso de producción y análisis estadístico.
+e. Panorama general de las bases de datos en ciencias sociales.
 
 ## III. Tipos de datos cuantitativos, estructura de los datos, muestras, inferencia y análisis pertinentes (estadísticas)
 
 a. Tipos de datos cuantitativos (nominales, ordinales, numéricos)
-b. Estructura de los datos (estructurados y des estructurados; transversales y longitudinales)
-c. La lógica del muestreo. Como conocer lo totalidad a partir de una parte (inferencia). Tipos de muestreo: muestreo aleatorio simple, muestreo estratificado, muestreo por conglomerados.
+b. Medidas de tendencia central, de dispersión y estadísticos de forma
+c. Estructura de los datos (estructurados y des estructurados; transversales y longitudinales)
+d. La lógica del muestreo. Tipos de muestreo: muestreo aleatorio simple, muestreo estratificado, muestreo por conglomerados.
 d. Estimadores y parámetros.
-e. Pesos, factores de expansión y medidas de precisión de las inferencias (intervalos de confianza principalmente)
-f. Variables latentes. Construcción de indicadores, índices y tipologías.
+e. Pesos, factores de expansión y medidas de precisión de las inferencias.
 
 ## IV. Lenguajes y herramientas para el análisis de datos y reporte (R)
 
 a. Introducción a R y R-Studio.
-b. Introducción a RMarkdown
-b. Manipulación de bases de datos con funciones de R base y paquete dplyr: ﬁltrar, agregar, ranquear, combinar, recodificar y crear nuevas variables a partir de otras.
-c. Construcción de tablas univariadas y de contingencia.
-d. Elaboración de gráﬁcos de cajas, gráficos de barras, gráﬁcos de dispersión, histogramas y gráﬁcos de densidad con funciones de ggplot2.
-e. Elaborar reportes descriptivos y reproducibles con RMarkdown. 
+b. Manipulación de bases de datos con funciones de R base, dplyr y tidyr
+c. Construcción y presentación de tablas univariadas y de contingencia.
+d. Elaboración de gráﬁcos con funciones de ggplot2.
+e. Elaboración de reportes descriptivos y reproducibles con RMarkdown. 
+d. Técnicas y recursos para la búsqueda y gestión bibliográfica.
 
 
 # Criterios metodológicos de la actividad curricular
 
-El curso se realizará por medio de la plataforma *zoom* al menos durante agosto y septiembre, donde la metodología será una combinación de clases expositivas y de ejercicios prácticos. En la exposición se presentarán los contenidos de la sesión, usando distintos ejemplos a partir de datos reales y de preguntas concretas que surgen a partir de materias de interés sociológico. En este espacio se responderán dudas y discutirá la materia, por lo que se espera una participación de los estudiantes. Luego, se realizarán ejercicios prácticos para aplicar lo aprendido en clases en modalidad de taller virtual. En este espacio, los y las estudiantes podrán ir avanzando en la realización de una aplicación práctica de la materia en su computadora personal con ayuda constante del profesor. Se trabajará con variadas bases de datos disponibles de uso público, cuyas direcciones web o archivos serán facilitadas el docente -al igual que el material de las presentaciones-. Todo el material bibliográfico estará disponible en la [plataforma](https://mc1ush2021.netlify.app/) del curso.
+El curso se realizará por medio de la plataforma *zoom* al menos durante agosto y septiembre, donde la metodología será una combinación de clases expositivas y de aplicaciones prácticas. En la exposición se presentarán los contenidos de la sesión, usando distintos ejemplos a partir de datos reales y de preguntas concretas que surgen a partir de materias de interés sociológico. En este espacio se responderán dudas y discutirá la materia, por lo que se espera una participación de los estudiantes. Luego, se realizarán ejercicios prácticos en R para aplicar lo aprendido en clases en modalidad de taller virtual. Se trabajará con variadas bases de datos disponibles de uso público, cuyas direcciones web o archivos serán facilitadas el docente -al igual que el material de las presentaciones-. Todo el material bibliográfico estará disponible en la plataforma del curso, cuyo link será facilitado a los/as estudiantes en la primera clase.
 
 # Recursos didácticos de la actividad curricular. 
 
+Cada estudiante requiere de un computador de uso personal para el bloque práctico y para la realización de las tareas prácticas. El computadoor tiene que tener instalado R y R Studio (de descarga libre y gratuita). En la web del curso se irán subiendo videos y textos de apoyo para el aprendizaje del lenguaje.
 
 
 # Criterios evaluativos de la actividad curricular. 
 
-La nota final del estudiante consistirá en la realización de un mini proyecto de investigación cuantitativo (30%) y la presentación de tareas prácticas (70%). Ambas serán de carácter individual.
-
-1. **Realización de mini proyecto investigación cuantitativo:** El proyecto de investigación tendrá entregas parciales a lo largo del semestre que consistirán en 1) la pregunta de investigación, selección de base de datos a utilizar, una breve revisión bibliográfica, marco teórico e hipótesis de investigación (10%); 2) la entrega de la metodología y los resultados del análisis (10%); 3) la presentación oral del proyecto a fin de semestre y la entrega final (10%). Cada una de las etapas tendrá retroalimentación por parte del equipo docente, las que se deben ir incorporando en las siguiente entregas. 
-
-2. **Tareas prácticas:** en la segunda sección de cada clase se dejará a disposición una guía para ser trabajada por los y las estudiantes. Dicha tarea debe ser entregada máximo tres días después de la clase.
-
-Todas las entregas del proyecto de investigación y de las tareas deben ser enviadas al correo de Nicolás Ratto (<nicolasrattor@gmail.com>)
+La evaluación final del estudiante se compone de (1) el promedio simple de 8 tareas prácticas en R (50%), cuyas instrucciones serán entregadas en clases al finalizar el segundo bloque, (2) nota de participación en clases (10%) y (3) el promedio simple de 4 pruebas teórico-prácticas a realizar en horario de clase (24/09, 22/10, 26/11 y 10/12) (40%). En estas pruebas se evalúa la lectura de la bibliografía obligatoria, lo revisado en clases y algunos problemas prácticos a resolver en R. 
 
 
 # Normas éticas
 
 + **Relación de confianza e igualdad de trato con las y los estudiantes**
 
-Con trabajo y motivación se pueden llegar a elaborar productos de alta calidad. Se evitan controles de lectura, confiando en que la literatura será revisada clase a clase. 
+Con trabajo y motivación se pueden llegar a elaborar productos de alta calidad.
 
 La opinión de las y los estudiantes en clase es siempre válida y provechosa. 
 
 + **Apoyo constante en el aprendizaje y compañerismo**
 
-R puede ser muy difícil en sus primeras aproximaciones, por lo que se requiere paciencia y apoyo de parte de las y los compañeros que les resulte más sencillo. 
+R puede ser muy difícil en sus primeras aproximaciones, por lo que se requiere paciencia, compromiso y apoyo de parte de las y los compañeros que les resulte más sencillo. 
 
 + **Reconocimiento y respeto por el trabajo e ideas de otros/as**
 
@@ -138,16 +140,16 @@ Se considera plagio, aún sin intención de hacerlo, el hecho de copiar, adaptar
 
 + Parafrasear sin citar la fuente.
 
-Cualquier instancia de plagio detectada será elevada sumariamente a las autoridades del departamento. El manejo de citas es fundamental en cualquier disciplina de investigación, de estimarlo necesario podemos dedicar parte de una de las reuniones a hacer un breve repaso de las formas de citar más comunes en ciencias sociales. 
-
 
 # Recursos bibliográficos y de Información de la actividad curricular. 
 
+El curso esta basado en “Metodología I”, de Rodrigo Medel y Nicolás Ratto, que se realizó el primer semestre de 2021 en el Magíster de Ciencias Sociales de la Universidad de Chile. 
+
 ## Material de apoyo
 
-El curso cuenta con una [página web](https://dadc1ucsh2021.netlify.app/), en la cuál se irá subiendo material de apoyo para los talleres prácticos (tutoriales y manuales de R principalmente).
+El curso cuenta con una página web, en la cuál se irá subiendo material de apoyo para los talleres prácticos (tutoriales y manuales de R principalmente).
 
-La bibliografía será facilitada a los/as estudiante por el profesor. En clases se señalará que capítulos o secciones de los textos son obligatorias (en el sentido de que se evaluarán sus contenidos). Al final de la página la bibliografía se encuentra listada. 
+La bibliografía será facilitada a los/as estudiante por el profesor. En clases se señalará que capítulos o secciones de los textos son obligatorias (en el sentido de que se evaluarán sus contenidos). No se evaluará la lectura de textos en inglés, estos solo se dejarán como complementarios.
 
 ## Bibliografía
 
