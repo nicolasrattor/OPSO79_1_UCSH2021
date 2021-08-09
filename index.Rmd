@@ -7,6 +7,14 @@ output:
 
 Bienvenidos/as al curso electivo “Diseño y Análisis de Datos Cuantitativos (en R)” (Segundo Semestre 2021).
 
+## Profesor {.appendix}
+
+Nicolás Ratto
+
+## Ayudante {.appendix}
+
+Kevin Carrasco
+
 ## Institución {.appendix}
 
 Universidad Católica Silva Henríquez.
