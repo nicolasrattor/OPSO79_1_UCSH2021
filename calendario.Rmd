@@ -23,8 +23,8 @@ knitr::opts_chunk$set(echo = FALSE)
  [**Sesión 7**]() | 08 de octubre  | Estadística descriptiva II  | Visualización de datos I (ggplot2) |   |  @Agresti2018  |
  [**Sesión 8**]() | 29 de octubre  | Estadística descriptiva III   | Visualización de datos II (ggplot2)  | |  @Agresti2018 |
 | [**Sesión 9**]() | 05 noviembre   | Ciencia abierta y reproducibilidad  |  Herramientas de la ciencia abierta | @Rodriguez-Sanchez2016, @Swartz2008 |  @Breznau2021, @Healy2018 |
-| [**Sesión 10**]() | 12 de noviembre   | Diseño de muestras  | Muestreo de datos en R |  @Vivanco2006   |  |
-| [**Sesión 11**]() | 19 de noviembre   | Inferencia estadística |  Reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  |  - |   |
+| [**Sesión 10**]() | 12 de noviembre   | Diseño de muestras e inferencia I  | Muestreo de datos en R y prueba de hipótesis |  @Vivanco2006   |  |
+| [**Sesión 11**]() | 19 de noviembre   | Inferencia estadística II |  Reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  |  - |   |
 | [**Sesión 12**]() | 03 de diciembre   |  Más allá de DADC1: el universo de posibilidades en R (clase según intereses de los/as estudiantes)  | Continuación de primer bloque  | -  | -  |
 
 ## Semanas de receso o consolidación:
@@ -35,13 +35,26 @@ knitr::opts_chunk$set(echo = FALSE)
 
 17 de septiembre. Fiestas Patrias. 
 
+## Tareas prácticas
+
+**Tarea práctica 1.** Uso básico de RMarkdown (5%).	13 de agosto (entrega 3 días después)
+
+**Tarea práctica 2.**	Operaciones elementales sobre un data frame con R base y primera parte dplyr (10%).	27 agosto (entrega 3 días después)
+
+**Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%).	10 septiembre (entrega 3 días después)
+
+**Tarea práctica 4.**	Estadística descriptiva con R e interpretación de salidas (5%).	08 octubre (entrega 3 días después)
+
+**Tarea práctica 5.**	Reproducibilidad (5%).	05 noviembre (entrega 3 días después)
+
+
 ## Evaluaciones tipo prueba:
 
-24 de septiembre
+24 de septiembre (10%)
 
-22 de octubre
+22 de octubre (10%)
 
-26 de noviembre
+26 de noviembre (10%)
 
-10 de diciembre (integrativa final)
+10 de diciembre (integrativa final, 30%)
 

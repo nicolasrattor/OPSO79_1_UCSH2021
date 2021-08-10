@@ -7,7 +7,7 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-En total habrán 8 tareas prácticas a lo largo del curso, las cuáles tendrán un componente principalmente práctico de uso de R.
+En total habrán 5 tareas prácticas a lo largo del curso, las cuáles tendrán un componente principalmente práctico de uso de R.
 
 # Tarea N°1
 
