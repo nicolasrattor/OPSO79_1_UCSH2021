@@ -7,14 +7,6 @@ output:
 
 Bienvenidos/as al curso electivo “Diseño y Análisis de Datos Cuantitativos (en R)” (Segundo Semestre 2021).
 
-## Profesor {.appendix}
-
-Nicolás Ratto
-
-## Ayudante {.appendix}
-
-Kevin Carrasco
-
 ## Institución {.appendix}
 
 Universidad Católica Silva Henríquez.
@@ -23,8 +15,10 @@ Carrera de Sociología. Segundo Semestre de 2021.
 
 Viernes de 15:20 a 16:40, y de 16:50 a 18:10. Clases virtuales.
 
+**Docente:** Nicolás Ratto | **Ayudante:** Kevin Carrasco
+
 ## Contribuciones {.appendix}
 
-La mayor parte del contenido del curso proviene del curso ["Metodología I"](https://metodologia1uch.netlify.app/), de Rodrigo Medel y Nicolás Ratto.
+El curso es una adaptación de ["Metodología I"](https://metodologia1uch.netlify.app/), de Rodrigo Medel y Nicolás Ratto.
 
 El diseño de la página corresponde al formato predeterminado de páginas web y artículos de [Distill](https://rstudio.github.io/distill/)

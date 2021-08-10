@@ -1,5 +1,5 @@
 ---
-title: "Programa curso Diseño y Análisis de Datos Cuantiativos (en R)"
+title: "Programa curso Diseño y Análisis de Datos Cuantitativos (en R)"
 description: |
   Sociología, Universidad Católica Silva Henríquez
 author:
@@ -33,7 +33,7 @@ Metodología de la Investigación Cuantitativa
 
 # Descriptor
 
-El curso busca entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas de la ciencia abierta.
+El curso busca entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas que fomentan el desarrollo de la ciencia abierta.
 
 # Condiciones de entrada
 
@@ -102,17 +102,16 @@ d. Técnicas y recursos para la búsqueda y gestión bibliográfica.
 
 # Criterios metodológicos de la actividad curricular
 
-El curso se realizará por medio de la plataforma *zoom* al menos durante agosto y septiembre, donde la metodología será una combinación de clases expositivas y de aplicaciones prácticas. En la exposición se presentarán los contenidos de la sesión, usando distintos ejemplos a partir de datos reales y de preguntas concretas que surgen a partir de materias de interés sociológico. En este espacio se responderán dudas y discutirá la materia, por lo que se espera una participación de los estudiantes. Luego, se realizarán ejercicios prácticos en R para aplicar lo aprendido en clases en modalidad de taller virtual. Se trabajará con variadas bases de datos disponibles de uso público, cuyas direcciones web o archivos serán facilitadas el docente -al igual que el material de las presentaciones-. Todo el material bibliográfico estará disponible en la plataforma del curso, cuyo link será facilitado a los/as estudiantes en la primera clase.
+El curso se realizará por medio de la plataforma *zoom* al menos durante agosto y septiembre, donde la metodología será una combinación de clases expositivas y de aplicaciones prácticas. En la exposición se presentarán los contenidos de la sesión, usando distintos ejemplos a partir de datos reales y de preguntas concretas que surgen a partir de materias de interés sociológico. En este espacio se responderán dudas y se discutirá la materia, por lo que se espera que los/as estudiantes participen activamente. Luego, se realizarán ejercicios prácticos en R para aplicar lo aprendido en clases en modalidad de taller virtual. Se trabajará con variadas bases de datos disponibles de uso público, cuyas direcciones web o archivos serán facilitadas por el docente -al igual que el material de las presentaciones-. Todo el material bibliográfico estará disponible en la plataforma del curso, cuyo link será facilitado a los/as estudiantes en la primera clase.
 
 # Recursos didácticos de la actividad curricular. 
 
-Cada estudiante requiere de un computador de uso personal para el bloque práctico y para la realización de las tareas prácticas. El computadoor tiene que tener instalado R y R Studio (de descarga libre y gratuita). En la web del curso se irán subiendo videos y textos de apoyo para el aprendizaje del lenguaje.
+Cada estudiante requiere de un computador de uso personal para el bloque práctico y para la realización de las tareas prácticas. El computador debe tener instalado R y R Studio (de descarga libre y gratuita). En la web del curso se irán subiendo videos y textos de apoyo para el aprendizaje del lenguaje.
 
 
 # Criterios evaluativos de la actividad curricular. 
 
-La evaluación final del estudiante se compone de (1) el promedio simple de 8 tareas prácticas en R (50%), cuyas instrucciones serán entregadas en clases al finalizar el segundo bloque, (2) nota de participación en clases (10%) y (3) el promedio simple de 4 pruebas teórico-prácticas a realizar en horario de clase (24/09, 22/10, 26/11 y 10/12) (40%). En estas pruebas se evalúa la lectura de la bibliografía obligatoria, lo revisado en clases y algunos problemas prácticos a resolver en R. 
-
+La evaluación final del estudiante se compone de (1) el promedio simple de 5 tareas prácticas en R (30%), cuyas instrucciones serán entregadas en clases al finalizar el segundo bloque, (2) nota de participación en clases (10%) y (3) el promedio simple de 4 pruebas teórico-prácticas a realizar en horario de clase (24/09, 22/10, 26/11 y 10/12 ) (60%). En estas pruebas se evalúa la lectura de la bibliografía obligatoria, lo revisado en clases y algunos problemas prácticos a resolver en R.
 
 # Normas éticas
 
