@@ -57,7 +57,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-pagedown::chrome_print("clase1.html")
+#pagedown::chrome_print("clase1.html")
 
 ```
 
@@ -86,12 +86,20 @@ Entregar una comprensión general del proceso de investigación social cuantitat
 
 + herramientas para analizar y reportar lo registrado en las bases de datos (R)
 
+---
+
+# El ciclo de investigación
+
+```{r fig.align='center', out.width = "70%", echo=FALSE, fig.link="https://dialnet.unirioja.es/servlet/articulo?codigo=4288954"}
+knitr::include_graphics("imagenes/schmitter.JPG")
+```
+
 
 ---
 
 # Programa
 
-El [programa](https://dadc1ucsh2021.netlify.app/programa.pdf) se divide en cuatro puntos: 
+El [programa](https://opso791ucsh2021.netlify.app/programa.pdf) se divide en cuatro puntos: 
 
 + Epistemología y consideraciones generales sobre la ciencia
 
@@ -107,12 +115,33 @@ El [programa](https://dadc1ucsh2021.netlify.app/programa.pdf) se divide en cuatr
 
 Se esperan los siguientes resultados de aprendizaje con el curso:
 
--
++ Comprender las posibilidades y limitaciones de la representación numérica de la realidad social.
 
--
++ Comprender la lógica de la investigación científica en sociología, su particularidad cuantitativa y los principales desafíos que enfrenta.
 
--
+--
+
++ Conocer el panorama de instrumentos de medición y tipos de estudios cuantitativos.
+
++ Adquirir un panorama general de las bases de datos en ciencias sociales (para el caso chileno).
+
+--
+
++ Interpretar y analizar los elementos centrales de una base de datos con información social
+
++ Procesamiento simple de bases de datos (data frames) en R.
+
 ---
+
+# Programa
+
++ Aplicar las técnicas más pertinentes de estadística descriptiva según las distintas características de los datos (en lenguaje R).
+
++ Presentar de manera visual y efectiva los datos cuantitativos (en lenguaje R).
+
+--
+
++ Conocer y ejecutar junto a R otras herramientas y lenguajes de la ciencia abierta (Markdown, Zotero, Github, entre otras)
 
 
 ---
@@ -123,11 +152,11 @@ Se esperan los siguientes resultados de aprendizaje con el curso:
 
 --
 
-+ Sistemática, reproducible, perfectible y explicativa (desmitificadora) de la realidad. 
++ Sistemática, perfectible y explicativa (desmitificadora) de la realidad. 
 
 + La sociología debiese aportar a la resolución de problemas sociales. Juicio "práctico" de calidad.
 
-+ Hombros de gigantes
++ Al investigar nos paramos sobre "hombros de gigantes" (rev antecedentes)
 
 ---
 
@@ -137,7 +166,15 @@ Se esperan los siguientes resultados de aprendizaje con el curso:
 
 --
 
-+ Transparentar y registrar cómo y porqué hacemos lo que hacemos; abrir a la comunidad científica y política los productos de las investigaciones; interacciones en base a argumentos y evidencia... 
++ Transparentar y registrar cómo y porqué hacemos lo que hacemos; 
+
+--
+
++ abrir a la comunidad científica y política los productos de las investigaciones; 
+
+--
+
++ interacciones en base a argumentos y evidencia... 
 
 ---
 
@@ -152,6 +189,14 @@ Se esperan los siguientes resultados de aprendizaje con el curso:
 --
 
 + Enfoque cualitativo tiene potencia, puede interactuar con el cuantitativo.
+
+--
+
++ Triple vocación de la sociología
+
+--
+
++ Producción científica inserta en "programas de investigación"
 
 ---
 
@@ -171,6 +216,10 @@ Se esperan los siguientes resultados de aprendizaje con el curso:
 
 + Se entienden problemas personales (con fundamento se puede ser flexible)
 
+--
+
++ Respeto mutuo entre asistentes al aula. 
+
 ---
 
 # Fundamentos
@@ -187,19 +236,21 @@ Se esperan los siguientes resultados de aprendizaje con el curso:
 
 --
 
-+ R puede ser muy difícil sí es su primera aproximación. Paciencia y apoyo desde los/as más avanzados. 
++ R puede ser muy difícil sí es su primera aproximación. 
+
++ Paciencia y apoyo desde los/as más avanzados/as. 
 
 ---
 
 # Sobre la web y contacto
 
-Todo el material necesario para el desarrollo del curso se encontrará en la página web del curso (<https://dadc1ucsh2021.netlify.app/>).
+Todo el material necesario para el desarrollo del curso se encontrará en la página web del curso (<https://opso791ucsh2021.netlify.app/>).
 
 Acá, podrán encontrar el calendario, la bibliografía para descargar, las presentaciones de las clases y las pautas de las tareas y trabajos. 
 
 --
 
-A la web no se subirá ninguna información relativa a los y las estudiantes del curso. Notas y revisiones serán subidas a u-cursos, manteniéndose el anonimato. 
+A la web no se subirá ninguna información relativa a los y las estudiantes del curso. Notas y revisiones serán subidas a la plataforma virtual de la Universidad, manteniéndose el anonimato. Entregas de trabajos por este mismo medio. 
 
 --
 
@@ -209,7 +260,13 @@ El canal "oficial" de comunicación son los correos: <nicolasrattor@gmail.com> y
 
 # Metodología
 
-El curso se realizará por medio de la plataforma zoom, donde la metodología será una combinación de clases expositivas y de ejercicios prácticos.
+El curso se realizará por medio de plataforma virtual, donde la metodología será una combinación de clases expositivas y de ejercicios prácticos:
+
+--
+
++ 15:20 a 16:40. Bloque teórico (epistemología, diseño y estadística descriptiva).
+
++ 16:50 a 18:10. Bloque práctico (R y herramientas asociadas).
 
 
 ---
@@ -218,7 +275,7 @@ El curso se realizará por medio de la plataforma zoom, donde la metodología se
 
 La evaluación final del estudiante se compone de: 
 
-+ promedio simple de 8 tareas prácticas en R (50%) 
++ promedio simple de 5 tareas prácticas en R (30%) 
 
 --
 
@@ -226,7 +283,7 @@ La evaluación final del estudiante se compone de:
 
 --
 
-+ 4 pruebas teórico-prácticas a realizar en horario de clases (24/09, 22/10, 26/11 y 10/12) (40%). 
++ 4 pruebas teórico-prácticas a realizar en horario de clases (24/09, 22/10, 26/11 y 10/12) (60%). 
 
 --
 
@@ -234,17 +291,17 @@ En pruebas solo se evalúa bibliografía obligatoria, lo pasado en clases y algu
 
 --
 
-Pasa el ramo quien tenga nota 4,0 o superior. 
+Viernes 10/12 es la **integrativa final** (30%).  
 
 ---
 
 # Herramientas del curso
 
-+ Página web <https://dadc1ucsh2021.netlify.app/>
++ Página web <https://opso791ucsh2021.netlify.app/>
 
 --
 
-+ [RStudio](https://dadc1ucsh2021.netlify.app/instalarr) para datos y escritura.
++ [R y RStudio](https://dadc1ucsh2021.netlify.app/instalarr) para datos y escritura.
 
 --
 
@@ -277,7 +334,15 @@ class: inverse, center, middle
 
 # Introducción a R
 
-R es un lenguaje de programación (1993), creado principalmente para el análisis de datos. Al principio cuesta comprenderlo, pero con tiempo y dedicación se pueden hacer grandes cosas. Por ejemplo, con lenguaje R y un poco de otras ayudas se hacen las presentaciones de este curso o incluso la [página web](https://metodologia1uch.netlify.app/) del mismo.
+R es un lenguaje de programación (1993), creado principalmente para el análisis de datos. 
+
+--
+
+Al principio cuesta comprenderlo, pero con tiempo y dedicación se pueden hacer grandes cosas. 
+
+--
+
+Por ejemplo, con lenguaje R y un poco de otras ayudas se hacen las presentaciones de este curso o incluso la [página web](https://opso791ucsh2021.netlify.app/) del mismo.
 
 --
 
@@ -285,13 +350,13 @@ Gracias a la Entorno de Desarrollo Integrado (IDE) **RStudio** tenemos un softwa
 
 --
 
-R Funciona con un paquete base al que se le pueden ir agregando más funciones al instalar otros paquetes. Con esto se pueden hacer gráficos elegantes (Ggplot2), elaboración de documentos html, pdf o word (rmarkdown) o análisis estadísticos complejos como modelos factoriales (lavaan).
+R Funciona con un paquete "base" al que se le pueden ir agregando más funciones al instalar otros paquetes.
 
 ---
 
 # Introducción a R
 
-Pero si solo quiero hacer análisis descriptivos de datos, ¿por qué utilizar R y no continuar con Excel, SPSS u otros softwares que ya sabemos ocupar?
+Pero si solo quiero hacer análisis descriptivos de datos, ¿por qué utilizar R y no continuar con SPSS?
 
 --
 
@@ -300,24 +365,29 @@ Pero si solo quiero hacer análisis descriptivos de datos, ¿por qué utilizar R
 
 --
 
-+ Actualmente son bien valorados los profesioanles de las ciencias sociales que utilizan este lenguaje.
++ Actualmente son bien valorados los profesionales de las ciencias sociales que utilizan este lenguaje.
 
 --
 
-+ Permite registrar procesamientos y analisis estadísticos, posibilitando que nuestra investigación sea "reproducible". Mi yo del futuro, un supervisor o un colega puede leer nuestro código y volver a correrlo si le facilitamos los insumos.
++ Permite registrar procesamientos y análisis estadísticos, posibilitando que nuestra investigación sea "reproducible".
 
 --
 
-+ Por lo anterior, facilita el trabajo colaborativo (sobre todo al agregar otros *software* como Github).
++ Por lo anterior, facilita el trabajo colaborativo (sobre todo al agregar otros *software*).
 
+---
 
+# Investigación reproducible
 
+```{r fig.align='center', out.width = "70%", echo=FALSE, fig.link="https://the-turing-way.netlify.app/reproducible-research/overview/overview-definitions.html"}
+knitr::include_graphics("imagenes/reproducible.png")
+```
 
 ---
 
 # Introducción a R
 
-Ventajas de R (continuación)
+## Ventajas de R (continuación)
 
 + Tiene una comunidad de usuarios activa, muy dispuesta a ayudar. Por lo general, todas nuestras "panas" ya fueron preguntadas y respondidas en foros-comunidades como [stackoverflow](https://stackoverflow.com/questions/tagged/r).
 
@@ -359,21 +429,50 @@ Debilidades del lenguaje (todas superables):
 
 + La comunidad está más centrada en resolver problemas que en el proceso que permite su solución. A veces las soluciones no son las más elegantes y concisas. 
 
+---
+
+# La curva de aprendizaje en R
+
+```{r fig.align='center', out.width = "100%", echo=FALSE, fig.link="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/r_rollercoaster.png"}
+knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/r_rollercoaster.png")
+```
+
+---
+
+# Instalemos R y vamos a una pausa
+
+Acá las instrucciones detalladas: <https://opso791ucsh2021.netlify.app/instalarr>
+
+## Resumen:
+
+--
+
++ En primer lugar, descarga R desde <https://cran.r-project.org/>
+
+--
+
++ Una vez que R ha quedado correctamente instalado, descarga RStudio desde <https://www.rstudio.com/products/rstudio/download/> e instálalo.
+
+--
+
+```{r, echo=FALSE}
+#devtools::install_github("gadenbuie/countdown")
+library(countdown) 
+countdown(minutes=10, seconds=30)
+```
 
 ---
 
 # Abramos R
 
-![](imagenes/interfaz_rstudio.png)
+```{r fig.align='center', out.width = "100%", echo=FALSE, fig.link=""}
+knitr::include_graphics("imagenes/interfaz_rstudio.png")
+```
 
 
 ---
 
 # Interactuando con R
-
---
-
-Dos formas:
 
 --
 
@@ -420,19 +519,19 @@ R puede ser una calculadora
 
 ```{r}
 ## ¿Cuánto es 5 + 5?
-5 + 5   #<<
+5 + 5  
 ```
 
 --
 
 ```{r}
-5 * 5 #<<
+5 * 5 
 ```
 
 --
 
 ```{r}
-(400+6783) * 2.7 #<<
+(400+6783) * 2.7
 ```
 
 ---
@@ -442,17 +541,17 @@ R puede ser una calculadora
 Podemos crear objetos y asignarles valores
 
 ```{r}
-a <- 7 #<<
-b <- 3 #<<
-a + b #<<
+a <- 7 
+b <- 3
+a + b 
 ```
 --
 
 incluso el resultado lo podemos asignar a un objeto
 
 ```{r}
-c <- a+b #<<
-c #<<
+c <- a+b 
+c 
 ```
 --
 
@@ -469,14 +568,14 @@ Pueden ser entendidas como scripts que funcionan "tras bambalinas".
 --
 
 ```{r}
-sum(5,10) #<<
+sum(5,10)
 ```
 
 --
 
 ```{r}
 # aproximar
-round(9.556789) #<<
+round(9.556789) 
 ```
 
 --
@@ -619,9 +718,9 @@ Para generar el documento se puede utilizar el comando render o bien utilizar el
 
 ---
 
-# [Tarea práctica N°1](https://dadc1ucsh2021.netlify.app/tareas/tarea1/tarea1.pdf)
+# Tarea práctica N°1
 
-Generar en RMarkdown un reporte simple, en formato html, que contenga los siguientes elementos:
+Generar en RMarkdown un reporte simple, en formato html. [Descargar instrucciones acá](https://opso791ucsh2021.netlify.app/tareas/tarea1/tarea1.pdf).
 
 --
 
@@ -641,25 +740,22 @@ Adjuntar comprimido con código en `.rmd`, archivos `.html` y foto utilizada. Ma
 
 --
 
-Entrega a más tardar el **lunes 16 de agosto hasta las 23:59 hrs**, vía correo electrónico
+Entrega a más tardar el **lunes 16 de agosto hasta las 23:59 hrs**, vía plataforma virtual de UCSH. 
 
---
-
-Envíos y consultas a mail profesor y ayudante
 
 ---
 
 ### Recursos web utilizados
 
-+ [Capacitaciones en R del INE](https://capacitacionesdet.github.io/).
+[Capacitaciones en R del INE](https://capacitacionesdet.github.io/).
 
-+ [R Markdown. Hoja de referencia](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf). 
+[R Markdown. Hoja de referencia](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf). 
 
-+ [Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
 
 ### Para reforzar y seguir aprendiendo
 
-+ [Introducción a RMarkdown](https://programminghistorian.org/es/lecciones/introduccion-a-markdown). 
+[Introducción a RMarkdown](https://programminghistorian.org/es/lecciones/introduccion-a-markdown). 
 
 ### Bibliografía utilizada
 

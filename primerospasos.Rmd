@@ -8,14 +8,26 @@ link-citations: true
 
 ## Aspectos básicos de R en español (manuales, videos y otros)
 
++ Sobre gramática dplyr en español [(The Programming Historian)](https://programminghistorian.org/es/lecciones/administracion-de-datos-en-r)
+
+
+## Aspectos básicos de (R)Markdown
+
++ Introducción a Markdown [(The Programming Historian)](https://programminghistorian.org/es/lecciones/introduccion-a-markdown)
 
 
 
 ## Donde resolver dudas
 
+Antes de enviar preguntas a equipo docente, planteate bien la duda e intenta buscar autónomamente las soluciones. 
 
+La mejor forma es redactar en inglés la pregunta y buscar en google.
+
+Un buen sitio donde hay preguntas-respuestas es [stackoverflow](https://stackoverflow.com/questions/tagged/r), generalmente saldrá como primera opción en el buscador. 
 
 
 ## Ir un poco más allá (libros sobre R)
 
 @Kabacoff2011
+
+@Wickham2021

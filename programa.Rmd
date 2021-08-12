@@ -40,7 +40,7 @@ Consultar última versión de programa en web del curso: <https://opso791ucsh202
 
 # Condiciones de entrada
 
-- 	Es capaz de diferenciar paradigmas teóricos y metodológicos.
+- Es capaz de diferenciar paradigmas teóricos y metodológicos.
 -	Sabe problematizar fenómenos de investigación desde la perspectiva cuantitativa.
 -	Reconoce el contenido de un diseño de investigación cuantitativa.
 -	Sabe identificar y/o construir variables cuantitativas de investigación. 
