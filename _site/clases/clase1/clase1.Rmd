@@ -441,9 +441,25 @@ knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-il
 
 # Instalemos R y vamos a una pausa
 
+Acá las instrucciones detalladas: <https://opso791ucsh2021.netlify.app/instalarr>
 
+## Resumen:
 
+--
 
++ En primer lugar, descarga R desde <https://cran.r-project.org/>
+
+--
+
++ Una vez que R ha quedado correctamente instalado, descarga RStudio desde <https://www.rstudio.com/products/rstudio/download/> e instálalo.
+
+--
+
+```{r, echo=FALSE}
+#devtools::install_github("gadenbuie/countdown")
+library(countdown) 
+countdown(minutes=10, seconds=30)
+```
 
 ---
 
@@ -457,10 +473,6 @@ knitr::include_graphics("imagenes/interfaz_rstudio.png")
 ---
 
 # Interactuando con R
-
---
-
-Dos formas:
 
 --
 
@@ -507,19 +519,19 @@ R puede ser una calculadora
 
 ```{r}
 ## ¿Cuánto es 5 + 5?
-5 + 5   #<<
+5 + 5  
 ```
 
 --
 
 ```{r}
-5 * 5 #<<
+5 * 5 
 ```
 
 --
 
 ```{r}
-(400+6783) * 2.7 #<<
+(400+6783) * 2.7
 ```
 
 ---
@@ -529,17 +541,17 @@ R puede ser una calculadora
 Podemos crear objetos y asignarles valores
 
 ```{r}
-a <- 7 #<<
-b <- 3 #<<
-a + b #<<
+a <- 7 
+b <- 3
+a + b 
 ```
 --
 
 incluso el resultado lo podemos asignar a un objeto
 
 ```{r}
-c <- a+b #<<
-c #<<
+c <- a+b 
+c 
 ```
 --
 
@@ -556,14 +568,14 @@ Pueden ser entendidas como scripts que funcionan "tras bambalinas".
 --
 
 ```{r}
-sum(5,10) #<<
+sum(5,10)
 ```
 
 --
 
 ```{r}
 # aproximar
-round(9.556789) #<<
+round(9.556789) 
 ```
 
 --
@@ -708,7 +720,7 @@ Para generar el documento se puede utilizar el comando render o bien utilizar el
 
 # Tarea práctica N°1
 
-Generar en RMarkdown un reporte simple, en formato html. [Descargar instrucciones acá](](https://opso791ucsh2021.netlify.app/tareas/tarea1/tarea1.pdf).
+Generar en RMarkdown un reporte simple, en formato html. [Descargar instrucciones acá](https://opso791ucsh2021.netlify.app/tareas/tarea1/tarea1.pdf).
 
 --
 
@@ -728,25 +740,22 @@ Adjuntar comprimido con código en `.rmd`, archivos `.html` y foto utilizada. Ma
 
 --
 
-Entrega a más tardar el **lunes 16 de agosto hasta las 23:59 hrs**, vía correo electrónico
+Entrega a más tardar el **lunes 16 de agosto hasta las 23:59 hrs**, vía plataforma virtual de UCSH. 
 
---
-
-Envíos y consultas a mail profesor y ayudante
 
 ---
 
 ### Recursos web utilizados
 
-+ [Capacitaciones en R del INE](https://capacitacionesdet.github.io/).
+[Capacitaciones en R del INE](https://capacitacionesdet.github.io/).
 
-+ [R Markdown. Hoja de referencia](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf). 
+[R Markdown. Hoja de referencia](https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-spanish.pdf). 
 
-+ [Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
 
 ### Para reforzar y seguir aprendiendo
 
-+ [Introducción a RMarkdown](https://programminghistorian.org/es/lecciones/introduccion-a-markdown). 
+[Introducción a RMarkdown](https://programminghistorian.org/es/lecciones/introduccion-a-markdown). 
 
 ### Bibliografía utilizada
 
