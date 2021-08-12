@@ -1,7 +1,7 @@
-name: "DADC1_UCSH2021"
-title: "DADC1_UCSH2021"
+name: "OPSO79-1-UCSH2021"
+title: "OPSO79-1-UCSH2021"
 description: |
-  DADC1_UCSH2021
+  OPSO79-1-UCSH2021
 output_dir: "_site"
 navbar:
   right:

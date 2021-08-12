@@ -1,11 +1,11 @@
 ---
-title: "DADC1_UCSH2021"
+title: "OPSO79-1-UCSH2021"
 creative_commons: CC BY-NC-SA
 output: 
  distill::distill_article
 ---
 
-Bienvenidos/as al curso electivo “Diseño y Análisis de Datos Cuantitativos (en R)” (Segundo Semestre 2021).
+Bienvenidos/as al curso optativo “Diseño y Análisis de Datos Cuantitativos (en R)” (Segundo Semestre 2021).
 
 ## Institución {.appendix}
 

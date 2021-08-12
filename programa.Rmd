@@ -7,6 +7,7 @@ author:
     url: https://www.researchgate.net/profile/Nicolas-Ratto 
 date: "`r Sys.Date()`"
 journal: "Sociología, Universidad Católica Silva Henríquez"
+citation_url: https://opso791ucsh2021.netlify.app/programa 
 output: 
  distill::distill_article:
    toc: true
@@ -34,6 +35,8 @@ Metodología de la Investigación Cuantitativa
 # Descriptor
 
 El curso busca entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas que fomentan el desarrollo de la ciencia abierta.
+
+Consultar última versión de programa en web del curso: <https://opso791ucsh2021.netlify.app/programa>.
 
 # Condiciones de entrada
 
