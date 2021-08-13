@@ -15,9 +15,9 @@ knitr::opts_chunk$set(echo = FALSE)
 |  Sesiones | Fecha  |  1er bloque | 2do bloque | Lectura obligatoria  | Lectura complementaria |
 |---|---|---|---|---|---|
 | [**Sesión 1**]()  |  13 de agosto | Introducción al curso | Introducción a R, R-Studio y Markdown para generar documentos | - | - |   
-| [**Sesión 2**]() | 20 de agosto | Medir la realidad social  | Repaso lenguaje R y Data frames I (con R base)  |  @Asun2006, @Wickham2021 (cap. 2 y 4) | @Burawoy1990 |
-| [**Sesión 3**]()|  27 de agosto | Tipos de datos cuantitativos | Data frames II (con dplyr) |  @Wickham2021 (cap. 5) | @Agresti2018  |
-| [**Sesión 4**]() |  03 de septiembre | Diseños de investigación y el proceso estadístico general | Taller búsqueda de bibliografía y uso de Zotero en R | @Schmitter2013 y @Corbetta2007 |   |  |
+| [**Sesión 2**]() | 20 de agosto | Epistemología de la investigación social e introducción a la metodología cuantitativa  | Repaso lenguaje R y Data frames I (con R base)  |  @Asun2006, @Wickham2021 (cap. 2 y 4) | @Burawoy1990, @Corbetta2007 (cap. 1 y 2)  |
+| [**Sesión 3**]()|  27 de agosto | Tipos de datos cuantitativos | Data frames II (con dplyr) |  @Wickham2021 (cap. 5) y @Asun2006 | @Agresti2018  |
+| [**Sesión 4**]() |  03 de septiembre | Diseños de investigación y el proceso estadístico general | Taller búsqueda de bibliografía y uso de Zotero en R | @Schmitter2013 y @Corbetta2007 (cap. 3 y 4) |   |  |
 | [**Sesión 5**]() |  10 de septiembre | Diseño de cuestionario, recolección y estructura de los datos | Abrir bases de datos en R (desde spss, stata, excel, otros) |  | @Babbie2014 |
 | [**Sesión 6**]() | 01 de octubre | Estadística descriptiva I  | Trabajar con data frames III (agrupar, trasponer y unir)  |  | @Agresti2018  |
  [**Sesión 7**]() | 08 de octubre  | Estadística descriptiva II  | Visualización de datos I (ggplot2) |   |  @Agresti2018  |

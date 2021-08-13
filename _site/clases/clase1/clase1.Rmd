@@ -1,7 +1,7 @@
 ---
 title: "Diseño y Análisis de Datos Cuantiativos (en R)"
 subtitle: "Introducción al curso"
-date: '`r Sys.Date()`'
+date: "13/08/2021"
 output:
   xaringan::moon_reader:
     lib_dir: libs

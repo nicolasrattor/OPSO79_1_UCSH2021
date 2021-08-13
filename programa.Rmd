@@ -69,11 +69,11 @@ Consultar última versión de programa en web del curso: <https://opso791ucsh202
 
 # Contenidos de la actividad curricular
 
-## I. Epistemología y consideraciones generales sobre la ciencia
+## I. Epistemología y metodologías de la investigación social
 
-a. Fundamentos epistemológicos de la investigación social cuantitativa.
-b. El proceso de investigación y la traducción empírica de la teoría.
-c. Los programas de investigación en ciencias sociales (¿cómo representar el progreso científico?).
+a. Fundamentos epistemológicos de la investigación social en general
+b. La metodología de investigación social cuantitativa.
+c. El proceso de investigación y la traducción empírica de la teoría.
 d. Apertura y reproducibilidad de la investigación social.
 
 ## II. Diseños de investigación social
