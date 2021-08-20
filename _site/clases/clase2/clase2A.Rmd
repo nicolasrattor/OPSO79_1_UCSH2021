@@ -66,6 +66,7 @@ pagedown::chrome_print("clase2A.html")
 
 ```
 
+
 class: inverse, center, middle
 
 # Introducción
