@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Metodologías de investigación social y desafíos de la sociología. Bloque práctico.
+### 20-08-2021
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+
+# Repaso lenguaje R y comentarios sobre texto ciencia de datos
+
+
+---
+
+# R repaso
+
++ R lenguaje de programación para el análisis estadístico (archivos `.R`)
+
+--
+
++ RStudio interfaz "amigable" (IDE)
+
+--
+
++ Markdown lenguaje de texto plano y de marcado
+
+--
+
++ RMarkdown integración de los dos lenguajes (archivos `.rmd`)
+
+--
+
++ RMarkdown permite integrar en un mismo documento el análisis de los datos y su interpretación. 
+
+--
+
++ Documentos en RMarkdown son reproducibles
+
+--
+
++ Para agregar imagen: `![](rutadelaimagen.png)`
+
+---
+
+
+&lt;img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/rmarkdown_wizards.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Ciencia de datos
+
+El modelo de la ciencia de datos según Wickham (2021):
+
+--
+
+.pull-left[
+&lt;img src="https://es.r4ds.hadley.nz/cover.png" width="50%" style="display: block; margin: auto;" /&gt;
+]
+
+
+.pull-right[
+&lt;img src="https://es.r4ds.hadley.nz/diagrams_w_text_as_path/es/data-science.svg" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
+
+# Ciencia de datos
+
+La pregunta sobre cuáles datos importar y con qué objetivo debe ser central para la sociología. 
+
+--
+
+La comunicación no se limita a presentar el dato. Hay que interpretarlo, ponerlo en discusión teórica e intentar dar respuesta a pregunta inicial.
+
+--
+
+Debemos ser consciente de cómo los datos son producidos y distribuidos (o no distribuidos). Proceso de producción y análisis estadístico por instituciones. 
+
+
+---
+
+# R
+
+Importar, ordenar y transformar los datos no es sencillo. 
+
+--
+
+Visualizar los datos suele ser la parte más sencilla y cercana. 
+
+--
+
+*"Una buena visualización te mostrará cosas que no esperabas o hará surgir nuevas preguntas acerca de los datos."* &lt;a name=cite-Wickham2021&gt;&lt;/a&gt;[Wickham (2021)](#bib-Wickham2021). 
+
+--
+
+Trabajaremos con una data frame que se carga fácilmente, está ordenada y transformada según nuestro interés inicial. 
+
+--
+
+Antes, revisemos cosas básicas de R y algunos conceptos.
+
+---
+class: inverse, center, middle
+
+# Lenguaje R
+
+---
+
+# Vectores
+
+Es el objeto más básico en R.
+
+--
+
+Un vector es una forma de almacenar datos que permite contener una serie de valores del mismo tipo.
+
+--
+
+Simples de solo 1 elemento:
+
+
+```r
+*a&lt;-7
+a       
+```
+
+```
+## [1] 7
+```
+
+--
+
+Cosas más complejas con la función `c()` para concatenar elementos:
+
+--
+
+
+```r
+*a&lt;-c(7,8,9,5,7,9)
+a
+```
+
+```
+## [1] 7 8 9 5 7 9
+```
+
+
+---
+
+# Vectores
+
+Podemos crear un vector con los nombres del curso:
+
+--
+
+
+
+
+
+```r
+nombres&lt;-c("ISIDORA", "ALEJANDRA", "NOEMÍ", "LESLIE","MARCO", "JAVIER", 
+           "DANTE","VALENTINA", "DIANA" ,  "ANDRÉS",   "BRUNO", "JAVIERA", 
+           "JAVIERA" , "PAOLA", "ALONSO" ,  "THABATA", "JENNIFER", "FRANCISCO", 
+           "MATÍAS",  "VALENTINA", "GERALDINE","ALEJANDRA" , "VALENTINA", 
+           "FRANCISCO", "DIEGO", "MATIAS", "CAMILA" , "CARLA", 
+           "JAVIER")
+```
+
+--
+
+Ver el vector:
+
+--
+
+
+```r
+nombres
+```
+
+```
+##  [1] "ISIDORA"   "ALEJANDRA" "NOEMÍ"     "LESLIE"    "MARCO"     "JAVIER"   
+##  [7] "DANTE"     "VALENTINA" "DIANA"     "ANDRÉS"    "BRUNO"     "JAVIERA"  
+## [13] "JAVIERA"   "PAOLA"     "ALONSO"    "THABATA"   "JENNIFER"  "FRANCISCO"
+## [19] "MATÍAS"    "VALENTINA" "GERALDINE" "ALEJANDRA" "VALENTINA" "FRANCISCO"
+## [25] "DIEGO"     "MATIAS"    "CAMILA"    "CARLA"     "JAVIER"
+```
+
+
+---
+
+# Vectores e indexación
+
+Y luego seleccionar la posición 8.
+
+
+```r
+*nombres[8]
+```
+
+```
+## [1] "VALENTINA"
+```
+
+--
+
+O también las posiciones 8, 12 y 15
+
+
+```r
+*nombres[c(8,12,13)]   ## necesitamos c()
+```
+
+```
+## [1] "VALENTINA" "JAVIERA"   "JAVIERA"
+```
+
+--
+
+O de la 15 a la 17
+
+
+```r
+*nombres[c(15:17)]
+```
+
+```
+## [1] "ALONSO"   "THABATA"  "JENNIFER"
+```
+
+
+---
+
+# Vectores
+
+--
+
+Creamos dos vectores de distintos tipo. 
+
+Existen 5 tipos de vectores en R:
+
+
+```r
+character &lt;- c("gato", "perro")   
+numeric &lt;- c(8, 15.9) # reales o decimales 
+integer &lt;-  c(2L, 4L) # L indica que son enteros   
+logical &lt;- c(TRUE, FALSE, TRUE)   
+complex &lt;- 3 + 4i # complejos  
+```
+
+--
+
+Podemos saber su tipo, preguntándole a R:
+
+
+```r
+*class(nombres)
+```
+
+```
+## [1] "character"
+```
+
+```r
+*class(a)
+```
+
+```
+## [1] "numeric"
+```
+
+
+---
+
+# Data frames
+
+Las `data frames` son lo que en SPSS llamamos "bases de datos". 
+
+--
+
+Técnicamente son tablas, estructuras rectangulares de observaciones y variables.
+
+.pull-left[
+&lt;img src="imagenes/201603_database.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="https://es.justexw.com/wp-content/uploads/sites/2/tabla-de-datos-en-Excel2.png" width="100%" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+Recordatorio: que sean tablas no implica orden (`tidy`).
+
+--
+
+# Data frames
+
+Data frames que ocupamos para estudiar fenómenos en ciencias sociales las podemos cargar y ocupar en R (`.dta`, `.csv`, `.xlsx`, `.sav`, etc.)
+
+--
+
+Es una lista de vectores de igual longitud, lo que las hace una estructura bidimensional. 
+
+Cada uno de sus vectores (columnas) puede ser de diferentes tipos: `character`, `numeric`, `logical` e `integer`.
+
+--
+
+En otras palabras, conviven variables cuantitativas, ordinales y categóricas.
+
+
+---
+
+# Paquetes
+
+*"Incluyen funciones reutilizables, la documentación que describe cómo usarlas y datos de muestra"* [Wickham (2021)](#bib-Wickham2021). 
+
+--
+
+Estas funciones, datos y documentación permiten extender las capacidades de R base. 
+
+--
+
+Cualquier persona puede hacer un paquete, es código compartido para que terceros puedan usarlo. 
+
+--
+
+Los servidores de [CRAN](https://cran.r-project.org/) almacenan los paquetes que ya han sido probados y autorizados por la comunidad R. 
+
+--
+
+Para usar paquetes debemos instalarlos con `install.packages()` y cargarlos con `library()` 
+
+---
+
+# Paquetes
+
+&lt;img src="https://songeo.github.io/introduccion-r-bookdown/figures/rstudiopackages.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Paquetes guaguas
+
+--
+
+Datos sobre nombres de guaguas (bebés) registrados en Chile entre 1920 y 2020, según el Servicio de Registro Civil e Identificación.
+
+&lt;img src="imagenes/guaguas.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+--
+
+Es un paquete con datos (`data frame`), no con funciones. 
+
+--
+
+
+```r
+#install.packages("guaguas")  ## Instalar paquete (solo una vez) 
+library(guaguas)              ## Cargamos el paquete (cada vez que usemos RStudio)
+```
+
+---
+
+# Paquetes guaguas
+
+
+```r
+*guaguas &lt;- guaguas   ## cargamos en nuestro ambiente guaguas como "guaguas"
+```
+
+--
+
+¿Cuántas columnas y cuantas filas tiene la base de datos?
+
+--
+
+
+```r
+dim(guaguas)
+```
+
+```
+## [1] 845400      5
+```
+
+--
+
+
+```r
+head(guaguas)
+```
+
+```
+## # A tibble: 6 x 5
+##    anio nombre sexo      n proporcion
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1  1920 María  F      2130     0.104 
+## 2  1920 José   M       984     0.0483
+## 3  1920 Juan   M       636     0.0312
+## 4  1920 Luis   M       631     0.0310
+## 5  1920 Rosa   F       426     0.0209
+## 6  1920 Ana    F       340     0.0167
+```
+
+
+
+---
+
+# Gráfico con guaguas
+
+&lt;img src="clase2B_files/figure-html/unnamed-chunk-23-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Solo los más populares
+
+&lt;img src="clase2B_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Funciones elementales
+
+Contar el número de observaciones
+
+
+```r
+nrow(guaguas)
+```
+
+```
+## [1] 845400
+```
+
+--
+
+Conocer el nombre de las variables
+
+
+```r
+names(guaguas)
+```
+
+```
+## [1] "anio"       "nombre"     "sexo"       "n"          "proporcion"
+```
+
+--
+
+Seleccionar primera fila
+
+
+```r
+guaguas[1,]
+```
+
+```
+## # A tibble: 1 x 5
+##    anio nombre sexo      n proporcion
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1  1920 María  F      2130      0.104
+```
+--
+
+Seleccionar primera celda
+
+
+```r
+guaguas[1,1]
+```
+
+```
+## # A tibble: 1 x 1
+##    anio
+##   &lt;dbl&gt;
+## 1  1920
+```
+
+
+---
+
+# Funciones elementales
+
+Seleccionar una variable
+
+
+```r
+guaguas[,2]
+```
+
+```
+## # A tibble: 845,400 x 1
+##    nombre
+##    &lt;chr&gt; 
+##  1 María 
+##  2 José  
+##  3 Juan  
+##  4 Luis  
+##  5 Rosa  
+##  6 Ana   
+##  7 Manuel
+##  8 Olga  
+##  9 Carlos
+## 10 Pedro 
+## # ... with 845,390 more rows
+```
+
+
+---
+
+# Funciones elementales
+
+Tabular una variable
+
+
+```r
+table(guaguas[,3])
+```
+
+```
+## 
+##      F      M 
+## 523623 321777
+```
+
+--
+
+
+```r
+prop.table(table(guaguas[,3]))
+```
+
+```
+## 
+##        F        M 
+## 0.619379 0.380621
+```
+
+--
+
+Sacar el porcentaje de un tabulado
+
+
+```r
+prop.table(table(guaguas[,3]))*100
+```
+
+```
+## 
+##       F       M 
+## 61.9379 38.0621
+```
+
+
+---
+
+# Funciones elementales
+
+Filtrar según valor (por ejemplo, para encontrar un nombre)
+
+--
+
+La lógica es similar a encontrar una fila
+
+
+```r
+guaguas[500,]
+```
+
+```
+## # A tibble: 1 x 5
+##    anio nombre  sexo      n proporcion
+##   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1  1920 Bartola F         4   0.000196
+```
+
+--
+
+Pero en vez seleccionar la fila 500, queremos seleccionar según una condición
+
+`guaguas$nombre=="Nicolás"`
+
+--
+
+
+```r
+guaguas[guaguas$nombre=="Nicolás",]
+```
+
+
+```
+## # A tibble: 6 x 5
+##    anio nombre  sexo      n proporcion
+##   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1  1920 Nicolás M        17   0.000834
+## 2  1921 Nicolás M        33   0.000715
+## 3  1922 Nicolás M        46   0.000946
+## 4  1923 Nicolás M        31   0.000612
+## 5  1924 Nicolás M        36   0.000650
+## 6  1925 Nicolás M        41   0.000711
+```
+
+
+---
+
+# Funciones elementales
+
+También se pueden sacar sumas
+
+
+```r
+sum(guaguas[,4])
+```
+
+```
+## [1] 21951078
+```
+--
+
+O promedios (otra forma de seleccionar variables)
+
+
+```r
+mean(guaguas$n)
+```
+
+```
+## [1] 25.96532
+```
+--
+
+Y mediana:
+
+
+```r
+median(guaguas$n)
+```
+
+```
+## [1] 1
+```
+
+
+---
+
+# Ejercicios para practicar
+
++ ¿Cuantas guaguas se inscribieron en 1920 con tu nombre?
+
++ ¿Cuantas guaguas se inscribieron el año en que naciste con tu nombre?
+
++ Crea una nueva data frame que se llame como tú y que solo contenga inscripciones de tu nombre
+
++ ¿Cuantas observaciones tiene esta nueva data frame?
+
++ ¿Cuántas mujeres y hombres hay en esta nueva data frame?
+
++ Crea una nueva data que solo tenga datos de 2020 (llamala "pandemia")
+
++ ¿Cuánto suma la variable "proporción" de "pandemia"?
+
++ **Desafío**: el nombre más popular en 2020 (mayor N)
+
+
+---
+
+### Bibliografía utilizada
+
+
+
+&lt;a name=bib-Wickham2021&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2021) (2021). _R
+Para Ciencia de Datos_. URL:
+[https://es.r4ds.hadley.nz/](https://es.r4ds.hadley.nz/).
+
+Quiroga, R. (2021). guaguas: Nombres Inscritos en Chile (1920 - 2020). R package version
+  0.2.0. &lt;https://CRAN.R-project.org/package=guaguas&gt;
+
+### Para seguir aprendiendo
+
+La trágica y heroica biografía de uno de los creadores de Markdown y CC [(documental)](https://www.youtube.com/watch?v=7jhdj0vKbYo). 
+
+El paquete guaguas y los nombres Salvador, Augusto, de Romané y de los Backstreet Boys [(Viñeta)](https://rivaquiroga.github.io/guaguas/index.html). 
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
