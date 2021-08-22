@@ -5,7 +5,7 @@ description: |
 author:
   - name: Nicolás Ratto
     url: https://www.researchgate.net/profile/Nicolas-Ratto 
-date: "`r Sys.Date()`"
+date: "2021-08-13"
 journal: "Sociología, Universidad Católica Silva Henríquez"
 citation_url: https://opso791ucsh2021.netlify.app/programa 
 output: 
