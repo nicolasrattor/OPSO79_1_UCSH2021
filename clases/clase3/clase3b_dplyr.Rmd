@@ -1,6 +1,6 @@
 ---
 title: "OPSO79-1-UCSH2021"
-subtitle: "Diseños de investigación e introducción a dplyr en R. Bloque práctico."
+subtitle: "Tipos de datos cuantitativos e introducción a dplyr en R. Bloque práctico."
 date: "`27/08/2021`"
 output:
   xaringan::moon_reader:
@@ -260,10 +260,14 @@ Nos proporciona una "gramática" particular para manipular y aplicar funciones s
 
 --
 
-El paquete fue desarrollado por [Hadley Wickham](http://hadley.nz/) de RStudio. Todo lo que haremos con sus funciones se puede hacer con r base. 
+En términos de la ciencia de datos, es un paquete para **transformar** la data.
+
+--
+
+El paquete fue desarrollado por [Hadley Wickham](http://hadley.nz/) de RStudio.
 
 ```{r fig.align='center', out.width = "50%", echo=FALSE}
-knitr::include_graphics("http://hadley.nz/hadley-wickham.jpg")
+knitr::include_graphics("imagenes/hadley-wickham.jpg")
 ```
 
 --
@@ -287,10 +291,14 @@ Revisaremos 5 verbos básicos de `dplyr`:
 
 + `mutate()`
 
+--
+
+Lo que nos permiten hacer se puede hacer en R base, pero nos simplificarán la vida. 
+
 
 ---
 
-# Select()
+# select()
 
 Nos permite seleccionar de forma intuitiva las columnas que indiquemos.
 
@@ -313,7 +321,7 @@ select(guaguas,nombre)
 
 ---
 
-# Select()
+# select()
 
 Podemos seleccionar más de una columna agregandolas como argumento
 
@@ -335,26 +343,52 @@ E incluso reordenar las columnas, ocupando sus nombres o sus posiciones
 select(guaguas,5:1)
 ```
 
+--
+
+```{r eval=FALSE}
+guaguas[,c(5:1)] # Lo mismo con R base
+```
+
 
 ---
 
 # filter() 
 
-Nos permite seleccionar las filas que indiquemos.
+Nos permite seleccionar las filas que satisfacen nuestras condiciones. 
 
 --
 
-Para eso utilizamos operadores lógicos (> , < , >=, <=, ==, !=, &)
+Para eso utilizamos los operadores lógicos ya revisados (> , < , >=, <=, ==, !=, &, |)
+
+--
+
+
+```{r eval=FALSE}
+filter(data, condicion)
+```
 
 --
 
 ```{r}
-filter(guaguas, anio==1920 & nombre=="Pedro")
+filter(guaguas, anio==1960 & nombre=="Fidel")
 ```
+
+--
+
+En R base es bastante más tedioso:
+
+--
+
+```{r eval=FALSE}
+guaguas[guaguas$anio==1960 & guaguas$nombre=="Fidel",]
+```
+
 
 ---
 
-```{r fig.align='center', out.width = "80%", echo=FALSE}
+# filter() 
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_filter.jpg")
 ```
 
@@ -362,27 +396,267 @@ knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-il
 
 # arrange()
 
+Ordena las filas de una base de datos según una variable.
+
+--
+
+Dentro de la función hay que indicar por cuál variable, y sí el orden será ascendente o descendente.
+
+Por defecto el orden es ascendente.
+
+--
+
+```{r eval=FALSE}
+arrange(data, variable) # ascendente
+arrange(data, -variable) # descendente
+```
+
+
+--
+
+Ordenar guaguas desde el nombre más popular al menos popular:
+
+```{r eval=FALSE}
+arrange(guaguas,-n)
+```
+
+
+```{r echo=FALSE}
+head(arrange(guaguas,-n),2)
+```
+
+
+---
+
+# arrange()
+
+Ordenar con R base es más complicado.
+
+--
+
+Orden ascendente
+
+```{r eval=FALSE}
+guaguas[order(guaguas[, "n"]),] 
+```
+
+--
+
+Orden descendente
+
+```{r eval=FALSE}
+guaguas[order(guaguas[, "n"],decreasing = TRUE),] 
+```
+
+
 ---
 
 # rename()
+
+Permite cambiar el nombre de las variables en la data. 
+
+--
+
+```{r eval=FALSE}
+rename(data, nuevonombre = antiguonombre)
+```
+
+--
+
+Dado que "n" es poco claro, le llamaremos "frecuencia".
+
+```{r}
+rename(guaguas, frecuencia=n)
+```
+
+---
+
+# rename()
+
+Como siempre, para que el cambio se haga efectivo hay que sobrescribir la data inicial.
+
+```{r eval=FALSE}
+guaguas <- rename(guaguas, frecuencia=n)
+```
+
+--
+
+Lo mismo para select(), filter() y todo lo que hagamos en R. 
+
+--
+
+```{r eval=FALSE}
+guaguas <- select(guaguas,5:1)
+```
+
+--
+
+Si aplicamos una función veremos resultados en la consola, pero estos no se guardarán a menos que guardemos en un objeto o "sobrescribamos" la data inicial. 
+
+---
+
+# rename()
+
+Con R base el cambio de nombre podría haber sido así:
+
+```{r eval=FALSE}
+guaguas$frecuencia <- guaguas$n 
+guaguas <- guaguas[,-4]
+```
+
+--
+
+Primera linea para nueva variable, la segunda para eliminar la variable antigua.
+
 
 
 ---
 
 # mutate() 
 
-```{r fig.align='center', out.width = "80%", echo=FALSE}
+"Muta" nuestra data, agregando una nueva columna. 
+
+--
+
+```{r eval=FALSE}
+mutate(data, nuevavariable = valorotorgado)
+```
+
+--
+
+Por ahora solo la utilizaremos para cosas simples, como replicar una variable
+
+```{r eval=FALSE}
+mutate(guaguas, nueva=n) 
+```
+
+```{r echo=FALSE}
+mutate(guaguas, nueva=n) %>% head(1)
+```
+
+--
+
+O multiplicar por 100:
+
+```{r eval=FALSE}
+mutate(guaguas, porcentaje=proporcion*100)
+```
+
+```{r echo=FALSE}
+mutate(guaguas, porcentaje=proporcion*100) %>% head(1)
+```
+
+---
+
+# mutate()
+
+```{r fig.align='center', out.width = "70%", echo=FALSE}
 knitr::include_graphics("imagenes/dplyr_mutate.png")
 ```
 
+---
+
+# mutate()
+
+Podemos también darle valores a nuestro gusto a la nueva variable.
+
+--
+
+Crear nueva data más pequeña
+
+```{r}
+
+guaguas2 <- guaguas[1:7,]
+
+```
+
+--
+
+Crear variable que identifique si los nombres son de personajes de la biblia:
+
+```{r}
+guaguas2 <- mutate(guaguas2, biblicos=c("si","si","si","si","no","no","no"))
+```
+
+--
+
+Ver el resultado tabulado
+
+```{r}
+table(guaguas2$biblicos)
+```
+
+---
+
+# mutate()
+
+Con R base también lo logramos de forma similar y más simple:
+
+--
+
+```{r}
+guaguas2$biblicos <- c("si","si","si","si","no","no","no")
+```
+
+--
+
+Sin embargo `mutate()` nos permite asignar valores en base a **condiciones** y en base a **agrupamientos**. 
+
+---
+
+# mutate() para condiciones
+
+Muchas formas. 
+
+Por ahora veremos una que en su forma simple asigna dos valores, uno para la condición verdadera y otra para la condición falsa.
+
+--
+
+```{r eval=FALSE}
+mutate(data, nuevavariable = if_else(condicion, 
+                                     verdadero, 
+                                     falso))
+```
+
+--
+
+Quiero clasificar los nombres según su popularidad
+
+Nombres usados para el 5% o más de las inscripciones.
+
+--
+
+```{r}
+guaguas <- mutate(guaguas, populares = if_else(proporcion >= 0.03,
+                                    "populares",
+                                    "no populares"))
+```
+
+---
+
+# mutate() para condiciones
+
+```{r}
+head(guaguas,3)
+```
+
+--
+
+```{r}
+table(filter(guaguas,populares=="populares")$nombre)
+```
 
 
 ---
 
 
-# Operador pipe (tubo)
+# Operador pipe
 
-Solo si queda tiempo en la clase.
+(Solo si queda tiempo en la clase, su uso no es necesario en tarea N°2).
+
+--
+
+Significa "tubo", "tubería" o "cañería".
 
 --
 
@@ -390,13 +664,26 @@ Es un operador de `magrittr` que se combina con los verbos de dplyr.
 
 --
 
-Se escribe `%>%` (*pipe* o tubo).
+Se escribe `%>%` (ctrl + shift + m)
+
+```{r fig.align='center', out.width = "50%", echo=FALSE}
+knitr::include_graphics("https://thinktecno.com/wp-content/uploads/2020/05/1589395831_455_Atajos-de-teclado-importantes-en-Microsoft-Outlook.jpg")
+```
 
 --
 
-El operador `%>%` nos permite concatenar funciones, haciendo más sencilla la lectura del código. Se lee de izquierda a derecha. 
+Nos permite concatenar funciones, haciendo más sencilla la lectura del código.
 
---
+---
+
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("imagenes/pipes.jpg")
+```
+
+---
+
+# Operador pipe 
 
 ¿Como saber los nombres de las variables de la base de datos `guaguas`?
 
@@ -417,46 +704,88 @@ guaguas %>% names()  ## el objeto primero, luego la función
 ```
 
 
+
+---
+
+# Operador pipe 
+
+¿Cuál es la importancia relativa del nombre María en 1920, 1950, 1980 y 2020?
+
+--
+
+```{r}
+filter(guaguas, 
+       (anio==1920|anio==1950|anio==1980|anio==2020) & nombre=="María")
+```
+
+--
+
+Con pipes sería así:
+
+--
+
+```{r eval=FALSE}
+guaguas %>% 
+  filter( (anio==1920|anio==1950|anio==1980|anio==2020) & 
+            nombre=="María")
+```
+
+
 ---
 
 # Pipes
+
+¿Y cuál es la gracia de la tubería?
+
+--
 
 Con pipes podemos concatenar funciones.
 
 --
 
+¿Cuáles son los años en los que el nombre María es más importante?, ¿Que porcentajes representa el nombre María?
+
+--
+
+Sin pipes tendríamos que hacer algo más o menos así (con el riesgo de confundir paréntesis)
+
+
+```{r eval=FALSE}
+select(mutate(head(arrange(filter(guaguas,nombre=="María"),-proporcion),4),
+              porcentaje=round(proporcion*100,1)),anio,nombre,porcentaje)
+```
+
+--
+
+Se dificulta bastante la lectura (desde el centro hacia afuera)
+
+---
+
+# Pipes
+
+Con pipes es como leer, de izquierda a derecha:
+
+(y de abajo hacia arriba opcional)
+
+--
+
+```{r}
+guaguas %>% 
+  filter(nombre=="María") %>% 
+  arrange(-proporcion) %>% 
+  head(4) %>% 
+  mutate(porcentaje=round(proporcion*100,1)) %>% 
+  select(anio,nombre,porcentaje)
+```
 
 
 ---
 
 # Tarea práctica N°2 🏠 
 
-Ocupa las herramientas de `dplyr` vistas en clase sobre la base `guaguas` para responder a las preguntas
-
---
-
-+ Señalar cuantas personas con tu nombre nacieron el mismo año que tú.
-
---
+Ocupa las herramientas de `dplyr` vistas en clase sobre la base `guaguas` u otra para responder a las preguntas
 
 
-+ Señalar cual fue el nombre más usado el año que tú naciste.
-
---
-
-+ Guardar en un objeto nuevo los 10 nombres de mujer más usados el año que tú naciste.
-
---
-
-+ Crea una nueva variable en el nuevo objeto que se llame "biblico". 
-
---
-
-+ Determinar cuál de los siguientes tres nombres tiene mayores inscripciones a lo largo del tiempo (1920-2019): ¿María, Juan o José?
-
---
-
-+ Crea dos nuevas bases de datos llamadas Salvador y Augusto. Cada una solo debe tener casos entre 1960 y 1990. Identifica en que año estuvo más de moda cada nombre.
 
 ---
 
@@ -466,6 +795,8 @@ Ocupa las herramientas de `dplyr` vistas en clase sobre la base `guaguas` para r
 
 [Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
 
+[Sorting data by Jozef](https://jozef.io/r008-sorting-data/)
+
 ### Para reforzar y seguir aprendiendo
 
 [Administración de datos en R. ¿Qué es dplyr?](https://programminghistorian.org/es/lecciones/administracion-de-datos-en-r#qu%C3%A9-es-dplyr). 
@@ -473,8 +804,6 @@ Ocupa las herramientas de `dplyr` vistas en clase sobre la base `guaguas` para r
 Capítulo 5 libro ["Ciencia de Datos"](https://es.r4ds.hadley.nz/transform.html) de Hadley Wickham
 
 [Operadores lógicos en R](https://bookdown.org/jboscomendoza/r-principiantes4/operadores-logicos.html)
-
-[Otra explicación de las pipes](https://rsanchezs.gitbooks.io/rprogramming/content/chapter9/pipeline.html). 
 
 ### Bibliografía utilizada
 

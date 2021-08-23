@@ -17,15 +17,15 @@ knitr::opts_chunk$set(echo = FALSE)
 | [**Sesión 1**]()  |  13 de agosto | Introducción al curso | Introducción a R, R-Studio y Markdown para generar documentos | - | - |   
 | [**Sesión 2**]() | 20 de agosto | Introducción a la metodología cuantitativa | Repaso lenguaje R y Data frames I (con R base)  |  @Asun2006, @Wickham2021 (cap. 1 y 2) | @Corbetta2007 (cap. 1 y 2)  |
 | [**Sesión 3**]()|  27 de agosto | Tipos de datos cuantitativos | Data frames II (con dplyr) |  @Asun2006 y @Wickham2021 (cap. 5) | @Agresti2018  |
-| [**Sesión 4**]() |  03 de septiembre | Diseños de investigación y el proceso estadístico general | Taller búsqueda de bibliografía y uso de Zotero en R | @Schmitter2013 y @Corbetta2007 (cap. 3 y 4) |   |  |
-| [**Sesión 5**]() |  10 de septiembre | Diseño de cuestionario, recolección y estructura de los datos | Abrir bases de datos en R (desde spss, stata, excel, otros) | @Wickham2021 (cap. 8)  | @Babbie2014 |
-| [**Sesión 6**]() | 01 de octubre | Estadística descriptiva I  | Trabajar con data frames III (agrupar, trasponer y unir)  |  | @Agresti2018  |
+| [**Sesión 4**]() |  03 de septiembre | Diseños de investigación y el proceso estadístico general | R project e importar data a R desde excel, spss y otros formatos | @Schmitter2013 y @Corbetta2007 (cap. 3 y 4) |   |  |
+| [**Sesión 5**]() |  10 de septiembre | Diseño de cuestionarios y el proceso de producción-recolección | Taller búsqueda de bibliografía y uso de Zotero en R | @Wickham2021 (cap. 8)  | @Babbie2014 |
+| [**Sesión 6**]() | 01 de octubre | Estadística descriptiva I  | Data frames III (agrupar, unir y trasponer)  |  | @Agresti2018  |
  [**Sesión 7**]() | 08 de octubre  | Estadística descriptiva II  | Visualización de datos I (ggplot2) |   |  @Agresti2018 y @Wickham2021 (cap. 3)  |
  [**Sesión 8**]() | 29 de octubre  | Estadística descriptiva III   | Visualización de datos II (ggplot2)  | |  @Agresti2018 |
-| [**Sesión 9**]() | 05 noviembre   | Ciencia abierta y reproducibilidad  |  Herramientas de la ciencia abierta | @Rodriguez-Sanchez2016, @Swartz2008 |  @Breznau2021, @Healy2018 |
+| [**Sesión 9**]() | 05 noviembre   | Ciencia abierta y reproducibilidad  | Buenas prácticas para la escritura de código reproducible y herramientas de la ciencia abierta | @Rodriguez-Sanchez2016, @Swartz2008 |  @Breznau2021, @Healy2018 |
 | [**Sesión 10**]() | 12 de noviembre   | Diseño de muestras e inferencia I  | Muestreo de datos en R y prueba de hipótesis |  @Vivanco2006   |  |
 | [**Sesión 11**]() | 19 de noviembre   | Inferencia estadística II |  Reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  |  - |   |
-| [**Sesión 12**]() | 03 de diciembre   |  Más allá de DADC1: el universo de posibilidades en R (clase según intereses de los/as estudiantes)  | Continuación de primer bloque  | -  | -  |
+| [**Sesión 12**]() | 03 de diciembre   |  Más allá de OPSO791: el universo de posibilidades en R (clase según intereses de los/as estudiantes)  | Continuación de primer bloque  | -  | -  |
 
 ## Semanas de receso o consolidación:
 

@@ -12,3 +12,19 @@ En total habrán 5 tareas prácticas a lo largo del curso, las cuáles tendrán 
 # Tarea N°1
 
 Elaborar documento desde RMarkdown con presentación de estudiante y foto de científico social favorito. [Descargar aquí](tareas/tarea1/tarea1.pdf). 
+
+# Tarea N°2
+
+Operaciones elementales sobre un data frame con R base y transformación y visualización básica con dplyr.
+
+# Tarea N°3
+
+Importar data y trasformación avanzada con dplyr y otro paquetes de tidyverse.
+
+# Tarea N°4
+
+Estadística descriptiva con R e interpretación de salidas.
+
+# Tarea N°5
+
+Reproducir informes o documentos de trabajo cuantitativos. 

@@ -222,7 +222,7 @@ Nos proporciona una "gramática" particular para manipular y aplicar funciones s
 
 El paquete fue desarrollado por [Hadley Wickham](http://hadley.nz/) de RStudio. Todo lo que haremos con sus funciones se puede hacer con r base. 
 
-&lt;img src="http://hadley.nz/hadley-wickham.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="imagenes/hadley-wickham.jpg" width="50%" style="display: block; margin: auto;" /&gt;
 
 --
 
@@ -245,10 +245,14 @@ Revisaremos 5 verbos básicos de `dplyr`:
 
 + `mutate()`
 
+--
+
+Lo que nos permiten hacer se puede hacer en R base, pero nos simplificarán la vida. 
+
 
 ---
 
-# Select()
+# select()
 
 Nos permite seleccionar de forma intuitiva las columnas que indiquemos.
 
@@ -290,7 +294,7 @@ select(guaguas,nombre)
 
 ---
 
-# Select()
+# select()
 
 Podemos seleccionar más de una columna agregandolas como argumento
 
@@ -348,6 +352,13 @@ select(guaguas,5:1)
 ## # ... with 845,390 more rows
 ```
 
+--
+
+
+```r
+guaguas[,c(5:1)] # Lo mismo con R base
+```
+
 
 ---
 
@@ -357,25 +368,47 @@ Nos permite seleccionar las filas que indiquemos.
 
 --
 
-Para eso utilizamos operadores lógicos (&gt; , &lt; , &gt;=, &lt;=, ==, !=, &amp;)
+Para eso utilizamos los operadores lógicos ya revisados (&gt; , &lt; , &gt;=, &lt;=, ==, !=, &amp;, |)
+
+--
+
+
+
+```r
+filter(data, condicion)
+```
 
 --
 
 
 ```r
-filter(guaguas, anio==1920 &amp; nombre=="Pedro")
+filter(guaguas, anio==1960 &amp; nombre=="Fidel")
 ```
 
 ```
 ## # A tibble: 1 x 5
 ##    anio nombre sexo      n proporcion
 ##   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
-## 1  1920 Pedro  M       269     0.0132
+## 1  1960 Fidel  M       118   0.000448
 ```
+
+--
+
+En R base es bastante más tedioso:
+
+--
+
+
+```r
+guaguas[guaguas$anio==1960 &amp; guaguas$nombre=="Fidel",]
+```
+
 
 ---
 
-&lt;img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_filter.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+# filter() 
+
+&lt;img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/dplyr_filter.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
