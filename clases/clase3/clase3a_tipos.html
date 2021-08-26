@@ -34,76 +34,475 @@ class: inverse, center, middle
 
 ---
 
+# Introducción
+
 Cuando analizamos datos cuantitativos, representaciones numéricas del mundo social, nos encontraremos con cosas muy diferentes.
 
 --
 
-Antes de comprender cómo se producen los datos, revisaremos los distintos datos que nos encotramos en la investigación social. 
+Revisaremos los distintos tipos de datos cuantitativos que nos encontraremos según distintos criterios (orden, nivel de medida y nivel de agregación)
+
+--
+
+Definiremos también cuestiones básicas como que es una variable, que es una observación, que implica que un dato esté ordenado y que procesos garantizan que un dato sea de calidad.
+
+--
+
+Según el tipo de datos que tengamos dependerá el tipo de análisis a realizar (o incluso acciones previas como ordenar el dato).
 
 
 ---
+
+# Producción de un orden
+
+Los datos rectangulares (tablas, *data frame*) y de calidad son una producción que demanda **tiempo**, **trabajo** y **dinero**.
+
+--
+
+Sin importar el cómo son producidos:
+
++ Cuestionario y entrevistas
+
++ Observación directa o indirecta
+
++ Análisis de contenido de documentos (episódicos o sistemáticos)
+
++ Análisis de contenido de producciones visuales y audiovisuales
+
++ Registros sistemáticos administrativos (cotizaciones, huelgas)
+
++ *big data*
+
+--
+
+Sin importar quien los produce:
+
++ producido nosotros para nuestros propios objetivos de investigación (**primarios**)  
+
++ producido para otros fines, pero nosotros/as lo usemos para los fines propios (**secundarios**). 
+
+
+---
+
+# Producción de un orden
+
+El dato ordenado y de calidad no es fortuito ni está en estado natural. 
+
+--
+
+Los datos responden a una necesidad de información y son producidos en el marco de un diseño.
+
+--
+
+Posteriormente los datos pasan por un proceso de **validación**, **ordenamiento** y **análisis**. 
+
+--
+
+La subjetividad del encuestado debe pasar a una hoja estándar (cuestionario), el cuestionario marcado por el encuestador debe pasar a una tabla, el texto codificado, el registro debe ser depurado, los valores no deben ser contradictorios entre sí ni imposibles, no todo se libera, etcétera. 
+
+---
+
+# Producción de un orden
+
+&lt;img src="imagenes/stimulus.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Producción de un orden
+
+&lt;img src="imagenes/strike.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Producción de un orden
+
+&lt;img src="imagenes/modulocovid.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Producción de un orden
+
+&lt;img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/tidydata_2.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# El proceso estadístico
+
+Nada garantiza que el dato que nos llega pasó por estos controles (preguntarse por qué institución lo produjo y con que fines es un buen filtro inicial).
+
+--
+
+La producción del dato cuantitativo está estandarizada por las ONEs.
+
+--
+
+El GSBPM [(*Generic Statistical Business Process Model*)](https://statswiki.unece.org/display/GSBPM/GSBPM+v5.1) es un estándar internacional consolidado y adoptado por numerosas oficinas de estadística y organismos internacionales que propone una estructura de procesos y subprocesos del modelo de producción de estadísticas.
+
+--
+
+Pese a su esquematismo el marco es flexible y adaptado. 
+
+--
+
+No son las fases de un diseño de investigación ni el modelo de la ciencia de datos.
+
+--
+
+Es el marco en el cuál se piensan y ordenan los procesos de producción estadística nacionales. 
+
+--
+
+Como usuarios de los datos producidos por las ONEs es relevante comprender el proceso de producción detrás del dato. 
+
+
+---
+
+# El proceso estadístico
+
+&lt;img src="imagenes/GSBPM.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# El proceso estadístico
+
+El proceso estadístico llega a tal punto que no solo produce las *data frame* que como investigadores/as ocuparemos. 
+
+Llega a analizar e incluso interpretar y explicar los resultados.
+
+--
+
+Al hacer este proceso las instituciones **transforman** y **visualizan** los datos según sus objetivos, produciendo **tabulados**, **cuadros estadísticos** y **gráficos** que resumen la información. 
+
+--
+
+No hay que confundir los productos estadísticos:
+
++ Microdato o data
+
++ Cuadro o tabulado
+
+--
+
+Si bien ambos se pueden leer como "data frames" en R, las filas del microdato corresponden a individuos u otras unidades de observación y/o análisis (hogares, empresas, eventos de protesta).
+
+---
+
+# Algunas definiciones
+
+Microdata: *"Conjunto de registros que contienen información sobre encuestados individuales o entidades económicas. Dichos registros pueden contener respuestas a un cuestionario de encuesta o formularios administrativos."* (SDC Practice guide).
+
+--
+
+
+Unidades de análisis: *El qué o quién está siendo estudiado. En la investigación en ciencias sociales, las unidades de análisis más típicas son las personas individuales (...) Es importante distinguir entre la unidad de análisis y los agregados sobre los que generalizamos.* &lt;a name=cite-Babbie2014&gt;&lt;/a&gt;[Babbie (2014)](#bib-Babbie2014).
+
+--
+
+Unidades de observación: Las unidades de análisis en un estudio suelen ser también las unidades de observación. Las unidades de observación corresponden a quien(es) nos entregan la información de las unidades de análisis.
+
+--
+
+Ejemplos: empresa (trabajador); hogar (individuo); pareja (individuo); huelga (medio de prensa); individuo (individuo). 
+
+---
+
+# (Micro) datos ordenados
+
+Combinación de observaciones y variables. 
+
+--
+
+Cada fila es una observación. 
+
+Cada variable es una propiedad de las observaciones. 
+
+Cada celda es un solo valor.
+
+--
+
+El término variable hace referencia a que el valor que asume **varía** entre las distintas observaciones. 
+
+--
+
+Los valores pueden ser milímetros de precipitaciones, o respuestas "sí" o "no" a la pregunta de sí llovió. 
+
+--
+
+Las variables se pueden clasificar por su **nivel de medición**. Cada nivel de medición incorpora distintas propiedades de los números. 
+
+---
+
+# Variables categóricas
+
+La variable será **categórica** si cada observación pertenece a un set de diferentes categorías.
+
+--
+
+Aunque ocupemos números para representar categorías como  un "sí" (1) o un "no" (2), la variable sigue siendo categórica.
+
+--
+
+Para las categóricas será clave saber el número de observaciones en cada categoría.
+
+Existiendo protestas con demandas económicas, políticas y culturales, ¿Cuál fue el porcentaje de protestas económicas en 2019?
+
+--
+
+Las variables categóricas se pueden usar tanto para **ordenar** (ordinales) como para **clasificar** (nominales).
+
+
+---
+
+# Variables categóricas
+
+En el **nivel nominal** la función de los números es sólo distinguir entre sujetos que posean la propiedad de manera igual o diferente.
+
+La asignación del número de cada categoría es arbitraria (bien podría ser 1, 2 y 3, o 567, 89 y 77)
+
+--
+
+La variable puede indicar la presencia o ausencia de una propiedad (**nominal dicotómica**).
+
+--
+
+En el nivel **ordinal* la asignación de números respeta el orden en que los sujetos poseen la propiedad medida.
+
++ Nivel educacional (1 = Básica incompleta, 2 = Básica completa, 3 = Media Incompleta, etcétera)
+
++ Nivel de acuerdo con afirmaciones (e.g. *la democracia es siempre preferible a un régimen de gobierno autoritario*). 
+
+---
+
+# Variables cuantitativas
+
+
+La variable será **cuantitativa** si la observación toma valores numéricos que representan diferentes magnitudes de una variable. 
+
+--
+
+Este nivel incorpora la noción de distancia entre las magnitudes en que los objetos poseen las diversas propiedades.
+
+--
+
+Características claves de las **variables cuantitativas** serán su **centro** y **variabilidad**, 
+
+¿cuántas personas iban al día en las protestas de 2019?, ¿Cómo varió la participación desde octubre hasta fin de año?
+
+--
+
+Pueden ser **discretas** o **continuas**. 
+
+
+---
+
+# Variables cuantitativas
+
+La variable es **discreta** si sus valores forman un set de número separados (1, 2, 3, 0, 10).
+
+Si tiene un número finito de valores es discreta (hijos, protestas, terremotos, etc.). 
+
+Un decimal no tiene sentido (no pueden haber 3,5 terremotos en un año)
+
+--
+
+La variable es **continua** si sus valores posibles forman un intervalo (1.2, 3.5, 100.1).
+
+Los valores posibles que puede tomar forman un continuo infinito (peso, ingresos)
+
+--
+
+Tanto las discretas como las continuas pueden ser “de razón” o “de cociente”. Este nivel incorpora la existencia de un valor “0” de carácter absoluto.
+
+No se puede mover libremente la escala. El cero representa la ausencia total de la propiedad medida. 
+
+---
+
+# La arbitrariedad del nivel
+
+Que una propiedad corresponda a uno u otro nivel no sólo depende de las características intrínsecas de dicha propiedad, sino sobre todo de las definiciones y operaciones teóricas y técnicas que hemos realizado para medirlas.
+
+--
+
+El cómo se operacionaliza y se llega a medir la propiedad es clave. 
+
+--
+
+El caso de la edad es claro:
+
++ ¿cuántos años tiene?
+
++ ¿En cuál grupo de edad te ubicas? (0 a 20, 21 a 50, 51 o más)
+
++ ¿Eres jóven o no (rango 15-29)
+
+
+
+
+---
+
+# Distribución de una variable
+
+Un paso fundamental para entender un conjunto de datos, es conocer la distribución de sus variables.
+
+--
+
+La distribución describe como las observaciones "caen" a lo largo de un rango posible de valores. 
+
+--
+
+En las variables categóricas los valores posibles son las diferentes categorías. Cada observación cae en una categoría.
+
+--
+
+Se puede reportar el número de observaciones:
+
+
+```r
+table(guaguas::guaguas$sexo)
+```
+
+```
+## 
+##      F      M 
+## 523623 321777
+```
+--
+
+Esto es una **tabla de frecuencias** (absolutas). Es un listado de los posibles valores de una variable junto al número de observaciones de cada una.
+
+
+---
+
+# Distribución de una variable
+
+También podemos observas una tabla de **frecuencias relativas**. 
+
+--
+
+La proporción de observaciones en cada categoría corresponde al número de observaciones en dicha categoría dividido por el total del número de observaciones.
+
+--
+
+Porcentaje de mujeres en guaguas:
+
+
+```r
+523623/(523623+321777)
+```
+
+```
+## [1] 0.619379
+```
+
+--
+
+Con función:
+
+
+```r
+prop.table(table(guaguas::guaguas$sexo))
+```
+
+```
+## 
+##        F        M 
+## 0.619379 0.380621
+```
+
+--
+
+El porcentaje es cuando la proporción se multiplica por 100. 
+
+
+---
+
+# Distribución de una variable
+
+La categoría que concentra la mayor frecuencia se llama la **categoría modal**.
+
+--
+
+En las cuantitativas también es importante visualizar la distribución, pero cuando el número de valores posibles es muy alto y cada valor lo asume un reducido número de observaciones **no es pertinente**. 
+
+--
+
+Por ejemplo:
+
+
+```r
+table(guaguas::guaguas$n)[1:100]
+```
+
+```
+## 
+##      1      2      3      4      5      6      7      8      9     10     11 
+## 524247  91398  42081  25451  17365  12677   9888   7930   6694   5756   4871 
+##     12     13     14     15     16     17     18     19     20     21     22 
+##   4299   3811   3469   2965   2827   2510   2284   2156   1929   1888   1786 
+##     23     24     25     26     27     28     29     30     31     32     33 
+##   1606   1450   1445   1338   1181   1147   1079   1022   1020    957    871 
+##     34     35     36     37     38     39     40     41     42     43     44 
+##    888    841    825    784    762    729    656    652    703    605    614 
+##     45     46     47     48     49     50     51     52     53     54     55 
+##    579    585    555    533    528    521    510    466    428    492    459 
+##     56     57     58     59     60     61     62     63     64     65     66 
+##    455    442    424    399    392    396    360    393    345    339    329 
+##     67     68     69     70     71     72     73     74     75     76     77 
+##    305    324    294    330    312    294    266    305    304    270    310 
+##     78     79     80     81     82     83     84     85     86     87     88 
+##    275    278    261    254    249    247    212    222    252    212    211 
+##     89     90     91     92     93     94     95     96     97     98     99 
+##    180    205    194    183    177    198    175    190    188    179    179 
+##    100 
+##    160
+```
+
+---
+
+# Distribución de una variable
+
+Para una variable cuantitativa resulta más pertinente observar la **forma** de la distribución, el **centro** y su **variabilidad**.
+
+--
+
+
+```r
+summary(guaguas::guaguas$n)
+```
+
+```
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##     1.00     1.00     1.00    25.96     3.00 21448.00
+```
+
+
+--
+
+En sesión de estadística descriptiva revisaremos en detalle estos conceptos y sus respectivos estadísticos. 
+
+
+
+
+
+---
+
 class: inverse, center, middle
 
-# Tipos de datos cuantitativos
+# Otras distinciones relevantes
 
 ---
 
-# Niveles de medición
+# Datos inválidos y perdidos
 
---
+Datos pueden estar perfectamente ordenados, pero esconder errores y un alto número de valores perdidos. 
 
-Los números tienen propiedades:
-
-+ 1 es distinto de 3
-
-+ 1 es menor que 3
-
-+ 1 está dos unidades antes que 3
-
---
-
-Los números se pueden utilizar para representar:
-
-+ categorías (mujer y hombre, como 1 y 2)
-
-+ orden ()
-
-+ grado ()
+(comentario breve si alcanzamos, introducción para sesiones de más adelante)
 
 
----
-class: inverse, center, middle
 
-# Diseños de investigación
-
-## Solo si alcanzamos
-
----
-
-# El proceso de investigación
-
-&lt;img src="imagenes/diseno.png" width="50%" style="display: block; margin: auto;" /&gt;
-
-
----
-
-# El diseño
-
-Plan estructurado de acción y ordenamiento de la situación de investigación, que está orientado a responder empíricamente (evidencia observable) una pregunta de investigación.
-
-+ ¿Qué aspecto de la teoría va a ser testeado?
-
-+ ¿Qué observaciones se harán para responder a la pregunta de investigación?
-
-+ ¿Cómo se levantarán o producirán los datos (observaciones)?
-
-+ ¿Cómo se analizará la información recolectada?
-
---
-
-Todo buen diseño de investigación busca el mismo objetivo: Sacar conclusiones
-fundamentadas y relevantes a partir de un correcto tratamiento de la evidencia
-empírica.
 
 
 ---
@@ -112,22 +511,33 @@ empírica.
 
 
 
-&lt;a name=bib-Schmitter2013&gt;&lt;/a&gt;[Schmitter, P. C.](#cite-Schmitter2013)
-(2013). "El DiseÃ±o de La InvestigaciÃ³n Social y PolÃ­tica". In: D.
-della Porta. _Enfoques y MetodologÃ­as de Las Ciencias Sociales: Una
-Perspectiva Pluralista_. Akal, pp. 281-312.
+&lt;a name=bib-Agresti2018&gt;&lt;/a&gt;[Agresti, A. and C.
+Franklin](#cite-Agresti2018) (2018). _Statistics the Art and Science of
+Learning from Data_. Pearson Education Limited.
+
+&lt;a name=bib-Asun2006a&gt;&lt;/a&gt;[Asún, R.](#cite-Asun2006a) (2006b). "Medir
+La Realidad Social: El Sentido de La Metodolog\'ia Cuantitativa". In:
+_Metodolog\'ias de Investigación Social: Introducción a los oficios_,
+pp. 31-60.
+
+&lt;a name=bib-Babbie2014&gt;&lt;/a&gt;[Babbie, E.](#cite-Babbie2014) (2014). _The
+Practice of Social Science Research_. 14th edition.
 
 &lt;a name=bib-Wickham2021&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2021) (2021). _R
-Para Ciencia de Datos_. URL:
-[https://es.r4ds.hadley.nz/](https://es.r4ds.hadley.nz/).
+Para Ciencia de Datos_.
 
+Generic Statistical Business Process Model (GSBPM)
+
+[SDC Practice guide](https://sdcpractice.readthedocs.io/en/latest/glossary_acr.html)
+
+[Tidyr](https://tidyr.tidyverse.org/)
 
 ---
 class: inverse, center, middle
 
-# Un poco más de R base e introducción a paquete dplyr
+# Revisión tarea, un poco más de R base e introducción a dplyr
 
-<div class="countdown" id="timer_6122de0f" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_6127129e" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 

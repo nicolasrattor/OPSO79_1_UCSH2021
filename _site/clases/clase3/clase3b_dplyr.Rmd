@@ -60,51 +60,11 @@ style_duo(
 
 ```
 
+---
 
 class: inverse, center, middle
 
-# Nuestro mundo en datos (provación)
-
-
----
-
-# Our World in data
-
-`OurWorldInData` es una publicación en-línea que presenta datos y resultados empíricos que muestran el cambio en las condiciones de vida en todo mundo. 
-
---
-
-Un estudiante de magíster en políticas públicas está desarrollando un [paquete en R](https://github.com/piersyork/owidR) para descargar y visualizar directamente estos datos. 
-
---
-
-Como está en desarrollo aún no se encuentra en la CRAN. Si se quiere ocupar tiene que descargarse así:
-
-```{r eval=FALSE}
-
-install.packages("devtools")
-
-devtools::install_github("piersyork/owidR")
-
-library(owidR)
-
-```
-
---
-
-Más adelante entenderemos bien. Por ahora veamos lo que nos permite hacer en [R Cloud](https://rstudio.cloud/project/2770951).
-
----
-
-```{r fig.align='center', out.width = "80%", echo=FALSE}
-knitr::include_graphics("imagenes/daza_pc.jpg")
-```
-
-
----
-class: inverse, center, middle
-
-# Un poco más de R base
+# Revisión tarea, un poco más de R base e introducción a dplyr
 
 ---
 
@@ -217,6 +177,49 @@ guaguas <- guaguas::guaguas
 guaguas[guaguas$nombre=="Salvador" &  
           (guaguas$anio==1972| guaguas$anio==1979),]
 ```
+
+
+---
+
+class: inverse, center, middle
+
+# Nuestro mundo en datos (provocación)
+
+
+---
+
+# Our World in data
+
+`OurWorldInData` es una publicación en-línea que presenta datos y resultados empíricos que muestran el cambio en las condiciones de vida en todo mundo. 
+
+--
+
+Un estudiante de magíster en políticas públicas está desarrollando un [paquete en R](https://github.com/piersyork/owidR) para descargar y visualizar directamente estos datos. 
+
+--
+
+Como está en desarrollo aún no se encuentra en la CRAN. Si se quiere ocupar tiene que descargarse así:
+
+```{r eval=FALSE}
+
+install.packages("devtools")
+
+devtools::install_github("piersyork/owidR")
+
+library(owidR)
+
+```
+
+--
+
+Más adelante entenderemos bien. Por ahora veamos lo que nos permite hacer en [R Cloud](https://rstudio.cloud/project/2770951).
+
+---
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("imagenes/daza_pc.jpg")
+```
+
 
 
 ---

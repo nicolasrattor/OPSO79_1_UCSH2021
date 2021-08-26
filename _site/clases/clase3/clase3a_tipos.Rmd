@@ -56,7 +56,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-#pagedown::chrome_print("clase3a_diseno.html")
+#pagedown::chrome_print("clase3a_tipos.html")
 
 ```
 
@@ -67,78 +67,260 @@ class: inverse, center, middle
 
 ---
 
+# Introducción
+
 Cuando analizamos datos cuantitativos, representaciones numéricas del mundo social, nos encontraremos con cosas muy diferentes.
 
 --
 
-Antes de comprender cómo se producen los datos, revisaremos los distintos datos que nos encotramos en la investigación social. 
-
-
----
-class: inverse, center, middle
-
-# Tipos de datos cuantitativos
-
----
-
-# Niveles de medición
+Antes de comprender cómo se **producen**, **distribuyen** y **analizan** los datos, revisaremos los distintos tipos de datos cuantitativos que nos encontraremos.
 
 --
 
-Los números tienen propiedades:
-
-+ 1 es distinto de 3
-
-+ 1 es menor que 3
-
-+ 1 está dos unidades antes que 3
+Definiremos cuestiones básicas como que es una variable, que es una observación, cuáles son los conjuntos de datos y tipos de variables a los que comúnmente nos enfrentaremos. 
 
 --
 
-Los números se pueden utilizar para representar:
+Esto es relevante dado que según el tipo de datos que tengamos dependerá el tipo de análisis a realizar.
 
-+ categorías (mujer y hombre, como 1 y 2)
-
-+ orden ()
-
-+ grado ()
 
 
 ---
-class: inverse, center, middle
 
-# Diseños de investigación
+# Introducción
 
-## Solo si alcanzamos
+Los datos rectangulares, con variables listadas en columnas y con filas que refieren a diferentes observaciones, es una producción que demanda tiempo, trabajo y dinero. 
+
+--
+
+Cuando aplicamos encuestas los datos son un producto de la interacción social entre investigador, encuestador y encuestado, pero también pasan por un proceso de **validación** y **ordenamiento**. 
+
+Las hojas marcadas por el encuestador deben pasar a una tabla, las respuestas abiertas codificadas, los valores no deben ser contradictorios entre sí ni imposibles, etcétera. 
+
+--
+
+Este proceso de ordenamiento es aún más evidente cuando codificamos documentos como cotizaciones, contratos colectivos, noticias, películas, páginas webs, post en redes sociales, entre otros.
 
 ---
 
-# El proceso de investigación
+# Producción de un orden
 
-```{r fig.align='center', out.width = "50%", echo=FALSE}
-knitr::include_graphics("imagenes/diseno.png")
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/strike.png")
+```
+
+---
+
+# Producción de un orden
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/modulocovid.png")
 ```
 
 
 ---
 
-# El diseño
+# Producción de un orden
 
-Plan estructurado de acción y ordenamiento de la situación de investigación, que está orientado a responder empíricamente (evidencia observable) una pregunta de investigación.
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/tidydata_2.jpg")
+```
 
-+ ¿Qué aspecto de la teoría va a ser testeado?
 
-+ ¿Qué observaciones se harán para responder a la pregunta de investigación?
+---
 
-+ ¿Cómo se levantarán o producirán los datos (observaciones)?
+# El proceso estadísticos
 
-+ ¿Cómo se analizará la información recolectada?
+GSBPM
+
+
+---
+
+# Datos ordenados
+
+Combinación de observaciones y variables. 
 
 --
 
-Todo buen diseño de investigación busca el mismo objetivo: Sacar conclusiones
-fundamentadas y relevantes a partir de un correcto tratamiento de la evidencia
-empírica.
+Cada fila es una observación. 
+
+Cada variable es una propiedad de las observaciones. 
+
+--
+
+El término variable hace referencia a que el valor que asume **varía** entre las distintas observaciones. 
+
+--
+
+Los valores pueden ser milímetros de precipitaciones, o respuestas "sí" o "no" a la pregunta de sí llovió. 
+
+--
+
+las variables se pueden clasificar por su **nivel de medida**. 
+
+--
+
+La variable será **categórica** si cada observación pertenece a un set de diferentes categorías (2 o más, pueden tener un orden o no). 
+
+--
+
+La variable será **cuantitativa** si la observación toma valores numéricos que representan diferentes magnitudes de una variable. 
+
+---
+
+# Datos ordenados
+
+Aunque ocupemos números para representar categorías como  un "sí" (1) o un "no" (2), la variable sigue siendo cuantitativa. 
+
+--
+
+Características claves de las **variables cuantitativas** serán su **centro** y **variabilidad**, 
+
+¿cuántas personas iban al día en las protestas de 2019?, ¿Cómo varió la participación desde octubre hasta fin de año?
+
+--
+
+Para las categóricas será clave saber el número de observaciones en cada categoría.
+
+Existiendo protestas violentas y pacíficas, ¿Cuál es el porcentaje de protestas violentas en 2019?
+
+
+---
+
+# Variables cuantitativas
+
+Pueden ser **discretas** o **continuas**. 
+
+--
+
+La variable es discreta si sus valores forman un set de número separados (1, 2, 3, 0, 10).
+
+Si tiene un número finito de valores es discreta (hijos, protestas, terremotos, etc.). 
+
+Un decimal no tiene sentido (no pueden haber 3,5 terremotos en un año)
+
+--
+
+La variable es continua si sus valores posibles forman un intervalo (1.2, 3.5, 100.1).
+
+Los valores posibles que puede tomar forman un continuo infinito (peso, ingresos, )
+
+---
+
+# Distribución de una variable
+
+Un paso clave a la hora de entender un conjunto de datos, es conocer la distribución de sus variables.
+
+--
+
+La distribución describe como las observaciones "caen" a lo largo de un rango posible de valores. 
+
+--
+
+En las variables categóricas los valores posibles son las diferentes categorías. Cada observación cae en una categoría.
+
+--
+
+Se puede reportar el número de observaciones:
+
+```{r}
+table(guaguas::guaguas$sexo)
+```
+--
+
+Esto es una **tabla de frecuencias** (absolutas). Es un listado de los posibles valores de una variable junto al número de observaciones de cada una.
+
+
+---
+
+# Distribución de una variable
+
+También podemos observas una tabla de **frecuencias relativas**. 
+
+--
+
+La proporción de observaciones en cada categoría corresponde al número de observaciones en dicha categoría dividido por el total del número de observaciones.
+
+--
+
+Porcentaje de mujeres en guaguas:
+
+```{r}
+523623/(523623+321777)
+```
+
+--
+
+Con función:
+
+```{r}
+prop.table(table(guaguas::guaguas$sexo))
+```
+
+--
+
+El porcentaje es cuando la proporción se multiplica por 100. 
+
+
+---
+
+# Distribución de una variable
+
+La categoría que concentra la mayor frecuencia se llama la **categoría modal**.
+
+--
+
+En las cuantitativas también es importante visualizar la distribución, pero cuando el número de valores posibles es muy alto y cada valor lo asume un reducido número de observaciones **no es pertinente**. 
+
+--
+
+Por ejemplo:
+
+```{r}
+table(guaguas::guaguas$n)[1:100]
+```
+
+---
+
+# Distribución de una variable
+
+Para una variable cuantitativa resulta más pertinente observar la **forma** de la distribución, el **centro** y su **variabilidad**.
+
+--
+
+```{r}
+summary(guaguas::guaguas$n)
+```
+
+
+--
+
+En sesión de estadística descriptiva revisaremos en detalle estos conceptos y sus respectivos estadísticos. 
+
+
+---
+
+# Variables categóricas
+
+Las variables categóricas se pueden usar tanto para **ordenar** como para **clasificar**
+
+Asún. 
+
+
+
+---
+
+class: inverse, center, middle
+
+# Otras distinciones relevantes
+
+---
+
+# Datos válidos y no válidos
+
+# Tabulados v/s microdatos. 
+
+# Transversal v/s longitudinal
 
 
 ---
@@ -147,7 +329,7 @@ empírica.
 
 ```{r echo=FALSE, results=FALSE}
 Citet(bib, "Wickham2021")
-Citet(bib, "Schmitter2013")
+Citet(bib, "Agresti2018")
 ```
 
 ```{r refs, echo=FALSE, results="asis"}
@@ -158,7 +340,7 @@ PrintBibliography(bib)
 ---
 class: inverse, center, middle
 
-# Un poco más de R base e introducción a paquete dplyr
+# Revisión tarea, un poco más de R base e introducción a dplyr
 
 ```{r, echo=FALSE}
 #devtools::install_github("gadenbuie/countdown")
