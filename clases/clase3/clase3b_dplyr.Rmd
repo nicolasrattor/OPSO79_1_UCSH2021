@@ -796,10 +796,10 @@ La tarea se puede descargar del siguiente link:
 
 --
 
-Para hacer la prueba pueden crear un `.rmd` nuevo o usar una plantilla:
+Para hacer la tarea pueden crear un `.rmd` nuevo o usar una plantilla:
 
 ```{r echo=FALSE}
-xfun::embed_file("tarea2/tarea2_dplyr_formato.rmd", text = "Descargar plantilla de tarea 2")
+xfun::embed_file("../../tareas/tarea2/tarea2_dplyr_formato.rmd", text = "Descargar plantilla de tarea 2")
 ```
 
 
