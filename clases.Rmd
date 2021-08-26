@@ -17,3 +17,10 @@ knitr::opts_chunk$set(echo = FALSE)
 [Clase 2. Bloque 1 teórico](clases/clase2/clase2a.html)
 
 [Clase 2. Bloque 2 práctico](clases/clase2/clase2b.html)
+
+# Tipos de datos cuantitativos e introducción a dplyr
+
+[Clase 3. Bloque 1 teórico]()
+
+[Clase 3. Bloque 2 práctico]()
+
