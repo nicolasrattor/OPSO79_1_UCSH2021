@@ -77,7 +77,7 @@ Revisaremos los distintos tipos de datos cuantitativos que nos encontraremos seg
 
 --
 
-Definiremos también cuestiones básicas como que es una variable, que es una observación, que implica que un dato esté ordenado y que procesos garantizan que un dato sea de calidad.
+Definiremos también cuestiones básicas como que es una variable, que es una observación, que es un microdato, que implica que un dato esté ordenado y que procesos garantizan que un dato sea de calidad.
 
 --
 
@@ -106,13 +106,27 @@ Sin importar el cómo son producidos:
 
 + *big data*
 
+---
+
+# Producción de un orden
+
+Si los datos son producidos por nosotros para nuestros propios objetivos de investigación (**datos primarios**), seremos conscientes de sus validación y validaciones.
+
 --
 
-Sin importar quien los produce:
+¿Que pasa cuando los datos son producidos por otros para otros fines, pero nosotros/as lo usemos para los fines propios (**datos secundarios**)?
 
-+ producido nosotros para nuestros propios objetivos de investigación (**primarios**)  
+--
 
-+ producido para otros fines, pero nosotros/as lo usemos para los fines propios (**secundarios**). 
+A este segundo escenario nos enfrentamos la mayor parte de las veces cuando hacemos investigación cuantitativa.
+
+--
+
+Existen cientos de organizaciones gubernamentales, no gubernamentales, internacionales, produciendo y liberando datos ordenados y de calidad.
+
+--
+
+(Además las empresas hoy estás constamente recopilando datos sobre nuestros comportamientos. Esto queda como dato en bruto o también es procesado y utilizado para fines privados)
 
 
 ---
@@ -154,7 +168,7 @@ knitr::include_graphics("imagenes/strike.png")
 
 # Producción de un orden
 
-```{r fig.align='center', out.width = "100%", echo=FALSE}
+```{r fig.align='center', out.width = "80%", echo=FALSE}
 knitr::include_graphics("imagenes/modulocovid.png")
 ```
 
@@ -240,7 +254,7 @@ Microdata: *"Conjunto de registros que contienen información sobre encuestados 
 --
 
 
-Unidades de análisis: *El qué o quién está siendo estudiado. En la investigación en ciencias sociales, las unidades de análisis más típicas son las personas individuales (...) Es importante distinguir entre la unidad de análisis y los agregados sobre los que generalizamos.* `r Citet(bib, "Babbie2014")`.
+Unidades de análisis: *El qué o quién está siendo estudiado. En la investigación en ciencias sociales, las unidades de análisis más típicas son las personas individuales (...) Es importante distinguir entre la unidad de análisis y los agregados sobre los que generalizamos.* `r Citep(bib, "Babbie2014")`.
 
 --
 
@@ -379,7 +393,7 @@ El caso de la edad es claro:
 
 + ¿En cuál grupo de edad te ubicas? (0 a 20, 21 a 50, 51 o más)
 
-+ ¿Eres jóven o no (rango 15-29)
++ ¿Eres jóven o no (rango 15-29)?
 
 
 
@@ -489,11 +503,19 @@ Podemos clasificarlos de diferentes formas, siendo algunas:
 
 + microdatos (unidades de análisis y/o observación) / agregados
 
-+ nivel de medida de sus variables (solo en caso de datos ordenados)
++ solo en caso de datos ordenados: nivel de medida de sus variables.
 
 --
 
-Datos pueden estar perfectamente ordenados, pero esconder errores y un alto número de valores perdidos.
+Para reflexionar:
+
+--
+
+Datos pueden estar perfectamente ordenados, pero esconder errores y un alto número de valores perdidos:
+
++ datos consistentes / datos inconsistentes
+
++ datos válidos / datos no válidos (no respuesta, no sabe, no aplica)
 
 
 
