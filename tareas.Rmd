@@ -11,11 +11,13 @@ En total habrán 5 tareas prácticas a lo largo del curso, las cuáles tendrán 
 
 # Tarea N°1
 
-Elaborar documento desde RMarkdown con presentación de estudiante y foto de científico social favorito. [Descargar aquí](tareas/tarea1/tarea1.pdf). 
+Elaborar documento desde RMarkdown con presentación de estudiante y foto de científico social favorito. [Descargar pauta aquí](tareas/tarea1/tarea1.pdf). 
 
 # Tarea N°2
 
-Operaciones elementales sobre un data frame con R base y transformación y visualización básica con dplyr.
+Operaciones elementales sobre un data frame con R base y transformación y visualización básica con dplyr. [Descargar pauta aquí](tareas/tarea2/tarea2_dplyr.pdf). 
+
+`r xfun::embed_file("tareas/tarea2/tarea2_dplyr_formato.rmd", text = "Descargar plantilla opcional para hacer la tarea 2")`
 
 # Tarea N°3
 
