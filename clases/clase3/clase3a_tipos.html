@@ -44,7 +44,7 @@ Revisaremos los distintos tipos de datos cuantitativos que nos encontraremos seg
 
 --
 
-Definiremos también cuestiones básicas como que es una variable, que es una observación, que implica que un dato esté ordenado y que procesos garantizan que un dato sea de calidad.
+Definiremos también cuestiones básicas como que es una variable, que es una observación, que es un microdato, que implica que un dato esté ordenado y que procesos garantizan que un dato sea de calidad.
 
 --
 
@@ -73,13 +73,27 @@ Sin importar el cómo son producidos:
 
 + *big data*
 
+---
+
+# Producción de un orden
+
+Si los datos son producidos por nosotros para nuestros propios objetivos de investigación (**datos primarios**), seremos conscientes de sus validación y validaciones.
+
 --
 
-Sin importar quien los produce:
+¿Que pasa cuando los datos son producidos por otros para otros fines, pero nosotros/as lo usemos para los fines propios (**datos secundarios**)?
 
-+ producido nosotros para nuestros propios objetivos de investigación (**primarios**)  
+--
 
-+ producido para otros fines, pero nosotros/as lo usemos para los fines propios (**secundarios**). 
+A este segundo escenario nos enfrentamos la mayor parte de las veces cuando hacemos investigación cuantitativa.
+
+--
+
+Existen cientos de organizaciones gubernamentales, no gubernamentales, internacionales, produciendo y liberando datos ordenados y de calidad.
+
+--
+
+(Además las empresas hoy estás constamente recopilando datos sobre nuestros comportamientos. Esto queda como dato en bruto o también es procesado y utilizado para fines privados)
 
 
 ---
@@ -117,7 +131,7 @@ La subjetividad del encuestado debe pasar a una hoja estándar (cuestionario), e
 
 # Producción de un orden
 
-&lt;img src="imagenes/modulocovid.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="imagenes/modulocovid.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -197,7 +211,7 @@ Microdata: *"Conjunto de registros que contienen información sobre encuestados 
 --
 
 
-Unidades de análisis: *El qué o quién está siendo estudiado. En la investigación en ciencias sociales, las unidades de análisis más típicas son las personas individuales (...) Es importante distinguir entre la unidad de análisis y los agregados sobre los que generalizamos.* &lt;a name=cite-Babbie2014&gt;&lt;/a&gt;[Babbie (2014)](#bib-Babbie2014).
+Unidades de análisis: *El qué o quién está siendo estudiado. En la investigación en ciencias sociales, las unidades de análisis más típicas son las personas individuales (...) Es importante distinguir entre la unidad de análisis y los agregados sobre los que generalizamos.* &lt;a name=cite-Babbie2014&gt;&lt;/a&gt;([Babbie, 2014](#bib-Babbie2014)).
 
 --
 
@@ -336,7 +350,7 @@ El caso de la edad es claro:
 
 + ¿En cuál grupo de edad te ubicas? (0 a 20, 21 a 50, 51 o más)
 
-+ ¿Eres jóven o no (rango 15-29)
++ ¿Eres jóven o no (rango 15-29)?
 
 
 
@@ -484,24 +498,31 @@ summary(guaguas::guaguas$n)
 En sesión de estadística descriptiva revisaremos en detalle estos conceptos y sus respectivos estadísticos. 
 
 
-
-
-
 ---
 
-class: inverse, center, middle
+# Conclusiones
 
-# Otras distinciones relevantes
+Los datos cuantitativos son variados.
 
----
+Podemos clasificarlos de diferentes formas, siendo algunas:
 
-# Datos inválidos y perdidos
++ ordenados / desordenados
 
-Datos pueden estar perfectamente ordenados, pero esconder errores y un alto número de valores perdidos. 
++ microdatos (unidades de análisis y/o observación) / agregados
 
-(comentario breve si alcanzamos, introducción para sesiones de más adelante)
++ solo en caso de datos ordenados: nivel de medida de sus variables.
 
+--
 
+Para reflexionar:
+
+--
+
+Datos pueden estar perfectamente ordenados, pero esconder errores y un alto número de valores perdidos:
+
++ datos consistentes / datos inconsistentes
+
++ datos válidos / datos no válidos (no respuesta, no sabe, no aplica)
 
 
 
@@ -537,7 +558,7 @@ class: inverse, center, middle
 
 # Revisión tarea, un poco más de R base e introducción a dplyr
 
-<div class="countdown" id="timer_6127129e" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_612848c9" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 
