@@ -1,0 +1,864 @@
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Diseños de investigación, Rproject y cargar data. Bloque práctico (4b)"
+date: "`03/09/2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("../../bibliografia/bib.bib", check = FALSE)
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(dplyr)
+library(guaguas)
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+#pagedown::chrome_print("clase4b_rproj.html")
+
+```
+
+---
+
+class: inverse, center, middle
+
+# Revisión tarea 2
+
+---
+
+# Módulo I
+
+--
+
+Cargar base guaguas desde paquete o creando objeto. 
+
+```{r message=FALSE,warning=FALSE}
+# instalar dplyr y guaguas
+library(dplyr) 
+guaguas <- guaguas::guaguas
+```
+
+--
+
+#### 1. Explique que representa cada fila en la data frame guaguas
+
+--
+
+Cada fila de la data frame es un nombre inscrito en un año en el Registro Civil de Chile (por ejemplo, Andrea en 2014, Silvia en 1920, etc). 
+
+--
+
+La data entrega información sobre el número de veces que fue inscrito el nombre en cada año, el sexo al que corresponde el nombre y la proporción de inscripciones totales que representa el nombre en el año. 
+
+---
+
+# Módulo I
+
+#### 2. ¿Que valor tiene la fila 3 y la columna 5?
+
+```{r}
+guaguas[3,5]
+```
+
+--
+
+#### 3. ¿Cuáles son los valores de la observación 789.111?
+
+```{r}
+guaguas[789111,]
+```
+
+---
+
+# Módulo I
+
+#### 4. Indique medidas de distribución de la variable `n` e interprete brevemente
+
+```{r}
+summary(guaguas$n)
+```
+La idea era entender que no correspondía hacer un `table()`.
+
+---
+
+# Módulo I
+
+#### 5. Indique la clase de las cinco columnas de la data frame y especifique su nivel de medida
+
+--
+
+```{r}
+#str(guaguas), o variable por variable: class(guagua$n)
+apply(guaguas,2,class)
+```
+
+--
+
+Respecto del nivel de medida hay que indicar que: 
+
++ anio es una variable cuantitativa discreta
+
++ nombre es una variable categórica - nominal
+
++ sexo es una variable categórica - nominal
+
++ n es una variable cuantitativa discreta
+
++ proporcion es una variable cuantitativa continua
+
+
+---
+
+# Módulo II
+
+--
+
+#### 1. ¿En que años se ha inscrito el nombre "khaleesi"?
+
+```{r}
+  filter(guaguas, nombre == "Khaleesi")
+```
+
+---
+
+# Módulo II
+
+#### 2. ¿Cuántas guagas se inscribieron con el nombre "Arya", "Daenerys" y "Khaleesi" en el año 2011?
+
++ Arya
+
+```{r}
+  arya <- filter(guaguas, nombre == "Arya" & anio == 2011)
+  select(arya,n)
+```
+
+--
+
++ Daenerys
+
+```{r}
+  daenerys <- filter(guaguas, nombre == "Daenerys" & anio == 2011)
+  select(daenerys,n)
+```
+
+---
+
+# Módulo II
+
++ Khaleesi
+
+```{r}
+  khaleesi <- filter(guaguas, nombre == "Khaleesi" & anio == 2011)
+  select(khaleesi,n)
+```
+
+--
+
+#### Otra posibilidad
+
+```{r}
+nombres <- filter(guaguas, nombre %in% c("Arya","Khaleesi","Daenerys") & 
+                    anio == 2011)
+select(nombres,nombre,n)
+```
+
+
+---
+
+# Módulo II
+
+--
+
+#### 3. ¿Cuántas guagas se inscribieron con esos nombres en el año 2018?
+
+```{r}
+  select(filter(guaguas, nombre == "Arya" & anio == 2018),n)
+```
+
+--
+
+```{r}
+  select(filter(guaguas, nombre == "Daenerys" & anio == 2018),n)
+```
+
+---
+
+# Módulo II
+
+```{r}
+  select(filter(guaguas, nombre == "Khaleesi" & anio == 2018),n)
+```
+
+--
+
+#### 4. ¿Se inscribió algún "Tyrion"?
+
+```{r}
+filter(guaguas, nombre == "Tyrion")
+```
+
+
+
+---
+
+# Módulo III
+
+--
+
+#### 1. (Optativa) Llegue al resultado 1 desde la base guaguas
+
+--
+
+```{r}
+sum(select(filter(guaguas, anio==2010),proporcion))
+```
+
+--
+
+#### 2. Crea una nueva data frame desde guaguas que se llame "companers"
+
+Esta data solo puede tener los nombres 3 compañeros o compañeras del curso. La data puede tener hasta 20 nombres. 
+
+```{r}
+companers <- filter(guaguas, nombre=="Nicolás"|nombre=="Kevin")
+```
+
+---
+
+# Módulo III
+
+--
+
+#### 3. ¿Cuál es la distribución de la variable "nombre" de la data "companers"?
+
+```{r}
+table(companers$nombre)
+```
+
+--
+
+#### 4. En no más de dos líneas, ¿qué puede concluir de la distribución de la variable "nombre" de la data "companers"?
+
+Que el nombre Nicolás es la categoría modal. Este nombre ha sido inscrito más años (102 veces) entre 1920 y 2020 que el nombre Kevin (62 veces).
+
+
+---
+
+class: inverse, center, middle
+
+# Repaso dplyr::mutate()
+
+---
+
+# mutate() 
+
+"Muta" nuestra data, agregando una nueva columna. 
+
+--
+
+```{r eval=FALSE}
+mutate(data, nuevavariable = valorotorgado)
+```
+
+--
+
+Multiplicar por 100:
+
+```{r eval=FALSE}
+mutate(guaguas, porcentaje=proporcion*100)
+```
+
+```{r echo=FALSE}
+mutate(guaguas, porcentaje=proporcion*100) %>% head(3)
+```
+
+---
+
+# mutate()
+
+```{r fig.align='center', out.width = "70%", echo=FALSE}
+knitr::include_graphics("imagenes/dplyr_mutate.png")
+```
+
+---
+
+# mutate() para condiciones
+
+La gracia de `mutate()` está en asignar valores en base a **condiciones**. 
+
+--
+
+Vimos una forma simple para asignar dos valores, uno para la condición verdadera y otra para la condición falsa.
+
+--
+
+```{r eval=FALSE}
+mutate(data, nuevavariable = if_else(condicion, 
+                                     verdadero, 
+                                     falso))
+```
+
+--
+
+```{r}
+guaguas <- mutate(guaguas, populares = if_else(proporcion >= 0.03,
+                                    "populares",
+                                    "no populares"))
+```
+
+--
+
+```{r}
+table(guaguas$populares)
+```
+
+---
+
+# mutate() para condiciones
+
+La condición pueden ser muchas cosas.
+
+--
+
+Por ejemplo, una lista de nombres:
+
+--
+
+```{r}
+## Creamos un vector de nombres
+curso<-c("Isidora","Alejandra","Noemí","Leslie","Javier","Valentina",
+           "Andrés","Matías","Kevin")
+```
+
+--
+
+```{r}
+guaguas <- mutate(guaguas, 
+                  curso = if_else(nombre %in% curso, 1, 0))
+```
+
+---
+
+# mutate() para condiciones
+
+```{r}
+head(guaguas,3)
+```
+
+--
+
+```{r}
+table(guaguas$curso)
+```
+---
+
+# mutate() para condiciones
+
+Esto tiene mucha potencia para filtra data frames según condiciones.
+
+--
+
+A partir de la nueva variable podemos solo dejar en guaguas2 los nombres del curso:
+
+--
+
+```{r}
+guaguas2 <- filter(guaguas,curso==1)
+```
+--
+
+```{r}
+table(guaguas2$nombre)
+```
+
+
+---
+
+class: inverse, center, middle
+
+# R project e importación de datos
+
+---
+
+# R project
+
+Si tuviesemos recursos ilimitados, y mucho tiempo, produciríamos nuestras propias bases de datos. 
+
+--
+
+Con esto, podríamos llegar a tener operacionalizaciones precisas de nuestros conceptos. 
+
+--
+
+Por lo general, tendremos que contentarnos y saber utilizar bases producidas por otros equipos de investigación. 
+
+--
+
+**Análisis secundario de datos**. El dato es recogido y procesado por un investigador, y luego este es reanalizado por otro para un propósito diferente.
+
+--
+
+Desde hoy comenzaremos a revisar las principales data frame que existen en ciencias sociales y que son de acceso libre.
+
+--
+
+Aprenderemos a abrirlas y a conocer sus principales características antes de hacer análisis más complejos. 
+
+
+---
+
+# Antes: directorios de trabajo
+
+--
+
+```{r fig.align='center', out.width = "90%", echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/cracked_setwd.png")
+```
+
+---
+
+# Antes: directorios de trabajo
+
+Hasta ahora no nos hemos preocupado de este tema: cargábamos guaguas desde el mismo paquete.
+
+--
+
+¿Como cargamos conjuntos de datos que descargamos y almacenamos en nuestro computador?
+
+--
+
+Si descargamos y guardamos los datos en el **directorio** o **carpeta** correcta podremos abrir nuestros datos desde R.
+
+--
+
+¿Cuál es la carpeta o directorio correcto? Cualquiera...
+
+--
+
+El directorio es la ruta de nuestro computador desde la cuál R busca archivos para cargar. 
+
+---
+
+# Antes: directorios de trabajo
+
+¿Cuál es mi ruta?
+
+--
+
+```{r}
+getwd()   #<<
+```
+--
+
+Desde esta ruta mi R está trabajando. Desde acá debo indicar si quiero avanzar o retroceder para buscar archivos.
+
+--
+
+Así puedo conocer los archivos que están en la ruta definida por defecto:
+
+```{r}
+list.files()
+```
+--
+
+Es lo mismo que especificar la ruta:
+
+```{r}
+list.files("C:/Users/Nratto/Documents/Github/OPSO79_1_UCSH2021/clases/clase4")
+```
+
+---
+
+# Antes: directorios de trabajo
+
+Si quiero conocer los archivos que están en otra ruta, solo hay que especificarla:
+
+```{r}
+list.files("C:/Users/Nratto/Documents/Github/OPSO79_1_UCSH2021/clases/clase4/imagenes")
+```
+--
+
+Otra opción mas sencilla es llegar a imágenes desde la ruta ya definida por R:
+
+--
+
+```{r}
+list.files("imagenes")
+```
+
+---
+
+# Antes: directorios de trabajo
+
+¿Y si quiero retroceder en la estructura de carpetas?
+
+--
+
+```{r}
+list.files("../")
+```
+--
+
+Que sería lo mismo que decir:
+
+```{r}
+list.files("C:/Users/Nratto/Documents/Github/OPSO79_1_UCSH2021/clases/")
+```
+
+---
+
+# Antes: directorios de trabajo
+
+¿Que pasa si no me es cómodo el directorio desde el cuál R está trabajando? 
+
+--
+
+Se puede cambiar. La lógica es ocupar directorios diferentes para cada uno de los proyectos en los que trabajamos.
+
+--
+
+Mi directorio de trabajo para esta clase es: 
+
+```{r echo=FALSE}
+getwd()
+```
+
+--
+
+Pero para la clase anterior ocupé 
+
+```{r echo=FALSE}
+"C:/Users/Nratto/Documents/Github/OPSO79_1_UCSH2021/clases/clase3"
+```
+
+
+---
+
+# Antes: directorios de trabajo
+
+Los directorios se pueden cambiar, pero además se puede hacer que estos actúen de manera **relativa**, no **absoluta**. 
+
+--
+
+Por ejemplo, cuando a R le damos instrucciones desde acá:
+
+```{r echo=FALSE}
+getwd()
+```
+
+--
+
+Estas instrucciones solo funcionarán en mi computador (Nratto). 
+
+--
+
+Pero la gracia de R es la contraria. Que en código pueda ser utilizado por terceros en cualquier otro computador.
+
+--
+
+Por la tanto, las rutas absolutas son un problema. Solo funciona desde nuestras computadoras personales.
+
+---
+
+# R Project
+
+Una solución es trabajar con `Rproject`.
+
+--
+
+Nos permitirá crear una nueva carpeta o proyecto, en el directorio que queramos, desde donde R va a trabajar.
+
+--
+
+Esta carpeta se puede adjuntar y compartir con otras personas, lo que permite el trabajo colaborativo.
+
+R se abrirá desde cualquier otro computador. 
+
+--
+
+Para crear un nuevo proyecto:
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/Rproj.JPG")
+```
+
+---
+
+# R Project
+
+Señalar que queremos crear un nuevo directorio:
+
+```{r fig.align='center', out.width = "60%", echo=FALSE}
+knitr::include_graphics("imagenes/create_project.png")
+```
+
+--
+
+Definir donde crear la carpeta del nuevo proyecto y darle "aceptar".
+
+
+---
+
+# R Project
+
+Si todo sale bien, se nos habrá creado una carpeta con el nombre del proyecto, la cuál tendrá un archivo "nombrecarpeta.Rproj"
+
+--
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/owidR.png")
+```
+
+--
+
+Ese archivo debe abrirse cada vez que queramos trabajar en el proyecto, para que quede definida la ruta de trabajo. 
+
+--
+
+Una vez abierta la sesión, crear R script, RMD, subcarpetas y colocar archivos. Lo que quieran.
+
+---
+
+# R Project
+
+Veamos como funciona (ejercicio práctico)
+
+--
+
+Creemos un R Project donde quieran, pero que se llame "afganistan"
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("https://assets.historyplay.tv/la/public/styles/wide/public/images/2014/04/08/finalizo-guerra-entre-union-sovietica-y-afganistan-600x310.jpg")
+```
+
+---
+
+# R Project
+
+Una vez creado el proyecto, descargar el siguiente set de datos: 
+
+```{r eval=FALSE, echo=FALSE}
+## Ordenar data y guardar como archivo R
+afganistan <- readxl::read_excel("data/afganistan.xlsx")
+afganistan <- afganistan %>% tidyr::pivot_longer(3:63) %>% select(-`Country Name`) 
+afganistan <- afganistan %>% distinct(`Indicator Name`,value,name)
+afganistan <- afganistan %>% tidyr::pivot_wider(names_from = `Indicator Name`, 
+                                  values_from = value,
+                                  values_fn = {sum}) 
+afganistan <- afganistan %>% janitor::clean_names() %>% rename(anio=name)
+saveRDS(afganistan, file = "data/afganistan.rds")
+```
+
+
+```{r echo=FALSE}
+xfun::embed_file("data/afganistan.rds", text = "afganistan.rds")
+```
+
+Guardarlos dentro de la carpeta **"afganistan"** que acaban de crear. 
+
+--
+
+Luego carguemos el dato:
+
+```{r}
+data <- readRDS(file = "data/afganistan.rds")
+
+dim(data)
+
+```
+
+---
+
+# R Project
+
+Tenemos 1443 variables sobre Afganistán
+
+Como la lista es interminable, vemos los nombres de las 10 primeras:
+
+```{r}
+names(data)[1:10]
+```
+
+---
+
+# R Project
+
+```{r}
+## Resumen de la variable
+summary(data$poblacion_total)
+```
+--
+
+```{r}
+## dato del último anio
+select(filter(data,anio==2020),poblacion_total)
+```
+
+
+
+---
+
+# R Project
+
+```{r  fig.align='center', out.width = "50%"}
+plot(poblacion_total ~ anio,data=data, type = "l", main="Población Afganistan")
+```
+
+---
+
+# R Project
+
+Buscar variable de interés.
+
+--
+
+Para hacerlo de forma sencilla descarguemos y carguemos este paquete:
+
+```{r}
+#install.packages("sjmisc")
+library(sjmisc)
+```
+
+--
+
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+find_var(data,"muerte")
+```
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+find_var(data,"muertes")[,2]
+```
+
+---
+
+# R Project
+
+```{r  fig.align='center', fig.height = 6, fig.width = 9, echo=FALSE}
+
+par(mfrow=c(1,2)) 
+plot(muertes_producto_de_la_guerra_cantidad_de_personas ~
+     anio,
+     data=data, 
+       type = "l",
+     sub="Número de muertes producto de la guerra",
+     xlab="Años",
+     ylab="Número de muertes")
+
+plot(tasa_de_participacion_en_la_fuerza_laboral_mujeres_percent_de_la_poblacion_femenina_mayor_de_15_anos_estimacion_nacional ~
+     anio,
+     data=data, 
+       type = "p",
+     sub="Tasa participación laboral mujeres",
+     xlab="Años",
+     ylab="Porcentaje de la población femenina")
+
+
+```
+
+---
+
+# Ejercicio práctico 2
+
+--
+
+Como ejercicio práctico identifiquen y seleccionen **dos variables** de interés sobre Afganistán.
+
+--
+
+Guarden esas **dos variables** más la variable **anio** en una nueva data llamada "data2"
+
+--
+
+Describan la distribución de las dos variables y reporten el dato más reciente de ambas (no siempre es 2020)
+
+--
+
+Intentemos hacer un gráfico de una de las dos variables. 
+
+--
+
+Al terminar ejecuten estas dos funciones:
+
+```{r eval=FALSE}
+saveRDS(data2, file = "data2.rds") # para exportar la data2
+file.remove("afganistan.rds")      # para eliminar data afganistan
+```
+
+--
+
+Comprimir carpeta del proyecto y enviar a Nicolás y Kevin
+
+(solo tres archivos: `.R`, `.Rproj` y `.rds`)
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+Datos de Afganistán descargados de [World Data Bank](https://datos.bancomundial.org/)
+
+### Para reforzar y seguir aprendiendo
+
+[Otra explicación de los R Project](https://learn-r-udp.netlify.app/example/01-practico/#parte-2-rstudio-projects)
+
+Capítulo 8 "Flujo de trabajo: proyectos" de Wickham **muy** recomendado.
+
+### Bibliografía utilizada
+
+```{r echo=FALSE, results=FALSE}
+Citet(bib, "Wickham2021")
+```
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(bib)
+```
+
+
+
