@@ -41,9 +41,9 @@ Consultar última versión de programa en web del curso: <https://opso791ucsh202
 # Condiciones de entrada
 
 - Es capaz de diferenciar paradigmas teóricos y metodológicos.
--	Sabe problematizar fenómenos de investigación desde la perspectiva cuantitativa.
--	Reconoce el contenido de un diseño de investigación cuantitativa.
--	Sabe identificar y/o construir variables cuantitativas de investigación. 
+- Sabe problematizar fenómenos de investigación desde la perspectiva cuantitativa.
+- Reconoce el contenido de un diseño de investigación cuantitativa.
+- Sabe identificar y/o construir variables cuantitativas de investigación. 
 
 
 # Aprendizajes esperados
@@ -74,33 +74,35 @@ Consultar última versión de programa en web del curso: <https://opso791ucsh202
 a. Fundamentos epistemológicos de la investigación social en general
 b. La metodología de investigación social cuantitativa.
 c. El proceso de investigación y la traducción empírica de la teoría.
-d. Apertura y reproducibilidad de la investigación social.
+d. Apertura y reproducibilidad de la investigación social (ciencia abierta).
 
 ## II. Diseños de investigación social
 
-a. Diseños de Investigación cuantitativos: descriptivo / causal; observacional / experimental. 
+a. Diseños de investigación cuantitativos: descriptivo / causal; observacional / experimental. 
 b. Instrumentos de producción y ordenamiento de la información: encuestas, bases de datos agregadas, registros administrativos, análisis de contenido cuantitativo, codificación de prensa.
 c. Construcción de cuestionarios.
-d. El proceso de producción y análisis estadístico.
-e. Panorama general de las bases de datos en ciencias sociales.
+d. El proceso de producción y análisis estadístico (GSBPM).
+e. Panorama general de las bases de datos en ciencias sociales para el caso chileno.
 
-## III. Tipos de datos cuantitativos, estructura de los datos, muestras, inferencia y análisis pertinentes (estadísticas)
+## III. Estadística descriptiva, muestras e inferencia
 
-a. Tipos de datos cuantitativos (nominales, ordinales, numéricos)
+a. Tipos de datos cuantitativos según nivel de medida (nominales, ordinales, numéricos)
 b. Medidas de tendencia central, de dispersión y estadísticos de forma
-c. Estructura de los datos (estructurados y des estructurados; transversales y longitudinales)
-d. La lógica del muestreo. Tipos de muestreo: muestreo aleatorio simple, muestreo estratificado, muestreo por conglomerados.
-d. Estimadores y parámetros.
-e. Pesos, factores de expansión y medidas de precisión de las inferencias.
+c. Estructura de los datos (ordenados y desordenados; transversales y longitudinales; microdatos y datos agregados)
+d. Valores perdidos y no válidos. 
+e. La lógica del muestreo. Tipos de muestreo: muestreo aleatorio simple, muestreo estratificado, muestreo por conglomerados.
+f. Estimadores y parámetros.
+g. Pesos, factores de expansión y medidas de precisión de las inferencias.
 
 ## IV. Lenguajes y herramientas para el análisis de datos y reporte (R)
 
 a. Introducción a R y R-Studio.
-b. Manipulación de bases de datos con funciones de R base, dplyr y tidyr
+b. Transformación de data frames con funciones de R base, dplyr y tidyr
 c. Construcción y presentación de tablas univariadas y de contingencia.
-d. Elaboración de gráﬁcos con funciones de ggplot2.
-e. Elaboración de reportes descriptivos y reproducibles con RMarkdown. 
-d. Técnicas y recursos para la búsqueda y gestión bibliográfica.
+d. R project e importar datos desde excel, spss, stata y otros.
+e. Elaboración de gráﬁcos con funciones de ggplot2.
+f. Elaboración de reportes descriptivos y reproducibles con RMarkdown. 
+g. Técnicas y recursos para la búsqueda y gestión bibliográfica.
 
 
 # Criterios metodológicos de la actividad curricular

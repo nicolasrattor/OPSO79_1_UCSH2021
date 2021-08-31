@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="date" content="2021-03-09" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -35,7 +37,7 @@ class: inverse, center, middle
 
 # El proceso de investigación
 
-&lt;img src="imagenes/diseno.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="imagenes/diseno.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -58,14 +60,301 @@ Todo buen diseño de investigación busca el mismo objetivo: Sacar conclusiones
 fundamentadas y relevantes a partir de un correcto tratamiento de la evidencia
 empírica.
 
+---
 
+# La investigación social
+
+En la investigación social el objetivo es la inferencia.
+
++ La inferencia, **en sentido amplio**, es un proceso en el que se utilizan hechos que conocemos para aprender sobre los que desconocemos.
+
+--
+
+Las inferencias pueden ser descriptivas o causales
+
+--
+
+**Inferencias descriptivas:**
+
+Proponer conceptos nuevos, asociaciones o agrupaciones entre ellos. 
+
+Lógica de descubrimiento.
+
+--
+
+**Inferencias causales:**
+
+Conocer efectos causales o encontrar causas necesarias y/o suficientes a partir de los fatos observados. 
+
+Lógica de demostración.
+
+---
+
+# Clasificación de los diseños
+
+¿Qué factores determinan la elección de un diseño?
+
+--
+
+Según los objetivos de la investigación los diseños pueden ser:
+
++ Descriptivos
+
++ Causales
+
+--
+
+Según el grado de intervención y control del investigador:
+
++ Experimentales
+
++ Observacionales
+
+--
+
+&lt;img src="imagenes/experimentos_observacional.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ---
 
-class: center, middle
+class: inverse, center, middle
 
-# I. Diseños observacionales explicativos
+*"No existe una estrategia o grupo de estrategias que sean ideales para todos los temas de investigación. Todo depende del punto de partida, de la sustancia inicial que el investigador haya decidido investigar."* (Schmitter, 2013)
+
+---
+
+# Validez del diseño
+
+Además, cada diseño tendrá sus fortalezas. 
+
+--
+
+#### Validez Interna
+
++ Capacidad de explicar la variable de interés (dependiente) al poder controlar por explicaciones alternativas.
+
++ Determina entonces si la relación de la hipótesis es espuria o no.
+
+--
+
+#### Validez Externa
+
++ Capacidad de generalizar los resultados más allá de las condiciones particulares o específicas en las que se realizó el estudio.
+
+--
+
+Mientras que un experimento tiene mayor validez interna y menor validez externa; lo opuesto se aplica diseños observacionales de N grande. 
+
+---
+
+class: inverse, center, middle
+
+# I. Estudios observacionales descriptivos
+
+---
+
+# Estudios Descriptivos
+
+--
+
+El centro de este curso. 
+
+--
+
+De acuerdo con Gerring (2012), la **descripción** y la **causalidad** son en última instancias argumentos.
+
+--
+
+Los argumentos descriptivos se refieren a lo **que es / fue** (por ejemplo, cuándo, quién, de qué, de qué manera).
+
+--
+
+*Por ejemplo: “En el transcurso de los dos últimos siglos ha habido tres grandes olas de democratización”.*
+
+--
+
+Por el contrario, los argumentos causales intentan responder preguntas de por qué.
+
+--
+
+Para responder con certeza se requiere controlar por **explicaciones rivales** y tener un **contrafactual**.
+
+--
+
+*Por ejemplo: “La tercera ola de democratización fue causada, en parte, por el final del Guerra Fría.”*
+
+---
+
+# Estudios descriptivos
+
+&lt;img src="imagenes/description.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+class: inverse, center, middle
+
+# II. El problema de la causalidad y los diseños experimentales
+
+---
+
+# 1. Relaciones espurias
+
+Que dos o más variables cavaríen no implica que ambas estén afectadas por el mismo fenómeno o, que una explique a la otra.
+
+--
+
+¿El gasto de EEUU en ciencia afecta impacta en la tasa de suicidios?
+
+--
+
+&lt;a href="https://www.tylervigen.com/spurious-correlations" target="_blank"&gt;&lt;img src="imagenes/suicides_eeuu.png" width="80%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
+
+---
+
+# Otra más absurda
+
+&lt;a href="https://www.tylervigen.com/spurious-correlations" target="_blank"&gt;&lt;img src="imagenes/cage.png" width="100%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
+
+---
+
+# 1. Relaciones espurias
+
+En estos casos la relación entre las variables es pura casualidad. 
+
+--
+
+En otros casos una puede estar afectando a la otra efectivamente.
+
+--
+
+Y en otros casos una tercera **variable oculta** u **omitida** puede estar generando la variación observada. 
+
+
+--
+
+[¿Las cigueñas traen a los niños/as?](https://priceonomics.com/do-storks-deliver-babies/), ¿Hay una relación entre las variables?
+
+--
+
+Hay estudios que indican que existe relación, pero no de causalidad entre una u otra. 
+
+--
+
+Hay una variable "omitida" que explica la asociación (el tiempo):
+
+Las cigüeñas son aves migratorias que regresan a Alemania en primavera, aproximadamente 9 meses después de la mitad del verano (cuando "se hacen los bebés").
+
+
+---
+
+# 2. Contrafácticos
+
+Cómete la comida para que crezcas sano.
+
++ Si no te comes la comida, no vas a crecer sano.
+
+--
+
+Gracias al antibiótico, Juan ya no tiene amigdalitis.
+
++ Si no hubiera tomado el antibiótico, tendría amigdalitis.
+
+--
+
+EEUU invadió Irak porque Bush era el presidente.
+
++ Si Al Gore hubiera ganado las elecciones, EEUU no hubiera invadido Irak.
+
+--
+
+La ayuda internacional genera crecimiento en los países que la reciben.
+
++ Sin la ayuda internacional, el país receptor hubiera crecido menos.
+
+---
+
+# 2. Contrafácticos
+
+Efectos causales son afirmaciones relacionadas a una acción (tratamiento / manipulación) que se ejerció sobre una unidad.
+
+--
+
+Contrafactual: lo que hubiera pasado sí sobre la unidad no se ejercía el tratamiento.
+
+--
+
+El problema fundamental de la inferencia causal es que **no podemos observar simultáneamente** el valor de la unidad con y sin el tratamiento. Por lo tanto, no podemos observar el efecto causal en la unidad.
+
+--
+
+Posible solución es seleccionar aleatoriamente dos grupos de unidades idénticas y aplicarles el tratamiento a una y a la otra no. 
+
+--
+
+Los efectos generados solo podrían deberse por el tratamiento, ya que por el azar en todos los demás aspectos los grupos son iguales. 
+
+
+---
+
+# La solución: experimentos
+
+Asignación aleatoria del tratamiento (variable independiente).
+
+--
+
+Un experimento clásico:
+
+1 Manipulación del Tratamiento (Variable Independiente)
+
+2 Variable Dependiente
+
+3 Pretest
+
+4 Posttest
+
+5 Grupo experimental
+
+6 Grupo de control
+
+7 Asignación aleatoria
+
+--
+
+Permite tener el mayor control posible sobre la variable independiente, las unidades de análisis y el entorno donde ocurre el fenómeno.
+
+---
+
+# Problema experimental
+
+--
+
++ Alto costo
+
+--
+
++ La mayoría de lo que nos interesa estudiar en sociología no puede ser manipulado experimentalmente.
+
+
+--
+
+#### Posible solución: experimentos naturales
+
+1 Grupo de Tratamiento y de Control
+2 Asignación aleatoria del tratamiento o "como si fuera" aleatoria
+3 El investigador no controla la asignación
+
+No hay manipulación del tratamiento. 
+
+--
+
+#### Posible solución II: medir y controlar variables observacionalmente
+
+
+---
+
+class: inverse, center, middle
+
+# II. Observacionales explicativos
 
 ---
 
@@ -73,31 +362,23 @@ class: center, middle
 
 ## ¿Por qué observacionales?
 
-+ Hablamos de un estudio observacional para describir diseños en los que el investigador no manipula variables experimentales ni asigna aleatoriamente a sujetos a tratamientos, sino que simplemente observa secuencias causales y covariaciones.
++ Investigador no manipula variables experimentales ni asigna aleatoriamente a sujetos a tratamientos, sino que simplemente observa secuencias causales y covariaciones.
 
 --
 
-+ La mayoría de lo que nos interesa estudiar en sociología no puede ser manipulado experimentalmente.
-
----
-
-# Tipos de estudios observacionales
+## Tipos de observacionales
 
 --
 
-Estudios observacionales
-
---
-
-  + Cualitativos:
++ Cualitativos:
   
-    + Estudio de caso
+    + Estudio de caso (N=1)
     
-    + Estudio comparado
+    + Estudio comparado (N&gt;1 &amp; N&lt;20)
     
 --
     
-  + Cuantitativos:
++ Cuantitativos:
   
     + Transversales
     
@@ -105,7 +386,7 @@ Estudios observacionales
     
 --
 
-  + Mixtos
++ Mixtos
   
 ---
 
@@ -113,11 +394,17 @@ Estudios observacionales
 
 + Se selecciona un caso en el que los valores apropiados de las variables independientes y dependientes están presentes.
 
+--
+
 + El estudio de caso busca establecer si existe un vínculo real entre las variables, es decir, estudia los mecanismos causales.
 
-+ *"Los estudios de caso no se refieren a cuánto importan las variables, sino de qué manera o cómo importan."* (George y col., 2005).
+--
 
-+ Reduce la correlación espuria al exigir que el investigador identíque un "camino causal ininterrumpido" entre las causas hipotéticas y los resultados observados.
++ No se refieren a cuánto importan las variables, sino de qué manera o cómo importan.
+
+--
+
++ Hace frente a la correlación espuria al exigir que se identifique un *"camino causal ininterrumpido"* entre las causas hipotéticas y los resultados observados.
 
 ---
 
@@ -127,45 +414,36 @@ Estudios observacionales
 
 ---
 
-# Estudios comparados (N-Chico)
+# Estudios comparados 
 
 + Este tipo de investigación involucra más de un caso; se denominan a menudo estudios de casos comparativos.
 
+--
+
 + Múltiples casos no deben considerarse como una "muestra"
 
-+ Más bien, los casos se eligen por la presencia o ausencia de factores que una teoría política ha indicado que son importantes.
+--
 
-+ Comparar casos nos permite simular un control y una intervención. Método de diferencias introducido por Stuart Mill.
-
----
-
-# ¿Cómo comparar para explicar?
-
-&lt;img src="Imagenes/mill.PNG" width="25%" style="display: block; margin: auto auto auto 0;" /&gt;
++ Más bien, los casos se eligen por la presencia o ausencia de factores que la teoría política ha indicado que son importantes.
 
 --
 
-+ La estrategia de selección que apunta a identicar casos paradigmáticos del fenómeno de interés fue denominada como método de similitud y de diferencia por John Stuart Mill a mediados del siglo XIX.
++ Se pueden buscar casos paradigmáticos del fenómeno de interés o casos raros que se salen de las trayectorias presupuestadas.
 
 --
-
-+ En contraste, Adam Przeworski y Henry Teune Teune (1970) caracterizaron a esta estrategia como el disño basado en los casos más diferentes y casos más similares.
-
----
-
-# Ejemplo: Seymor and Marks (2000)
 
 + ¿Por qué no apareció un movimiento socialista en EEUU pero sí en Francia? (Lipset y Marks, 2000)
 
 --
 
-&lt;img src="Imagenes/mill_eeuu_france.PNG" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
-
+Coller, X. (2000) [Estudio de casos. Cuadernos Metodológicos. Centro de Investigaciones Sociológicas.](https://books.google.cl/books/about/Estudio_de_casos.html?id=VwwXjmCNcLUC&amp;redir_esc=y)
 
 
 ---
 
-# Diseños transversales (cross-sectional)
+# Diseños transversales
+
+Volvamos al mundo cuantitativo.
 
 --
 
@@ -173,21 +451,25 @@ Estudios observacionales
 
 --
 
-+ Si las unidades de análisis son individuos, se suelen emplear encuestas; si los sujetos son entidades geográficas, como estados o naciones u otras agrupaciones de unidades, se emplea análisis agregado.
++ Si las unidades de análisis son individuos, se suelen emplear encuestas.
 
 --
 
 + Observación de fenómenos en entornos más naturales y realistas con alta capacidad de generalización.
 
+--
+
++ Nunca hay completo naturalismo. Se fuerzan situaciones para la producción del dato. 
+
 ---
 
-# Ejemplo estudio transversal
+# Diseños transversales
 
 &lt;img src="Imagenes/est_transversal.PNG" width="80%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Ejemplo estudio transversal
+# Diseños transversales
 
 &lt;img src="Imagenes/est_transversal2.PNG" width="100%" style="display: block; margin: auto;" /&gt;
 
@@ -195,27 +477,30 @@ Estudios observacionales
 
 # Estudios transversales explicativos
 
-+ Variable instrumental
++ La típica forma de analizar los datos es con regresión líneal simple o múltiple.
 
 --
 
-+ Matching
++ Pero hay muchas otras formas como ecuaciones estructurales, modelos multinivel, análisis factorial, etcétera.
 
 --
 
-+ Ecuaciones estructurales
++ La realidad social cambia y una foto de un momento particular puede no ser suficiente.
 
 --
 
-+ ¿Regresión?
++ ¿Como determinar que una variable es la causa de la otra? 
 
 --
 
-  + Efectos fijos y aleatorios
+Una posible solución es recurrir al tiempo.
 
-  + Errores estándares clusterizados
 
-  + Modelos de máxima verosimilitud
+---
+
+# Dimensión temporal en diseño
+
+&lt;a href="https://www.tylervigen.com/spurious-correlations" target="_blank"&gt;&lt;img src="imagenes/cross_longitudinal.png" width="100%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
 
 ---
 
@@ -225,89 +510,55 @@ Estudios observacionales
 
 --
 
-+ En principio pueden estimar tres tipos de efectos: edad, periodo (historia) y cohorte.
++ En principio pueden estimar tres tipos de efectos.
 
 --
 
-+ Los dos tipos principales son los estudio de panel y los análisis de tendencias.
++ Los dos tipos principales son los estudio de **panel**, **cohorte** y de **tendencias**.
+
+---
+
+# De tendencia
+
+Una característica dada de alguna población se supervisa a lo largo del tiempo.
+
+--
+
++ Preferencias electorales de las y los chilenos
+
+--
+
++ Evolución de la tasa de desocupación y del producto interno bruto en países
+
+--
+
++ Inscripciones de nombres en el registro electoral
+
+
+---
+
+# Cohorte
+
+Subpoblación o cohorte se estudia a lo largo del tiempo (generación de los 2000, del 2010, etc.). 
+
+Los datos se pueden recopilar de diferentes miembros en cada conjunto de observaciones
+
+
 
 ---
 
 # Estudio Panel
 
-&lt;img src="Imagenes/panel.PNG" width="100%" style="display: block; margin: auto;" /&gt;
-
----
-
-# Estudios longitudinales explicativos
+Datos se recopilan del mismo conjunto de personas (la muestra o el panel) en varios momentos del tiempo.
 
 --
 
-+ Efectos potenciales con datos long-wide
+Mortalidad del panel y abandono (*atrición*) -&gt; refreso de muestra o paneles rotativos
 
-+ Regresión con variable lagueada
+Desafío de transformación de datos (long-wide)
 
-+ Diff in diff
+Desafío de análisis (Efectos fijos y aleatorios, Diff in diff, etc.)
 
-+ Ecuaciones estructurales
-
-+ Argumentos causales con estadística descriptiva
-
-+ Regresiones discontinuas
-
----
-
-# Métodos Mixtos
-
---
-
-+ ¿En qué consisten? ¿Cuáles son sus fortalezas y debilidades?
-
---
-
-+ El año 2005 Liebreman propuso sistematizar el uso de los métodos mixtos en lo que él llamó: "Nested Analysis" (Lieberman, 2005).
-
---
-
-+ La estrategia de combinar ambos acercamientos busca:
-
---
-
-  + Mejorar la calidad de la conceptualización y de las medidas (Validez interna)
-
-  + Analizar explicaciones rivales o alternativas y generalizar (Validez externa).
-  
-  + Una mayor confianza en los hallazgos principales del estudio (Triangulación).
-
-
----
-
-# Métodos Mixtos
-
---
-
-En términos específicos:
-
-+ El análisis de N-grande ayuda a:
-
-    + A Dar luces sobre explicaciones alternativas y descartarlas o explorarlas.
-
-    + B Motiva a una buena estrategia de seleccion de casos de N-chico.
-
---
-
-+ El análisis de N-chico ayuda a:
-
-    + A Mejorar y afirmar los instrumentos de medición.
-
-    + B Ayuda a mejorar las especificaciones del modelo.
-
-
----
-
-# Métodos Mixtos: Lieberman (2005)
-
-&lt;img src="Imagenes/lieberman.PNG" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -323,41 +574,43 @@ En términos específicos:
 
 + La recomendación es que no conviene especializarse en un puro tipo de diseño.
 
-+ Debemos estar abertos a estar siempre cambiando en función de nuestros objetivos de investigación.
++ Debemos estar abiertos a estar siempre cambiando en función de nuestros objetivos de investigación.
 
-
----
-
-class: center, middle
-
-## Una recomendación importante
-
---
-
-*"El mensaje más importante a tener en cuenta cuando se avanza a través del ciclo completo es que no existe una estrategia o grupo de estrategias que sean ideales para todos los temas de investigación. Todo depende del punto de partida, de la sustancia inicial que el investigador haya decidido investigar."* (Schmitter, 2013)
 
 ---
 
 # Referencias bibliográficas
 
-+ George, Alexander L y col. (2005). Case studies and theory development in the social sciences. mit Press.
-
-+ Gerring, John (2012). "Mere description". En: British Journal of Political Science, págs. 721-746. King, Gary, Robert O Keohane y Sidney Verba (1994). Designing social inquiry: Scientic inference in qualitative research. Princeton university press.
-
-+ Lieberman, Evan S (2005). "Nested analysis as a mixed-method strategy for comparative research". En: American political science review 99.3, págs. 435-452.
-
-+ Lipset, Seymour Martin y Gary Marks (2000). It didn't happen here: why socialism failed in the United States. WW Norton &amp; Company.
-
-+ Schmitter, Philippe C (2013). "El diseño de la investigación social y política". En: Enfoques y metodologías de las Ciencias sociales: una perspectiva pluralista. Akal, págs. 281-312.
-
-+ Teune, Henry y Adam Przeworski (1970). The logic of comparative social inquiry. New York: Wiley-Interscience.
 
 
-```
-## You haven't cited any references in this bibliography yet.
-```
+&lt;a name=bib-Corbetta2007&gt;&lt;/a&gt;[Corbetta, P.](#cite-Corbetta2007) (2007).
+_Metodolog\'ia y Técnicas de Investigación Social_.
+McGraw-Hill/Interamericana de España, SAU.
 
-NULL
+&lt;a name=bib-Elster2010&gt;&lt;/a&gt;[Elster, J.](#cite-Elster2010) (2010). _La
+Explicación Del Comportamiento Social: Más Tuercas y Tornillos Para Las
+Ciencias Sociales_. Editorial Gedisa.
+
+&lt;a name=bib-Gerring2012&gt;&lt;/a&gt;[Gerring, J.](#cite-Gerring2012) (2012).
+"Mere Description". In: _British Journal of Political Science_ 42.4,
+pp. 721-746.
+
+&lt;a name=bib-Schmitter2013&gt;&lt;/a&gt;[Schmitter, P. C.](#cite-Schmitter2013)
+(2013). "El Diseño de La Investigación Social y Pol\'itica". In:
+_Enfoques y Metodolog\'ias de Las Ciencias Sociales: Una Perspectiva
+Pluralista_. Akal, pp. 281-312.
+
+---
+
+class: inverse, center, middle
+
+# Revisión tarea, R project e importar data (.rds)
+
+<div class="countdown" id="timer_612da9f5" style="right:0;bottom:0;" data-warnwhen="0">
+<code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
+</div>
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
