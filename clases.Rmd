@@ -18,9 +18,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Clase 2. Bloque 2 práctico](clases/clase2/clase2b.html)
 
-# Tipos de datos cuantitativos e introducción a dplyr
+# Tipos de datos cuantitativos, proceso estadístico e introducción a dplyr
 
 [Clase 3. Bloque 1 teórico](clases/clase3/clase3a_tipos.html)
 
 [Clase 3. Bloque 2 práctico](clases/clase3/clase3b_dplyr.html)
 
+# Diseños de investigación: entre la observación y la experimentación; y la descripción y la causalidad
+
+[Clase 4. Bloque 1 teórico]()
+
+[Clase 4. Bloque 2 práctico]()
