@@ -35,18 +35,21 @@ class: inverse, center, middle
 
 ---
 
-# El proceso de investigación
-
-&lt;img src="imagenes/diseno.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
----
-
 # El diseño
 
-Plan estructurado de acción y ordenamiento de la situación de investigación, que está orientado a responder empíricamente (evidencia observable) una pregunta de investigación.
+Antes de recolectar y analizar datos necesitamos **un plan**
 
-+ ¿Qué aspecto de la teoría va a ser testeado?
+--
+
+Nuestras ideas e intereses de investigación deben formalizarse en **objetivos** y en un plan que permita su consecución. 
+
+--
+
+El diseño es este **plan estructurado** de acción y ordenamiento de la situación de investigación.
+
+--
+
++ ¿Qué aspecto de la teoría va a ser observado?
 
 + ¿Qué observaciones se harán para responder a la pregunta de investigación?
 
@@ -56,8 +59,7 @@ Plan estructurado de acción y ordenamiento de la situación de investigación, 
 
 --
 
-Todo buen diseño de investigación busca el mismo objetivo: Sacar conclusiones
-fundamentadas y relevantes a partir de un correcto tratamiento de la evidencia
+El objeto es sacar conclusiones fundamentadas y relevantes a partir de un correcto tratamiento de la evidencia
 empírica.
 
 ---
@@ -195,11 +197,44 @@ Realizamos acciones muy diferentes cuando describimos...
 
 class: inverse, center, middle
 
-# II. El problema de la causalidad y los diseños experimentales
+# II. El problema de la causalidad y diseños experimentales
 
 ---
 
-# 1. Relaciones espurias
+# Diseños causales
+
+EL objetivo será explicar un fenómeno (`Y`).
+
+--
+
+Para su explicación se puede buscar aislar el efecto específico de un fenómeno de interés (`X1`)
+
+--
+
+O se puede buscar explicar parte importante de Y por otras varias variables (`X1`, `X2`, `X3`, etc.)
+
+--
+
+Para afirmar que `X` es causa de `Y`:
+
++ Correlación
+
++ Relación no espuria (¿se mantiene relación al controlar por 3ras variables)
+
++ Orden temporal (y lógico)
+
+--
+
+**Advertencia:** en ciencias sociales `X1` nunca será la causa necesaria y suficiente de `Y`.
+
+
+---
+
+# 1. Correlación
+
+Correlación no es causalidad. 
+
+--
 
 Que dos o más variables cavaríen no implica que ambas estén afectadas por el mismo fenómeno o, que una explique a la otra.
 
@@ -219,7 +254,7 @@ Que dos o más variables cavaríen no implica que ambas estén afectadas por el 
 
 ---
 
-# 1. Relaciones espurias
+# 2. Relaciones espurias
 
 + En estos casos la relación entre las variables es pura casualidad. 
 
@@ -248,10 +283,31 @@ Hay una variable **"omitida"** que explica la asociación (el tiempo):
 
 *Las cigüeñas son aves migratorias que regresan a Alemania en primavera, aproximadamente 9 meses después de la mitad del verano (cuando "se hacen los bebés").*
 
+---
+
+# 3. Orden temporal
+
+¿Que viene primero?, ¿EL huevo o la gallina?
+
+--
+
+&lt;img src="Imagenes/musulm.PNG" width="50%" style="display: block; margin: auto;" /&gt;
+
+¿Como determinamos que la relación entre las dos variables es causal?
+
+--
+
+Perfectamente la relación podría ser inversa. 
 
 ---
 
-# 2. Contrafácticos
+# 4. Contrafácticos
+
+Otra forma de determinar relación causal:
+
+Si `Y` ocurre cuando ocurre `X`, ¿que pasa cuando X no ocurre?
+
+--
 
 Las cigueñas durante la primavera traen a los niños/as recién nacidos
 
@@ -262,12 +318,6 @@ Las cigueñas durante la primavera traen a los niños/as recién nacidos
 Cómete la comida para que crezcas sano.
 
 + Si no te comes la comida, no vas a crecer sano.
-
---
-
-Gracias al antibiótico, Juan ya no tiene amigdalitis.
-
-+ Si no hubiera tomado el antibiótico, tendría amigdalitis.
 
 --
 
@@ -283,7 +333,7 @@ La ayuda internacional genera crecimiento en los países que la reciben.
 
 ---
 
-# 2. Contrafácticos
+# 4. Contrafácticos
 
 Efectos causales son afirmaciones relacionadas a una acción (tratamiento / manipulación) que se ejerció sobre una unidad.
 
@@ -607,7 +657,11 @@ Una posible solución es recurrir al tiempo.
 
 # Diseños longitudinales
 
-+ Se caracterizan por la disponibilidad de medidas de variables en diferentes momentos.
++ Aplicar mediciones en diferentes momentos del tiempo (variabilidad temporal)
+
+--
+
++ Se hacen cargo del criterio causal del "orden temporal".
 
 --
 
@@ -631,9 +685,6 @@ Una característica dada de alguna población se supervisa a lo largo del tiempo
 
 + Evolución de la tasa de desocupación y del producto interno bruto en países
 
---
-
-+ Inscripciones de nombres en el registro electoral
 
 
 ---
@@ -644,6 +695,9 @@ Subpoblación o cohorte se estudia a lo largo del tiempo (generación de los 200
 
 Los datos se pueden recopilar de diferentes miembros en cada conjunto de observaciones
 
+--
+
+&lt;a href="https://www.tylervigen.com/spurious-correlations" target="_blank"&gt;&lt;img src="imagenes/cohort.png" width="80%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
 
 
 ---
@@ -654,11 +708,21 @@ Datos se recopilan del mismo conjunto de personas (la muestra o el panel) en var
 
 --
 
-Mortalidad del panel y abandono (*atrición*) -&gt; refreso de muestra o paneles rotativos
+Variabilidad de las unidades en cada momentos y en el tiempo. 
 
-Desafío de transformación de datos (long-wide)
+--
 
-Desafío de análisis (Efectos fijos y aleatorios, Diff in diff, etc.)
+Facilita la inferencia causal y observar desfases de conducta &lt;a name=cite-Schmitter2013&gt;&lt;/a&gt;([Schmitter, 2013](#bib-Schmitter2013))
+
+--
+
+Dificultades
+
++ Difícil de obtener. Mortalidad del panel y abandono (*atrición*) -&gt; refresco de muestra o paneles rotativos
+
++ Desafío de transformación de datos (long-wide)
+
++ Desafío de análisis (Efectos fijos y aleatorios, Diff in diff, etc.)
 
 
 ---
@@ -722,7 +786,7 @@ class: inverse, center, middle
 
 # Revisión tarea, R project e importar data (.rds)
 
-<div class="countdown" id="timer_61302dc2" style="right:0;bottom:0;" data-warnwhen="0">
+<div class="countdown" id="timer_61312baa" style="right:0;bottom:0;" data-warnwhen="0">
 <code class="countdown-time"><span class="countdown-digits minutes">10</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">30</span></code>
 </div>
 
