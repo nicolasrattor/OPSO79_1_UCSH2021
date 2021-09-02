@@ -110,17 +110,17 @@ Las inferencias pueden ser descriptivas o causales
 
 **Inferencias descriptivas:**
 
-Proponer conceptos nuevos, asociaciones o agrupaciones entre ellos. 
+Describir fenómenos, proponer conceptos nuevos, asociaciones o agrupaciones entre ellos. 
 
-Lógica de descubrimiento.
+*Lógica de descubrimiento.*
 
 --
 
 **Inferencias causales:**
 
-Conocer efectos causales o encontrar causas necesarias y/o suficientes a partir de los fatos observados. 
+Conocer efectos causales o encontrar causas necesarias y/o suficientes a partir de los datos observados. 
 
-Lógica de demostración.
+*Lógica de demostración.*
 
 ---
 
@@ -130,7 +130,7 @@ Lógica de demostración.
 
 --
 
-Según los objetivos de la investigación los diseños pueden ser:
+Según los **objetivos** de la investigación los diseños pueden ser:
 
 + Descriptivos
 
@@ -138,7 +138,7 @@ Según los objetivos de la investigación los diseños pueden ser:
 
 --
 
-Según el grado de intervención y control del investigador:
+Según el grado de **intervención** y control del investigador:
 
 + Experimentales
 
@@ -149,37 +149,6 @@ Según el grado de intervención y control del investigador:
 ```{r fig.align='center', out.width = "100%", echo=FALSE}
 knitr::include_graphics("imagenes/experimentos_observacional.png")
 ```
-
-
----
-
-class: inverse, center, middle
-
-*"No existe una estrategia o grupo de estrategias que sean ideales para todos los temas de investigación. Todo depende del punto de partida, de la sustancia inicial que el investigador haya decidido investigar."* (Schmitter, 2013)
-
----
-
-# Validez del diseño
-
-Además, cada diseño tendrá sus fortalezas. 
-
---
-
-#### Validez Interna
-
-+ Capacidad de explicar la variable de interés (dependiente) al poder controlar por explicaciones alternativas.
-
-+ Determina entonces si la relación de la hipótesis es espuria o no.
-
---
-
-#### Validez Externa
-
-+ Capacidad de generalizar los resultados más allá de las condiciones particulares o específicas en las que se realizó el estudio.
-
---
-
-Mientras que un experimento tiene mayor validez interna y menor validez externa; lo opuesto se aplica diseños observacionales de N grande. 
 
 ---
 
@@ -197,7 +166,7 @@ El centro de este curso.
 
 --
 
-De acuerdo con Gerring (2012), la **descripción** y la **causalidad** son en última instancias argumentos.
+De acuerdo con `r Citet(bib, "Gerring2012")`, la **descripción** y la **causalidad** son en última instancias argumentos.
 
 --
 
@@ -218,6 +187,39 @@ Para responder con certeza se requiere controlar por **explicaciones rivales** y
 --
 
 *Por ejemplo: “La tercera ola de democratización fue causada, en parte, por el final del Guerra Fría.”*
+
+
+---
+
+# Estudios Descriptivos
+
++ Tipo de diseño en "decadencia" en revistas científicas *mainstream*
++ En cursos se suele hacer tratamiento rápido de técnicas de recolección y análisis descriptivos. 
++ Énfasis en relación causal sin tener claras definiciones mismas de los conceptos (democracia y convivencia pacífica entre países)
+
+--
+
+Estudio explicativo sustantivo debería anteceder de una rica descripción. 
+
+--
+
+Además, la descripción es parte del método científico por derecho propio.
+
+Mundo social variante y en movimiento. Necesario saber que está pasando y como funciona. 
+
+--
+
+En cs. naturales parte central de la actividad es descrubir "nuevas cosas afuera" que deben ser nombradas, medidas, caracterizadas, clasificadas o reclasificadas. 
+
+--
+
+**Dificultad descriptiva:** decir cosas nuevas requiere invertir tiempo, fondos y trabajo. 
+
+Para que sea de calidad requiere más información incluso que el diseño causal
+
+--
+
+Realizamos acciones muy diferentes cuando describimos...
 
 ---
 
@@ -261,35 +263,43 @@ knitr::include_graphics("imagenes/cage.png")
 
 # 1. Relaciones espurias
 
-En estos casos la relación entre las variables es pura casualidad. 
++ En estos casos la relación entre las variables es pura casualidad. 
 
 --
 
-En otros casos una puede estar afectando a la otra efectivamente.
++ En otros casos una puede estar afectando a la otra efectivamente.
 
 --
 
-Y en otros casos una tercera **variable oculta** u **omitida** puede estar generando la variación observada. 
++ Y en otros casos una tercera **variable oculta** u **omitida** puede estar generando la variación observada. 
 
 
 --
 
-[¿Las cigueñas traen a los niños/as?](https://priceonomics.com/do-storks-deliver-babies/), ¿Hay una relación entre las variables?
+[¿Las cigueñas traen a los niños/as recién nacidos?](https://priceonomics.com/do-storks-deliver-babies/)
 
 --
 
-Hay estudios que indican que existe relación, pero no de causalidad entre una u otra. 
+Hay estudios que indican que **existe relación**, pero no de causalidad entre una u otra. 
 
 --
 
-Hay una variable "omitida" que explica la asociación (el tiempo):
+Hay una variable **"omitida"** que explica la asociación (el tiempo):
 
-Las cigüeñas son aves migratorias que regresan a Alemania en primavera, aproximadamente 9 meses después de la mitad del verano (cuando "se hacen los bebés").
+--
+
+*Las cigüeñas son aves migratorias que regresan a Alemania en primavera, aproximadamente 9 meses después de la mitad del verano (cuando "se hacen los bebés").*
 
 
 ---
 
 # 2. Contrafácticos
+
+Las cigueñas durante la primavera traen a los niños/as recién nacidos
+
++ Si no llegan cigueñas en primavera no aumenta la natalidad
+
+--
 
 Cómete la comida para que crezcas sano.
 
@@ -325,48 +335,96 @@ Contrafactual: lo que hubiera pasado sí sobre la unidad no se ejercía el trata
 
 --
 
-El problema fundamental de la inferencia causal es que **no podemos observar simultáneamente** el valor de la unidad con y sin el tratamiento. Por lo tanto, no podemos observar el efecto causal en la unidad.
+El problema fundamental de la inferencia causal es que **no podemos observar simultáneamente** el valor de la unidad con y sin el tratamiento. 
 
 --
 
-Posible solución es seleccionar aleatoriamente dos grupos de unidades idénticas y aplicarles el tratamiento a una y a la otra no. 
-
---
-
-Los efectos generados solo podrían deberse por el tratamiento, ya que por el azar en todos los demás aspectos los grupos son iguales. 
+Por lo tanto, no podemos observar el efecto causal en la unidad.
 
 
 ---
 
 # La solución: experimentos
 
-Asignación aleatoria del tratamiento (variable independiente).
+--
+
+Asignación **aleatoria** de sujetos a dos grupos. A uno se le aplica un tratamiento y al otro no.
 
 --
 
-Un experimento clásico:
-
-1 Manipulación del Tratamiento (Variable Independiente)
-
-2 Variable Dependiente
-
-3 Pretest
-
-4 Posttest
-
-5 Grupo experimental
-
-6 Grupo de control
-
-7 Asignación aleatoria
+Los **efectos** generados solo podrían deberse por el tratamiento, ya que por el azar en todos los demás aspectos los grupos son iguales. 
 
 --
 
 Permite tener el mayor control posible sobre la variable independiente, las unidades de análisis y el entorno donde ocurre el fenómeno.
 
+--
+
+Por este control decimos que la situación es *cómo* de laboratorio. 
+
+--
+
+*¿La vacuna X reduce la mortalidad por Covid-19?*
+
+--
+
+*¿El concientizar ciudadanos de EEUU sobre historia musulmana reduce sus prejuicios?*
+
 ---
 
-# Problema experimental
+# Experimentos
+
+### Pregunta clásica:
+
+¿la variable **X** tiene un efecto significativo sobre la variable **Y**?
+
+¿Cuál es la **dirección** y **fuerza** de ese efecto?
+
+--
+
+### Elementos:
+
+.pull-left[
+
++ Manipulación del Tratamiento (Variable Independiente dicotómica)
+
++ Variable Dependiente
+
++ Pretest
+
+]
+
+.pull-right[
+
++ Posttest
+
++ Grupo experimental
+
++ Grupo de control
+
++ Asignación aleatoria
+
+]
+
+---
+
+# Experimento
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("imagenes/Esquema experimento clásico.png")
+```
+
+---
+
+# Experimento
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("imagenes/experimento musulmanes.png")
+```
+
+---
+
+# Problemas experimentales
 
 --
 
@@ -376,60 +434,109 @@ Permite tener el mayor control posible sobre la variable independiente, las unid
 
 + La mayoría de lo que nos interesa estudiar en sociología no puede ser manipulado experimentalmente.
 
+--
+
++ Alta validez interna: Capacidad de explicar la variable de interés al poder controlar por explicaciones alternativas.
 
 --
 
-#### Posible solución: experimentos naturales
++ Escasa validez Externa: poca capacidad de generalizar los resultados al mundo real:
 
-1 Grupo de Tratamiento y de Control
-2 Asignación aleatoria del tratamiento o "como si fuera" aleatoria
-3 El investigador no controla la asignación
+    + Aleatorización es de los grupos, no de quienes participan.
+    
+    + Tratamiento tiene forma específica (efecto de cine/tv) 
 
-No hay manipulación del tratamiento. 
 
 --
 
-#### Posible solución II: medir y controlar variables observacionalmente
++ Efecto Howthorne (grupo experimental altera comportamiento al estar sometido a test-tratamiento-retest)
+
+--
+
++ Aprendizaje al replicarse el test
+
+--
+
++ Eventuales problemas éticos (daños psicológicos)
+
+
+---
+
+# ¿Soluciones?
+
+--
+
+16 tipos de experimentos diferentes. Van solucionando problemas parciales. 
+
+--
+
+Cuasi experimentos: **experimentos naturales**
+
++ Grupo de Tratamiento y de Control
+
++ Asignación aleatoria del tratamiento o "como si fuera" aleatoria
+
++ El investigador no controla la asignación
+
++ Difícilmente hay pretest
+
+--
+
+Medir y controlar variables observacionalmente...
 
 
 ---
 
 class: inverse, center, middle
 
-# II. Observacionales explicativos
+# III. Diseños observacionales explicativos
 
 ---
 
-# Diseños observacionales explicativos
+# Obs. explicativos
 
-## ¿Por qué observacionales?
+#### ¿Por qué observacionales?
 
-+ Investigador no manipula variables experimentales ni asigna aleatoriamente a sujetos a tratamientos, sino que simplemente observa secuencias causales y covariaciones.
++ Investigador no manipula variables experimentales ni asigna aleatoriamente a sujetos a tratamientos.
+
+--
+
++ Presencia o ausencia de variables independientes no está en poder de investigador. 
 
 --
 
-## Tipos de observacionales
++ Se observan propiedades variables entre los sujetos (que pueden variar en el tiempo)
 
 --
+
+#### Tipos de observacionales
+
+--
+
+.pull-left[
 
 + Cualitativos:
   
     + Estudio de caso (N=1)
     
     + Estudio comparado (N>1 & N<20)
-    
+
+]
+
 --
+
+.pull-right[
     
 + Cuantitativos:
   
     + Transversales
     
     + Longitudinales
-    
---
 
 + Mixtos
-  
+
+]
+
 ---
 
 # Estudio de caso
@@ -499,6 +606,10 @@ Volvamos al mundo cuantitativo.
 
 --
 
++ Discutible la capacidad de **"aislar completamente"** el efecto de la variable independiente de interés.
+
+--
+
 + Observación de fenómenos en entornos más naturales y realistas con alta capacidad de generalización.
 
 --
@@ -510,26 +621,26 @@ Volvamos al mundo cuantitativo.
 # Diseños transversales
 
 ```{r fig.align="center", echo=FALSE, out.width="80%"}
-knitr::include_graphics("Imagenes/est_transversal.PNG")
+knitr::include_graphics("Imagenes/esquema1.png")
 ```
 
 ---
 
 # Diseños transversales
 
-```{r fig.align="center", echo=FALSE, out.width="100%"}
-knitr::include_graphics("Imagenes/est_transversal2.PNG")
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/esquema2.png")
 ```
 
 ---
 
-# Estudios transversales explicativos
+# Diseños transversales
 
 + La típica forma de analizar los datos es con regresión líneal simple o múltiple.
 
 --
 
-+ Pero hay muchas otras formas como ecuaciones estructurales, modelos multinivel, análisis factorial, etcétera.
++ Pero hay muchas otras formas como ecuaciones estructurales, modelos multinivel, etcétera.
 
 --
 
@@ -546,25 +657,19 @@ Una posible solución es recurrir al tiempo.
 
 ---
 
-# Dimensión temporal en diseño
-
-```{r fig.align='center', out.width = "100%", echo=FALSE, fig.link="https://www.tylervigen.com/spurious-correlations"}
-knitr::include_graphics("imagenes/cross_longitudinal.png")
-```
-
----
-
 # Diseños longitudinales
 
 + Se caracterizan por la disponibilidad de medidas de variables en diferentes momentos.
 
 --
 
-+ En principio pueden estimar tres tipos de efectos.
++ Pueden ser del tipo **panel**, **cohorte** y de **tendencias**.
 
 --
 
-+ Los dos tipos principales son los estudio de **panel**, **cohorte** y de **tendencias**.
+```{r fig.align='center', out.width = "70%", echo=FALSE, fig.link="https://www.tylervigen.com/spurious-correlations"}
+knitr::include_graphics("imagenes/cross_longitudinal.png")
+```
 
 ---
 
@@ -612,19 +717,31 @@ Desafío de análisis (Efectos fijos y aleatorios, Diff in diff, etc.)
 
 ---
 
-# Síntesis, ¿cuál es el mejor diseño?
+# Conclusiones
 
 --
 
 + Todas las formas tienen sus ventajas y desventajas.
 
+--
+
 + El mejor diseño va a depender de nuestra pregunta de investigación.
 
-+ Por lo tanto, el mejor diseño va a ser el que ayude mejor a responder una pregunta de investigación y a un conjunto de hipótesis.
+--
 
-+ La recomendación es que no conviene especializarse en un puro tipo de diseño.
++ Por tanto, el mejor diseño va a ser el que ayude mejor a responder una pregunta de investigación.
 
-+ Debemos estar abiertos a estar siempre cambiando en función de nuestros objetivos de investigación.
+--
+
++ Tanto los diseños causales cómo los descriptivos hacen aportes al progreso científico
+
+--
+
++ Importancia de la validez de los diseños (experimentos problemas de validez externa)
+
+--
+
++ Limitación de los observacionales causales: imposibilidad de controlar por todos los elementos
 
 
 ---
@@ -633,6 +750,7 @@ Desafío de análisis (Efectos fijos y aleatorios, Diff in diff, etc.)
 
 ```{r echo=FALSE, results=FALSE}
 Citet(bib, "Gerring2012")
+Citet(bib, "Babbie2014")
 Citet(bib, "Corbetta2007")
 Citet(bib, "Elster2010")
 Citet(bib, "Schmitter2013")

@@ -595,11 +595,13 @@ Estas instrucciones solo funcionarán en mi computador (Nratto).
 
 --
 
-Pero la gracia de R es la contraria. Que en código pueda ser utilizado por terceros en cualquier otro computador.
+Pero la gracia de R es la contraria. Que un código pueda ser utilizado por terceros en cualquier otro computador.
 
 --
 
 Por la tanto, las rutas absolutas son un problema. Solo funciona desde nuestras computadoras personales.
+
+(este es el problema de ocupar la función `setwd()` para fijar directorios)
 
 ---
 
