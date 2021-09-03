@@ -26,6 +26,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Diseños de investigación: entre la observación y la experimentación; y la descripción y la causalidad
 
-[Clase 4. Bloque 1 teórico]()
+[Clase 4. Bloque 1 teórico](clases/clase4/clase4a_diseno.html)
 
-[Clase 4. Bloque 2 práctico]()
+[Clase 4. Bloque 2 práctico](clases/clase4/clase4b_rproj.html)
