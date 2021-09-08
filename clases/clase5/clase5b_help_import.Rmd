@@ -1,0 +1,337 @@
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Investigación por encuestas; principales encuestas en Chile y como importarlas en R. Bloque práctico (5b)"
+date: "`10/09/2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("../../bibliografia/bib.bib", check = FALSE)
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(dplyr)
+library(guaguas)
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+pagedown::chrome_print("clase5b_help_import.html")
+
+```
+
+---
+
+# Introducción
+
+Sesión anterior comenzamos a importar data a R desde archivos en nuestro pc
+
+--
+
+Para hacerlo fue central el uso de los `R Project`. Con estos creamos una carpeta o directorio en nuestro computador.
+
+--
+
+Desde esta ruta importamos y exportamos datos para cada proyecto, tarea o prueba que hacemos. 
+
+--
+
+Si funciona bien. En carpeta que creamos aparecerá un archivo `.RProj` que fija la ruta y que debemos abrir cada vez que queramos trabajar en nuestro proyecto. 
+
+--
+
+**¡OJO!** Este archivo es ligero, solo fija la ruta, no guarda la sesión de R ni lo que hayamos hecho. 
+
+Todo eso se guarda como código en archivo `.rmd` o `.r`
+
+--
+
+El formato para guardar datos en R es `.rds` y `.Rdata` (la data de Afganistán estaba en este formato), pero por ahora no usaremos esto. 
+
+---
+
+# Introducción
+
+Hoy seguiremos usando los `.RProj` para importar data. 
+
+--
+
+Veremos cuáles son las principales data frames que en sociología se suelen usar para responder a preguntas de investigación (sesgado):
+
+--
+
++ Encuesta ENE, ESI y ENCLA
+
++ Encuesta CASEN 
+
++ Encuesta Discapacidad 
+
++ Latinobarómetro 
+
+--
+
+Sobre todo, veremos como cargarlas y visualizarlas en R desde los distintos formas en los que se encuentran liberadas (excel, spss y stata).
+
+La lógica es la misma para los distintos formatos. 
+
+--
+
+Antes veremos recomendaciones para "pedir ayuda" cuando no sabemos como hacer algo en R (como cargar datos en un formato específico)
+
+---
+
+class: inverse, center, middle
+
+# Pedir ayuda en R
+
+---
+
+# Pedir ayuda en R
+
+--
+
+Ningún libro, clase o tutorial te dará todas las herramientas para solucionar los **problemas** a los que te enfrentarás en R
+
+--
+
+Si en algún momento ya no puedes avanzar, empieza buscando en Google:
+
+--
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/google.png")
+```
+
+---
+
+# Pedir ayuda en R
+
+A medida que el tema es más complejo, menos respuestas habrán en español. 
+
+--
+
+En inglés, el 99% de las veces encontrarás respuestas para lo que buscas. 
+
+--
+
+Muchas de las preguntas que hagas, otros ya las habrán hecho antes que tú. 
+
+--
+
+Sin embargo, eventualmente podría ser necesario preguntar...
+
+--
+
+Hay lugares y buenas prácticas para hacerlo. 
+
+
+---
+
+# Pedir ayuda en R
+
+Desde *google* siempre nos saldrán páginas similares de foros y consultas en R. 
+
+--
+
+La más confiable:
+
+--
+
+![](imagenes/stackes.png)
+
+--
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/stackoverflow.png")
+```
+--
+
+También muy recomendado *datanovia*, *r-bloggers*, las documentaciones de los paquetes, secciones de libros, etc.
+
+---
+
+# Pedir ayuda en R
+
+La clave está en saber preguntar en google...
+
+--
+
+Sin embargo, a veces podemos no saber que preguntar, ¿por qué nos aparece un **error** en el código?
+
+--
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/error select.png")
+```
+
+--
+
+Deterse a leer el error e intentar comprenderlo es buena práctica. Si no consigues comprender, **¡cópialo y pégalo en google!**
+
+--
+
+Muchos otros ya lo copiaron y pegaron. Por lo general alguien ya les respondió. 
+
+--
+
+Si el error te aparece en español, con la siguiente función te aparecerá en inglés la próxima vez
+
+```{r eval=FALSE}
+Sys.setenv(LANGUAGE = "en")
+```
+
+---
+
+# Pedir ayuda en R
+
+Aprender a solucionar las "panas" de manera **autónoma** es cuando uno/a más aprende R. 
+
+--
+
+Sin embargo, estamos en un curso y como equipo decente esperamos ayudarlos y acompañarlos en sus aproximaciones a R.
+
+--
+
+Por tanto, si no consiguen resolver sus problemas consultando en *google* pueden preguntar vía mail (como hasta ahora lo han hecho)
+
+--
+
+La mejor manera de preguntar es con **ejemplos reproducibles** (*reprex*):
+
+--
+
++ explicitar de forma clara el problema (puede ser una foto del error)
+
+--
+
++ adjuntar la data sobre la que trabajas (o una parte de ella si es muy pesada)
+
+--
+
++ adjuntar código con el que estás trabajando (*.R* o *.rmd*)
+
+--
+
+Estos puntos son la base para preguntar en foros. 
+
+---
+
+class: inverse, center, middle
+
+# Principales encuestas en ciencias sociales y como importarlas en R
+
+
+---
+
+# Encuesta ENE y ESI
+
+
+---
+
+# Encuesta CASEN
+
+
+---
+
+# Encuesta Encla
+
+
+---
+
+# Encuesta Discapacidad
+
+
+---
+
+# Latinobarómetro
+
+
+
+---
+
+# Para cerrar
+
+Estas son solo algunas de las **principales encuestas** aplicadas en Chile. Hay muchísimas más que pueden ver en la página de estas y otras instituciones.
+
+--
+
+Además, otra data no se produce por encuesta, sino que mediante el **registro de prensa** (Observatorio de Huelgas y Conflictos Sociales), los **registros administrativos** o mediante la **integración** de distintos datos (Banco Mundial, de donde venía la data Afganistán).
+
+--
+
+Sin embargo, toda la data que podría servir para la sociología y que se encuentra **liberada** para nosotros es solo una ínfima parte de toda la data que se produce en Chile.
+
+--
+
+¿Qué pasa con esta data que la producimos todos (aleatoriamente en el caso de las encuestas) pero que solo algunos pueden analizarla y sacarle provecho?
+
+--
+
+Este es uno de los pilares de la **ciencia abierta...** (tema post prueba 1)
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+### Para reforzar y seguir aprendiendo
+
+Wickham, H. (2021) [Pedir ayuda y aprender más](https://es.r4ds.hadley.nz/introducci%C3%B3n.html#pedir-ayuda-y-aprender-m%C3%A1s)
+
+### Bibliografía utilizada
+
+```{r echo=FALSE, results=FALSE}
+Citet(bib, "Wickham2021")
+```
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(bib)
+```
+
+
+

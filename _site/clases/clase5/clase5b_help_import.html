@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-10-09" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Investigación por encuestas; principales encuestas en Chile y como importarlas en R. Bloque práctico (5b)
+### <code>10/09/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+# Introducción
+
+Sesión anterior comenzamos a importar data a R desde archivos en nuestro pc
+
+--
+
+Para hacerlo fue central el uso de los `R Project`. Con estos creamos una carpeta o directorio en nuestro computador.
+
+--
+
+Desde esta ruta importamos y exportamos datos para cada proyecto, tarea o prueba que hacemos. 
+
+--
+
+Si funciona bien. En carpeta que creamos aparecerá un archivo `.RProj` que fija la ruta y que debemos abrir cada vez que queramos trabajar en nuestro proyecto. 
+
+--
+
+**¡OJO!** Este archivo es ligero, solo fija la ruta, no guarda la sesión de R ni lo que hayamos hecho. 
+
+Todo eso se guarda como código en archivo `.rmd` o `.r`
+
+--
+
+El formato para guardar datos en R es `.rds` y `.Rdata` (la data de Afganistán estaba en este formato), pero por ahora no usaremos esto. 
+
+---
+
+# Introducción
+
+Hoy seguiremos usando los `.RProj` para importar data. 
+
+--
+
+Veremos cuáles son las principales data frames que en sociología se suelen usar para responder a preguntas de investigación (sesgado):
+
+--
+
++ Encuesta ENE, ESI y ENCLA
+
++ Encuesta CASEN 
+
++ Encuesta Discapacidad 
+
++ Latinobarómetro 
+
+--
+
+Sobre todo, veremos como cargarlas y visualizarlas en R desde los distintos formas en los que se encuentran liberadas (excel, spss y stata).
+
+La lógica es la misma para los distintos formatos. 
+
+--
+
+Antes veremos recomendaciones para "pedir ayuda" cuando no sabemos como hacer algo en R (como cargar datos en un formato específico)
+
+---
+
+class: inverse, center, middle
+
+# Pedir ayuda en R
+
+---
+
+# Pedir ayuda en R
+
+--
+
+Ningún libro, clase o tutorial te dará todas las herramientas para solucionar los **problemas** a los que te enfrentarás en R
+
+--
+
+Si en algún momento ya no puedes avanzar, empieza buscando en Google:
+
+--
+
+&lt;img src="imagenes/google.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Pedir ayuda en R
+
+A medida que el tema es más complejo, menos respuestas habrán en español. 
+
+--
+
+En inglés, el 99% de las veces encontrarás respuestas para lo que buscas. 
+
+--
+
+Muchas de las preguntas que hagas, otros ya las habrán hecho antes que tú. 
+
+--
+
+Sin embargo, eventualmente podría ser necesario preguntar...
+
+--
+
+Hay lugares y buenas prácticas para hacerlo. 
+
+
+---
+
+# Pedir ayuda en R
+
+Desde *google* siempre nos saldrán páginas similares de foros y consultas en R. 
+
+--
+
+La más confiable:
+
+--
+
+![](imagenes/stackes.png)
+
+--
+
+&lt;img src="imagenes/stackoverflow.png" width="100%" style="display: block; margin: auto;" /&gt;
+--
+
+También muy recomendado *datanovia*, *r-bloggers*, las documentaciones de los paquetes, secciones de libros, etc.
+
+---
+
+# Pedir ayuda en R
+
+La clave está en saber preguntar en google...
+
+--
+
+Sin embargo, a veces podemos no saber que preguntar, ¿por qué nos aparece un **error** en el código?
+
+--
+
+&lt;img src="imagenes/error select.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+--
+
+Deterse a leer el error e intentar comprenderlo es buena práctica. Si no consigues comprender, **¡cópialo y pégalo en google!**
+
+--
+
+Muchos otros ya lo copiaron y pegaron. Por lo general alguien ya les respondió. 
+
+--
+
+Si el error te aparece en español, con la siguiente función te aparecerá en inglés la próxima vez
+
+
+```r
+Sys.setenv(LANGUAGE = "en")
+```
+
+---
+
+# Pedir ayuda en R
+
+Aprender a solucionar las "panas" de manera **autónoma** es cuando uno/a más aprende R. 
+
+--
+
+Sin embargo, estamos en un curso y como equipo decente esperamos ayudarlos y acompañarlos en sus aproximaciones a R.
+
+--
+
+Por tanto, si no consiguen resolver sus problemas consultando en *google* pueden preguntar vía mail (como hasta ahora lo han hecho)
+
+--
+
+La mejor manera de preguntar es con **ejemplos reproducibles** (*reprex*):
+
+--
+
++ explicitar de forma clara el problema (puede ser una foto del error)
+
+--
+
++ adjuntar la data sobre la que trabajas (o una parte de ella si es muy pesada)
+
+--
+
++ adjuntar código con el que estás trabajando (*.R* o *.rmd*)
+
+--
+
+Estos puntos son la base para preguntar en foros. 
+
+---
+
+class: inverse, center, middle
+
+# Principales encuestas en ciencias sociales y como importarlas en R
+
+
+---
+
+# Encuesta ENE y ESI
+
+
+---
+
+# Encuesta CASEN
+
+
+---
+
+# Encuesta Encla
+
+
+---
+
+# Encuesta Discapacidad
+
+
+---
+
+# Latinobarómetro
+
+
+
+---
+
+# Para cerrar
+
+Estas son solo algunas de las **principales encuestas** aplicadas en Chile. Hay muchísimas más que pueden ver en la página de estas y otras instituciones.
+
+--
+
+Además, otra data no se produce por encuesta, sino que mediante el **registro de prensa** (Observatorio de Huelgas y Conflictos Sociales), los **registros administrativos** o mediante la **integración** de distintos datos (Banco Mundial, de donde venía la data Afganistán).
+
+--
+
+Sin embargo, toda la data que podría servir para la sociología y que se encuentra **liberada** para nosotros es solo una ínfima parte de toda la data que se produce en Chile.
+
+--
+
+¿Qué pasa con esta data que la producimos todos (aleatoriamente en el caso de las encuestas) pero que solo algunos pueden analizarla y sacarle provecho?
+
+--
+
+Este es uno de los pilares de la **ciencia abierta...** (tema post prueba 1)
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+### Para reforzar y seguir aprendiendo
+
+Wickham, H. (2021) [Pedir ayuda y aprender más](https://es.r4ds.hadley.nz/introducci%C3%B3n.html#pedir-ayuda-y-aprender-m%C3%A1s)
+
+### Bibliografía utilizada
+
+
+
+&lt;a name=bib-Wickham2021&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2021) (2021). _R
+Para Ciencia de Datos_.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

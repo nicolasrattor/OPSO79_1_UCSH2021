@@ -1,0 +1,609 @@
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Investigación por encuestas; principales encuestas en Chile y como importarlas en R. Bloque teórico (5a)"
+date: "`10/09/2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("bib.bib", check = FALSE)
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+#pagedown::chrome_print("clase5a_cuestionarios.html")
+
+```
+
+
+class: inverse, center, middle
+
+# Introducción
+
+---
+
+# Introducción
+
+La aplicación de cuestionarios a sujetos de investigación (**encuesta**) es la técnica de producción de información más común en el mundo cuantitativo.
+
+--
+
+Las encuestas nos permiten responder tanto a objetivos **descriptivos** como aproximarnos a responder objetivos **causales**. 
+
+--
+
+Los argumentos causales intentarán responder preguntas del tipo **por qué** ocurre el fenómeno Y o **en que medida** las variables X explican la ocurrencia de Y. 
+
+--
+
+Antes de profundizar en la metodología de encuestas, terminaremos de revisar los **diseños causales**. 
+
+--
+
+Los experimentos son los diseños con mayor **validez interna** para explicar y aislar el efecto de `X` sobre `Y`
+
+--
+
+Sin embargo, su baja **validez externa** y la especificidad de los fenómenos sociales que estudiamos nos hacen mirar hacia los **diseños observacionales** aún cuando buscamos explicar `Y`. 
+
+---
+
+class: inverse, center, middle
+
+# Diseños observacionales explicativos
+
+---
+
+# Diseños transversales
+
+Los datos se toman aproximadamente al mismo tiempo y el investigador no controla ni manipula la variable independiente (X1)
+
+--
+
+Este registro o producción de datos puede ser mediante **cuestionarios a sujetos** como a través del registro de observaciones, codificación de documentos, etc. 
+
+--
+
+La asignación del tratamiento o variable independiente (X1) ya **no es aleatoria**. Los sujetos ya tienen asignado un valor en la variable X1. 
+
+--
+
++ **No hay contrafácticos**. Las observaciones ya no son solamente diferentes en X1 e Y, sino que en muchas otras variables (X2, X3, hasta el infinito). 
+
+--
+
++ **No hay orden temporal** registrado en el que X1 antecede a Y.
+
+--
+
+Por ende, es discutible la capacidad de **"aislar completamente"** el efecto de la variable independiente de interés sobre Y (poca validez interna.
+
+--
+
++ Controlamos estadísticamente mediante el registro de terceras variables (X2, X3) que también explican Y para descartar relaciones espuras entre X1 e Y. 
+
+
+---
+
+# Diseños transversales
+
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/esquema1.png")
+```
+
+---
+
+# Diseños transversales
+
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/esquema2.png")
+```
+
+---
+
+# Diseños transversales
+
+La típica forma de analizar los datos es con regresión líneal simple o múltiple.
+
+--
+
+Pero hay muchas otras formas como ecuaciones estructurales, modelos multinivel, etcétera.
+
+--
+
+La realidad social cambia y una foto de un momento particular puede no ser suficiente.
+
+--
+
++ Permite observar correlación
+
++ Y controlar por terceras variables (evitar relación espuria)
+
++ No permite determinar orden temporal
+
+--
+
+No permiten determinar que una variable es la causa de la otra.
+
+--
+
+Una solución es recurrir al tiempo, midiendo la realidad en diferentes momentos. 
+
+---
+
+# Diseños longitudinales
+
+Aplicar mediciones en diferentes momentos del tiempo (variabilidad temporal)
+
+--
+
+```{r fig.align="center", echo=FALSE, out.width="70%"}
+knitr::include_graphics("Imagenes/diseños_segun_temporalidad.png")
+```
+
+---
+
+# Diseños longitudinales
+
+Otro esquema: 
+
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/cross_longitudinal.png")
+```
+
+---
+
+# Longitudinales Panel
+
+Datos se recopilan del mismo conjunto de personas (la muestra o el panel) en varios momentos del tiempo.
+
+--
+
+Variabilidad de las unidades en cada momentos y en el tiempo. 
+
+--
+
+Facilita la inferencia causal y observar desfases de conducta `r Citep(bib, "Wooldridge2006a")`
+
+--
+
+Dificultades
+
++ Difícil de obtener. Mortalidad del panel y abandono (*atrición*) -> refresco de muestra o paneles rotativos
+
++ Desafío de transformación de datos (long-wide)
+
++ Desafío de análisis (Efectos fijos y aleatorios, Diff in diff, etc.)
+
+
+---
+
+# Para pasar a encuestas
+
+Un dato producido puede para determinados objetivos puede ser utilizado para otros (**análisis secundario**)
+
+--
+
+La data producida por una encuesta de corte transversal y con fines descriptivos, puede ser utilizadas para responder preguntas (cuasi) causales. 
+
+--
+
+A la inversa también (datos longitudinales panel para fines descriptivos).
+
+--
+
+Una cosa es el **diseño**, otra la forma de **producción** del dato y otra el **microdato** que analizamos. 
+
+--
+
+Ahora veremos la [investigación por encuestas](), la forma de "produccción" o "recolección" de datos mediante entrevistas a sujetos. 
+
+
+---
+
+class: inverse, center, middle
+
+# Investigación por encuestas
+
+---
+
+# Encuestas
+
+.pull-left[
+Las encuestas son una técnica de investigación antigua.
+
+
+Hasta el día de hoy, una de las más usadas en cs. sociales.  
+
+Inicialmente usadas para fines descriptivos, cada vez más con propósitos explicativos.
+
+]
+
+--
+
+.pull-right[
+```{r fig.align="center", echo=FALSE, out.width="50%"}
+knitr::include_graphics("Imagenes/censo_chile.png")
+```
+]
+
+
+--
+
+Las **unidades de análisis** suelen ser las personas, pero también pueden ser empresas, hogares u otras.
+
+--
+
+Sin embargo, personas individuales deben servir como encuestados o **informantes**.
+
+--
+
+Estos informante responden un **documento estable** que contiene preguntas y otros tipos de artículos diseñados para solicitar
+información apropiada para el análisis. 
+
+--
+
+**Cuestionarios** son centrales en encuesta, pero también en experimentos, investigación de campo y otros modos de observación.
+
+---
+
+# Cuestionarios
+
+¿Cómo preparar o construir cuestionarios?, ¿De que formas se pueden aplicar?, ¿Como asegurar la respuesta y que esta sea de calidad?, ¿A quién y a cuántos le aplicamos el cuestionario?
+
+--
+
+No es tarea sencilla:
+
+--
+
+```{r fig.align="center", echo=FALSE, out.width="100%"}
+knitr::include_graphics("Imagenes/preg_encuestamarx.png")
+```
+
+--
+
+¿Cómo analizar estadísticamente las respuestas?
+
+--
+
+[Encuesta obrera](https://www.marxists.org/archive/marx/works/1880/04/20.htm) enviada por correo a obreros franceses en 1880. 
+
+--
+
+**Tasa de respuesta: 0%**
+
+---
+
+# Cuestionarios
+
+Hay toda una [ciencia en el hacer preguntas](https://sci-hub.se/https://www.annualreviews.org/doi/pdf/10.1146/annurev.soc.29.110702.110112).
+
+--
+
+Sin embargo, no todo el contenido del cuestionario son **preguntas**.
+
+Uso común de **afirmaciones** frente a las que el informante debe posicionarse.
+
+--
+
+```{r fig.align="center", echo=FALSE, out.width="90%"}
+knitr::include_graphics("Imagenes/statement.png")
+```
+
+
+---
+
+# El objeto de estudio
+
+En un mismo cuestionario de ciencias sociales, conviven preguntas:
+
+--
+
++ sobre eventos o comportamientos (y características sociodemográficas)
+
+--
+
++ sobre evaluación y actitudes
+
+--
+
+Las primeras pueden ser abordables mediante otros métodos (RRAA, big data, análisis documentos, etc.)
+
+--
+
+Las segundas difíciles de abordar de otra forma.
+
+--
+
+Además permiten llegar a lo *no registrado*, a lo *informal*. 
+
+
+---
+
+# Cuestionarios: preguntas
+
+Al hacer preguntas hay dos opciones: **cerradas** o **abiertas**. 
+
+--
+
+Las de Marx (1880) serían abiertas. 
+
+Lo más común es el uso de preguntas **cerradas**:
+
+--
+
+
+```{r fig.align="center", echo=FALSE, out.width="60%"}
+knitr::include_graphics("Imagenes/question.png")
+```
+
+---
+
+# Cuestionarios: preguntas
+
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/abierta.png")
+```
+--
+
+Respuestas abiertas deben ser codificadas antes de pasar al análisis estadístico.
+
+--
+
+Las preguntas cerradas proveen **uniformidad** en las respuestas, lo que las hace más fáciles de procesar.
+
+---
+
+# Registro e interacción
+
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/modos_encuesta.png")
+```
+
+--
+
+.pull-left[
+```{r echo=FALSE, out.width="60%"}
+knitr::include_graphics("https://www.lacuarta.com/wp-content/uploads/sites/5/2011/11/13/1398508.jpg")
+```
+]
+
+--
+
+.pull-center[
+```{r echo=FALSE, out.width="20%"}
+knitr::include_graphics("https://www.wearetesters.com/wp-content/uploads/2021/05/wat-survey-cuestionario.jpg")
+```
+]
+
+--
+
+.pull-right[
+```{r echo=FALSE, out.width="25%"}
+knitr::include_graphics("https://thumbs.dreamstime.com/z/encuesta-en-l%C3%ADnea-tablet-lista-de-comprobaci%C3%B3n-forma-aplicaci%C3%B3n-comentarios-y-cuestionarios-tel%C3%A9fonos-m%C3%B3viles-icono-194372652.jpg")
+```
+]
+
+---
+
+# Buenas preguntas
+
+Hay dos guías estructurales para la construcción de preguntas cerradas:
+
++ respuestas **exhaustivas** (opción "otro")
+
++ respuestas **mutuamente excluyentes**
+
+--
+
+En algunos casos se utiliza la opción de **respuesta mútiple**, sin embargo crea dificultades de procesamiento y análisis. 
+
+--
+
+Preguntas deben ser **claras** y **no ambiguas** (evitar doble negación)
+
+--
+
+Preguntas deben ser **precisas** para evitar malentendidos:
+
+```{r fig.align="center", echo=FALSE, out.width="80%", fig.link="https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/formularios/espanol/cuestionario-ene---informalidad-2018.pdf?sfvrsn=b9f4c5a8_2"}
+knitr::include_graphics("Imagenes/A_ENE.png")
+```
+
+---
+
+# Buenas preguntas
+
+No ocupar preguntas con **doble foco** o intención:
+
+--
+
+¿Qué tan de acuerdo está con la afirmación *se debería recaudar más dinero de la minería privada para fortalecer la educación pública*?
+
+--
+
+Pregunta debe ser apropiada para informante (en términos de lenguaje y de saber) 
+
+*E.g. encuesta Encla pregunta a trabajador sobre empresa*
+
+--
+
+Evitar conceptos cargados emocionalmente o sesgados (*interrupción embarazo, no aborto*)
+
+--
+
+Informante lee y responde rápidamente. No colocar demasiadas alternativas (apoyo visual y *otro*). 
+
+
+---
+
+# Otros requisitos
+
+Informante debe estar dispuesto a cooperar
+
++ clave que sepa del tema (**no sabe**)
+
++ ideal que le interese (preguntas relevantes para informante)
+
++ mantener su atención (validez respuestas)
+
++ evitar abandono (**no respuesta** y tasa de respuesta)
+
+--
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("imagenes/tasa_respuesta_ene.png")
+```
+
+
+---
+
+# Estructura cuestionarios
+
+No todas las preguntas son relevantes o necesarias para todos los informantes.
+
+--
+
+Suelen tener *saltos*. Hay preguntas que *no aplican* para ciertos informantes
+
+--
+
+```{r fig.align="center", echo=FALSE, out.width="50%"}
+knitr::include_graphics("Imagenes/salto.png")
+```
+--
+
+Comentarios para encuestador en el cuestionario (indicando saltos y otras instrucciones)
+
+
+---
+
+# Estructura cuestionarios
+
+Existen preguntas de matrices
+
+```{r fig.align="center", echo=FALSE, out.width="70%"}
+knitr::include_graphics("Imagenes/matriz.png")
+```
+
+--
+
+Y preguntas de items
+
+```{r fig.align="center", echo=FALSE, out.width="50%"}
+knitr::include_graphics("Imagenes/items.png")
+```
+
+
+---
+
+class: inverse, center, middle
+
+# Panorama de las encuestas en Chile
+
+---
+
+# Marco en el que se producen
+
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/Encuestas Chile.png")
+```
+
+---
+
+# Clivajes y distinciones
+
++ Nivel institucional (público, privado, financiamiento público, fines de lucro)
+
+--
+
++ Apertura de datos (¿liberan los microdatos?, ¿Es posible trabajar con estos?)
+
+--
+
++ Calidad estadística: muestra representativas, bajos niveles de error, altas tasas de respuesta, validadores, reporte de precisión de estimaciones (entre otros elementos)
+
+--
+
++ Área temática: salud, trabajo, caracterización económica, opinión y valores, preferencias políticas, etc.
+
+
+
+
+---
+
+# Referencias bibliográficas
+
+```{r echo=FALSE, results=FALSE}
+Citet(bib, "Corbetta2007")
+Citet(bib, "Schmitter2013")
+Citet(bib, "deRada2007")
+Citet(bib, "Babbie2014")
+Citet(bib, "Schaeffer2003")
+```
+
+```{r refs, echo=FALSE, results="asis"}
+
+PrintBibliography(bib)
+
+```
+
+---
+
+class: inverse, center, middle
+
+# Principales encuestas en Chile, como importarlas en R y como pedir ayuda
+
+```{r, echo=FALSE}
+#devtools::install_github("gadenbuie/countdown")
+library(countdown) 
+countdown(minutes=10, seconds=30)
+```
+
+---
