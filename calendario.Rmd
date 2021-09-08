@@ -15,14 +15,14 @@ knitr::opts_chunk$set(echo = FALSE)
 |  Sesiones | Fecha  |  1er bloque | 2do bloque | Lectura obligatoria  | Lectura complementaria |
 |---|---|---|---|---|---|
 | [**Sesión 1**]()  |  13 de agosto | Introducción al curso | Introducción a R, R-Studio y Markdown para generar documentos | - | - |   
-| [**Sesión 2**]() | 20 de agosto | Introducción a la metodología cuantitativa | Repaso lenguaje R y Data frames I (con R base)  |  @Asun2006a, @Wickham2021 (cap. 1 y 2) | @Corbetta2007 (cap. 1 y 2)  |
+| [**Sesión 2**]() | 20 de agosto | Introducción a la metodología cuantitativa | Repaso lenguaje R y Data frames I (con R base)  |  @Asun2006a, @Wickham2021 (cap. 1 y 2) y @Schmitter2013 | @Corbetta2007 (cap. 1 y 2)  |
 | [**Sesión 3**]()|  27 de agosto | Tipos de datos cuantitativos y el proceso estadístico en general | Data frames II (con dplyr) |  @Asun2006a, @Corbetta2007 (cap. 3)  y @Wickham2021 (cap. 5) | @Agresti2018 (cap. 1 y 2)  |
 | [**Sesión 4**]() |  03 de septiembre | Diseños de investigación | R project e importar data a R desde formato .rds |  @Corbetta2007 (cap. 4) y @Wickham2021 (cap. 8) | @Babbie2014 (cap. 8)  |  |
-| [**Sesión 5**]() |  10 de septiembre | Diseño de cuestionarios y recolección de datos | Pedir ayuda, microdatos para ciencias sociales y cómo importarlos desde excel, spss y otros formatos| @Asun2006 y @Corbetta2007 (cap. 5) | @Babbie2014 (cap. 9) y @Wickham2021 (cap. 11) |
+| [**Sesión 5**]() |  10 de septiembre | Continuación diseños causales y construcción de cuestionarios | Pedir ayuda, microdatos para ciencias sociales y cómo importarlos desde excel, spss y otros formatos| @Asun2006, @deRada2007 y @Corbetta2007 (cap. 5) | @Babbie2014 (cap. 9) y @Wickham2021 (cap. 11) |
 | [**Sesión 6**]() | 01 de octubre | Ciencia abierta y reproducibilidad  | Taller búsqueda de bibliografía y uso de Zotero en R  | @Rodriguez-Sanchez2016, @Swartz2008 | @Breznau2021, @Healy2018 |
- [**Sesión 7**]() | 08 de octubre  | Estadística descriptiva I  | Pipes, repaso dplyr y prácticas para buena codificación | @Wickham2021 (cap. 18) y @Moore2005 |  @Agresti2018 (cap. 3) y [Carr (2021)](https://waterdata.usgs.gov/blog/intro-best-practices/)  |
- [**Sesión 8**]() | 29 de octubre  | Estadística descriptiva II   | Trabajar con data frames III: agrupar, trasponer y unir | @Moore2005 |  @Agresti2018 (cap. 3) |
-| [**Sesión 9**]() | 05 noviembre   | Estadística descriptiva III  | Visualización de datos (ggplot2) | @Moore2005 (cap. 1.3 y 2.1) |  @Wickham2021 (cap. 3) y @Agresti2018 (cap. 2) |
+ [**Sesión 7**]() | 08 de octubre  | Otras herramientas de la ciencia abierta: profundización en RMarkdown  | Pipes, repaso dplyr y prácticas para buena codificación | @Wickham2021 (cap. 18) y @Moore2005 | [Carr (2021)](https://waterdata.usgs.gov/blog/intro-best-practices/)  |
+ [**Sesión 8**]() | 29 de octubre  | Estadística descriptiva I   | Trabajar con data frames III: agrupar, trasponer y unir | @Moore2005 |  @Agresti2018 (cap. 3) |
+| [**Sesión 9**]() | 05 noviembre   | Estadística descriptiva II  | Visualización de datos (ggplot2) | @Moore2005 (cap. 1.3 y 2.1) |  @Wickham2021 (cap. 3) y @Agresti2018 (cap. 2) |
 | [**Sesión 10**]() | 12 de noviembre   | Diseño de muestras e inferencia I  | Muestreo de datos en R y prueba de hipótesis |  @Vivanco2006 y @Lohr2000  |   |
 | [**Sesión 11**]() | 19 de noviembre   | Inferencia estadística II |  Reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  |  @Lohr2000 |  Lumley2020   |
 | [**Sesión 12**]() | 03 de diciembre   |  Más allá de OPSO791: el universo de posibilidades en R (clase según intereses de los/as estudiantes)  | Continuación de primer bloque  | -  | -  |
@@ -42,7 +42,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **Tarea práctica 2.**	Operaciones elementales sobre un data frame con R base y primera parte dplyr (10%).	27 agosto (entrega 4 días después)
 
-**Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%).	10 septiembre (entrega 3 días después)
+**Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%).	10 septiembre (entrega 4 días después)
 
 **Tarea práctica 4.**	Estadística descriptiva con R e interpretación de salidas (5%).	08 octubre (entrega 3 días después)
 

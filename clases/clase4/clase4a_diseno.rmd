@@ -768,7 +768,7 @@ Variabilidad de las unidades en cada momentos y en el tiempo.
 
 --
 
-Facilita la inferencia causal y observar desfases de conducta `r Citep(bib, "Schmitter2013")`
+Facilita la inferencia causal y observar desfases de conducta `r Citep(bib, "Wooldridge2006a")`
 
 --
 

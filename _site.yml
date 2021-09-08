@@ -20,6 +20,8 @@ navbar:
           href: instalarR.html
         - text: "Soluciones ejercicio 1"
           href: ejerciciopractico1.html
+        - text: "Descarga textos"
+          href: descargartextos.html
     - icon: fab fa-github
       href: https://github.com/nicolasrattor
 output: distill::distill_article
