@@ -121,11 +121,11 @@ La asignación del tratamiento o variable independiente (X1) ya **no es aleatori
 
 --
 
-Por ende, es discutible la capacidad de **"aislar completamente"** el efecto de la variable independiente de interés sobre Y (poca validez interna.
+Por ende, es discutible la capacidad de **"aislar completamente"** el efecto de la variable independiente de interés sobre Y
 
 --
 
-+ Controlamos estadísticamente mediante el registro de terceras variables (X2, X3) que también explican Y para descartar relaciones espuras entre X1 e Y. 
++ Controlamos estadísticamente mediante el registro de terceras variables (X2, X3) que también explican Y para descartar relaciones espurias entre X1 e Y. 
 
 
 ---
@@ -479,6 +479,10 @@ Evitar conceptos cargados emocionalmente o sesgados (*interrupción embarazo, no
 --
 
 Informante lee y responde rápidamente. No colocar demasiadas alternativas (apoyo visual y *otro*). 
+
+--
+
+Preguntas deben ser comprendidas por informantes
 
 
 ---

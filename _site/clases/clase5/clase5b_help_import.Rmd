@@ -57,7 +57,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-pagedown::chrome_print("clase5b_help_import.html")
+#pagedown::chrome_print("clase5b_help_import.html")
 
 ```
 
@@ -207,7 +207,7 @@ knitr::include_graphics("imagenes/error select.png")
 
 --
 
-Deterse a leer el error e intentar comprenderlo es buena práctica. Si no consigues comprender, **¡cópialo y pégalo en google!**
+Detenerse a leer el error e intentar comprenderlo es buena práctica. Si no consigues comprender, **¡cópialo y pégalo en google!**
 
 --
 
@@ -264,27 +264,459 @@ class: inverse, center, middle
 
 ---
 
-# Encuesta ENE y ESI
+# Encuesta ENE (INE)
+
+La [Encuesta Nacional de Empleo (ENE)](https://www.ine.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion) se aplica desde inicios de 2010. 
+
+Es una encuesta a hogares que se aplica en viviendas particulares ocupadas.
+
+Los informantes son los integrantes del hogar (o un representante)
+
+--
+
+La ENE clasifica y caracteriza a todas las personas en edad de trabajar (15 años y más).
+
+El objetivo principal de la ENE es medir la **tasa de desocupación**.
+
+--
+
+Sin embargo, permite medir muchas otras cosas: principales ocupaciones por región, niveles de informalidad, diferencias por sexo, horas de trabajo, trabajo desde el hogar, etc.
+
+--
+
+La publicación de datos es mensual en la [web](https://www.ine.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion) (último día hábil del mes)
+
+---
+
+# ENE: web
+
+```{r fig.align='center', out.width = "80%", echo=FALSE, fig.link="https://www.ine.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion"}
+knitr::include_graphics("imagenes/web_ene.png")
+```
 
 
 ---
 
-# Encuesta CASEN
+# ENE: boletín
+
+```{r fig.align='center', out.width = "80%", echo=FALSE, fig.link="https://www.ine.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion"}
+knitr::include_graphics("imagenes/ene_boletin.png")
+```
+
+---
+
+# ENE: tabulados
+
+```{r fig.align='center', out.width = "80%", echo=FALSE, fig.link="https://www.ine.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion"}
+knitr::include_graphics("imagenes/ene_cuadro.png")
+```
 
 
 ---
 
-# Encuesta Encla
+# ENE: microdatos
+
+Todo esto son resúmenes agregados de la encuesta, estandarizados.
+
+--
+
+Tiene mucha potencia, pero también hay muchas cosas más que no se analizan:
+
+--
+
+```{r fig.align='center', out.width = "60%", echo=FALSE, fig.link="https://nicolasrattor.github.io/prepint_persistente_informalidad/"}
+knitr::include_graphics("https://github.com/nicolasrattor/prepint_persistente_informalidad/raw/main/Graficos/Gr%C3%A1fico_informales_porcentaje_comparado.png")
+```
+
+---
+
+# ENE: micrdatos
+
+Para estas y otras cosas recurrimos a los microdatos de la encuesta (pestaña **bases de datos**).
+
+--
+
+Datos en formato excel (.csv), stata (.dta) y spss (.sav).
+
+--
+
+Pasos a seguir:
+
++ Crear R Project
+
++ Descargar los datos del último trimestre ENE (formato spss)
+
++ Guardarlos en carpeta del nuevo R proyect
+
+--
+
+Como puede tardar un poco, pueden descargar submuestra acá:
+
+```{r echo=FALSE, eval=FALSE}
+ene <- haven::read_spss("data/ene-2021-06-mjj.sav")
+ene <- dplyr::sample_n(ene,1000)
+haven::write_sav(ene,"data/ene_de_muestra.sav")
+write.csv2(ene,"data/ene_de_muestra.csv")
+```
+
+```{r echo=FALSE}
+xfun::embed_file("data/ene_de_muestra.sav", text = "descarga muestra ene-2021-06-mjj.sav")
+```
 
 
 ---
 
-# Encuesta Discapacidad
+# Importar SPSS
+
+.pull-right[![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/thumbs/haven.png)]
+
+
+--
+
+.pull-left[
++ Paquete de `R` para importar y exportar archivos "externos" a R, como SPSS, Stata y SAS.]
+
+.pull-left[
++ Es una paquete "familiar" de `dplyr` (`tidyverse`), por lo que dialoga bien con otras funciones que utilizaremos y se encuentra permanentemente actualizado.]
+
+.pull-left[
++ Su creador es Hadley Wickham.]
+
+--
+
+.pull-right[
+```{r warning=FALSE}
+#install.packages("haven")
+library(haven)
+```
+]
 
 
 ---
 
-# Latinobarómetro
+# ENE: micrdatos
+
+Cargar la data:
+
+```{r}
+ene <- haven::read_spss("data/ene_de_muestra.sav")
+```
+
+--
+
+Revisar lo cargado
+
+```{r}
+ene[1:7,1:3]
+```
+
+---
+
+# ENE: micrdatos
+
+Volvemos a ocupar paquete `sjmisc` para buscar variables
+
+--
+
+```{r}
+library(sjmisc)
+find_var(ene,"horas")[1:10,3]
+```
+
+---
+
+# ENE: micrdatos
+
+```{r}
+summary(ene$c2_1_3)
+```
+--
+
+¿Existen diferencias por sexo?
+
+--
+
+```{r}
+frq(ene$sexo)   
+```
+
+---
+
+# ENE: micrdatos
+
+Luego veamos el `summary()` para cada sexo
+
+```{r}
+summary(ene[ene$sexo==1,]$c2_1_3)
+summary(ene[ene$sexo==2,]$c2_1_3)
+```
+
+--
+
+¿Por qué tanta diferencia en valor válido (NA's)?
+
+--
+
+```{r}
+table(ene$sexo,ene$categoria_ocupacion)
+```
+--
+
+Para no perder las etiquetas...
+
+---
+
+# ENE: micrdatos
+
+```{r}
+flat_table(ene,categoria_ocupacion,sexo)
+```
+
+---
+
+# ENE: micrdatos
+
+```{r}
+flat_table(ene,categoria_ocupacion,sexo,margin = "col")
+```
+
+---
+
+# Importar excel (.csv)
+
+Sí la base está en `spss` es mejor cargarla en ese formato.
+
+--
+
+La ventaja es que la data tiene etiquetas asociadas, lo que evita buscar valores en el **libro de códigos** de la encuesta
+
+--
+
+La desventaja es que la data pesa más. 
+
+Si queremos cargar las últimas 36 bases de datos de la ENE para ver la tendencia de las horas de trabajo, será más demoroso cargando `.sav` que `.csv`
+
+--
+
+La alternativa es descargar los archivos `.csv` y cargarlos
+
+
+---
+
+# Importar excel (.csv)
+
+Para el caso de `.csv` no es necesario cargar paquetes.
+
+--
+
+```{r}
+ene <- read.csv("data/ene_de_muestra.csv")
+dim(ene)
+```
+
+--
+
+¿Que pasó?
+
+--
+
+```{r}
+ene <- read.csv2("data/ene_de_muestra.csv")
+dim(ene)
+```
+
+Los datos estaban separados por ";", no por ","
+
+---
+
+# Importar excel (.csv)
+
+Al ser más livianos también los podemos cargar directamente desde la web
+
+--
+
+(esto aplica a todos los formatos)
+
+--
+
+```{r eval=FALSE}
+ene <- read.csv2("https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/2021/formato-csv/ene-2021-06-mjj.csv?sfvrsn=276023ba_4&download=true")
+```
+
+Demora más que cargar lo descargado, por lo que no ejecutaré el código. 
+
+Pueden probar la línea de código con buena conexión a internet. 
+
+
+---
+
+# Importar .xlsx (excel)
+
+.pull-left[
+![](https://raw.githubusercontent.com/rstudio/hex-stickers/master/thumbs/readxl.png)
+]
+
+--
+
+.pull-right[
+
+Formato que no se suele usar para microdatos
+
+Pero sí se usa mucho para cuadros o tabulados (agregados)
+
+El archivo .xlsx puede tener más de una pestaña, de ahí la necesidad de una función específica
+
+`readxl` también es de Wickham y del universo `tidyverse`
+
+```{r}
+#install.packages(readxl)
+library(readxl)
+```
+
+]
+
+---
+
+# Importar .xlsx (excel)
+
+Descargar cuadro de la ENE: ["población-en-edad-de-trabajar-por-situación-en-la-fuerza-de-trabajo"](https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/cuadros-estadisticos/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/poblaci%C3%B3n-en-edad-de-trabajar-por-situaci%C3%B3n-en-la-fuerza-de-trabajo.xlsx?sfvrsn=afbd6d15_46) (el primero)
+
+--
+
+La serie es como si hubiesen analizado y combinado cada microdato desde el 2010 a la fecha.
+
+--
+
+El archivo excel tiene muchas pestañas, por lo que hay que agregar más argumentos a la función genérica:
+
+```{r eval=FALSE}
+data <- función("direccion")
+```
+
+--
+
+```{r message=FALSE, warning=FALSE}
+pob <- read_excel("data/población-en-edad-de-trabajar.xlsx",sheet = 2)
+head(pob)[1:4]
+```
+
+---
+
+# Importar .xlsx (excel)
+
+El segundo problema es que hay celdas vacías al inicio.
+
+--
+
+Usar skip:
+
+```{r message=FALSE, warning=FALSE}
+pob <- read_excel("data/población-en-edad-de-trabajar.xlsx",sheet = 2,
+                  skip = 6)
+head(pob)[1:6]
+```
+
+--
+
+Hay claros problemas con los nombres y con variables vacías. 
+
+--
+
+Hay funciones específicas para eso que veremos más adelante (`janitor`)
+
+---
+
+# Importar .xlsx (excel)
+
+```{r fig.align='center', fig.height = 5, fig.width = 9}
+plot(pob$`en miles...6`,type = "l",main="Personas ocupadas en Chile (2010-2021)")
+```
+
+
+
+---
+
+# Encuesta Laboral
+
+La encuesta busca diagnosticar el estado y evolución de las condiciones de empleo y trabajo, de las 
+relaciones laborales y de la igualdad de género en las empresas regidas por el Código del Trabajo en Chile. 
+
+--
+
++ Su población objetivo corresponde a las empresas formales vigentes con cinco o más trabajadores contratados directamente.
+
+--
+
++ Cada empresa cuenta con tres unidades de observación (informante). Cada unidad constituye una base de datos: Empleadores, Autoaplicado, Trabajadores o Sindicatos. 
+
+--
+
++ El año 2019 se aplicó la [última versión](https://www.ine.cl/estadisticas/sociales/mercado-laboral/condiciones-de-empleo-y-relaciones-laborales): 3.670 empresas, 4 bases de datos. 
+
+--
+
+Solo descarguemos la data de "sindicatos" (esta vez en formato `.dta` o stata).
+
+---
+
+# Encuesta Laboral (Encla)
+
+La lógica será la misma que en spss.
+
+Descargar data y guardar en carpeta donde esté el R Project con el que estamos trabajando.
+
+--
+
+```{r}
+encla <- read_dta("data/bbdd-sindicatos-bp.dta")
+```
+
+--
+
+Veamos la data
+
+```{r}
+encla[1:5,1:3]
+```
+
+---
+
+# Encuesta Laboral (Encla)
+
+```{r}
+summary(encla$g2_3)
+```
+
+--
+
+```{r}
+descr(encla$g2_3)
+```
+
+--
+
+¿Socios/as promedio por sector económico?
+
+---
+
+# Encuesta Laboral (Encla)
+
+Adelanto de lo que se viene:
+
+```{r eval=FALSE}
+library(dplyr)
+descr(group_by(encla,agrupacion_actividad),g2_3)
+```
+
+--
+
+Que sería como hacer esto para cada valor de `agrupacion_actividad` (13 valores)
+
+```{r}
+# frq(encla$agrupacion_actividad)
+summary(encla[encla$agrupacion_actividad==1,]$g2_3)
+summary(encla[encla$agrupacion_actividad==2,]$g2_3)
+```
 
 
 
@@ -293,6 +725,8 @@ class: inverse, center, middle
 # Para cerrar
 
 Estas son solo algunas de las **principales encuestas** aplicadas en Chile. Hay muchísimas más que pueden ver en la página de estas y otras instituciones.
+
+Pendiente Encuesta CASEN, Latinobarómetro y Encuesta Discapacidad (SENADIS).
 
 --
 
@@ -309,6 +743,32 @@ Sin embargo, toda la data que podría servir para la sociología y que se encuen
 --
 
 Este es uno de los pilares de la **ciencia abierta...** (tema post prueba 1)
+
+---
+
+# Para practicar
+
++ Crea un **R Project**, donde guardarás todos los archivos
+
++ Crea un **RMarkdown** dentro del R Project para hacer la tarea
+
++ Importa a R el microdato de la ENE del trimestre **OND 2019 (noviembre)**
+
++ Genera un cuadro de resumen de `b14_rev4cl_canes`
+
++ Cruza las variables `b14_rev4cl_canes` y `b1` (haz una tabla de contingencia).
+
++ Crea la variable `pet` que tome valor 1 si `edad` es mayor o igual a 15, y 0 en otro caso.
+
++ Crea la variable `ocu` (ocupados) que tome el valor 1 si la variable `cae_especifico` se encuentra en el rango (extremos incluidos) entre 1 y 7, y que tome el valor 0 en cualquier otro caso.
+
++ ¿Cuantas personas `pet` y `ocu` hay en la muestra? 
+
++ ¿Cuál es la tasa de ocupación en noviembre de 2019? (`ocu / pet * 100`)
+
++ Envía por correo el archivo `.html` resultante.
+
+
 
 
 ---

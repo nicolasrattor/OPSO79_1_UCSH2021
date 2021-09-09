@@ -121,11 +121,11 @@ La asignación del tratamiento o variable independiente (X1) ya **no es aleatori
 
 --
 
-Por ende, es discutible la capacidad de **"aislar completamente"** el efecto de la variable independiente de interés sobre Y (poca validez interna.
+Por ende, es discutible la capacidad de **"aislar completamente"** el efecto de la variable independiente de interés sobre Y
 
 --
 
-+ Controlamos estadísticamente mediante el registro de terceras variables (X2, X3) que también explican Y para descartar relaciones espuras entre X1 e Y. 
++ Controlamos estadísticamente mediante el registro de terceras variables (X2, X3) que también explican Y para descartar relaciones espurias entre X1 e Y. 
 
 
 ---
@@ -288,7 +288,7 @@ información apropiada para el análisis.
 
 --
 
-Cuestionarios son centrales en encuesta, pero también en experimentos, investigación de campo y otros modos de observación.
+**Cuestionarios** son centrales en encuesta, pero también en experimentos, investigación de campo y otros modos de observación.
 
 ---
 
@@ -337,6 +337,32 @@ knitr::include_graphics("Imagenes/statement.png")
 ```
 
 
+---
+
+# El objeto de estudio
+
+En un mismo cuestionario de ciencias sociales, conviven preguntas:
+
+--
+
++ sobre eventos o comportamientos (y características sociodemográficas)
+
+--
+
++ sobre evaluación y actitudes
+
+--
+
+Las primeras pueden ser abordables mediante otros métodos (RRAA, big data, análisis documentos, etc.)
+
+--
+
+Las segundas difíciles de abordar de otra forma.
+
+--
+
+Además permiten llegar a lo *no registrado*, a lo *informal*. 
+
 
 ---
 
@@ -361,49 +387,162 @@ knitr::include_graphics("Imagenes/question.png")
 
 # Cuestionarios: preguntas
 
-Ejemplo pregunta abierta:
-
 ```{r fig.align="center", echo=FALSE, out.width="80%"}
 knitr::include_graphics("Imagenes/abierta.png")
+```
+--
+
+Respuestas abiertas deben ser codificadas antes de pasar al análisis estadístico.
+
+--
+
+Las preguntas cerradas proveen **uniformidad** en las respuestas, lo que las hace más fáciles de procesar.
+
+---
+
+# Registro e interacción
+
+```{r fig.align="center", echo=FALSE, out.width="80%"}
+knitr::include_graphics("Imagenes/modos_encuesta.png")
+```
+
+--
+
+.pull-left[
+```{r echo=FALSE, out.width="60%"}
+knitr::include_graphics("https://www.lacuarta.com/wp-content/uploads/sites/5/2011/11/13/1398508.jpg")
+```
+]
+
+--
+
+.pull-center[
+```{r echo=FALSE, out.width="20%"}
+knitr::include_graphics("https://www.wearetesters.com/wp-content/uploads/2021/05/wat-survey-cuestionario.jpg")
+```
+]
+
+--
+
+.pull-right[
+```{r echo=FALSE, out.width="25%"}
+knitr::include_graphics("https://thumbs.dreamstime.com/z/encuesta-en-l%C3%ADnea-tablet-lista-de-comprobaci%C3%B3n-forma-aplicaci%C3%B3n-comentarios-y-cuestionarios-tel%C3%A9fonos-m%C3%B3viles-icono-194372652.jpg")
+```
+]
+
+---
+
+# Buenas preguntas
+
+Hay dos guías estructurales para la construcción de preguntas cerradas:
+
++ respuestas **exhaustivas** (opción "otro")
+
++ respuestas **mutuamente excluyentes**
+
+--
+
+En algunos casos se utiliza la opción de **respuesta mútiple**, sin embargo crea dificultades de procesamiento y análisis. 
+
+--
+
+Preguntas deben ser **claras** y **no ambiguas** (evitar doble negación)
+
+--
+
+Preguntas deben ser **precisas** para evitar malentendidos:
+
+```{r fig.align="center", echo=FALSE, out.width="80%", fig.link="https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/formularios/espanol/cuestionario-ene---informalidad-2018.pdf?sfvrsn=b9f4c5a8_2"}
+knitr::include_graphics("Imagenes/A_ENE.png")
 ```
 
 ---
 
-# Cuestionarios: objeto de estudio
+# Buenas preguntas
 
-En un mismo cuestionario de ciencias sociales, conviven preguntas:
-
-+ sobre eventos o comportamientos (y características sociodemográficas)
+No ocupar preguntas con **doble foco** o intención:
 
 --
 
-+ sobre evaluación y actitudes
+¿Qué tan de acuerdo está con la afirmación *se debería recaudar más dinero de la minería privada para fortalecer la educación pública*?
 
 --
 
+Pregunta debe ser apropiada para informante (en términos de lenguaje y de saber) 
+
+*E.g. encuesta Encla pregunta a trabajador sobre empresa*
+
+--
+
+Evitar conceptos cargados emocionalmente o sesgados (*interrupción embarazo, no aborto*)
+
+--
+
+Informante lee y responde rápidamente. No colocar demasiadas alternativas (apoyo visual y *otro*). 
+
+--
+
+Preguntas deben ser comprendidas por informantes
 
 
 ---
 
-# Cuestionarios: modo interacción
+# Otros requisitos
 
-The interactional mode (interviewer or self-administered) and technological
-mode (computer or paper) influence the nature of both a survey’s questions and
-the processes used to answer them. For
+Informante debe estar dispuesto a cooperar
+
++ clave que sepa del tema (**no sabe**)
+
++ ideal que le interese (preguntas relevantes para informante)
+
++ mantener su atención (validez respuestas)
+
++ evitar abandono (**no respuesta** y tasa de respuesta)
+
+--
+
+```{r echo=FALSE, out.width="70%"}
+knitr::include_graphics("imagenes/tasa_respuesta_ene.png")
+```
 
 
 ---
 
-# Cuestionarios: modo tecnológico
+# Estructura cuestionarios
 
+No todas las preguntas son relevantes o necesarias para todos los informantes.
+
+--
+
+Suelen tener *saltos*. Hay preguntas que *no aplican* para ciertos informantes
+
+--
+
+```{r fig.align="center", echo=FALSE, out.width="50%"}
+knitr::include_graphics("Imagenes/salto.png")
+```
+--
+
+Comentarios para encuestador en el cuestionario (indicando saltos y otras instrucciones)
 
 
 ---
 
-# Cuestionarios: buenas preguntas
+# Estructura cuestionarios
 
+Existen preguntas de matrices
 
+```{r fig.align="center", echo=FALSE, out.width="70%"}
+knitr::include_graphics("Imagenes/matriz.png")
+```
 
+--
+
+Y preguntas de items
+
+```{r fig.align="center", echo=FALSE, out.width="50%"}
+knitr::include_graphics("Imagenes/items.png")
+```
 
 
 ---
