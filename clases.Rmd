@@ -32,6 +32,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Investigación por encuestas; principales encuestas en Chile y como importarlas en R
 
-[Clase 5. Bloque 1 teórico]()
+[Clase 5. Bloque 1 teórico](https://opso791ucsh2021.netlify.app/clases/clase5/clase5a_cuestionarios.html#1)
 
-[Clase 5. Bloque 2 práctico]()
+[Clase 5. Bloque 2 práctico](https://opso791ucsh2021.netlify.app/clases/clase5/clase5b_help_import.html#1)
+
+# Ciencia abierta y reproducibilidad (01 de octubre)
+
+[Clase 6. Bloque 1 teórico]()
+
+[Clase 6. Bloque 2 práctico]()
