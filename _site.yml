@@ -20,6 +20,8 @@ navbar:
           href: instalarR.html
         - text: "Soluciones ejercicio 1"
           href: ejerciciopractico1.html
+        - text: "Soluciones ejercicio 2"
+          href: ejerciciopractico2.html
         - text: "Descarga textos"
           href: descargartextos.html
     - icon: fab fa-github
