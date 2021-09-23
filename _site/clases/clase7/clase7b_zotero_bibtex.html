@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Introducción a la ciencia abierta, RMarkdown y herramientas de gestión bibliográfica
+### <code>01 de octubre 2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+
+class: center, middle
+
+# Búsqueda, acceso y gestión de bibliografía
+
+---
+
+
+---
+
+---
+
+class: center, middle
+
+# Zotero
+
+---
+
+# Zotero
+
+
+--
+
+.pull-left[
+
+Software libre (*open source &amp; non profit*), que funciona como "asistente personal" de investigación. 
+
+Es un gestor bibliográfico, nos permite recolectar citas, organizarlas y citar cuando escribimos. 
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="imagenes/zotero-logo-520x245.png" width="75%" style="display: block; margin: auto 0 auto auto;" /&gt;
+
+]
+
+--
+
+A primera vista se parece y opera similar a como lo hace el gestor bibliográfico de word
+
+--
+
+  + Z tiene formas automáticas de guardar las bibliografías
+  
+--
+
+  + Referencias pueden exportarse
+  
+--
+
+  + Permite orginzar las citas, la colaboración y la sincronización
+
+---
+
+# Zotero
+
++ Descargar Zotero [acá](https://www.zotero.org/). 
+
+--
+
++ Al apretar download aparece la opción Zotero y Zotero Connector. Descargar ambas. 
+
+
+--
+
++ Es recomendable crearse una cuenta para poder sincronizar contenido desde distintos dispositivos y trabajar colaborativamente.
+
+--
+
+Vamos a Zotero...
+
+
+---
+
+class: center, middle
+
+# Zotero Connector
+
+---
+
+# Zotero Connector
+
+Registrar nuestras referencias "a mano" resulta agotador, lo que podría limitar nuestro interés en citar trabajos ajenos o traer a nuestro texto ideas de fuentes diversas.
+
+--
+
+Una alternativa económica respecto del tiempo es el uso de Zotero Connector. 
+
+--
+
+Este complemento nos permite guardar directamente las citas que encontremos en nuestro buscador favorito (e.g. [Google Scholar](https://scholar.google.com/)). Solo es necesario hacer click y especificar lo que queremos guardar.
+
+--
+
+&lt;img src="imagenes/collect_with_click.PNG" width="60%" style="display: block; margin: auto;" /&gt;
+
+--
+
+*Nota: Para que funcione tenemos que tener abierto nuestor Zotero y abierta la carpeta en la cuál queremos guardar el elemento.* 
+
+---
+
+class: center, middle
+
+# Citando en texto plano
+
+---
+
+# Citando en texto plano
+
+--
+
+Se requieren 2 insumos básicos:
+
+--
+
++ Archivo que almacena las referencias (.bib)
+
+  + "Bloc de notas" con referencias (Bibtex)
+
+  + Lo produciremos desde Zotero
+
+--
+
++ Archivo con información del estilo de citación (.csl)
+
+  + No nos meteremos en este punto (valor *default*)
+  
+---
+
+# Citando en texto plano
+
+¿Cómo se ve un bibtex?
+
+--
+
+&lt;img src="imagenes/Bibtex.PNG" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
+
+--
+
+¿Tenemos que escribir todo ese código para cada cita en R Markdown?
+
+--
+
+No, desde el mismo Zotero exportamos un archivo bibtex con las citas que potencialmente queremos utilizar. 
+
+---
+
+# Citando en texto plano
+
+Cada referencia en nuestro Zotero tiene una clave (*CiteKey*). Esta será la que llamaremos desde R Markdown.
+
+--
+
+Opcional, pero recomendado:
+
+Para poder modificar el "estilo" de nuestra *CiteKey* y mantener actualizados los archivos exportados es necesario instalar un [complemento: Better BibTeX for Zotero](https://retorque.re/zotero-better-bibtex/installation/).
+
+--
+
+Ahora exportemos las referencias de Zotero (o las carpetas) que serán nuestro repertorio. Botón derecho -&gt; exportar elemento en Formato Better BibTex, marcar "Keep Updated" y "Ok". 
+
+--
+
+Guardar elemento en carpeta del proyecto R. 
+
+--
+
+Ahora vamos a R...
+
+---
+
+# Citando en texto plano
+
+Al final del YAML agregar: 
+
+``` yaml
+---
+title: "Word count test"
+output: html_document
+bibliography: input/bib/Mi biblioteca.bib  
+---
+```
+--
+
+Para referenciar en texto: [@Citekey]
+
+--
+
+Al renderizar, al final del texto aparecerán las referencias.
+
+--
+
+Revisar [sintaxis de citado](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html) para cuestiones más específicas, como citar dos referencias, citar fuera de paréntesis, agregar números de página, etc. 
+
+--
+
+Veamos ejemplo...
+
+---
+
+# Citando en texto plano
+
+Hay opciones hacer que todas las referencias se impriman al final del texto, aunque no hayan sido citadas. 
+
+--
+
+``` yaml
+---
+nocite: '@*'
+---
+```
+
+--
+
+Si queremos que el anexo aparezca después de la bibliografía
+
+--
+
+``` 
+# References
+
+&lt;div id="refs"&gt;&lt;/div&gt;
+
+# Appendix
+```
+
+
+---
+
+# Citando en texto plano
+
+El estilo de citación puede cambiarse agregando función en YAML (por defecto es Chicago). Debe [descargarse el estilo](https://editor.citationstyles.org/about/) y guardarse en carpeta de protecto. 
+
+--
+
+``` yaml
+---
+bibliography: input/bib/Mi biblioteca.bib  
+csl: input/bib/apa.csl
+---
+```
+
+--
+
+Para algunos puede ser desgastante recordar Citekeys o desgastante estar constantemente viendo en Zotero la clave de cada referencia. 
+
+--
+
+Para evitar esto existe el paquete de R `citr`, que instala un Addin en RStudio que facilita la búsqueda de las referencias. Si les interesa, revisar el [paquete en github](https://github.com/crsh/citr) (esta fuera de la CRAN en estos momentos). 
+
+---
+
+&lt;img src="https://raw.githubusercontent.com/crsh/citr/master/tools/images/addin_demo.gif" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Recursos
+
++ Castillo, JC. (2020) Clase ["Citando en texto plano"](https://cienciasocialabierta.netlify.app/slides/05-bib/05_bib.html#1) en curso Ciencia Social Abierta.
+
++ Healy, K. (2019) [The Plain Person’s Guide to Plain Text Social Science](https://plain-text.co/). 
+
++ Screamox02. (2018) Como instalar [Zotero y Zotero Connector 2021](https://www.youtube.com/watch?v=Uxv3aE4XoNY).
+
++ Tenen, D. y Wythoff, G (2017) [Trabajar con bibliografías en RMarkdown](https://programminghistorian.org/es/lecciones/escritura-sostenible-usando-pandoc-y-markdown#trabajar-con-bibliograf%C3%ADas)
+
++ Yihui, X. (2020). [R Markdown Cookbook](https://bookdown.org/yihui/rmarkdown-cookbook/bibliography.html). Capítulo sobre bibliografías. 
+
+En tanto es posible que después del curso sigas usando word para algún proyecto, te recomendamos revisar completo el video de Zotero y Zotero Connector, en el final hay una explicación sobre como vincular Zotero y Word. Para hacerlo es necesario descargar un [plugin](https://www.zotero.org/support/word_processor_integration).  
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

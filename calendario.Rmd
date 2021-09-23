@@ -42,11 +42,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **Tarea práctica 2.**	Operaciones elementales sobre un data frame con R base y primera parte dplyr (10%).	27 agosto (entrega 4 días después)
 
-**Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%).	10 septiembre (entrega 4 días después)
+**Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%). 01 octubre (entrega 4 días después)
 
-**Tarea práctica 4.**	Estadística descriptiva con R e interpretación de salidas (5%).	08 octubre (entrega 3 días después)
+**Tarea práctica 4.**	Estadística descriptiva con R e interpretación de salidas (5%).	29 octubre (entrega 4 días después)
 
-**Tarea práctica 5.**	Reproducibilidad e inferencia estadística (5%).	05 noviembre (entrega 3 días después)
+**Tarea práctica 5.**	Reproducibilidad e inferencia estadística (5%).	12 noviembre (entrega 4 días después)
 
 
 ## Evaluaciones tipo prueba:

@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <script src="libs/kePrint/kePrint.js"></script>
+    <link href="libs/lightable/lightable.css" rel="stylesheet" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Introducción a la ciencia abierta, RMarkdown y herramientas de gestión bibliográfica
+### <code>01 de octubre 2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+
+# Ciencia abierta
+
+## Introducción y desafíos en sociología
+
+---
+
+# Introducción
+
+*"La información es poder. Pero como con todo poder, hay quienes lo quieren mantener para sí mismos. La herencia científica y cultural del mundo completa, publicada durante siglos en libros y journals, está siendo digitalizada y apresada en forma creciente por un manojo de corporaciones privadas (...)"*.
+
+--
+
+*"(...) Es tiempo de salir a la luz y en la gran tradición de la desobediencia civil, declarar nuestra oposición a este robo privado de la cultura pública (...) Necesitamos tomar la información, donde sea que esté guardada, hacer nuestras copias y compartirlas con el mundo"*
+
+--
+
+.right[&lt;a name=cite-Swartz2008&gt;&lt;/a&gt;([Swartz, 2008](#bib-Swartz2008))]
+
+--
+
+&lt;a href="https://www.youtube.com/watch?v=VBkD04z-8V8" target="_blank"&gt;&lt;img src="imagenes/aaswartz.jpg" width="15%" style="display: block; margin: auto 0 auto auto;" /&gt;&lt;/a&gt;
+
+
+---
+
+# Introducción
+
+Esta concepción de ciencia abierta de Aaron Swartz (accesibilidad) es probablemente la que nos es más cercana. 
+
+--
+
+Inspiró a muchos y muchas. A una de ellas probablemente la han escuchado (y sí no es así deberían). 
+
+--
+
+.pull-left[La científica Alexandra Elbakyan ha creado un [repositorio y página web (sci-hub)](https://sci-hub.se/) pirata de más de 84 millones de artículos académicos, consiguiendo en la práctica un acceso abierto a las publicaciones científicas.
+
+Por esto se ha ganado varias demandas. En algunos países se encuentra bloqueada (e.g. Alemania)]
+
+&lt;a href="https://es.wikipedia.org/wiki/Alexandra_Elbakyan" target="_blank"&gt;&lt;img src="imagenes/alexandra.jpg" width="30%" style="display: block; margin: auto 0 auto auto;" /&gt;&lt;/a&gt;
+
+
+---
+
+# Introducción
+
+En paralelo a la opción "guerrillera", otras líneas institucionales han avanzado. 
+
+--
+
+.pull-left[
+&lt;a href="https://doaj.org/" target="_blank"&gt;&lt;img src="imagenes/doaj.jpg" width="80%" /&gt;&lt;/a&gt;
+]
+
+.pull-right[
+&lt;a href="https://creativecommons.cl/tipos-de-licencias/" target="_blank"&gt;&lt;img src="imagenes/ccommons.png" width="80%" /&gt;&lt;/a&gt;
+]
+
+--
+
+Pero la ciencia abierta no es solo el acceso libre a artículos y libros.
+
+--
+
+Ciencia abierta es un concepto "paraguas", que cubre diferentes usos. Reflexiones pueden agruparse a lo menos en cinco "escuelas" &lt;a name=cite-Fecher2014&gt;&lt;/a&gt;([Fecher and Friesike, 2014](#bib-Fecher2014)) o cuatro "dimensiones" &lt;a name=cite-Breznau2021&gt;&lt;/a&gt;([Breznau, 2021](#bib-Breznau2021)).
+
+---
+
+# Dimensiones o escuelas de la ciencia abierta (I)
+
+--
+
+## Open access (acceso abierto) o Escuela democrática
+
+Los resultados de la investigación científica deben ser accesibles a todos/as, removiendo las barreras de pago de las revistas. 
+
+--
+
+Es justo por el uso de fondos públicos.
+
+--
+
+Es racional por que la ciencia se basa en la acumulación progresiva de conocimiento (nos paramos sobre hombres de gigantes), ¿Como construir investigación de calidad sin revisar lo producido por otros/as?
+
+--
+
+**Posibles salidas:** Publicar en revistas open access, liberar prepints, difundir y cooperar en expandir el repositorio sci-hub/lig-gen, sabotaje a grandes revistas, redireccionar el uso de fondos de las universidades, etc.  
+
+
+---
+
+# Derivación de acceso abierto según la Escuela de la Medición
+
+--
+
+Crítica a las medidas de productividad y a la permanente obligación por publicar (podría sacrificar la calidad de la misma ciencia)
+
+--
+
+La contribución de la ciencia debe ser medida con indicadores de impactos alternativos. 
+
+--
+
++ El proceso de revisión de pares consume demasiado tiempo (la misma comunidad científica debería evaluar)
+
+--
+
++ El impacto de los artículos está más relacionado a la revista que directamente al artículo (importa más el poder simbólico que el argumento)
+
+--
+
++ Existen nuevos formtos de publicación (blogs, revistas online con acceso abierto), que pocas veces tienen un formato de revista al que se le puede asignar un factor de impacto. 
+
+
+---
+
+# Dimensiones de la ciencia abierta (II)
+
+## Open process (transparencia)
+
+--
+
+Se deben dar a conocer todos los métodos, códigos, data y conflictos de interés antes y después de que la investigación sea realizada.
+
+--
+
+Siempre que el hacerlo no dañe seres humanos ni viole leyes (*e.g. anonimato informantes*).
+
+--
+
+Permite la sinergia entre investigadores, previniendo la duplicación de recolecciones y análisis de datos. 
+
+--
+
+Permite discusión más transparente y continuar o expandir proyectos de investigación de terceros. 
+
+--
+
+La creación de conocimiento puede ser más eficiente si los científicos trabajan en conjunto (Escuela pragmática). Problemas complejos requieren esfuerzos combinados. 
+
+--
+
+**Posibles salidas:** Preregistro de investigaciones (*OSF*), publicación de códigos y data (*github y otros repositorios*), Investigación Reproducible.
+
+
+---
+
+# Dimensiones de la ciencia abierta (III)
+
+## Open source (código abierto)
+
+--
+
+Todos los programas, apps, algoritmos, herramientas y scripts deben ser transparentes y usables por otros. 
+
+--
+
+Cuando un científico desarrolla una nueva tecnología, cualquier tecnología de otro puede interactuar con esta.
+
+--
+
+Cualquiera puede modificar la tecnología para adoptarlas mejor a sus propias necesidades
+
+--
+
+**R y sus paquetes van en esta línea**. 
+
+
+---
+
+# Dimensiones de la ciencia abierta (IV)
+
+## Open academia o Escuela Pública
+
+--
+
+Todos/as pueden participar de la academia. Las desigualdades el mundo social deben ser eliminadas del mundo académico. 
+
+--
+
+Incluso, las cs. podrían tener el objetivo de eliminar las desigualdades del mundo social (e.g. sociología pública de &lt;a name=cite-Burawoy2005&gt;&lt;/a&gt;([Burawoy, 2005](#bib-Burawoy2005)):
+
+--
+
++ Intervenir en discusiones públicas o elaboración de pp.
+
+--
+
++ Apoyar la organización de movimientos sociales. 
+
+--
+
+Debiese importar el argumento y la evidencia, no el poder o posición de los actores. 
+
+--
+
+Desafío de la comunicación de los resultados de la investigación, ¿basta con liberar el *paper*?. 
+
+--
+
+Líneas innovadoras de involucrar a la ciudadanía [(citzen science)](https://www.zooniverse.org/about).
+
+
+---
+
+# ¿Por qué ciencia abierta en sociología?
+
+--
+
+Principal camino para evitar su fracaso como disciplina científica ([Breznau, 2021](#bib-Breznau2021)).
+
+--
+
+Permite resolver la actual crisis de legitimidad en la que se encuentran las ciencias sociales:
+
+--
+
++ Poca confianza desde el público y de quienes hacen las políticas públicas
+
+--
+
++ Escándalos por profesores que construyeron su carrera en base a falsa evidencia
+
+--
+
++ Activistas que publicaron premeditadamente "basura" en prestigiosas revistas [(Sokal Squared" scandal)](https://www.youtube.com/watch?v=kVk9a5Jcd1k).
+
+--
+
+En mundo cuantitativo:
+
++ *p hacking*: correr modelos una y otra vez hasta que los resultados den significativos. Solo se hace público el modelo final [(Una posible salida es modelar "curvas de especificación")](https://crowdid.hypotheses.org/220). 
+
++ Valor *p* como objetivo, pero no dice nada sobre si el modelo está mal especificado, sobre la teoría o sobre el tamaño de los efectos.
+
+
+---
+
+# ¿Por qué ciencia abierta en sociología?
+
+--
+
+Las pretensiones de la ciencia abierta están en las concepciones de ciencia de algunos de los principales referentes de la sociología, como [Merton](https://sciencepolicy.colorado.edu/students/envs_5110/merton_sociology_science.pdf) y Habermas. 
+
+--
+
++ **Universalismo:** pretensiones de verdad, cualquiera sea la fuente, deben ser evaluadas con criterios impersonales preestablecidos. No importan atributos de sus protagonistas. 
+
+--
+
++ **Comunismo:** Los hallazgos sustantivos de la ciencia son producto de la colaboración social. La propiedad intelectual debe limitarse al reconocimiento y estima. 
+
+--
+
++ **Desinterés:** curiosidad, altruismo en la búsqueda de beneficiar a la humanidad, y compromiso por la verdad. Rechazo a la acumulación de prestigio y a la subordinación a grupos de interés fuera del campo. 
+
+--
+
++ **Escepticismo organizado:** escrutinio periódico de las creencias en términos lógicos y empíricos. Potencial conflicto con actitudes e instituciones sociales. No existe la división entre lo sagrado y lo profano. 
+
+--
+
++ Cuando la esfera pública está mercantilizada, hay una producción y consumo de **comunicación asimétrica** (sesgo de contenidos y de acceso a calidad)
+
+
+---
+
+# Desafíos y problemas de la ciencia abierta
+
+--
+
++ Acción directa de recuperación de literatura es ilegal.
+
+--
+
++ La apertura nunca puede ser total: dilemas éticos y políticos, y restricciones legales.
+
+--
+
++ Aparente limitación a los enfoques cuantitativos de las ciencias sociales (*misconception*).
+
+--
+
++ Crítica de Asún:
+
+  + Ciencia abierta tiene pretensiones positivistas, si no se cumple nuestro modelo no publicamos.
+  + Si se sincera el proceso de manipulación de datos y ajuste de modelos (proceso iterativo) nadie nos creería (e.g. Copérnico). 
+  
+--
+
+*"No debe ser un movimiento positivista. Es un movimiento para abrir la caja negra que rodea lo que hacen los sociólogos, sea lo que sea, para crear una comunidad de control de calidad y diálogo."* ([Breznau, 2021](#bib-Breznau2021)).
+
+---
+
+class: inverse, center, middle
+
+# Investigación reproducible
+
+## Apertura de los procesos de investigación social
+
+---
+
+# Investigación reproducible
+
+--
+
+Que otra persona (o mi yo del futuro) pueda ejecutar mi .pur[código] con .pur[los mismos datos] llegando **al mismo resultado**.
+
+--
+
+&lt;a href="https://the-turing-way.netlify.app/reproducible-research/overview/overview-definitions.html" target="_blank"&gt;&lt;img src="imagenes/reproducible_turing_way.PNG" width="60%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
+
+--
+
+*“Here is everything you need to reproduce my work.” *
+
+*“Read the README file for further instructions.”* 
+
+&lt;a name=cite-Christensen2019&gt;&lt;/a&gt;([Christensen, Freese, and Miguel, 2019](#bib-Christensen2019)).
+
+---
+
+# Investigación reproducible
+
+![](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/reproducibility_court.png)
+
+---
+
+# Investigación reproducible
+
+## ¿Que cosas pueden dificultar la reproducción de un procesamiento y análisis de datos?
+
+--
+
+- No sé si estoy usando los mismos datos (*problemas de acceso, diferentes versiones*)
+
+--
+
+- Rutas a archivos que son incorrectas
+
+--
+
+- Aleatoriedad no reproducible
+
+--
+
+- Comentarios escuetos en el código (*no se entienden las decisiones*)
+
+--
+
+- Variables no localizadas (no estaban creadas en la rutina)
+
+--
+
+- Diferentes versiones del *software* o de los paquetes
+
+---
+
+# Investigación reproducible
+
+## Posibles soluciones
+
+--
+
+.pull-left[
+
+- No sé si estoy usando los mismos datos
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 👉 &amp;nbsp;&amp;nbsp;&amp;nbsp; .medium-par[.pur[**Script, Control de versiones**]]
+
+
+- Rutas a archivos que son incorrectas
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 👉 &amp;nbsp;&amp;nbsp;&amp;nbsp; .medium-par[.pur[**RProject, RMarkdown**]]
+
+
+- Aleatoriedad no reproducible
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 👉 &amp;nbsp;&amp;nbsp;&amp;nbsp; .medium-par[.pur[**Fijar semillas con set.seed()**]]
+
+]
+
+
+.pull-right[
+
+- Comentarios escuetos en el código
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 👉 &amp;nbsp;&amp;nbsp;&amp;nbsp; .medium-par[.pur[**Orden y estilo de código**]]
+
+
+- Variables no localizadas
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 👉 &amp;nbsp;&amp;nbsp;&amp;nbsp; .medium-par[.pur[**RMarkdown**]]
+
+
+- Diferentes versiones del *software* o de los paquetes
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp; 👉 &amp;nbsp;&amp;nbsp;&amp;nbsp; .medium-par[.pur[**sessionInfo() y paquetes**]]
+
+]
+
+---
+
+# Importancia de la reproducibilidad (Daniela Ballari)
+
+--
+
++ Recordar como se hizo lo que se hizo (yo del futuro y supervisión)
+
+--
+
++ Facilita la detección de errores antes de publicar (si el código no corre es porque hay problemas)
+
+--
+
++ Permite el control de versiones (volver al pasado)
+
+--
+
++ Facilita la continuación del trabajo ante el recambio de personal
+
+--
+
++ Permite la colaboración y transparencia del proyecto
+
+--
+
++ Credibilidad de lo realizado
+
+--
+
++ Evita malos entendidos, confusiones frente a revisión o solicitudes innecesarias (cualquier duda consulta el código)
+
+--
+
++ Código puede reutilizarse o complejizarse para mejorar un procedimiento o una investigación
+
+
+
+---
+
+class: inverse, center, middle
+
+# RMarkdown
+
+## Articulación de código y texto para la reproducibilidad
+
+---
+
+# Breve repaso de RMarkdown 
+&lt;img src="https://www.rstudio.com/wp-content/uploads/2017/05/rmarkdown.png" width="10%" style="display: block; margin: auto;" /&gt;
+
+
+--
+
+Articulación de lenguaje R y texto plano. 
+
+--
+
+Los documentos creados con R Markdown son completamente reproducibles.
+
+--
+
+Si intentamos renderizar un documento, y el proceso falla, no hay reproducción:
+
+--
+
++ Se requieren objetos (data frames, vectores) que no han sido creados todavía
+
+--
+
++ Se intentan cargar bases de datos o imágenes desde rutas que no existen
+
+--
+
++ Problemas en la escritura de código (confusión entre mayusc y minusc, guiones bajos)
+
+--
+
++ Problemas en el orden del código (primero se espcifica modelo y luego se crean las variables)
+
+---
+
+# Breve repaso de RMarkdown 
+
+Si el código se reproduce, tenemos un indicador de la calidad de una investigación social (primer filtro).
+
+--
+
+Otras cuestiones sustantivas (buenas ideas, revisión exhaustiva de antecedentes, validez de las mediciones, justificación de decisiones, gramática, etc.)
+
+--
+
+Los archivos de `R Markdown` en general tienen 3 partes:
+
+--
+
+(1). Un encabezado que permite configurar inicialmente el documento que vamos a escribir (**yaml**)
+
+
+![](https://smac-group.github.io/ds/images/rmd_yaml.png)
+
+---
+
+# Breve repaso de RMarkdown 
+
+(2). "Pedazos de código" (o en inglés, ***chunk codes***, shortcut `ctrl+alt+i`).
+
+--
+
+![](https://smac-group.github.io/ds/images/rmd_code_chunk.png)
+
+---
+
+# Breve repaso de RMarkdown 
+
+Los chunks tienen muchos argumentos que permiten moldear el output a lo que deseamos.
+
+--
+
+Existe un chunk llamado por defecto "setup" (general para todos los chunks del documento).
+
+--
+
+```
+{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+--
+
+Podemos agregar opciones [(detalle acá)](https://rmarkdown.rstudio.com/lesson-3.html):
+
+- include = FALSE/TRUE
+- echo = FALSE/TRUE
+- message = FALSE/TRUE
+- warning = FALSE/TRUE
+- error = FALSE/TRUE
+
+--
+
+O especificar opciones para cada chunk:
+
+```
+{r message=FALSE, warning=FALSE}
+library(dplyr)
+```
+
+
+---
+
+# Breve repaso de RMarkdown 
+
+(3). Los **cuerpos de texto** donde podemos hacer comentarios sin necesidad de usar "#" (a diferencia de un script)
+
+--
+
+![](imagenes/rmd_text.PNG)
+
+---
+
+# Breve repaso de RMarkdown 
+
+Podemos crear títulos (#), énfasis con negrita o cursiva, listas de elementos, agregar imágenes y enlaces.
+
+--
+
+Existe el código R "en línea" (*in line*), lo que nos permite hacer reportes automáticos:
+
+--
+
+El día de hoy es 2021-09-11 y el valor de 5 por 2 es 50
+
+--
+
+
+```r
+El día de hoy es `r Sys.Date()` y el valor de 5 por 2 es `r 5*10`
+```
+
+--
+
+Para generar el documento se puede utilizar el comando `render` o bien utilizar el botón `Knit` (Tejer).
+
+&lt;img src="https://d33wubrfki0l68.cloudfront.net/eb48bae40b24285c0c8f281e6d2a7500cf3b9fc8/a2e5f/knitr/images/knit-logo.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+--
+
+O podemos ir ejecutando líneas de código en específico, chunks particulares o `Run All`, lo que nos permite detectar errores cuando el código no corre. 
+
+
+---
+
+# De RMarkdown a otros formatos
+
+![](https://lh6.googleusercontent.com/xlpPZilu2MS1EtyS9B6ykhmw4VhAHGaf_ryfg1Ek0_ZqVowztxK8HdMDDvskAM0Rc0vaATajSuLnyQWmtVTaQlw82SvsUQZn8sNAwd03n8O_kr05JUrysSqAY_-tSo-xdrysRFt9BU4)
+
+
+--
+
+.pull-left[
+
+```
+---
+title: "Título"
+author: "Autor"
+output: 
+  html_document:
+---
+```
+]
+
+.pull-right[
+
+```
+---
+title: "Título"
+author: "Autor"
+output: 
+ pdf_document:
+---
+```
+]
+
+---
+
+# Documentos en formato html
+
+Descargar [formato html](https://github.com/nicolasrattor/formatos/raw/main/Formato%20html/documento.Rmd) estilizado.
+
+Descargar [formato html distill](https://raw.githubusercontent.com/nicolasrattor/formatos/main/Formato%20html%20distill/Paper.Rmd). Para ocupar instalar paquete `distill`. 
+
+---
+
+# Documentos en formato pdf
+
+Descargar [formato pdf](https://github.com/nicolasrattor/formatos/blob/main/Formato%20pdf%20uch/Paper.Rmd). Para utilizarlo se requiere instalar latex: `install.packages('tinytex')` [(más información acá)](https://bookdown.org/yihui/rmarkdown/installation.html)
+
+
+---
+
+# Documentos en formato word
+
+Descargar [formato word](https://github.com/nicolasrattor/formatos/blob/main/Formato%20word/Paper.Rmd). No utilizar en este curso. 
+
+
+---
+
+# Formato presentaciones
+
+Uso completamente opcional en presentación de final de semestre. 
+
+--
+
+Es recomendable ya que evita exportar gráficos y tablas trabajadas en RMarkdown. 
+
+--
+
+Tres formas diferentes
+
+--
+
++ ioslides
+
++ Beamer
+
+.pull-left[
+
++ [Xaringan](https://bookdown.org/yihui/rmarkdown/xaringan-start.html)
+
+]
+
+.pull-right[
+&lt;img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg" width="20%" /&gt;
+]
+
+--
+
+La tercera es la más simple, tiene varios formatos y solo hay que manejar un par de marcas extras. No es necesario saber latex. 
+
+---
+
+# Recordatorio de elementos a considerar al trabajar en Rmarkdown
+
+--
+
+- La función `setwd()` no funciona dentro de RMarkdown (por eso trabajamos con RProject).
+
+- Las librerías que necesiten deben estar cargadas en el script de 
+  Rmarkdown (**error habitual**).
+
+- Tanto las bases de datos como las variables a utilizar deben estar
+  llamadas dentro el script de Rmarkdown.
+
+- Knitr() incluye la impresión de los resultados, por lo que no 
+  es necesario usar print().
+
+- No usar View() en RMarkdown, porque en el output no mostrará nada.
+
+- Cada chunk puede tener o no tener un nombre. Si los deciden nombrar, 
+  los nombres NO DEBEN REPETIRSE
+
+
+---
+
+# Dar formato a las tablas
+
+Función `kable()` y paquete `kableExtra()`.
+
+--
+
+
+```r
+*Orange %&gt;% head(4)
+```
+
+```
+##   Tree  age circumference
+## 1    1  118            30
+## 2    1  484            58
+## 3    1  664            87
+## 4    1 1004           115
+```
+--
+
+
+```r
+*library(knitr)
+*Orange %&gt;% head(4) %&gt;% kable()
+```
+
+
+
+|Tree |  age| circumference|
+|:----|----:|-------------:|
+|1    |  118|            30|
+|1    |  484|            58|
+|1    |  664|            87|
+|1    | 1004|           115|
+
+
+---
+
+# Dar formato a las tablas
+
+
+```r
+*library(kableExtra)
+```
+
+```
+## 
+## Attaching package: 'kableExtra'
+```
+
+```
+## The following object is masked from 'package:dplyr':
+## 
+##     group_rows
+```
+
+```r
+Orange %&gt;% head(4) %&gt;% kable(caption = "Título de tabla") %&gt;%
+ kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+&lt;table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;"&gt;
+&lt;caption&gt;Título de tabla&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Tree &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; age &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; circumference &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 118 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 484 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 58 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 664 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 87 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1004 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 115 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+--
+
+Para más información sobre distintos estilos revisar [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
+
+---
+
+# Otras herramientas para la investigación reproducible
+
+&lt;https://github.com/&gt;
+
+&lt;https://sci-hub.se/&gt;
+
+&lt;https://osf.io/&gt; o &lt;https://zenodo.org/&gt;
+
+[Zotero](https://www.zotero.org/)
+
+&lt;https://www.researchgate.net/&gt;
+
+&lt;http://www.shinyapps.org/apps/TransparencyChecklist/&gt;
+
+---
+
+# Material de texto y audiovisual de interés
+
+Curso ["Ciencia Social Abierta"](https://cienciasocialabierta.netlify.app/) de Juan Carlos Castillo (en español). 
+
+[¿Por qué es importante la reproducibilidad computacional?](https://www.youtube.com/watch?v=Hvrb2b7v93w) De Daniela Ballari. En español
+
+[The Story of Aaron Swartz](https://www.youtube.com/watch?v=VBkD04z-8V8). Documental con subtítulos en español.
+
+[Como escribir manuscritos reproducibles.](https://www.youtube.com/watch?v=TKhV3w467RI&amp;t=202s) De Francisco Rodríguez-Sánchez. En español
+
+---
+
+# Bibliografía y elementos consultados
+
+&lt;a name=bib-Breznau2021&gt;&lt;/a&gt;[Breznau, N.](#cite-Breznau2021) (2021).
+"Does Sociology Need Open Science?" In: _Societies_ 11.1, p. 9.
+
+&lt;a name=bib-Burawoy2005&gt;&lt;/a&gt;[Burawoy, M.](#cite-Burawoy2005) (2005).
+"Por Una Sociologia Publica". In: _Politica y sociedad_ 42.1, pp.
+197-225.
+
+&lt;a name=bib-Christensen2019&gt;&lt;/a&gt;[Christensen, G., J. Freese, and E.
+Miguel](#cite-Christensen2019) (2019). _Transparent and Reproducible
+Social Science Research: How to Do Open Science_. University of
+California Press.
+
+&lt;a name=bib-Fecher2014&gt;&lt;/a&gt;[Fecher, B. and S.
+Friesike](#cite-Fecher2014) (2014). "Open Science: One Term, Five
+Schools of Thought". In: _Opening science_, pp. 17-47.
+
+&lt;a name=bib-Swartz2008&gt;&lt;/a&gt;[Swartz, A.](#cite-Swartz2008) (2008).
+"Guerilla Open Access Manifesto". In: _Aaron Swartz [Internet]_.
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+--
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

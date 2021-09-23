@@ -36,8 +36,27 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Clase 5. Bloque 2 práctico](https://opso791ucsh2021.netlify.app/clases/clase5/clase5b_help_import.html#1)
 
-# Ciencia abierta y reproducibilidad (01 de octubre)
+# Clase de consolidación aprendizajes en R (01 de octubre)
 
-[Clase 6. Bloque 1 teórico]()
+[Clase 6. Revisión prueba 1]()
 
-[Clase 6. Bloque 2 práctico]()
+[Clase 6. Pipe, profundización dplyr y buen código]()
+
+# Ciencia abierta y reproducibilidad (08 de octubre)
+
+[Clase 7. Bloque 1 teórico]()
+
+[Clase 7. Bloque 2 práctico]()
+
+# Estadística descriptiva I
+
+[Clase 8. Bloque 1 teórico]()
+
+[Clase 8. Bloque 2 práctico]()
+
+# Estadística descriptiva II
+
+[Clase 9. Bloque 1 teórico]()
+
+[Clase 9. Bloque 2 práctico]()
+
