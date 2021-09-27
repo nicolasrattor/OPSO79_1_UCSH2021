@@ -35,7 +35,7 @@ Entrega a más tardar el martes 05 de octubre a las 23:59 hrs.
 
 6. ¿Cuántas personas tienen entre 0 y 17 años, entre 18 y 29 años, entre 30 y 64 años, y 65 o más años? (cuatro grupos)
 
-7. Crea una nueva data donde cada unidad (fila) sean los hogares y que solo tenga 3 variables: identificador del hogar, ingresos del hogar y región en la que se ubica el hogar.
+7. Crea una nueva data donde cada unidad (fila) sean los hogares y que solo tenga 3 variables: identificador del hogar, decil de los ingresos del hogar y región en la que se ubica el hogar (pista: use `group_by()` y `slice()` ).
 
 8. ¿Cuántos hogares son?, ¿Cómo se distribuyen regionalmente estos hogares?
 
