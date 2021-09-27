@@ -1,7 +1,7 @@
 ---
 title: "OPSO79-1-UCSH2021"
-subtitle: "Introducción a la ciencia abierta, RMarkdown y herramientas de gestión bibliográfica"
-date: "`01 de octubre 2021`"
+subtitle: "Ciencia abierta, RMarkdown y herramientas de gestión bibliográfica. Parte II"
+date: "`08 de octubre 2021`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -10,6 +10,7 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+bibliography: "bib/openscience.bib"
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +48,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-#pagedown::chrome_print("clase3b.html")
+#pagedown::chrome_print("clase7b_zotero_bibtex.html")
 
 ```
 
@@ -63,20 +64,101 @@ BibOptions(check.entries = FALSE,
 bib <- ReadBib("bib/openscience.bib", check = FALSE)
 ```
 
-class: center, middle
+class: center, middle, inverse
 
-# Búsqueda, acceso y gestión de bibliografía
+# Búsqueda y acceso a bibliografía
 
----
-
-
----
+`Uso de Google Scholar y como quebrar barreras de pago`
 
 ---
 
-class: center, middle
+# Google Scholar
 
-# Zotero
+--
+
+```{r fig.align="center", echo=FALSE, out.width="70%", fig.link="https://scholar.google.com/"}
+knitr::include_graphics("imagenes/scholar.png")
+```
+
+--
+
+**Potencia:** largo alcance (múltiples sitios); contenido exclusivamente científico/académico, posibilidad de filtrar y ordenar por años o por "relevancia".
+
+--
+
+**Debilidad:** criterio de "cientificidad" es laxo, no hay filtro por revistas ni por tipo de texto (tesis, ponencias). 
+
+--
+
+Por esto hay quienes prefieren entrar directamente a bases de datos y sistemas de almacenamiento (vía [universidades](http://dibridigital.ucsh.cl/opac/#indice))
+
+
+---
+
+# El acceso
+
+El primer desafío es **encontrar** lo que buscamos.
+
+Hacerse una panorámica de la producción científica sobre un tema (estado del arte)
+
+--
+
+El segundo desafío es poder **acceder** a lo que encontramos. 
+
+--
+
+El tercer desafío es **ordenar/gestionar** lo encontrado (lo cuarto es analizarlo).
+
+--
+
+#### ¿Como accedemos a lo que encontramos?
+
+--
+
+1. Revistas con libre acceso (las de sociología en español casi siempre). Solo *click* y descargar
+
+--
+
+2. Revistas con acceso restringido:
+
+  + acceder vía usuario universidades 
+  
+  + acceder por las malas: [sci-hub](https://sci-hub.se/) y [lib-gen](https://libgen.is/) (contenido en inglés, por lo general)
+
+
+---
+
+class: center, middle, inverse
+
+#  Gestión de bibliografía
+
+`Uso del software Zotero`
+
+---
+
+# Gestión bibliográfica
+
+Parte fundamental de todo proceso de investigación.
+
+--
+
+Se puede hacer "a mano" o de memoria. Posibles fallas y trabajoso. 
+
+--
+
+Hacerlo de manera sistemática y ordenada nos ahorrará tiempo y nos incitará a referenciar un mayor número de elementos.
+
+--
+
+¿Cómo lograrlo? 
+
+Con **gestores bibliográficos**.
+
+--
+
+([wikipedia](https://es.wikipedia.org/wiki/Gestor_de_referencias_bibliogr%C3%A1ficas)) *"Un gestor bibliográfico es un software que nos permiten crear, mantener, organizar, compartir y dar forma a las referencias bibliográficas de artículos de revista, libros u otro tipo de documentos, a partir de distintas fuentes de información (bases de datos, catálogos, repositorios, páginas web, etc.) creando una especie de base de datos o colección personalizada de tales referencias (registros). Igualmente crear citas y bibliografías en los documentos de trabajo y dar forma a referencias bibliográficas de acuerdo con diferentes estilos de citación (APA, MLA, Vancouver, etc.)"*
+
+
 
 ---
 
@@ -89,7 +171,7 @@ class: center, middle
 
 Software libre (*open source & non profit*), que funciona como "asistente personal" de investigación. 
 
-Es un gestor bibliográfico, nos permite recolectar citas, organizarlas y citar cuando escribimos. 
+Es un **gestor bibliográfico**, nos permite recolectar citas, organizarlas y citar cuando escribimos. 
 
 ]
 
@@ -109,15 +191,16 @@ A primera vista se parece y opera similar a como lo hace el gestor bibliográfic
 
 --
 
-  + Z tiene formas automáticas de guardar las bibliografías
+  + Zotero automatiza el guardado de las referencias
+  
+--
+
+  + Permite organizar las citas, la colaboración y la sincronización
   
 --
 
   + Referencias pueden exportarse
-  
---
 
-  + Permite orginzar las citas, la colaboración y la sincronización
 
 ---
 
@@ -141,9 +224,11 @@ Vamos a Zotero...
 
 ---
 
-class: center, middle
+class: center, middle, inverse
 
-# Zotero Connector
+# Gestión y guardado rápido de bibliografía
+
+`Uso de Zotero Connector`
 
 ---
 
@@ -171,9 +256,11 @@ knitr::include_graphics("imagenes/collect_with_click.PNG")
 
 ---
 
-class: center, middle
+class: center, middle, inverse
 
 # Citando en texto plano
+
+`Leer y usar archivos de Zotero en R`
 
 ---
 
@@ -185,7 +272,7 @@ Se requieren 2 insumos básicos:
 
 --
 
-+ Archivo que almacena las referencias (.bib)
+1. Archivo que almacena las referencias (`.bib`)
 
   + "Bloc de notas" con referencias (Bibtex)
 
@@ -193,7 +280,7 @@ Se requieren 2 insumos básicos:
 
 --
 
-+ Archivo con información del estilo de citación (.csl)
+2. Archivo con información del estilo de citación (`.csl`)
 
   + No nos meteremos en este punto (valor *default*)
   
@@ -205,7 +292,7 @@ Se requieren 2 insumos básicos:
 
 --
 
-```{r fig.align="left", echo=FALSE, out.width="100%"}
+```{r fig.align="left", echo=FALSE, out.width="90%"}
 knitr::include_graphics("imagenes/Bibtex.PNG")
 ```
 
@@ -225,13 +312,13 @@ Cada referencia en nuestro Zotero tiene una clave (*CiteKey*). Esta será la que
 
 --
 
-Opcional, pero recomendado:
-
-Para poder modificar el "estilo" de nuestra *CiteKey* y mantener actualizados los archivos exportados es necesario instalar un [complemento: Better BibTeX for Zotero](https://retorque.re/zotero-better-bibtex/installation/).
+Ahora exportemos las referencias de Zotero (o las carpetas) que serán nuestro repertorio. 
 
 --
 
-Ahora exportemos las referencias de Zotero (o las carpetas) que serán nuestro repertorio. Botón derecho -> exportar elemento en Formato Better BibTex, marcar "Keep Updated" y "Ok". 
+.inverse[Botón derecho sobre elemento -> exportar elemento en Formato Bibtex (o Better BibTex).]
+
+Marcar "Keep Updated" y "Ok". 
 
 --
 
@@ -251,12 +338,12 @@ Al final del YAML agregar:
 ---
 title: "Word count test"
 output: html_document
-bibliography: input/bib/Mi biblioteca.bib  
+bibliography: bibliografia.bib  
 ---
 ```
 --
 
-Para referenciar en texto: [@Citekey]
+Para referenciar en texto: .inverse[[@Citekey]]
 
 --
 
@@ -301,9 +388,15 @@ Si queremos que el anexo aparezca después de la bibliografía
 
 ---
 
-# Citando en texto plano
+# Elementos opcionales
 
-El estilo de citación puede cambiarse agregando función en YAML (por defecto es Chicago). Debe [descargarse el estilo](https://editor.citationstyles.org/about/) y guardarse en carpeta de protecto. 
+#### 1. Estilos de citación
+
+--
+
+El estilo de citación puede cambiarse agregando función en YAML (por defecto es Chicago). 
+
+Debe [descargarse el estilo](https://editor.citationstyles.org/about/) y guardarse en carpeta de proyecto. 
 
 --
 
@@ -314,19 +407,103 @@ csl: input/bib/apa.csl
 ---
 ```
 
+
+---
+
+# Elementos opcionales
+
+#### 2. *Addin* de referencias
+
+Para algunos puede ser desgastante recordar *Citekeys* o estar constantemente viendo en Zotero la clave de cada referencia. 
+
 --
 
-Para algunos puede ser desgastante recordar Citekeys o desgastante estar constantemente viendo en Zotero la clave de cada referencia. 
+Para evitar esto existe el paquete de R `citr`, que instala un Addin en RStudio que facilita la búsqueda de las referencias. 
 
---
-
-Para evitar esto existe el paquete de R `citr`, que instala un Addin en RStudio que facilita la búsqueda de las referencias. Si les interesa, revisar el [paquete en github](https://github.com/crsh/citr) (esta fuera de la CRAN en estos momentos). 
+Si les interesa, revisar el [paquete en github](https://github.com/crsh/citr) (esta fuera de la CRAN en estos momentos). 
 
 ---
 
 ```{r fig.align="center", echo=FALSE, out.width="75%"}
 knitr::include_graphics("https://raw.githubusercontent.com/crsh/citr/master/tools/images/addin_demo.gif")
 ```
+
+---
+
+# Elementos opcionales
+
+#### 3. Better bibtex
+
+**Complemento** muy recomendado
+
+--
+
+Para poder modificar el "estilo" de nuestra *CiteKey* y mantener actualizados los archivos *bibtex* exportados.
+
+--
+
+[Better BibTeX for Zotero](https://retorque.re/zotero-better-bibtex/installation/).
+
+--
+
+```{r fig.align="center", echo=FALSE, out.width="100%"}
+knitr::include_graphics("Imagenes/betterbibtex.PNG")
+```
+
+---
+
+# Ejercicios prácticos
+
+Dos ejercicios **optativos**, pero próxima tarea será muy similar.
+
+--
+
+
+#### 1. Crea tu CV
+
+Abre un RMarkdown con una plantilla por defecto de los paquetes `stevetemplates`, `vitae` u otro que te interese.
+
+--
+
+Reemplaza los valores por tus datos personales, académicos y/o laborales (puedes agregar más campos de ser necesario).
+
+--
+
+Renderiza el documento (knit). Adjunta el `.pdf` y el `.rmd` y, envía al correo de equipo docente. 
+
+
+---
+
+# Ejercicios prácticos
+
+#### 2. Breve revisión de antecedentes
+
+Identifica un problema sociológico de tu interés y exprésalo en un objetivo general de investigación (3 líneas).
+
+--
+
+Busca y guarda en Zotero bibliografía que te podría ayudar a elaborar los antecedentes de una investigación que responda a los objetivos (a lo menos 5 elementos)
+
+--
+
+Crea un RProject. 
+
+--
+
+Exportar y guarda en la carpeta del RProject el archivo bibtex con las referencias (desde Zotero).
+
+--
+
+Crea un documento en RMarkdown de no más de una hoja que resuma brevemente la idea central de cada texto y como aportaría a elaborar los antecedentes.
+
+--
+
+Lo central es que las referencias sean leídas y citadas en el RMarkdown desde el archivo bibtex, como vimos en clases.
+
+
+--
+
+Renderiza el documento (knit). Adjunta el `.pdf` y el `.rmd` y, envía al correo de equipo docente. 
 
 
 ---

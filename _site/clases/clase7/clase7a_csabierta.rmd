@@ -1,7 +1,7 @@
 ---
 title: "OPSO79-1-UCSH2021"
-subtitle: "Introducción a la ciencia abierta, RMarkdown y herramientas de gestión bibliográfica"
-date: "`01 de octubre 2021`"
+subtitle: "Ciencia abierta, RMarkdown y herramientas de gestión bibliográfica. Parte I"
+date: "`08 de octubre 2021`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -47,7 +47,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-#pagedown::chrome_print("clase3b.html")
+#pagedown::chrome_print("clase7a_csabierta.html")
 
 ```
 
@@ -67,7 +67,7 @@ class: inverse, center, middle
 
 # Ciencia abierta
 
-## Introducción y desafíos en sociología
+`Introducción y desafíos en sociología`
 
 ---
 
@@ -94,15 +94,17 @@ knitr::include_graphics("imagenes/aaswartz.jpg")
 
 # Introducción
 
-Esta concepción de ciencia abierta de Aaron Swartz (accesibilidad) es probablemente la que nos es más cercana. 
+Ciencia abierta como acceso concepción más cercana. 
 
 --
 
-Inspiró a muchos y muchas. A una de ellas probablemente la han escuchado (y sí no es así deberían). 
+Inspiró a much@s. A una de ellas probablemente la han escuchado (y sí no es así deberían). 
 
 --
 
-.pull-left[La científica Alexandra Elbakyan ha creado un [repositorio y página web (sci-hub)](https://sci-hub.se/) pirata de más de 84 millones de artículos académicos, consiguiendo en la práctica un acceso abierto a las publicaciones científicas.
+.pull-left[La científica Alexandra Elbakyan ha creado un [repositorio y página web (sci-hub)](https://sci-hub.se/) pirata de más de 87 millones de artículos académicos y libros.
+
+A la "fuerza" consigue un acceso abierto a las publicaciones científicas.
 
 Por esto se ha ganado varias demandas. En algunos países se encuentra bloqueada (e.g. Alemania)]
 
@@ -126,7 +128,7 @@ knitr::include_graphics("imagenes/doaj.jpg")
 ]
 
 .pull-right[
-```{r, out.width = "80%", echo=FALSE, fig.link="https://creativecommons.cl/tipos-de-licencias/"}
+```{r, out.width = "80%", echo=FALSE, fig.link="https://es.wikipedia.org/wiki/Creative_Commons#/media/Archivo:Creative_Commons_Semaforoa.svg"}
 knitr::include_graphics("imagenes/ccommons.png")
 ```
 ]
@@ -137,15 +139,19 @@ Pero la ciencia abierta no es solo el acceso libre a artículos y libros.
 
 --
 
-Ciencia abierta es un concepto "paraguas", que cubre diferentes usos. Reflexiones pueden agruparse a lo menos en cinco "escuelas" `r Cite(bib, "Fecher2014")` o cuatro "dimensiones" `r Cite(bib, "Breznau2021")`.
-
----
-
-# Dimensiones o escuelas de la ciencia abierta (I)
+Ciencia abierta es un concepto "paraguas", que cubre diferentes usos. 
 
 --
 
-## Open access (acceso abierto) o Escuela democrática
+Reflexiones pueden agruparse a lo menos en cinco "escuelas" `r Cite(bib, "Fecher2014")` o cuatro "dimensiones" `r Cite(bib, "Breznau2021")`.
+
+---
+
+# Dimensiones ciencia abierta
+
+--
+
+### 1. Acceso abierto
 
 Los resultados de la investigación científica deben ser accesibles a todos/as, removiendo las barreras de pago de las revistas. 
 
@@ -155,7 +161,7 @@ Es justo por el uso de fondos públicos.
 
 --
 
-Es racional por que la ciencia se basa en la acumulación progresiva de conocimiento (nos paramos sobre hombres de gigantes), ¿Como construir investigación de calidad sin revisar lo producido por otros/as?
+Si al hacer ciencia nos paramos sobre hombres de gigantes, ¿cómo construir investigación de calidad sin revisar lo producido por otros/as?
 
 --
 
@@ -164,34 +170,74 @@ Es racional por que la ciencia se basa en la acumulación progresiva de conocimi
 
 ---
 
-# Derivación de acceso abierto según la Escuela de la Medición
+# Dimensiones ciencia abierta
+
+### 2. Productividad y calidad de las ciencias
 
 --
 
-Crítica a las medidas de productividad y a la permanente obligación por publicar (podría sacrificar la calidad de la misma ciencia)
+Permanente obligación por publicar puede sacrificar la calidad de la misma ciencia
 
 --
 
-La contribución de la ciencia debe ser medida con indicadores de impactos alternativos. 
+Presión sobre académicos por publicar (para mantener y subir posiciones).
 
 --
 
-+ El proceso de revisión de pares consume demasiado tiempo (la misma comunidad científica debería evaluar)
+Universidades mutan a instituciones productoras de *papers* que nadie lee.
+
+Solo importa el **cuanto** y el **donde** se publica. 
 
 --
 
-+ El impacto de los artículos está más relacionado a la revista que directamente al artículo (importa más el poder simbólico que el argumento)
+El donde se publica no es garantía de nada:
+
++ importa más el poder simbólico que el argumento
+
++ acceso a publicar relacionado a capital social que académicos construyen
+
++ Activistas que publicaron premeditadamente ["basura"](https://www.youtube.com/watch?v=kVk9a5Jcd1k) en prestigiosas revistas.
+
+---
+
+# Dimensiones ciencia abierta
+
+La presión por publicar:
 
 --
 
-+ Existen nuevos formtos de publicación (blogs, revistas online con acceso abierto), que pocas veces tienen un formato de revista al que se le puede asignar un factor de impacto. 
++ incentiva el plagio
+
++ promueve la reiteración de lo ya dicho
+
++ el *p-hacking* (iterar modelos hasta que da significativo)
+
++ invento de data y uso de trabajo ajeno (ayudantes)
+
++ Primacía de los [matices no concluyentes](https://kieranhealy.org/publications/fuck-nuance/)
+
+--
+
+La ciencia puede aportar en otros aspectos, ¿Como medir la calidad de la investigación?
+
+--
+
++ Relevancia pública de la temática investigada
+
+--
+
++ Uso de formatos de publicación alternativos (blogs, libros, documentales)
+
+--
+
++ Vinculación externa y con otros investigadores
 
 
 ---
 
-# Dimensiones de la ciencia abierta (II)
+# Dimensiones ciencia abierta
 
-## Open process (transparencia)
+### 3. Transparencia del proceso investigativo
 
 --
 
@@ -220,9 +266,9 @@ La creación de conocimiento puede ser más eficiente si los científicos trabaj
 
 ---
 
-# Dimensiones de la ciencia abierta (III)
+# Dimensiones ciencia abierta
 
-## Open source (código abierto)
+### 4.  Código abierto (Open source)
 
 --
 
@@ -243,9 +289,9 @@ Cualquiera puede modificar la tecnología para adoptarlas mejor a sus propias ne
 
 ---
 
-# Dimensiones de la ciencia abierta (IV)
+# Dimensiones ciencia abierta
 
-## Open academia o Escuela Pública
+### 5. Escuela Pública (Open academia)
 
 --
 
@@ -257,7 +303,7 @@ Incluso, las cs. podrían tener el objetivo de eliminar las desigualdades del mu
 
 --
 
-+ Intervenir en discusiones públicas o elaboración de pp.
++ Intervenir en discusiones públicas o elaboración de políticas
 
 --
 
@@ -278,7 +324,7 @@ Líneas innovadoras de involucrar a la ciudadanía [(citzen science)](https://ww
 
 ---
 
-# ¿Por qué ciencia abierta en sociología?
+# ¿Abrir la sociología?
 
 --
 
@@ -286,40 +332,15 @@ Principal camino para evitar su fracaso como disciplina científica `r Cite(bib,
 
 --
 
-Permite resolver la actual crisis de legitimidad en la que se encuentran las ciencias sociales:
+Permite resolver la actual crisis de legitimidad en la que se encuentran las ciencias sociales, la **poca confianza** desde el público y de quienes hacen las políticas públicas
 
 --
 
-+ Poca confianza desde el público y de quienes hacen las políticas públicas
+Las pretensiones de la ciencia abierta están en las concepciones de ciencia de algunos de los principales referentes de la sociología, como [Merton (1973)](https://sciencepolicy.colorado.edu/students/envs_5110/merton_sociology_science.pdf). 
 
 --
 
-+ Escándalos por profesores que construyeron su carrera en base a falsa evidencia
-
---
-
-+ Activistas que publicaron premeditadamente "basura" en prestigiosas revistas [(Sokal Squared" scandal)](https://www.youtube.com/watch?v=kVk9a5Jcd1k).
-
---
-
-En mundo cuantitativo:
-
-+ *p hacking*: correr modelos una y otra vez hasta que los resultados den significativos. Solo se hace público el modelo final [(Una posible salida es modelar "curvas de especificación")](https://crowdid.hypotheses.org/220). 
-
-+ Valor *p* como objetivo, pero no dice nada sobre si el modelo está mal especificado, sobre la teoría o sobre el tamaño de los efectos.
-
-
----
-
-# ¿Por qué ciencia abierta en sociología?
-
---
-
-Las pretensiones de la ciencia abierta están en las concepciones de ciencia de algunos de los principales referentes de la sociología, como [Merton](https://sciencepolicy.colorado.edu/students/envs_5110/merton_sociology_science.pdf) y Habermas. 
-
---
-
-+ **Universalismo:** pretensiones de verdad, cualquiera sea la fuente, deben ser evaluadas con criterios impersonales preestablecidos. No importan atributos de sus protagonistas. 
++ **Universalismo:** pretensiones de verdad, cualquiera sea la fuente, deben ser evaluadas con criterios impersonales preestablecidos.
 
 --
 
@@ -327,20 +348,16 @@ Las pretensiones de la ciencia abierta están en las concepciones de ciencia de 
 
 --
 
-+ **Desinterés:** curiosidad, altruismo en la búsqueda de beneficiar a la humanidad, y compromiso por la verdad. Rechazo a la acumulación de prestigio y a la subordinación a grupos de interés fuera del campo. 
++ **Desinterés:** altruismo en la búsqueda de la verdad. Rechazo a la acumulación de prestigio y a la subordinación a grupos de interés fuera del campo. 
 
 --
 
-+ **Escepticismo organizado:** escrutinio periódico de las creencias en términos lógicos y empíricos. Potencial conflicto con actitudes e instituciones sociales. No existe la división entre lo sagrado y lo profano. 
-
---
-
-+ Cuando la esfera pública está mercantilizada, hay una producción y consumo de **comunicación asimétrica** (sesgo de contenidos y de acceso a calidad)
++ **Escepticismo organizado:** escrutinio periódico de las creencias en términos lógicos y empíricos (no distinción entre lo sagrado y lo profano)
 
 
 ---
 
-# Desafíos y problemas de la ciencia abierta
+# Desafíos de la apertura
 
 --
 
@@ -352,16 +369,23 @@ Las pretensiones de la ciencia abierta están en las concepciones de ciencia de 
 
 --
 
++ Triple vocación de la sociología fragmentada. ¿Como abrir la sociología más allá de la académica? 
+
+--
+
 + Aparente limitación a los enfoques cuantitativos de las ciencias sociales (*misconception*).
 
 --
 
-+ Crítica de Asún:
++ ¿Es posible transparentar todo el proceso investigativo?, ¿El explicitar las decisiones no razonadas y las racionalidades pasadas a llevar no podría acrecentar el problema?
 
-  + Ciencia abierta tiene pretensiones positivistas, si no se cumple nuestro modelo no publicamos.
-  + Si se sincera el proceso de manipulación de datos y ajuste de modelos (proceso iterativo) nadie nos creería (e.g. Copérnico). 
+--
+
++ Ayuda a la calidad, legitimidad e impacto de la sociología. Pero no es LA solución. 
   
 --
+
+#### El movimiento de la ciencia abierta
 
 *"No debe ser un movimiento positivista. Es un movimiento para abrir la caja negra que rodea lo que hacen los sociólogos, sea lo que sea, para crear una comunidad de control de calidad y diálogo."* `r Cite(bib, "Breznau2021")`.
 
@@ -371,7 +395,7 @@ class: inverse, center, middle
 
 # Investigación reproducible
 
-## Apertura de los procesos de investigación social
+`Apertura de los procesos de investigación social`
 
 ---
 
@@ -389,11 +413,13 @@ knitr::include_graphics("imagenes/reproducible_turing_way.PNG")
 
 --
 
-*“Here is everything you need to reproduce my work.” *
+.center[
+*“Aquí está todo lo que necesitas para reproducir mi trabajo” *
 
-*“Read the README file for further instructions.”* 
+*“Lee el archivo README para las instrucciones”* 
 
 `r Cite(bib, "Christensen2019")`.
+]
 
 ---
 
@@ -405,7 +431,7 @@ knitr::include_graphics("imagenes/reproducible_turing_way.PNG")
 
 # Investigación reproducible
 
-## ¿Que cosas pueden dificultar la reproducción de un procesamiento y análisis de datos?
+#### ¿Que cosas pueden dificultar la reproducción del análisis?
 
 --
 
@@ -435,7 +461,7 @@ knitr::include_graphics("imagenes/reproducible_turing_way.PNG")
 
 # Investigación reproducible
 
-## Posibles soluciones
+#### Posibles soluciones
 
 --
 
@@ -478,11 +504,11 @@ knitr::include_graphics("imagenes/reproducible_turing_way.PNG")
 
 ---
 
-# Importancia de la reproducibilidad (Daniela Ballari)
+# ¿Por qué reproducibilidad?
 
 --
 
-+ Recordar como se hizo lo que se hizo (yo del futuro y supervisión)
++ Para recordar como se hizo lo que se hizo (yo del futuro y supervisión)
 
 --
 
@@ -512,6 +538,10 @@ knitr::include_graphics("imagenes/reproducible_turing_way.PNG")
 
 + Código puede reutilizarse o complejizarse para mejorar un procedimiento o una investigación
 
+--
+
+Estos y más argumentos en [video](https://www.youtube.com/watch?v=Hvrb2b7v93w) de D. Ballari.
+
 
 
 ---
@@ -520,11 +550,12 @@ class: inverse, center, middle
 
 # RMarkdown
 
-## Articulación de código y texto para la reproducibilidad
+`Articulación de código y texto para la reproducibilidad`
 
 ---
 
 # Breve repaso de RMarkdown 
+
 ```{r fig.align='center', out.width = "10%", echo=FALSE}
 knitr::include_graphics("https://www.rstudio.com/wp-content/uploads/2017/05/rmarkdown.png")
 ```
@@ -540,15 +571,19 @@ Los documentos creados con R Markdown son completamente reproducibles.
 
 --
 
-Si intentamos renderizar un documento, y el proceso falla, no hay reproducción:
+Sin importar el `.RProject` abierto. RMarkdown fija directorio de trabajo desde donde está el archivo `.rmd`
 
 --
 
-+ Se requieren objetos (data frames, vectores) que no han sido creados todavía
+Si intentamos renderizar un documento y el proceso falla, no hay reproducción:
 
 --
 
-+ Se intentan cargar bases de datos o imágenes desde rutas que no existen
++ Se requieren objetos (data frames, e.g.) que no han sido creados todavía
+
+--
+
++ Se intenta importar data desde rutas que no existen
 
 --
 
@@ -556,7 +591,7 @@ Si intentamos renderizar un documento, y el proceso falla, no hay reproducción:
 
 --
 
-+ Problemas en el orden del código (primero se espcifica modelo y luego se crean las variables)
++ Problemas en el orden del código (instrucción X antes de Y, cuando X requiere de Y)
 
 ---
 
@@ -587,13 +622,19 @@ Los archivos de `R Markdown` en general tienen 3 partes:
 
 --
 
-![](https://smac-group.github.io/ds/images/rmd_code_chunk.png)
+```{r fig.align='center', out.width = "65%", echo=FALSE}
+knitr::include_graphics("https://smac-group.github.io/ds/images/rmd_code_chunk.png")
+```
+
+--
+
+(3). Texto plano, donde escribimos como en cualquier otro procesador de texto.
 
 ---
 
-# Breve repaso de RMarkdown 
+# RMarkdown. Nuevas cosas. 
 
-Los chunks tienen muchos argumentos que permiten moldear el output a lo que deseamos.
+Los chunks tienen muchos argumentos que permiten moldear el output que deseamos.
 
 --
 
@@ -626,20 +667,9 @@ O especificar opciones para cada chunk:
 library(dplyr)
 ```
 
-
 ---
 
-# Breve repaso de RMarkdown 
-
-(3). Los **cuerpos de texto** donde podemos hacer comentarios sin necesidad de usar "#" (a diferencia de un script)
-
---
-
-![](imagenes/rmd_text.PNG)
-
----
-
-# Breve repaso de RMarkdown 
+# RMarkdown. Nuevas cosas. 
 
 Podemos crear títulos (#), énfasis con negrita o cursiva, listas de elementos, agregar imágenes y enlaces.
 
@@ -672,7 +702,7 @@ O podemos ir ejecutando líneas de código en específico, chunks particulares o
 
 ---
 
-# De RMarkdown a otros formatos
+# Exportar documento
 
 ![](https://lh6.googleusercontent.com/xlpPZilu2MS1EtyS9B6ykhmw4VhAHGaf_ryfg1Ek0_ZqVowztxK8HdMDDvskAM0Rc0vaATajSuLnyQWmtVTaQlw82SvsUQZn8sNAwd03n8O_kr05JUrysSqAY_-tSo-xdrysRFt9BU4)
 
@@ -717,62 +747,53 @@ Descargar [formato html distill](https://raw.githubusercontent.com/nicolasrattor
 
 Descargar [formato pdf](https://github.com/nicolasrattor/formatos/blob/main/Formato%20pdf%20uch/Paper.Rmd). Para utilizarlo se requiere instalar latex: `install.packages('tinytex')` [(más información acá)](https://bookdown.org/yihui/rmarkdown/installation.html)
 
+--
+
+#### Incluso hay formatos de predeterminados para hacer Currículums
+
+--
+
+La lógica es descargar "plantillas" mediante la instalación de paquetes.
+
+--
+
+Acá dos paquetes con varias plantillas o templates (hay muchos más):
+
+```{r eval=FALSE}
+install.packages("stevetemplates")
+```
+
+```{r eval=FALSE}
+install.packages("vitae")
+```
+
+--
+
+Luego se accede a estas plantillas como "Templates" al crear un nuevo archivo RMarkdown. 
+
+
+
+
 
 ---
 
-# Documentos en formato word
+# Documentos formato word
 
 Descargar [formato word](https://github.com/nicolasrattor/formatos/blob/main/Formato%20word/Paper.Rmd). No utilizar en este curso. 
 
-
 ---
 
-# Formato presentaciones
-
-Uso completamente opcional en presentación de final de semestre. 
+# Para recordar y no fallar
 
 --
 
-Es recomendable ya que evita exportar gráficos y tablas trabajadas en RMarkdown. 
-
---
-
-Tres formas diferentes
-
---
-
-+ ioslides
-
-+ Beamer
-
-.pull-left[
-
-+ [Xaringan](https://bookdown.org/yihui/rmarkdown/xaringan-start.html)
-
-]
-
-.pull-right[
-```{r echo=FALSE, out.width="20%"}
-knitr::include_graphics("https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg")
-```
-]
-
---
-
-La tercera es la más simple, tiene varios formatos y solo hay que manejar un par de marcas extras. No es necesario saber latex. 
-
----
-
-# Recordatorio de elementos a considerar al trabajar en Rmarkdown
-
---
-
-- La función `setwd()` no funciona dentro de RMarkdown (por eso trabajamos con RProject).
+- La ruta del RProject abierto no es considerada. Se utiliza la ruta del archivo 
+  `.rmd`
 
 - Las librerías que necesiten deben estar cargadas en el script de 
   Rmarkdown (**error habitual**).
 
-- Tanto las bases de datos como las variables a utilizar deben estar
+- Tanto los microdatos como las variables a utilizar deben estar
   llamadas dentro el script de Rmarkdown.
 
 - Knitr() incluye la impresión de los resultados, por lo que no 
@@ -781,7 +802,7 @@ La tercera es la más simple, tiene varios formatos y solo hay que manejar un pa
 - No usar View() en RMarkdown, porque en el output no mostrará nada.
 
 - Cada chunk puede tener o no tener un nombre. Si los deciden nombrar, 
-  los nombres NO DEBEN REPETIRSE
+  los nombres NO DEBEN REPETIRSE (otra fuente de error)
 
 
 ---
@@ -793,13 +814,13 @@ Función `kable()` y paquete `kableExtra()`.
 --
 
 ```{r}
-Orange %>% head(4) #<<
+Orange %>% head(4)
 ```
 --
 
 ```{r}
-library(knitr) #<<
-Orange %>% head(4) %>% kable()  #<<
+library(knitr)
+Orange %>% head(3) %>% kable()
 ```
 
 
@@ -807,10 +828,11 @@ Orange %>% head(4) %>% kable()  #<<
 
 # Dar formato a las tablas
 
-```{r warning=FALSE}
-library(kableExtra) #<<
-Orange %>% head(4) %>% kable(caption = "Título de tabla") %>%
- kable_styling(bootstrap_options = c("striped", "hover"))
+```{r warning=FALSE, message=FALSE}
+library(kableExtra)
+Orange %>% head(3) %>% 
+  kable(caption = "Título de tabla") %>%
+ kable_styling(bootstrap_options=c("striped", "hover", "condensed", "responsive"))
 
 ```
 
@@ -818,21 +840,6 @@ Orange %>% head(4) %>% kable(caption = "Título de tabla") %>%
 
 Para más información sobre distintos estilos revisar [Create Awesome HTML Table with knitr::kable and kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)
 
----
-
-# Otras herramientas para la investigación reproducible
-
-<https://github.com/>
-
-<https://sci-hub.se/>
-
-<https://osf.io/> o <https://zenodo.org/>
-
-[Zotero](https://www.zotero.org/)
-
-<https://www.researchgate.net/>
-
-<http://www.shinyapps.org/apps/TransparencyChecklist/>
 
 ---
 
@@ -842,9 +849,9 @@ Curso ["Ciencia Social Abierta"](https://cienciasocialabierta.netlify.app/) de J
 
 [¿Por qué es importante la reproducibilidad computacional?](https://www.youtube.com/watch?v=Hvrb2b7v93w) De Daniela Ballari. En español
 
-[The Story of Aaron Swartz](https://www.youtube.com/watch?v=VBkD04z-8V8). Documental con subtítulos en español.
-
 [Como escribir manuscritos reproducibles.](https://www.youtube.com/watch?v=TKhV3w467RI&t=202s) De Francisco Rodríguez-Sánchez. En español
+
+Documental [Paradojas del nihilismo, La academia.](https://www.youtube.com/watch?v=_3cYAsJClEg) 
 
 ---
 

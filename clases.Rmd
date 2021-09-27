@@ -36,6 +36,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Clase 5. Bloque 2 práctico](https://opso791ucsh2021.netlify.app/clases/clase5/clase5b_help_import.html#1)
 
+# Prueba 1 (24 de septiembre)
+
+[Descargar pauta](pruebas/prueba1.pdf)
+
 # Clase de consolidación aprendizajes en R (01 de octubre)
 
 [Clase 6. Revisión prueba 1]()
@@ -48,13 +52,19 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Clase 7. Bloque 2 práctico]()
 
-# Estadística descriptiva I
+# Semana de receso (no hay clases el 15 de octubre)
+
+# Prueba 2 (22 de octubre)
+
+[Descargar pauta]()
+
+# Estadística descriptiva I (29 de octubre)
 
 [Clase 8. Bloque 1 teórico]()
 
 [Clase 8. Bloque 2 práctico]()
 
-# Estadística descriptiva II
+# Estadística descriptiva II (05 de noviembre)
 
 [Clase 9. Bloque 1 teórico]()
 

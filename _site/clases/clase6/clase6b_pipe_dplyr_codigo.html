@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-01-10" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Operador pipe, profundización dplyr y buena codificación. Bloque práctico (7b)
+### <code>01/10/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+
+# Pipe
+
+`comando para concatenar funciones`
+
+---
+
+# Operador pipe
+
+--
+
+Significa "tubo", "tubería" o "cañería".
+
+--
+
+Es un operador de `magrittr` que .inverse[se combina con los verbos de `dplyr`]
+
+(si cargamos `dplyr` ya podemos usarlo).
+
+--
+
+Se escribe `%&gt;%` (ctrl + shift + m)
+
+&lt;img src="https://thinktecno.com/wp-content/uploads/2020/05/1589395831_455_Atajos-de-teclado-importantes-en-Microsoft-Outlook.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+--
+
+Nos permite concatenar funciones, haciendo más sencilla la lectura del código.
+
+---
+
+
+&lt;img src="imagenes/pipes.jpg" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Operador pipe 
+
+¿Como saber los nombres de las variables de la base de datos `guaguas`?
+
+--
+
+
+```r
+names(guaguas)   ## la manera "tradicional" o R base  
+```
+
+```
+## [1] "anio"       "nombre"     "sexo"       "n"          "proporcion"
+```
+
+--
+
+Con pipes sería así:
+
+--
+
+
+```r
+guaguas %&gt;% names()  ## el objeto primero, luego la función
+```
+
+```
+## [1] "anio"       "nombre"     "sexo"       "n"          "proporcion"
+```
+
+
+
+---
+
+# Operador pipe 
+
+¿Cuál es la importancia relativa del nombre María en 1920, 1950, 1980 y 2020?
+
+--
+
+
+```r
+filter(guaguas, 
+       (anio==1920|anio==1950|anio==1980|anio==2020) &amp; nombre=="María")
+```
+
+```
+## # A tibble: 4 x 5
+##    anio nombre sexo      n proporcion
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1  1920 María  F      2130    0.104  
+## 2  1950 María  F     15023    0.0859 
+## 3  1980 María  F     10382    0.0365 
+## 4  2020 María  F      1345    0.00690
+```
+
+--
+
+Con pipes sería así:
+
+--
+
+
+```r
+guaguas %&gt;% 
+  filter( (anio==1920|anio==1950|anio==1980|anio==2020) &amp; 
+            nombre=="María")
+```
+
+
+---
+
+# Operador pipe
+
+¿Y cuál es la gracia de la tubería?
+
+--
+
+Con pipes .inverse[podemos concatenar funciones].
+
+--
+
+¿Cuáles son los años en los que el nombre María es más importante?, ¿Que porcentajes representa el nombre María?
+
+--
+
+Sin pipes tendríamos que hacer algo más o menos así (con el riesgo de confundir paréntesis)
+
+
+
+```r
+select(mutate(head(arrange(
+  filter(guaguas,nombre=="María"),
+  -proporcion),4),porcentaje=round(proporcion*100,1)),
+  anio,nombre,porcentaje)
+```
+
+--
+
+Se dificulta bastante la lectura (**desde el centro hacia afuera**)
+
+---
+
+# Operador pipe
+
+Con pipes es como leer, .inverse[de izquierda a derecha]:
+
+(y de arriba hacia abajo opcional)
+
+--
+
+
+```r
+guaguas %&gt;% 
+  filter(nombre=="María") %&gt;% 
+  arrange(-proporcion) %&gt;% 
+  head(4) %&gt;% 
+  mutate(porcentaje=round(proporcion*100,1)) %&gt;% 
+  select(anio,nombre,porcentaje)
+```
+
+```
+## # A tibble: 4 x 3
+##    anio nombre porcentaje
+##   &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;
+## 1  1920 María        10.4
+## 2  1921 María         9.2
+## 3  1922 María         9  
+## 4  1948 María         8.8
+```
+
+--
+
+Todo es una sola línea de código. No tuve que crear ningún objeto extra.
+
+---
+
+class: inverse, center, middle
+
+# Continuación encuestas en Chile 
+
+`aplicando operador *pipe*`
+
+---
+
+# Encuesta Laboral (Encla)
+
+La encuesta busca diagnosticar el estado y evolución de las **condiciones de empleo y trabajo**, de las 
+**relaciones laborales** y de la **igualdad de género** en las empresas regidas por el Código del Trabajo en Chile. 
+
+--
+
+Su población objetivo corresponde a las .inverse[empresas formales] vigentes con cinco o más trabajadores contratados directamente.
+
+--
+
+Cada empresa cuenta con tres unidades de observación (informante). Informantes en microdatos diferentes: 
+
++ Empleadores (gerente RRHH)
+
++ Autoaplicado (gerente RRHH)
+
++ Trabajadores (trabajador aleatorio)
+
++ Sindicatos (dirigente sindical)
+
+--
+
++ El año 2019 se aplicó la [última versión](https://www.ine.cl/estadisticas/sociales/mercado-laboral/condiciones-de-empleo-y-relaciones-laborales): .inverse[3.670 empresas, 4 microdato.]
+
+
+---
+
+# Encuesta Laboral (Encla)
+
+Solo descarguemos la data de .inverse[sindicatos] (esta vez en formato `stata`).
+
+--
+
+La lógica será la misma que en spss:
+
++ guardar en carpeta donde esté el R Project con el que estamos trabajando.
+
++ Cargar paquete y llamar función `read_dta()`
+
+--
+
+
+```r
+library(haven); library(dplyr)
+encla &lt;- read_dta("data/bbdd-sindicatos-bp.dta")
+```
+
+--
+
+Veamos las primeras 4 columnas y 2 filas
+
+
+```r
+encla %&gt;% select(1:4) %&gt;% slice(1:2)
+```
+
+```
+## # A tibble: 2 x 4
+##     id_bp        a1        a2        a3
+##     &lt;dbl&gt; &lt;dbl+lbl&gt; &lt;dbl+lbl&gt; &lt;dbl+lbl&gt;
+## 1 4554856    2 [No]   NA             NA
+## 2 7550575    1 [Sí]    2 [No]        NA
+```
+
+
+---
+
+# Encuesta Laboral (Encla)
+
+Para explorar la data usemos `sjmisc` y `sjlabelled`
+
+(ambos paquetes de [Daniel Lüdecke](https://github.com/strengejacke))
+
+--
+
+
+```r
+library(sjmisc)
+#install.packages("sjlabelled") 
+library(sjlabelled)
+```
+
+--
+
+Para ver etiqueta de **todas** las variables:
+
+
+```r
+get_label(encla)
+```
+
+---
+
+# Encuesta Laboral (Encla)
+
+Para buscar palabras o conceptos en data:
+
+
+```r
+find_var(encla,"conflicto")
+```
+
+
+```
+##                                                                           var.label
+## 1  h2_1. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: Pr
+## 2  h2_2. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: Ca
+## 3  h2_3. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: La
+## 4  h2_4. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: Ca
+## 5  h2_5. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: De
+## 6  h2_6. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: In
+## 7  h2_7. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: Ma
+## 8  h2_8. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: pr
+## 9  h2_9. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: No
+## 10 h2_77. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: O
+## 11 h2_77_otra_c. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empr
+## 12 h4. El o los conflictos mencionados ocurridos durante el año 2018, tuvieron luga
+```
+
+---
+
+# Encuesta Laboral (Encla)
+
+&lt;img src="Imagenes/motivos_conflicto.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Encuesta Laboral (Encla)
+
+Etiqueta de variable:
+
+
+```r
+get_label(encla$h2_1)  # Pregunta o enunciado
+```
+
+--
+
+
+```r
+get_labels(encla$h2_1) # Categorías de respuesta
+```
+--
+
+Distribución de la variable con .inverse[`frq(encla$h2_1)`]
+
+
+```
+## 
+## h2_1. Durante el año 2018, ¿Qué motivó el(los) conflicto(s) en esta empresa?: Pr (x) &lt;numeric&gt;
+## # total N=1172  valid N=517  mean=3.97  sd=15.01
+## 
+## Value |         Label |   N | Raw % | Valid % | Cum. %
+## ------------------------------------------------------
+##     1 |            Sí | 263 | 22.44 |   50.87 |  50.87
+##     2 |            No | 240 | 20.48 |   46.42 |  97.29
+##    88 |       No Sabe |   4 |  0.34 |    0.77 |  98.07
+##    96 | Valor perdido |  10 |  0.85 |    1.93 | 100.00
+##    99 |   No Responde |   0 |  0.00 |    0.00 | 100.00
+##  &lt;NA&gt; |          &lt;NA&gt; | 655 | 55.89 |    &lt;NA&gt; |   &lt;NA&gt;
+```
+
+
+---
+
+# Encuesta Laboral (Encla)
+
+Ahora con una variable cuantitativa
+
+--
+
+
+```r
+get_label(encla$g2_3)
+```
+
+```
+## [1] "g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d"
+```
+
+--
+
+Descripción con `R base`
+
+
+```r
+summary(encla$g2_3)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     1.0    50.0   110.5   278.4   241.2 20000.0
+```
+
+--
+
+Descripción con `sjmisc`
+
+
+```r
+descr(encla$g2_3)
+```
+
+---
+
+# Encuesta Laboral (Encla)
+
+.inverse[¿Cuántos socios/as hay en promedio por sector económico?]
+
+--
+
+
+```r
+table(encla$agrupacion_actividad)
+```
+
+```
+## 
+##   1   2   3   4   5   6   7   8   9  10  11  12  13 
+##  33  29 162  50  45 164 131  45  66 139 169  96  43
+```
+
+```r
+get_labels(encla$agrupacion_actividad)
+```
+
+```
+##  [1] "Agricultura, ganadería, silvicultura y pesca"                                    
+##  [2] "Explotación de minas y canteras"                                                 
+##  [3] "Industrias manufactureras"                                                       
+##  [4] "Suministro de electricidad, gas, vapor y aire acondicionado; y Suministro de agu"
+##  [5] "Construcción"                                                                    
+##  [6] "Comercio al por mayor y al por menor; Reparación de vehículos automotores, mot"  
+##  [7] "Transporte y almacenamiento; información y comunicaciones"                       
+##  [8] "Actividades de alojamiento y de servicio de comidas"                             
+##  [9] "Actividades financieras y de seguros; Actividades inmobiliarias"                 
+## [10] "Actividades profesionales, científicas y técnicas; Actividades de servicios ad"  
+## [11] "Enseñanza"                                                                       
+## [12] "Actividades de atención de la salud humana y de asistencia social"               
+## [13] "Actividades artísticas, de entretenimiento y recreativas; Otras actividades de"
+```
+
+
+
+---
+
+# Encuesta Laboral (Encla)
+
+A esta altura ya somos conscientes de que en R hay muchas formas de hacer las cosas.
+
+--
+
+La forma manual sería la más intuitiva
+
+--
+
+Que sería como hacer esto para cada valor de `agrupacion_actividad`
+
+
+```r
+encla %&gt;% filter(agrupacion_actividad==1) %&gt;% 
+  select(g2_3) %&gt;% summary()
+```
+
+```
+##       g2_3       
+##  Min.   : 10.00  
+##  1st Qu.: 25.00  
+##  Median : 49.00  
+##  Mean   : 94.06  
+##  3rd Qu.:120.00  
+##  Max.   :350.00
+```
+
+---
+
+# Encuesta Laboral (Encla)
+
+.inverse[¿El problema de esta forma?]
+
+--
+
++ Poca economía en el código (muchas líneas)
+
++ posibilidad de cometer errores 
+
++ dificultad para combinar cada `summary()`
+
++ Desgastante para variables con muchas categorías (e.g. comuna)
+
+--
+
+Por suerte, el .inverse[paquete dplyr] nos trae una solución con .inverse[group_by()]
+
+--
+
+La variable de sector económico la definimos como la que establece los grupos. 
+
+Para cada grupo queremos un estadístico particular (media y mediana, por ejemplo)
+
+---
+
+# Encuesta Laboral (Encla)
+
+
+```r
+encla %&gt;% 
+  group_by(agrupacion_actividad) %&gt;% 
+  summarise(media=mean(g2_3),mediana=median(g2_3))
+```
+
+
+
+```
+##    agrupacion_actividad     media mediana
+## 1                     1  94.06061    49.0
+## 2                     2 317.55172   208.0
+## 3                     3 241.94444   100.0
+## 4                     4 168.38000    99.0
+## 5                     5 345.82222    79.0
+## 6                     6 410.87195   109.5
+## 7                     7 196.11450   110.0
+## 8                     8 322.64444    95.0
+## 9                     9 569.18182   282.5
+## 10                   10 184.64748   124.0
+## 11                   11 256.01183   107.0
+## 12                   12 323.78125   168.5
+## 13                   13 132.06977   104.0
+```
+
+--
+
+Comprendamos la función...
+
+---
+
+class: inverse, center, middle
+
+# Profundización *dplyr*: 
+
+`group_by()`, `if_else()` y `case_when()`
+
+---
+
+# group_by()
+
+Estrategia .inverse[split-apply-combine.]
+
+--
+
+Esta estrategia sucede tras bambalinas (no la vemos). Solo observamos el resultados. 
+
+--
+
+Con group_by()
+
++ se divide el data frame en x grupos (x es el número de categorías de la variable).
+
+--
+
++ Luego se opera una función en cada grupo
+
+--
+
++ Finalmente se combinan los resultados alcanzados en cada grupo.
+
+--
+
+&lt;img src="Imagenes/group_count.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# group_by()
+
+Vimos la función `group_by()` para medias:
+
+
+```r
+encla %&gt;% 
+  group_by(agrupacion_actividad) %&gt;% 
+  summarise(media=mean(g2_3))                                                    %&gt;% remove_all_labels()
+```
+
+```
+##    agrupacion_actividad     media
+## 1                     1  94.06061
+## 2                     2 317.55172
+## 3                     3 241.94444
+## 4                     4 168.38000
+## 5                     5 345.82222
+## 6                     6 410.87195
+## 7                     7 196.11450
+## 8                     8 322.64444
+## 9                     9 569.18182
+## 10                   10 184.64748
+## 11                   11 256.01183
+## 12                   12 323.78125
+## 13                   13 132.06977
+```
+
+---
+
+# group_by()
+
+Pero perfectamente podríamos haber sumado el número de casos (empresas)
+
+
+```r
+encla %&gt;% 
+  group_by(agrupacion_actividad) %&gt;% 
+  summarise(empresas=n())                                                            %&gt;% remove_all_labels()
+```
+
+```
+##    agrupacion_actividad empresas
+## 1                     1       33
+## 2                     2       29
+## 3                     3      162
+## 4                     4       50
+## 5                     5       45
+## 6                     6      164
+## 7                     7      131
+## 8                     8       45
+## 9                     9       66
+## 10                   10      139
+## 11                   11      169
+## 12                   12       96
+## 13                   13       43
+```
+
+---
+
+# group_by()
+
+El resultado suma 1172 (número de empresas en la data)
+
+
+```r
+encla %&gt;% group_by(agrupacion_actividad) %&gt;% 
+  summarise(empresas=n()) %&gt;% select(empresas) %&gt;% sum()
+```
+
+```
+## [1] 1172
+```
+--
+
+Como vimos, también podemos agrupar sacando medianas y otras medidas
+
+
+```r
+encla %&gt;% 
+  group_by(agrupacion_actividad) %&gt;% 
+  summarise(median(g2_3),min(g2_3),max(g2_3)) %&gt;% 
+  slice(1:3)                                                                     %&gt;% remove_all_labels()
+```
+
+```
+##   agrupacion_actividad median.g2_3. min.g2_3. max.g2_3.
+## 1                    1           49        10       350
+## 2                    2          208        34      1480
+## 3                    3          100         6     12000
+```
+
+---
+
+# group_by()
+
+Incluso podemos ordenar la data en base a un criterio y seleccionar al primer caso que lo cumple. 
+
+--
+
+¿Cuáles fueron los nombres más populares en el año 2020 según sexo?
+
+--
+
+
+```r
+guaguas::guaguas %&gt;% 
+  filter(anio==2020) %&gt;% 
+  arrange(-n) %&gt;% 
+  group_by(sexo) %&gt;% 
+  slice(1)
+```
+
+```
+## # A tibble: 2 x 5
+## # Groups:   sexo [2]
+##    anio nombre sexo      n proporcion
+##   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt;      &lt;dbl&gt;
+## 1  2020 Sofía  F      2465     0.0126
+## 2  2020 Mateo  M      3867     0.0198
+```
+
+---
+
+# group_by()
+
+Incluso podemos mezclar `group_by()` con `sjmisc`
+
+--
+
+.pull-left[
+
+
+```r
+encla %&gt;% 
+group_by(agrupacion_actividad) %&gt;% 
+descr(g2_3)
+```
+
+```
+## 
+## ## Basic descriptive statistics
+## 
+## 
+## Grouped by: Agricultura, ganadería, silvicultura y pesca
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc  mean    sd   se md trimmed        range iqr skew
+##  33      0 94.06 95.35 16.6 49   94.06 340 (10-350)  95 1.34
+## 
+## 
+## Grouped by: Explotación de minas y canteras
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc   mean    sd   se  md trimmed          range iqr skew
+##  29      0 317.55 329.6 61.2 208  317.55 1446 (34-1480) 297 2.19
+## 
+## 
+## Grouped by: Industrias manufactureras
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##    n NA.prc   mean     sd   se  md trimmed           range    iqr  skew
+##  162      0 241.94 972.45 76.4 100  241.94 11994 (6-12000) 157.25 11.29
+## 
+## 
+## Grouped by: Suministro de electricidad, gas, vapor y aire acondicionado; y Suministro de agu
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc   mean     sd    se md trimmed        range    iqr skew
+##  50      0 168.38 180.26 25.49 99  168.38 887 (13-900) 140.25  2.3
+## 
+## 
+## Grouped by: Construcción
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc   mean     sd     se md trimmed         range iqr skew
+##  45      0 345.82 739.54 110.24 79  345.82 2995 (5-3000) 255 3.27
+## 
+## 
+## Grouped by: Comercio al por mayor y al por menor; Reparación de vehículos automotores, mot
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##    n NA.prc   mean      sd     se    md trimmed           range   iqr  skew
+##  164      0 410.87 1683.58 131.47 109.5  410.87 19993 (7-20000) 200.5 10.23
+## 
+## 
+## Grouped by: Transporte y almacenamiento; información y comunicaciones
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##    n NA.prc   mean     sd    se  md trimmed         range   iqr skew
+##  131      0 196.11 271.34 23.71 110  196.11 1717 (2-1719) 165.5 3.22
+## 
+## 
+## Grouped by: Actividades de alojamiento y de servicio de comidas
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc   mean     sd    se md trimmed         range iqr skew
+##  45      0 322.64 620.69 92.53 95  322.64 2999 (1-3000) 195  3.2
+## 
+## 
+## Grouped by: Actividades financieras y de seguros; Actividades inmobiliarias
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc   mean    sd     se    md trimmed         range    iqr skew
+##  66      0 569.18 863.8 106.33 282.5  569.18 4863 (8-4871) 602.75 3.53
+## 
+## 
+## Grouped by: Actividades profesionales, científicas y técnicas; Actividades de servicios ad
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##    n NA.prc   mean    sd    se  md trimmed         range iqr skew
+##  139      0 184.65 228.4 19.37 124  184.65 1794 (6-1800) 158 3.62
+## 
+## 
+## Grouped by: Enseñanza
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##    n NA.prc   mean    sd    se  md trimmed         range iqr skew
+##  169      0 256.01 707.1 54.39 107  256.01 8275 (5-8280) 158 9.28
+## 
+## 
+## Grouped by: Actividades de atención de la salud humana y de asistencia social
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc   mean     sd    se    md trimmed         range    iqr skew
+##  96      0 323.78 508.95 51.94 168.5  323.78 3611 (7-3618) 241.75 3.99
+## 
+## 
+## Grouped by: Actividades artísticas, de entretenimiento y recreativas; Otras actividades de
+## 
+##   var    type
+##  g2_3 numeric
+##                                                                             label
+##  g2_3. ¿Cuántos hombres y mujeres se encuentran afiliados a su sindicato el día d
+##   n NA.prc   mean     sd    se  md trimmed        range   iqr skew
+##  43      0 132.07 122.39 18.66 104  132.07 692 (10-702) 152.5 2.63
+```
+
+]
+
+.pull-right[
+
+&lt;img src="https://c.tenor.com/bD9vHNiR1rQAAAAd/boom-mind-blown.gif" width="40%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# if_else()
+
+La hemos ocupado para crear dos categorías:
+
+--
+
+
+
+
+
+```r
+esi2020 &lt;- esi2020 %&gt;%                        # Data
+           mutate(filtro_mas_de_1M =          # Nueva variable
+                    if_else(ing_t_d&gt;1000000,  # Condición
+                                          1,  # Verdadero
+                                         0))  # Falso 
+```
+
+--
+
+
+```r
+table(esi2020$filtro_mas_de_1M)
+```
+
+```
+## 
+##     0     1 
+## 69136  2799
+```
+
+--
+
+¿Podríamos usar [if_else()]() para crear variables con más de dos categorías?
+
+---
+
+# if_else()
+
+Pensemos en 4 tramos de ingresos...
+
+--
+
+Podemos usar varios [if_else()]() consecutivamente
+
+--
+
+
+```r
+esi2020 &lt;- esi2020 %&gt;%      
+  
+ mutate(filtro_4 = 
+  if_else(ing_t_d==0, "sin ingresos", ""),
+
+ filtro_4 = 
+  if_else(ing_t_d&gt;0 &amp; ing_t_d&lt;300000, "primer tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d&lt;700000 &amp; ing_t_d&gt;=300000, "segundo tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d&lt;1000000 &amp; ing_t_d&gt;=700000, "tercer tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d&gt;=1000000, "cuarto tramo", filtro_4)
+                  )  
+```
+
+---
+
+# if_else()
+
+
+```r
+table(esi2020$filtro_4)
+```
+
+```
+## 
+##  cuarto tramo  primer tramo segundo tramo  sin ingresos  tercer tramo 
+##          2961          3122          9855         53653          2344
+```
+--
+
+Funciona, pero es bastante código.
+
+Hay otras formas de hacerlo más sencillo. 
+
+--
+
+Una de esas es con [case_when()]()
+
+--
+
+Esta es la lógica (cada línea independiente)
+
+
+```r
+dataframe %&gt;%
+  mutate(nueva = case_when(condicion_1 ~ valor_1,
+                           condicion_2 ~ valor_2,
+                           condicion_3 ~ valor_3))
+```
+
+
+---
+
+# case_when()
+
+Y así su forma general:
+
+&lt;img src="Imagenes/case_when_mutate.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# case_when()
+
+Recodificar ingresos con [case_when()]()
+
+
+```r
+esi2020 &lt;- esi2020 %&gt;%      
+    mutate(filtro_4 = case_when(
+              ing_t_d&gt;0 &amp; ing_t_d&lt;300000 ~ "primer tramo",
+              ing_t_d&lt;700000 &amp; ing_t_d&gt;=300000 ~ "segundo tramo", 
+              ing_t_d&lt;1000000 &amp; ing_t_d&gt;=700000 ~ "tercer tramo", 
+              ing_t_d&gt;=1000000 ~ "cuarto tramo",
+              TRUE ~ "sin ingresos",
+                  )) 
+```
+
+--
+
+
+```r
+table(esi2020$filtro_4)
+```
+
+```
+## 
+##  cuarto tramo  primer tramo segundo tramo  sin ingresos  tercer tramo 
+##          2961          3122          9855         53653          2344
+```
+
+---
+
+# case_when
+
+La [virgulilla (~)]() tiene que se utilizada entre la condición y el valor a asignar.
+
+.inverse[`Alt` + `Control` + `+` = `~`]
+
+--
+
+Los valores a asignar deben ser de la misma clase.
+
+--
+
+No funciona con variables factores, tienen que ser character o numeric
+
+--
+
+La nueva variable debe ser numérica o carácter, no puede ser una combinación.
+
+--
+
+**RECOMENDACIONES:**
+
+--
+
++ Siempre probar la variable creada con `table()` (que tenga sentido)
+
+--
+
++ Llamar con nuevo nombre a la nueva variable (no sobre escribir)
+
+--
+
++ Usar espacios para ordenar y facilitar la lectura
+
+--
+
+Paciencia con la función, al principio saltan varios errores
+
+
+
+---
+
+class: inverse, center, middle
+
+# Prácticas para una buena codificación
+
+`Por Lindsay Carr`
+
+
+---
+
+# Por [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
+--
+
++ Carga de librerías al inicio del código (usando `library()`)
+
+--
+
++ Usa RStudio projects para organizar scripts, data y salidas
+
+--
+
++ Modulariza el código (todavía no)
+
+--
+
++ No guardar *workplace image*
+
+--
+
++ No usar funciones que cambian el computador de otro (`install.package()` o `setwd()`) 
+
+--
+
++ Comenta el código, pero sin pasarte (no incluir interpretaciones o resultados). 
+
+--
+
++ El principal destinatario de tus comentarios eres tú en 3 meses más. 
+
+--
+
++ Si quieres interpretar el código y mostrar los resultados usa RMarkdown
+
+---
+
+# Por [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
++ Aprovecha el autollenado de RStudio (evita errores de tipeo)
+
+--
+
++ Copia y pega código utilizado anteriormente o por otros. 
+
+--
+
++ Utiliza loops o **funciones** cuando te veas copiando y pegando código reemplazando valores
+
++ Las tareas mecánicas en R pueden automatizarse
+
+--
+
++ Evita códigos anchos (sobre todo con pipes)
+
+--
+
+Ideal:
+
+
+```r
+data %&gt;% 
+  funcion1() %&gt;% 
+  funcion2() %&gt;% 
+  funcion3()
+```
+
+
+
+---
+
+class: inverse, center, middle
+
+# Ejercicio práctico
+
+`Utilizando Encuesta Suplementaria de Ingresos (ESI)`
+
+---
+
+# Ejercicio práctico ESI
+
++ Carga el microdato de la ESI personas 2020 (la de la prueba 1)
+
+
++ Crea 3 tablas con el promedio de ingresos (cualquier variable de ingresos) según sexo, región y sector económico
+
+
++ ¿Cuántas personas tienen entre 0 y 17 años, entre 18 y 29 años, entre 30 y 64 años, y 65 o más años? (cuatro grupos)
+
+
++ Crea una nueva data donde cada unidad (fila) sean los hogares y que solo tenga 3 variables: identificador del hogar, ingresos del hogar y región en la que se ubica el hogar.
+
+
++ ¿Cuántos hogares son?, ¿Cómo se distribuyen regionalmente estos hogares?
+
++ Envía por correo a equipo docente (antes del 08 de octubre)
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+### Para reforzar y seguir aprendiendo
+
+Explicaciones simples y rápidas de función [group_by()](https://rsanchezs.gitbooks.io/rprogramming/content/chapter9/groupby.html) y operador [pipe](https://rsanchezs.gitbooks.io/rprogramming/content/chapter9/pipeline.html)
+
+Un poco más del operador [pipe](https://es.r4ds.hadley.nz/pipes.html) (por Wickham)
+
+### Bibliografía utilizada
+
+
+
+&lt;a name=bib-Wickham2021&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2021) (2021). _R
+Para Ciencia de Datos_.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+title: "Taréa práctica 3"
+subtitle: "Curso OPSO791, UCSH."
+author: "Nicolás Ratto"
+output: pdf_document
+date: "Viernes 01 de octubre de 2021"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instrucciones generales
+
+Elaborar un script en `.rmd` que permita describir el siguiente microdato. 
+
+La tarea debe ser escrita en Rmarkdown (`.rmd`) y debe ser entregada con su respectiva salida en `.html`.
+
+Los documentos deben ser comprimidos en un archivo .zip y enviados a correo de profesor y ayudante. El nombre del archivo **debe** ser el nombre y primer apellido del estudiante.
+
+Entrega a más tardar el martes 05 de octubre a las 23:59 hrs.

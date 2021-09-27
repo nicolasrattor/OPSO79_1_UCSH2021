@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-01-10" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Revisión de prueba 1
+### <code>01/10/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Revisión prueba 1. 
+
+# Apartado práctico. 
+
+
+---
+
+# Módulo II
+
+--
+
+#### Pregunta 2.1
+
+*Si deseo exportar y compartir un microdato, ¿que tipo de archivo resultaría más pertinente en R?, ¿.rmd, .html, .rds, .r o .Rhistory? Solo escriba el tipo de archivo.*
+
+--
+
+`.rds`
+
+--
+
+#### Pregunta 2.2
+
+*Intente explicar en palabras simples, para alguien con escaso manejo de R, en qué consiste un paquete y cuál sería la diferencia con una data frame (basta con un párrafo)*
+
+--
+
+Los paquetes en R son colecciones de funciones y conjunto de datos desarrollados por la comunidad. Estos incrementan la potencialidad de R mejorando las funcionalidades base en R, o añadiendo nuevas. Los paquetes, en tanto pueden contener conjuntos de datos, pueden almacenar objetos del tipo *data frame*.
+
+Los data frames son estructuras de datos de dos dimensiones (rectangulares) que pueden contener datos de diferentes tipos (carácter, numérico, enteros, etc.).
+
+---
+
+# Módulo II
+
+#### Pregunta 2.3
+
+*En cuál etapa del esquema de la ciencia de datos de Hadley Wickham se ubicarían los paquetes `haven` y `dplyr`. Indique brevemente las razones (no más de dos líneas para cada paquete)*
+
+--
+
+&lt;img src="https://es.r4ds.hadley.nz/diagrams_w_text_as_path/es/data-science.svg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+--
+
+[haven]() para la importación de datos
+
+[dplyr]() para la transformación de datos. Requiere que ya existan datos cargados y que estos se encuentren en formato rectangular y ordenado (formato `tidy`)
+
+---
+
+# Módulo II
+
+#### Pregunta 2.4
+
+*¿Por qué motivos un usuario de R optaría por trabajar con `R Project` y no simplemente abriendo R y luego un script en el cuál codificar? (no más de un párrafo)*
+
+--
+
+R trabaja con **directorios de trabajo**. Aquí es donde R busca los archivos que le pedimos que lea y donde colocará todos los archivos que le pidamos que guarde. Con los RProject podemos definir cuál será el directorio de trabajo que utilizaremos. Esto asegura un fácil acceso a los archivos (data, imágenes) que son utilizados en un proyecto.
+
+Además, permite asegurar la **reproducibilidad** del código. Esto es, que mi yo del futuro o cualquier otra personas pueda ejecutar el código que escribí desde otra computadora y llegar al mismo resultado. Esto se logra evitando escribir rutas absolutas cuando importamos información a R. 
+
+
+---
+
+# Módulo III
+
+--
+
+La Encuesta Suplementaria de Ingresos (ESI), es un módulo complementario que se aplica dentro de la Encuesta Nacional de Empleo (ENE). 
+
+La página web de la encuesta es la siguiente: &lt;https://www.ine.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos&gt;
+
+Descargue el microdato del año 2020 (ESI 2020 - Personas), cargue la data en R y responda.
+
+--
+
+Cargar paquetes
+
+
+```r
+library(haven)
+library(dplyr)
+```
+
+--
+
+Cargar data
+
+
+
+
+```r
+esi2020 &lt;- read_sav("data/esi-2020---personas_s.sav")
+```
+
+---
+
+# Módulo III
+
+#### Pregunta 3.1
+
+*¿Cuántas personas hay en la región de Aysén?*
+
+--
+
+Usar `table(esi2020$region)` era la opción más simple, pero había que buscar número asociado a región en libro de variables de la ESI. 
+
+--
+
+
+```r
+table(esi2020$region)
+```
+
+```
+## 
+##     1     2     3     4     5     6     7     8     9    10    11    12    13 
+##  2139  2657  2513  3774  9333  4720  5388  8474  3869  5348  1429  1548 12385 
+##    14    15    16 
+##  3062  2134  3162
+```
+
+--
+
+La opción aprovechando las etiquetas:
+
+--
+
+
+```r
+sjmisc::frq(esi2020$region)
+```
+
+---
+
+
+```
+## 
+## Región (x) &lt;numeric&gt;
+## # total N=71935  valid N=71935  mean=8.61  sd=4.07
+## 
+## Value |                  Label |     N | Raw % | Valid % | Cum. %
+## -----------------------------------------------------------------
+##     1 |               Tarapacá |  2139 |  2.97 |    2.97 |   2.97
+##     2 |            Antofagasta |  2657 |  3.69 |    3.69 |   6.67
+##     3 |                Atacama |  2513 |  3.49 |    3.49 |  10.16
+##     4 |               Coquimbo |  3774 |  5.25 |    5.25 |  15.41
+##     5 |             Valparaíso |  9333 | 12.97 |   12.97 |  28.38
+##     6 |              O'Higgins |  4720 |  6.56 |    6.56 |  34.94
+##     7 |                  Maule |  5388 |  7.49 |    7.49 |  42.43
+##     8 |                 Biobío |  8474 | 11.78 |   11.78 |  54.21
+##     9 |           La Araucanía |  3869 |  5.38 |    5.38 |  59.59
+##    10 |              Los Lagos |  5348 |  7.43 |    7.43 |  67.03
+##    11 |                  Aysén |  1429 |  1.99 |    1.99 |  69.01
+##    12 |             Magallanes |  1548 |  2.15 |    2.15 |  71.16
+##    13 |          Metropolitana | 12385 | 17.22 |   17.22 |  88.38
+##    14 |               Los Ríos |  3062 |  4.26 |    4.26 |  92.64
+##    15 |     Arica y Parinacota |  2134 |  2.97 |    2.97 |  95.60
+##    16 |                  Ñuble |  3162 |  4.40 |    4.40 | 100.00
+##    99 | Región no identificada |     0 |  0.00 |    0.00 | 100.00
+##  &lt;NA&gt; |                   &lt;NA&gt; |     0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;
+```
+
+--
+
+En la región de Aysén hay 1429 personas en la muestra
+
+
+---
+
+# Módulo III
+
+#### Pregunta 3.2
+
+*¿Cuántas personas en Chile tienen ingresos de más de 1 millón de pesos por concepto de sueldos y salarios? (ocupar variable `ing_t_d`)*
+
+--
+
+Lo que no había que hacer (tabular y luego sumar)
+
+
+```r
+table(esi2020)
+```
+
+--
+
+La idea es crear una nueva variable con condición, luego filtrar y sumar a las personas
+
+
+```r
+esi2020&lt;- mutate(esi2020,filtro_mas_de_1M=if_else(ing_t_d&gt;1000000,1,0))
+table(esi2020$filtro_mas_de_1M)
+```
+
+```
+## 
+##     0     1 
+## 69136  2799
+```
+
+--
+
+2799 personas de la muestra ganan más de 1 millon de pesos
+
+
+---
+
+# Módulo III
+
+#### Pregunta 3.3
+
+*¿Cuánto es lo máximo, mínimo y el promedio de ingresos que gana por concepto de sueldos y salarios una persona en Chile?, ¿Le parecen razonables los resultados?*
+
+--
+
+
+```r
+summary(esi2020$ing_t_d)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##       0       0       0  162616   80105 9312239
+```
+La mitad o más de la población gana $0 y en promedio las personas ganan $162.616.
+
+No hace sentido. 
+
+---
+
+# Módulo III
+
+#### Pregunta 3.4
+
+*Repita el ejercicio de la pregunta 3.3 pero sin considerar a las personas que registran cero pesos por sueldos y salarios.*
+
+--
+
+Se quitan aquellos casos que ganan menos de 0 pesos.
+
+
+```r
+esi2020_2 &lt;- select(filter(esi2020,ing_t_d&gt;0),ing_t_d)
+```
+
+--
+
+Se vuelve a hacer un summary
+
+
+```r
+summary(esi2020_2$ing_t_d)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    5007  320421  450000  639851  750987 9312239
+```
+--
+
+Ahora la mediana es $450.000 y la media $639.851. Valores similares a los reportados en resultados oficiales. 
+
+--
+
+De todas formas los valores mínimos y máximos son extraños.
+
+
+---
+
+# Módulo III
+
+#### Pregunta 3.5
+
+*¿Cuál es la brecha o diferencia de ingresos totales entre hombres y mujeres?*
+
+*Para hacer la comparación quite los valores cero de la variable de ingresos.* 
+
+--
+
+De esta forma vemos las etiquetas de la variable sexo:
+
+
+```r
+sjmisc::frq(esi2020$sexo)
+```
+
+```
+## 
+## Sexo (x) &lt;numeric&gt;
+## # total N=71935  valid N=71935  mean=1.53  sd=0.50
+## 
+## Value |  Label |     N | Raw % | Valid % | Cum. %
+## -------------------------------------------------
+##     1 | Hombre | 33830 | 47.03 |   47.03 |  47.03
+##     2 |  Mujer | 38105 | 52.97 |   52.97 | 100.00
+##  &lt;NA&gt; |   &lt;NA&gt; |     0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;
+```
+
+
+---
+
+# Módulo 3
+
+Creamos 2 sub conjuntos de datos. Uno solo con mujeres, otro solo con hombres.
+
+--
+
+
+```r
+mujeres &lt;- select(filter(esi2020,ing_mon_sb&gt;0 &amp; sexo==2),ing_mon_sb)
+hombres &lt;- select(filter(esi2020,ing_mon_sb&gt;0 &amp; sexo==1),ing_mon_sb)
+```
+
+--
+
+Con media:
+
+
+```r
+mean(mujeres$ing_mon_sb)-mean(hombres$ing_mon_sb)
+```
+
+```
+## [1] -179288.7
+```
+
+--
+
+Con mediana:
+
+
+```r
+median(mujeres$ing_mon_sb)-median(hombres$ing_mon_sb)
+```
+
+```
+## [1] -125850.7
+```
+
+--
+
+Conclusión general: las mujeres tienen reciben menos ingresos que los hombres.
+
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+
+### Bibliografía utilizada
+
+
+
+&lt;a name=bib-Wickham2021&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2021) (2021). _R
+Para Ciencia de Datos_.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
