@@ -56,7 +56,6 @@ style_duo(
 ```
 
 ```{r echo=FALSE,include=FALSE}
-#library(pagedown)
 #pagedown::chrome_print("clase6b_pipe_dplyr_codigo.html")
 
 ```
@@ -829,29 +828,33 @@ data %>%
 
 class: inverse, center, middle
 
-# Ejercicio práctico
+# Tarea práctica N°3 (5% nota final)
 
 `Utilizando Encuesta Suplementaria de Ingresos (ESI)`
 
 ---
 
-# Ejercicio práctico ESI
+# Tarea práctica N°3
+
+```{r echo=FALSE}
+xfun::embed_file("../../tareas/tarea3/tarea3_group_by.pdf", text = "Descargar pauta")
+```
+
+--
 
 + Carga el microdato de la ESI personas 2020 (la de la prueba 1)
 
-
-+ Crea 3 tablas con el promedio de ingresos (cualquier variable de ingresos) según sexo, región y sector económico
-
++ Crea 2 tablas con el promedio de ingresos (cualquier variable de ingresos) según región y sector económico
 
 + ¿Cuántas personas tienen entre 0 y 17 años, entre 18 y 29 años, entre 30 y 64 años, y 65 o más años? (cuatro grupos)
 
-
 + Crea una nueva data donde cada unidad (fila) sean los hogares y que solo tenga 3 variables: identificador del hogar, ingresos del hogar y región en la que se ubica el hogar.
-
 
 + ¿Cuántos hogares son?, ¿Cómo se distribuyen regionalmente estos hogares?
 
-+ Envía por correo a equipo docente (antes del 08 de octubre)
++ Entre otras preguntas...
+
++ Envía por correo a equipo docente (hasta 05 de octubre)
 
 
 ---
