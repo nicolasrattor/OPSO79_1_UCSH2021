@@ -67,6 +67,190 @@ class: inverse, center, middle
 
 # Revisión prueba 1. 
 
+# Apartado teórico
+
+
+---
+
+# Pregunta 1.1 
+
+#### Dualismo y dualismo en Corbetta
+
++ ¿Que es el dualismo? Usar a Asún (2006)
+
+*La creencia o posición que sostiene que en el campo científico las metodologías cualitativas y cuantitativas corresponden a dos grandes paradigmas, los cuáles son complemente opuestos (e incluso antagónicos) en los diferentes niveles de la ciencia. Entre estos dos paradigmas habrían diferencias tanto en el nivel epistemológico, ideológico, en los objetivos declarados, en los objetos investigados, en los formas de medición y en la forma en que se analizan los datos producidos en la realidad social. Para autores como Asun (2006) este dualismo está lejos de representar las formas en las que efectivamente opera y se desarrollan las ciencias sociales.*
+
+--
+
++ Plantear tesis a defender:
+
+La distinción entre investigación cuantitativa y cualitativa de Corbetta reproduce el dualismo en algunos niveles, por lo que no llega a los extremos de Cea o Ibáñez. 
+
+---
+
+# Pregunta 1.1 
+
++ Argumentar la tesis para cada nivel (o varios de ellos)
+
+```{r fig.align='center', out.width = "100%", echo=FALSE}
+knitr::include_graphics("imagenes/corbetta1.PNG")
+```
+
+---
+
+# Pregunta 1.1 
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("imagenes/corbetta2.PNG")
+```
+
+
+---
+
+# Pregunta 1.2
+
+#### Unidades en la ENE y tipos de datos
+
+El microdato consiste en un conjunto de registros con información sobre unidades de análisis u observación (pueden coincidir o no). 
+
+--
+
+La unidades de análisis corresponde a el qué o quién está siendo estudiado. 
+
+--
+
+Las unidades de observación corresponden a quien(es) nos entregan la información de las unidades de análisis. 
+
+--
+
+En el caso de la ENE las unidades de análisis y observación coinciden: individuos. Queremos conocer cosas sobre estos individuos, como la tasa de desocupación. Para eso agregamos la información a nivel nacional (general) o a niveles mas particulares como regiones, sexo o categorías ocupacionales. Para esto agregamos la información y las presentamos en cuadros o tabulados. 
+
+--
+
+La ENE es un dato ordenado, la información pasó desde las experiencias y subjetividades de las personas, mediante un cuestionario y una serie de procesamientos estadísticos, a convertirse en un microdato (*el orden es producido*). Es decir, datos en los que cada variable corresponde a una columna, cada observación corresponden a una fila, y cada celda corresponde a una valor particular (definición de [tidy data](https://tidyr.tidyverse.org/)).
+
+---
+
+# Pregunta 1.3
+
+--
+
+#### Pregunta 36 de Karl Marx (1880)
+
+En su establecimiento de trabajo, ¿se trabaja regularmente en horario nocturno (entre 22:00 hrs y 05:00 horas)?
+
+1) sí
+2) no
+88) no sabe
+99) no responde
+
+--
+
+#### Pregunta 45 de Karl Marx (1880)
+
+¿Cuánto tiempo demoras en llegar desde tu residencia hasta tu lugar de trabajo habitual?
+
+1) menos de 15 minutos
+2) entre 15 y 30 minutos
+3) entre 31 y 60 minutos
+4) más de una hora
+85) no aplica (trabaja en el lugar de residencia o lugar de trabajo es variable)
+88) no sabe
+99) no responde
+
+---
+
+# Pregunta 1.3
+
+
+#### Pregunta 83 de Karl Marx (1880)
+
+¿Ocurrió alguna huelga laboral en su empresa durante el año 2020? (solo quienes trabajan en la empresa durante 2020)
+
+1) Sí
+
+2) No (fin de la encuesta)
+
+88) no sabe
+99) no responde
+
+--
+
+#### Pregunta 84 de Karl Marx (1880) **(solo quienes responde sí en pregunta 83)**
+
+¿Cuántas huelgas ocurrieron en su empresa el año 2020?, ¿Cuántos días duró la más larga?, ¿Cuántos trabajadores y trabajadoras participaron en la de mayor duración?
+
+| Huelgas            | Duración de la más larga    | Trabajadores/as comprometidos en la más larga           |
+|--------------------|-----------------------------|---------------------------------------------------------|
+|    2               | x días                      |                   x trabajadores/as comprometidos/as    |
+
+
+
+---
+
+# Pregunta 1.4
+
+Tipo de diseño del objetivo:
+
+*El presente estudio se propone conocer las condiciones de trabajo a nivel contractual, salarial, organizacional y psicosocial de las y los trabajadores subcontratados en el servicio de aseo de la Pontificia Universidad Católica*
+
+--
+
+A lo menos tres dimensiones
+
++ ¿Observacional o experimental?
+
++ ¿Descriptivo o causal?
+
++ ¿Transversal o longitudinal?
+
+--
+
+Diseño **observacional** y **descriptivo**. Falta información para aseverarlo con certeza, posiblemente sea **transversal**. 
+
+---
+
+# Pregunta 1.5
+
+#### De encuesta a papel a tablet
+
+--
+
+
+Distinguir entre modo tecnológico (papel/tablet/teléfono) y modo de interacción (encuestador/autoaplicado)
+
+--
+
+El cambio preguntado iba por el **modo tecnológico** (motivaciones)
+
+--
+
++ Automatizar la **digitación** de cuestionarios, acelerando tiempo y disminuyendo errores
+
+--
+
++ Hacer más eficiente la **validación** de los datos. Cualquier inconsistencia o problema puede ser resuelta en el mismo terreno, mientras el dato se produce.
+
+Alerta temprana. Tablet tiene introducidos los validadores de respuesta/salto/entre otros.
+
+--
+
+Se podía recurrir a las fases del GSBPM (*Generic Statistical Business Process Model*)
+
+--
+
+El desafío de las encuestas con tablet está en la fase de construcción de los cuestionarios, en la que los validadores de fases posteriores deben ser incluidos. 
+
+--
+
+#### Pregunta 1.6 para próxima prueba
+
+---
+
+class: inverse, center, middle
+
+# Revisión prueba 1. 
+
 # Apartado sobre R
 
 
