@@ -42,9 +42,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Clase de consolidación aprendizajes en R (01 de octubre)
 
-[Clase 6. Revisión prueba 1]()
+[Clase 6. Revisión prueba 1](https://opso791ucsh2021.netlify.app/clases/clase6/clase6a_correccion_prueba#1)
 
-[Clase 6. Pipe, profundización dplyr y buen código]()
+[Clase 6. Pipe, profundización dplyr y buen código](https://opso791ucsh2021.netlify.app/clases/clase6/clase6b_pipe_dplyr_codigo#1)
 
 # Ciencia abierta y reproducibilidad (08 de octubre)
 

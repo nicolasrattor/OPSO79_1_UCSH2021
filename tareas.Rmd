@@ -21,7 +21,7 @@ Operaciones elementales sobre un data frame con R base y transformación y visua
 
 # Tarea N°3
 
-Importar data y trasformación avanzada con dplyr. [Descargar pauta aquí](). 
+Importar data y trasformación avanzada con dplyr. [Descargar pauta aquí](tareas/tarea3/tarea3_group_by.pdf). 
 
 # Tarea N°4
 

@@ -21,6 +21,8 @@ Los documentos deben ser comprimidos en un archivo .zip y enviados a correo de p
 
 Entrega a más tardar el martes 05 de octubre a las 23:59 hrs.
 
+Toda pregunta es bien recibida vía correo electrónico. Mandar ejemplos reproducibles (a lo menos el código utilizada y una descripción/foto del error).
+
 # Preguntas en específico
 
 1. ¿Cuántas personas en Chile tienen 65 o más años?
@@ -33,7 +35,7 @@ Entrega a más tardar el martes 05 de octubre a las 23:59 hrs.
 
 5. Identifica para cada combinación de región y de sector económico el total de casos en el microdato (solo 1 tabla)
 
-6. ¿Cuántas personas tienen entre 0 y 17 años, entre 18 y 29 años, entre 30 y 64 años, y 65 o más años? (cuatro grupos)
+6. **DESAFÍO if_else()**: ¿Cuántas personas tienen entre 0 y 17 años, entre 18 y 29 años, entre 30 y 64 años, y 65 o más años? (cuatro grupos)
 
 7. Crea una nueva data donde cada unidad (fila) sean los hogares y que solo tenga 3 variables: identificador del hogar, decil de los ingresos del hogar y región en la que se ubica el hogar (pista: use `group_by()` y `slice()` ).
 
