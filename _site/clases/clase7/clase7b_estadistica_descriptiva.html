@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-08-10" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Estadística descriptiva I (segunda parte, teórica)
+### <code>08/10/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Estadística descriptiva I
+
+
+---
+
+# Describir variables
+
+--
+
+Lo hacemos para conocer un conjunto de datos particular (e.g. ESI o CASEN)
+
+--
+
+Describimos las variables conociendo su distribución, como las observaciones caen en una serie de valores posibles. 
+
+--
+
+.inverse[El método que usamos para analizar los datos dependerá del tipo de variables]
+
+--
+
++ Cuantitativas: será clave describir el centro y la variabilidad
+
+--
+
++ Categóricas: importará describir el número de observaciones que caen en cada categoría
+
+--
+
+La descripción se puede hacer mediante **resúmenes numéricos**, **tablas** o **gráficos**.
+
+---
+
+# Describir categóricas
+
+--
+
+Lo más simple es mediante tablas, con valores absolutos o relativos.
+
+--
+
+
+```r
+esi &lt;- haven::read_sav("data/esi-2019---personas_s.sav")
+```
+
+--
+
+
+```r
+sjmisc::frq(esi$ocup_form)
+```
+
+```
+## 
+## Ocupados según formalidad (x) &lt;numeric&gt;
+## # total N=96240  valid N=42856  mean=1.31  sd=0.46
+## 
+## Value |            Label |     N | Raw % | Valid % | Cum. %
+## -----------------------------------------------------------
+##     1 |   Ocupado formal | 29607 | 30.76 |   69.08 |  69.08
+##     2 | Ocupado informal | 13249 | 13.77 |   30.92 | 100.00
+##  &lt;NA&gt; |             &lt;NA&gt; | 53384 | 55.47 |    &lt;NA&gt; |   &lt;NA&gt;
+```
+--
+
+Los valores perdidos (`NA`) son relevantes de considerar (por eso Raw % y Valid %)
+
+--
+
+
+```r
+table(esi$ocup_form,useNA = "ifany") # Con r base
+```
+
+
+---
+
+# Describir categóricas
+
+Gráficamente, se pueden describir mediante gráficos **de barras** y **de tortas**.
+
+--
+
+Lo primero es hacer la tabla
+
+--
+
+
+```r
+table(esi$ocup_form)
+```
+
+--
+
+Luego introducir tabla a función de gráfico. 
+
+--
+
+.pull-left[
+
+
+```r
+barplot(table(esi$ocup_form))
+```
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-7-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# Describir categóricas
+
+Cada barra vertical representa una categoría. 
+
+La altura de la barra es la frecuencia de observaciones en cada categoría. 
+
+Entre cada barra hay un espacio. 
+
+--
+
+Para gráfica con frecuencia relativas introducir tabla de proporciones:
+
+
+```r
+prop.table(table(esi$ocup_form))
+```
+
+---
+
+# Describir categóricas
+
+--
+
+
+```r
+barplot(prop.table(table(esi$ocup_form)),
+        main = "Gráfico de barras frecuencias relativas")
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-9-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Describir categóricas
+
+Podemos incluir los NA. 
+
+
+```r
+prop.table(table(esi$ocup_form, useNA = "ifany"))
+```
+
+--
+
+
+```r
+barplot(prop.table(table(esi$ocup_form, useNA = "ifany")))
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-11-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Describir categóricas
+
+Toda una discusión respecto de los [**gráficos de tortas**](https://www.elartedepresentar.com/2011/11/las-tartas-son-para-el-postre-5-razones-por-las-que-no-uso-graficos-circulares/). 
+
+--
+
+Consisten en un circulo, donde hay un "trozo" de pie para cada categoría. 
+
+El tamaño del trozo de pie corresponde al porcentaje de observaciones en cada categoría. 
+
+--
+
+
+```r
+pie(prop.table(table(esi$region)))
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-12-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Describir ordinales
+
+¿Como presentar figuras de variables categóricas ordinales? (tipo Escala Likert)
+
+--
+
+Cargar paquete y datos de [Latinobarómetro](https://www.latinobarometro.org/latContents.jsp).
+
+
+```r
+library(sjPlot)
+data &lt;- readRDS("data/Latinobarometro_2018_Esp_R_v20190303.rds")
+```
+
+--
+
+Identificar y seleccionar variables
+
+
+```r
+sjmisc::find_var(data,"Confianza")[2:4,3]
+```
+
+```
+## [1] "P15STGBSC.A Confianza en: Las Fuerzas Armadas"   
+## [2] "P15STGBSC.B Confianza en: La policía/Carabineros"
+## [3] "P15STGBSC.C Confianza en: La Iglesia"
+```
+
+```r
+seleccion &lt;- data %&gt;% select(starts_with("P15STGB")) %&gt;% 
+  filter(P15STGBSC.A&gt;0,P15STGBSC.B&gt;0,P15STGBSC.C&gt;0,P15STGBSC.D&gt;0)
+```
+
+---
+
+# Describir ordinales
+
+
+```r
+plot_likert(seleccion[,1:4],catcount = 4) +
+  ggplot2::theme(legend.position = "none")
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central
+
+.inverse[Media]
+
+La suma de las observaciones dividido por el n.
+
+`$$\bar{x}=\frac{\sum{x}}{n}$$`
+
+--
+
+
+```r
+a &lt;- c(1,4,5,6,7,8,8,9,3,5,6,7,8)
+```
+
+--
+
+
+```r
+sum(a)/length(a)
+```
+
+```
+## [1] 5.923077
+```
+
+```r
+mean(a)
+```
+
+```
+## [1] 5.923077
+```
+
+
+---
+
+# Describir cuantitativas
+
+.inverse[Moda]
+
+Es el valor más frecuente (puede ser uno o varios).
+
+Útil cuando la variable toma pocos valores. 
+
+--
+
+
+```r
+table(a)
+```
+
+```
+## a
+## 1 3 4 5 6 7 8 9 
+## 1 1 1 2 2 2 3 1
+```
+
+```r
+table(a) %&gt;% as.data.frame() %&gt;% arrange(-Freq) %&gt;% slice(1)
+```
+
+```
+##   a Freq
+## 1 8    3
+```
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central
+
+.inverse[Mediana]
+
+Valor que se encuentra en la mitad de las observaciones cuando las observaciones son ordenadas de la más pequeñas a la más larga. 
+
+--
+
+
+```r
+a[order(a)]
+```
+
+```
+##  [1] 1 3 4 5 5 6 6 7 7 8 8 8 9
+```
+
+```r
+a[order(a)][round((length(a))/2)]
+```
+
+```
+## [1] 6
+```
+--
+
+
+```r
+median(a)
+```
+
+```
+## [1] 6
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central 
+
+Usalmente la media no es igual a ningún valor de los observados en la variable.
+
+--
+
+La mediana, por el contrario, siempre es igual a uno de los valores observados.
+
+--
+
+La media es fuertemente influenciada por valores atípicos (outlier), mientras que la mediana no.
+
+--
+
+Un **valor atípico** es una observación que está muy por encima o muy por debajo del volumen general de los datos.
+
+--
+
+
+```r
+a &lt;- c(1,4,5,6,7,8,8,9,3,5,6,7,8,500) ## sesgada a la derecha
+mean(a)
+```
+
+```
+## [1] 41.21429
+```
+
+```r
+median(a)
+```
+
+```
+## [1] 6.5
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central
+
+Valor extremo negativo (distribución **sesgada** a la izquierda)
+
+
+```r
+a &lt;- c(-1000,1,4,5,6,7,8,8,9,3,5,6,7,8)
+mean(a)
+```
+
+```
+## [1] -65.92857
+```
+
+```r
+median(a)
+```
+
+```
+## [1] 6
+```
+--
+
+&lt;img src="imagenes/skewed.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+El .inverse[rango] es la diferencia entre la observación más alta y la más pequeña.
+
+--
+
+
+```r
+min(a)
+```
+
+```
+## [1] -1000
+```
+
+```r
+max(a)
+```
+
+```
+## [1] 9
+```
+
+```r
+summary(a)
+```
+
+```
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## -1000.00     4.25     6.00   -65.93     7.75     9.00
+```
+
+---
+
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+Un mejor resumen de la variabilidad consiste en usar todo el dato. 
+
+--
+
+¿Cuál es la distancia típica en la que caen las observaciones respecto de la media?
+
+¿Que tanto se desavían las observaciones respecto de la media?
+
+--
+
+La desviación de una observación respecto de su media es `\(x-\bar{x}\)`
+
+--
+
+El promedio de las desviaciones sería la **desviación estándar**:
+
+`$$s=\sqrt{\frac{\sum{(x-\bar{x})^2}}{n-1}}$$`
+
+---
+
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+En R
+
+
+```r
+a &lt;- c(1,4,5,6,7,8,8,9,3,5,6,7,8)
+sd(a)
+```
+
+```
+## [1] 2.289889
+```
+
+--
+
+Las observaciones de `\(a\)` se desvían tipicamente 2,29 unidades respecto de la media a `\(a\)`
+
+
+```r
+a &lt;- c(1,4,5,6,7,8,8,9,3,5,6,7,8,500)
+sd(a)
+```
+
+```
+## [1] 132.0659
+```
+--
+
+Con el valor 500 dentro de a, la variabilidad de los datos aumenta en cerca de 130 unidades.
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+Mientras mayor sea la variabilidad de los datos respecto de la media, mayor será `\(s\)`
+
+--
+
+La desviación estándar sería 0 si todas las observaciones tienen el mismo valor (la menor variabilidad posible para una muestra)
+
+--
+
+Al igual que la media, `\(s\)` es sensible a la presencia de outliers o valores atípicos. 
+
+--
+
+La **varianza**
+
+`$$s^2=\frac{\sum{(x-\bar{x})^2}}{n-1}$$`
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+Un histograma es un gráfico que usa barras para representar las frecuencias o las frecuencias relativas de los valores de una variable cuantitativa
+
+--
+
+Distribución bimodal y no sesgada de edad
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-29-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Describir cuantitativas
+
+#### Gráficos de densidad
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-30-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+--
+
+
+```
+## 
+## ## Basic descriptive statistics
+## 
+##  var    type              label     n NA.prc  mean    sd   se md trimmed
+##   dd numeric Edad de la persona 96240      0 38.76 23.13 0.07 38   38.19
+##        range iqr skew
+##  104 (0-104)  38 0.16
+```
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-32-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+¿Cuál es el problema? 
+
+--
+
+R divide el rango de valores de la variable en intervalos de igual "anchura" (width)
+
+--
+
+Luego cuenta el número de observaciones en cada intervalo
+
+--
+
+Luego esa tabla es graficada. Cada barra es un intervalo, su altura corresponde a la frecuencia de cada intervalo. 
+
+--
+
+Por defecto dividió los datos en 5 intervalos. Hay una interesante variabilidad en la primera barra que no se puede observar. 
+
+---
+
+# Describir cuantitativas
+
+
+```r
+hist(esi[esi$ing_t_d&gt;0,]$ing_t_d, breaks = 100)
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-33-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+--
+
+.center[¿Como es la distribución de la variable ing_t_d?]
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+`ing_t_d` tiene una distribución unimodal centrada en $413.356 (mediana). 
+
+--
+
+El promedio de ingresos es $592.400, más de $150.000 más que la mediana, lo que es un indicador de una distribución sesgada a la derecha. 
+
+Valores de ingresos muy altos (outliers) están "empujando" a la media a ser mayor que la mediana.
+
+--
+
+Los ingresos varían entre $5.000 y $13.130.848, con una `s` de $590.429 
+
+
+```r
+sjmisc::descr(esi[esi$ing_t_d&gt;0,]$ing_t_d)
+```
+
+```
+## 
+## ## Basic descriptive statistics
+## 
+##  var    type                             label     n NA.prc     mean       sd
+##   dd numeric Total ingresos sueldos y salarios 29229      0 592440.2 590428.9
+##       se       md trimmed                          range      iqr skew
+##  3453.51 413355.7  485239 13125847.61 (5000-13130847.61) 384798.2 4.87
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma
+
+El sesgo (skew) de la variable se observa en el histograma, pero también puede ser numerado. 
+
+--
+
+Este indicador, junto a la curtosis, nos informan sobre el grado de normalidad de la distribución
+
+--
+
+
+```r
+plot(density(rnorm(10000,mean = 0,sd=1)))
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-35-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma
+
++ **Asimetría:** sesgo respecto de la media (horizontal). Si una distribución es simétrica, existe el mismo número de valores a la derecha que a la izquierda de la media
+
+--
+
++ **Curtosis:** mide el grado en que las puntuaciones están agrupadas en torno al punto central (vertical)
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma: asimetría
+
+¿cuándo es demasiada la asimetría?
+
+--
+
++ entre -0.5 y 0.5 datos bastante simétricos.
+
++ entre -1 y -0.5 (sesgado negativamente) o entre 0.5 y 1 (sesgado
+positivo), datos moderadamente sesgados.
+
++ Si el sesgo es menor que -1 (sesgo negativo) o mayor que 1 (sesgo positivo), los
+datos están muy sesgados.
+
+--
+
+*skew* de ingresos es 4.87. De edad 0.16
+
+--
+
+
+```r
+moments::skewness(rnorm(10000,mean = 0,sd=1))
+```
+
+```
+## [1] 0.001534144
+```
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma: curtosis
+
+.pull-left[
+
+¿cuándo es demasiado la curtosis?
+
+I Mesocurtica: curtosis similar a la normal
+
+I Leptocurtica (Curtosis &gt; 3): colas son más cortas, pico más alto y agudo (concentración de valores de la variable muy cerca de la media de la distribución)
+
+I Platicurtica: (Curtosis &lt; 3): representa un reducido grado de concentración alrededor de los valores centrales de la variable. 
+
+]
+
+
+.pull-right[
+
+&lt;img src="imagenes/curtosis.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma: curtosis
+
+
+```r
+moments::kurtosis(rnorm(10000,mean = 0,sd=1))
+```
+
+```
+## [1] 2.959258
+```
+
+```r
+moments::kurtosis(esi$edad)
+```
+
+```
+## [1] 2.005933
+```
+
+```r
+moments::kurtosis(esi$ing_t_d)
+```
+
+```
+## [1] 71.21357
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de posición
+
+La mediana es un caso especial de un repertorio general de posiciones: **percentiles**
+
+--
+
+El p-ésimo percentil es un valor tal que el p por ciento de las observaciones caen por debajo o en ese valor.
+
+--
+
+La mediana es el percentil 50: el 50% de las observaciones de una variable están en la mediana o bajo ella.
+
+Tambien se le llama segundo cuartil. 
+
+--
+
+En la ESI, el 50% de las observaciones tienen 38 o menos años. 
+
+
+```r
+median(esi$edad) 
+```
+
+```
+## [1] 38
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de posición
+
+Hay otros dos percentiles que se ocupan bastante: percentil 25 (primer cuartil) y percentil 75 (tercer cuartil)
+
+
+```r
+summary(esi$edad) 
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00   19.00   38.00   38.76   57.00  104.00
+```
+
+--
+
+&lt;img src="imagenes/cuartiles.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Describir cuantitativas
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-42-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+El rango intercuartílico (IQR) es la distancia entre el tercer y primer cuartil.
+
+`$$IQR=Q3-Q1$$`
+
+--
+
+La medida resume el rango de valores de la mitad central de los datos
+
+--
+
+
+```r
+summary(esi[esi$ing_t_d&gt;0,]$ing_t_d)
+```
+
+```
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##     5000   300767   413356   592440   685566 13130848
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+IQR calculado a mano
+
+
+```r
+685566-300767
+```
+
+```
+## [1] 384799
+```
+
+```r
+esi %&gt;% filter(ing_t_d&gt;0) %&gt;% count()
+```
+
+```
+## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1 29229
+```
+
+```r
+esi %&gt;% filter(ing_t_d&gt;0) %&gt;% 
+  filter(ing_t_d&lt;=685566 &amp; ing_t_d&gt;=300767) %&gt;% 
+  count()
+```
+
+```
+## # A tibble: 1 x 1
+##       n
+##   &lt;int&gt;
+## 1 14678
+```
+
+```r
+14678	/ 29229
+```
+
+```
+## [1] 0.5021725
+```
+--
+
+
+```r
+sjmisc::descr(esi[esi$ing_t_d&gt;0,]$ing_t_d)
+```
+
+```
+## 
+## ## Basic descriptive statistics
+## 
+##  var    type                             label     n NA.prc     mean       sd
+##   dd numeric Total ingresos sueldos y salarios 29229      0 592440.2 590428.9
+##       se       md trimmed                          range      iqr skew
+##  3453.51 413355.7  485239 13125847.61 (5000-13130847.61) 384798.2 4.87
+```
+
+
+---
+
+# Describir cuantitativas
+
+#### Detección de outliers
+
+El IQR se utiliza para detectar casos atípicos
+
+--
+
+Outlier superior: si un caso se encuentra 1,5 por IQR veces sobre Q3 
+
+Outlier inferior: si un caso se encuentra -1,5 por IQR veces bajo Q3
+
+--
+
+¿El caso máximo de ingresos es un outlier?
+
+--
+
+
+```r
+max(esi$ing_t_d)
+```
+
+```
+## [1] 13130848
+```
+--
+
+Q3 + (IQR * 1,5)
+
+
+```r
+685566 + (384799*1.5)
+```
+
+```
+## [1] 1262765
+```
+--
+
+Es totalmente un outlier. 
+
+---
+
+# Describir cuantitativas
+
+#### Detección de outliers
+
+--
+
+¿El caso máximo de edad (104) es un outlier?
+
+
+```r
+summary(esi$edad)
+```
+
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    0.00   19.00   38.00   38.76   57.00  104.00
+```
+--
+
+Q3 + (IQR * 1,5)
+
+
+```r
+57 + (38*1.5)
+```
+
+```
+## [1] 114
+```
+
+--
+
+El caso máximo de la edad está bajo 114, por lo que no es un outlier.
+
+
+---
+
+# Describir cuantitativas
+
+#### Gráficos de cajas y bigotes
+
+Integra las diferentes medidas que hemos visto
+
+&lt;img src="imagenes/boxplot.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+--
+
+La caja va desde el cuartil más bajo Q1 al quartil superior Q3
+
+La línea dentro de la caja indica la mediana
+
+Los bigotes (línea horizontal) marca la zona de valores típicos, que va entre Q1-(1,5xIQR) y Q3+(1,5xIQR)
+
+Los casos fuera de los bigotes son los potenciales outliers. 
+
+---
+
+# Describir cuantitativas
+
+
+```r
+boxplot(esi$edad,horizontal = TRUE)
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-51-1.png" width="50%" /&gt;
+
+---
+
+# Describir cuantitativas
+
+
+```r
+boxplot(esi[esi$ing_t_d&gt;0,]$ing_t_d,horizontal = TRUE)
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-52-1.png" width="50%" /&gt;
+
+
+---
+
+# Ejercicios para practicar
+
+Pendiente.
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+### Para seguir aprendiendo
+
+[Diagrama de barras](https://estadistica-dma.ulpgc.es/cursoR4ULPGC/9b-grafBarplot.html)
+
+[Histogramas y gráficos de densidad](http://www.sthda.com/english/wiki/histogram-and-density-plots-r-base-graphs)
+
+[Asimetría y curtosis](https://www.universoformulas.com/estadistica/descriptiva/asimetria-curtosis/)
+
+### Bibliografía utilizada
+
+
+
+&lt;a name=bib-Agresti2018&gt;&lt;/a&gt;[Agresti, A. and C.
+Franklin](#cite-Agresti2018) (2018). _Statistics the Art and Science of
+Learning from Data_. Pearson Education Limited.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

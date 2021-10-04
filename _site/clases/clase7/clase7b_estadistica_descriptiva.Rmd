@@ -1,0 +1,904 @@
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Estadística descriptiva I (segunda parte, teórica)"
+date: "`08/10/2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("../../bibliografia/bib.bib", check = FALSE)
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(dplyr)
+library(guaguas)
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+pagedown::chrome_print("clase7b_estadistica_descriptiva.html")
+
+```
+
+---
+
+class: inverse, center, middle
+
+# Estadística descriptiva I
+
+
+---
+
+# Describir variables
+
+--
+
+Lo hacemos para conocer un conjunto de datos particular (e.g. ESI o CASEN)
+
+--
+
+Describimos las variables conociendo su distribución, como las observaciones caen en una serie de valores posibles. 
+
+--
+
+.inverse[El método que usamos para analizar los datos dependerá del tipo de variables]
+
+--
+
++ Cuantitativas: será clave describir el centro y la variabilidad
+
+--
+
++ Categóricas: importará describir el número de observaciones que caen en cada categoría
+
+--
+
+La descripción se puede hacer mediante **resúmenes numéricos**, **tablas** o **gráficos**.
+
+---
+
+# Describir categóricas
+
+--
+
+Lo más simple es mediante tablas, con valores absolutos o relativos.
+
+--
+
+```{r}
+esi <- haven::read_sav("data/esi-2019---personas_s.sav")
+```
+
+--
+
+```{r}
+sjmisc::frq(esi$ocup_form)
+```
+--
+
+Los valores perdidos (`NA`) son relevantes de considerar (por eso Raw % y Valid %)
+
+--
+
+```{r eval=FALSE}
+table(esi$ocup_form,useNA = "ifany") # Con r base
+```
+
+
+---
+
+# Describir categóricas
+
+Gráficamente, se pueden describir mediante gráficos **de barras** y **de tortas**.
+
+--
+
+Lo primero es hacer la tabla
+
+--
+
+```{r eval=FALSE}
+table(esi$ocup_form)
+```
+
+--
+
+Luego introducir tabla a función de gráfico. 
+
+--
+
+.pull-left[
+
+```{r out.width = "50%", fig.align='center', eval=FALSE}
+barplot(table(esi$ocup_form))
+```
+
+]
+
+--
+
+.pull-right[
+
+```{r out.width = "75%", fig.align='center', echo=FALSE}
+barplot(table(esi$ocup_form),main = "Gráfico de barras frecuencias absolutas")
+```
+]
+
+---
+
+# Describir categóricas
+
+Cada barra vertical representa una categoría. 
+
+La altura de la barra es la frecuencia de observaciones en cada categoría. 
+
+Entre cada barra hay un espacio. 
+
+--
+
+Para gráfica con frecuencia relativas introducir tabla de proporciones:
+
+```{r eval=FALSE}
+prop.table(table(esi$ocup_form))
+```
+
+---
+
+# Describir categóricas
+
+--
+
+```{r out.width = "40%", fig.align='center'}
+barplot(prop.table(table(esi$ocup_form)),
+        main = "Gráfico de barras frecuencias relativas")
+```
+
+
+---
+
+# Describir categóricas
+
+Podemos incluir los NA. 
+
+```{r eval=FALSE}
+prop.table(table(esi$ocup_form, useNA = "ifany"))
+```
+
+--
+
+```{r out.width = "40%", fig.align='center'}
+barplot(prop.table(table(esi$ocup_form, useNA = "ifany")))
+```
+
+
+---
+
+# Describir categóricas
+
+Toda una discusión respecto de los [**gráficos de tortas**](https://www.elartedepresentar.com/2011/11/las-tartas-son-para-el-postre-5-razones-por-las-que-no-uso-graficos-circulares/). 
+
+--
+
+Consisten en un circulo, donde hay un "trozo" de pie para cada categoría. 
+
+El tamaño del trozo de pie corresponde al porcentaje de observaciones en cada categoría. 
+
+--
+
+```{r out.width = "35%", fig.align='center'}
+pie(prop.table(table(esi$region)))
+```
+
+---
+
+# Describir ordinales
+
+¿Como presentar figuras de variables categóricas ordinales? (tipo Escala Likert)
+
+--
+
+Cargar paquete y datos de [Latinobarómetro](https://www.latinobarometro.org/latContents.jsp).
+
+```{r message=FALSE, warning=FALSE}
+library(sjPlot)
+data <- readRDS("data/Latinobarometro_2018_Esp_R_v20190303.rds")
+```
+
+--
+
+Identificar y seleccionar variables
+
+```{r}
+sjmisc::find_var(data,"Confianza")[2:4,3]
+```
+```{r}
+seleccion <- data %>% select(starts_with("P15STGB")) %>% 
+  filter(P15STGBSC.A>0,P15STGBSC.B>0,P15STGBSC.C>0,P15STGBSC.D>0)
+```
+
+---
+
+# Describir ordinales
+
+```{r warning=FALSE, message=FALSE,out.width = "50%", fig.align='center'}
+plot_likert(seleccion[,1:4],catcount = 4) +
+  ggplot2::theme(legend.position = "none")
+```
+
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central
+
+.inverse[Media]
+
+La suma de las observaciones dividido por el n.
+
+$$\bar{x}=\frac{\sum{x}}{n}$$
+
+--
+
+```{r}
+a <- c(1,4,5,6,7,8,8,9,3,5,6,7,8)
+```
+
+--
+
+```{r}
+sum(a)/length(a)
+mean(a)
+```
+
+
+---
+
+# Describir cuantitativas
+
+.inverse[Moda]
+
+Es el valor más frecuente (puede ser uno o varios).
+
+Útil cuando la variable toma pocos valores. 
+
+--
+
+```{r}
+table(a)
+```
+```{r}
+table(a) %>% as.data.frame() %>% arrange(-Freq) %>% slice(1)
+```
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central
+
+.inverse[Mediana]
+
+Valor que se encuentra en la mitad de las observaciones cuando las observaciones son ordenadas de la más pequeñas a la más larga. 
+
+--
+
+```{r}
+a[order(a)]
+a[order(a)][round((length(a))/2)]
+```
+--
+
+```{r}
+median(a)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central 
+
+Usalmente la media no es igual a ningún valor de los observados en la variable.
+
+--
+
+La mediana, por el contrario, siempre es igual a uno de los valores observados.
+
+--
+
+La media es fuertemente influenciada por valores atípicos (outlier), mientras que la mediana no.
+
+--
+
+Un **valor atípico** es una observación que está muy por encima o muy por debajo del volumen general de los datos.
+
+--
+
+```{r}
+a <- c(1,4,5,6,7,8,8,9,3,5,6,7,8,500) ## sesgada a la derecha
+mean(a)
+median(a)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de tendencia central
+
+Valor extremo negativo (distribución **sesgada** a la izquierda)
+
+```{r}
+a <- c(-1000,1,4,5,6,7,8,8,9,3,5,6,7,8)
+mean(a)
+median(a)
+```
+--
+
+```{r, out.width = "60%", echo=FALSE, fig.align='center'}
+knitr::include_graphics("imagenes/skewed.png")
+```
+
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+El .inverse[rango] es la diferencia entre la observación más alta y la más pequeña.
+
+--
+
+```{r}
+min(a)
+max(a)
+summary(a)
+```
+
+---
+
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+Un mejor resumen de la variabilidad consiste en usar todo el dato. 
+
+--
+
+¿Cuál es la distancia típica en la que caen las observaciones respecto de la media?
+
+¿Que tanto se desavían las observaciones respecto de la media?
+
+--
+
+La desviación de una observación respecto de su media es $x-\bar{x}$
+
+--
+
+El promedio de las desviaciones sería la **desviación estándar**:
+
+$$s=\sqrt{\frac{\sum{(x-\bar{x})^2}}{n-1}}$$
+
+---
+
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+En R
+
+```{r}
+a <- c(1,4,5,6,7,8,8,9,3,5,6,7,8)
+sd(a)
+```
+
+--
+
+Las observaciones de $a$ se desvían tipicamente 2,29 unidades respecto de la media a $a$
+
+```{r}
+a <- c(1,4,5,6,7,8,8,9,3,5,6,7,8,500)
+sd(a)
+```
+--
+
+Con el valor 500 dentro de a, la variabilidad de los datos aumenta en cerca de 130 unidades.
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+Mientras mayor sea la variabilidad de los datos respecto de la media, mayor será $s$
+
+--
+
+La desviación estándar sería 0 si todas las observaciones tienen el mismo valor (la menor variabilidad posible para una muestra)
+
+--
+
+Al igual que la media, $s$ es sensible a la presencia de outliers o valores atípicos. 
+
+--
+
+La **varianza**
+
+$$s^2=\frac{\sum{(x-\bar{x})^2}}{n-1}$$
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+Un histograma es un gráfico que usa barras para representar las frecuencias o las frecuencias relativas de los valores de una variable cuantitativa
+
+--
+
+Distribución bimodal y no sesgada de edad
+
+```{r out.width = "40%", echo=FALSE, fig.align='center'}
+hist(esi$edad)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Gráficos de densidad
+
+```{r out.width = "55%", echo=FALSE, fig.align='center'}
+plot(density(esi$edad))
+```
+--
+
+```{r echo=FALSE}
+sjmisc::descr(esi$edad)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+```{r out.width = "50%", echo=FALSE, fig.align='center'}
+hist(esi[esi$ing_t_d>0,]$ing_t_d)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+¿Cuál es el problema? 
+
+--
+
+R divide el rango de valores de la variable en intervalos de igual "anchura" (width)
+
+--
+
+Luego cuenta el número de observaciones en cada intervalo
+
+--
+
+Luego esa tabla es graficada. Cada barra es un intervalo, su altura corresponde a la frecuencia de cada intervalo. 
+
+--
+
+Por defecto dividió los datos en 5 intervalos. Hay una interesante variabilidad en la primera barra que no se puede observar. 
+
+---
+
+# Describir cuantitativas
+
+```{r out.width = "50%", fig.align='center'}
+hist(esi[esi$ing_t_d>0,]$ing_t_d, breaks = 100)
+```
+--
+
+.center[¿Como es la distribución de la variable ing_t_d?]
+
+---
+
+# Describir cuantitativas
+
+#### Histogramas
+
+`ing_t_d` tiene una distribución unimodal centrada en $413.356 (mediana). 
+
+--
+
+El promedio de ingresos es $592.400, más de $150.000 más que la mediana, lo que es un indicador de una distribución sesgada a la derecha. 
+
+Valores de ingresos muy altos (outliers) están "empujando" a la media a ser mayor que la mediana.
+
+--
+
+Los ingresos varían entre $5.000 y $13.130.848, con una `s` de $590.429 
+
+```{r}
+sjmisc::descr(esi[esi$ing_t_d>0,]$ing_t_d)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma
+
+El sesgo (skew) de la variable se observa en el histograma, pero también puede ser numerado. 
+
+--
+
+Este indicador, junto a la curtosis, nos informan sobre el grado de normalidad de la distribución
+
+--
+
+```{r out.width="35%", fig.align='center'}
+plot(density(rnorm(10000,mean = 0,sd=1)))
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma
+
++ **Asimetría:** sesgo respecto de la media (horizontal). Si una distribución es simétrica, existe el mismo número de valores a la derecha que a la izquierda de la media
+
+--
+
++ **Curtosis:** mide el grado en que las puntuaciones están agrupadas en torno al punto central (vertical)
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma: asimetría
+
+¿cuándo es demasiada la asimetría?
+
+--
+
++ entre -0.5 y 0.5 datos bastante simétricos.
+
++ entre -1 y -0.5 (sesgado negativamente) o entre 0.5 y 1 (sesgado
+positivo), datos moderadamente sesgados.
+
++ Si el sesgo es menor que -1 (sesgo negativo) o mayor que 1 (sesgo positivo), los
+datos están muy sesgados.
+
+--
+
+*skew* de ingresos es 4.87. De edad 0.16
+
+--
+
+```{r}
+moments::skewness(rnorm(10000,mean = 0,sd=1))
+```
+
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma: curtosis
+
+.pull-left[
+
+¿cuándo es demasiado la curtosis?
+
+I Mesocurtica: curtosis similar a la normal
+
+I Leptocurtica (Curtosis > 3): colas son más cortas, pico más alto y agudo (concentración de valores de la variable muy cerca de la media de la distribución)
+
+I Platicurtica: (Curtosis < 3): representa un reducido grado de concentración alrededor de los valores centrales de la variable. 
+
+]
+
+
+.pull-right[
+
+```{r, out.width = "100%", echo=FALSE, fig.align='center'}
+knitr::include_graphics("imagenes/curtosis.png")
+```
+
+]
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de forma: curtosis
+
+```{r}
+moments::kurtosis(rnorm(10000,mean = 0,sd=1))
+moments::kurtosis(esi$edad)
+moments::kurtosis(esi$ing_t_d)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de posición
+
+La mediana es un caso especial de un repertorio general de posiciones: **percentiles**
+
+--
+
+El p-ésimo percentil es un valor tal que el p por ciento de las observaciones caen por debajo o en ese valor.
+
+--
+
+La mediana es el percentil 50: el 50% de las observaciones de una variable están en la mediana o bajo ella.
+
+Tambien se le llama segundo cuartil. 
+
+--
+
+En la ESI, el 50% de las observaciones tienen 38 o menos años. 
+
+```{r}
+median(esi$edad) 
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de posición
+
+Hay otros dos percentiles que se ocupan bastante: percentil 25 (primer cuartil) y percentil 75 (tercer cuartil)
+
+```{r}
+summary(esi$edad) 
+```
+
+--
+
+```{r, out.width = "65%", echo=FALSE, fig.align='center'}
+knitr::include_graphics("imagenes/cuartiles.png")
+```
+
+---
+
+# Describir cuantitativas
+
+```{r out.width = "50%", echo=FALSE, fig.align='center', message=FALSE,warning=FALSE}
+library(ggplot2)
+esi %>% ggplot(aes(edad)) + geom_histogram() +
+ geom_vline(xintercept = c(19,38,57), linetype="dotted", 
+                color = "blue", size=1.5) +
+  labs(title = "Cuartiles dividiendo la distribución de edad")
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+El rango intercuartílico (IQR) es la distancia entre el tercer y primer cuartil.
+
+$$IQR=Q3-Q1$$
+
+--
+
+La medida resume el rango de valores de la mitad central de los datos
+
+--
+
+```{r}
+summary(esi[esi$ing_t_d>0,]$ing_t_d)
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+IQR calculado a mano
+
+```{r}
+685566-300767
+esi %>% filter(ing_t_d>0) %>% count()
+esi %>% filter(ing_t_d>0) %>% 
+  filter(ing_t_d<=685566 & ing_t_d>=300767) %>% 
+  count()
+14678	/ 29229
+```
+--
+
+```{r}
+sjmisc::descr(esi[esi$ing_t_d>0,]$ing_t_d)
+```
+
+
+---
+
+# Describir cuantitativas
+
+#### Detección de outliers
+
+El IQR se utiliza para detectar casos atípicos
+
+--
+
+Outlier superior: si un caso se encuentra 1,5 por IQR veces sobre Q3 
+
+Outlier inferior: si un caso se encuentra -1,5 por IQR veces bajo Q3
+
+--
+
+¿El caso máximo de ingresos es un outlier?
+
+--
+
+```{r}
+max(esi$ing_t_d)
+```
+--
+
+Q3 + (IQR * 1,5)
+
+```{r}
+685566 + (384799*1.5)
+```
+--
+
+Es totalmente un outlier. 
+
+---
+
+# Describir cuantitativas
+
+#### Detección de outliers
+
+--
+
+¿El caso máximo de edad (104) es un outlier?
+
+```{r}
+summary(esi$edad)
+```
+--
+
+Q3 + (IQR * 1,5)
+
+```{r}
+57 + (38*1.5)
+```
+
+--
+
+El caso máximo de la edad está bajo 114, por lo que no es un outlier.
+
+
+---
+
+# Describir cuantitativas
+
+#### Gráficos de cajas y bigotes
+
+Integra las diferentes medidas que hemos visto
+
+```{r, out.width = "40%", echo=FALSE, fig.align='center'}
+knitr::include_graphics("imagenes/boxplot.png")
+```
+
+--
+
+La caja va desde el cuartil más bajo Q1 al quartil superior Q3
+
+La línea dentro de la caja indica la mediana
+
+Los bigotes (línea horizontal) marca la zona de valores típicos, que va entre Q1-(1,5xIQR) y Q3+(1,5xIQR)
+
+Los casos fuera de los bigotes son los potenciales outliers. 
+
+---
+
+# Describir cuantitativas
+
+```{r out.width = "50%"}
+boxplot(esi$edad,horizontal = TRUE)
+```
+
+---
+
+# Describir cuantitativas
+
+```{r out.width = "50%"}
+boxplot(esi[esi$ing_t_d>0,]$ing_t_d,horizontal = TRUE)
+```
+
+
+---
+
+# Ejercicios para practicar
+
+Pendiente.
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+### Para seguir aprendiendo
+
+[Diagrama de barras](https://estadistica-dma.ulpgc.es/cursoR4ULPGC/9b-grafBarplot.html)
+
+[Histogramas y gráficos de densidad](http://www.sthda.com/english/wiki/histogram-and-density-plots-r-base-graphs)
+
+[Asimetría y curtosis](https://www.universoformulas.com/estadistica/descriptiva/asimetria-curtosis/)
+
+### Bibliografía utilizada
+
+```{r echo=FALSE, results=FALSE}
+Citet(bib, "Agresti2018")
+```
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(bib)
+```
+
+
+

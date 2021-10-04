@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-08-10" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Tarea 3, case_when() y prácticas para una buena codificación.
+### <code>08/10/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+
+# Revisión Tarea 3
+
+`Utilizando la Encuesta Suplementaria de Ingresos (ESI)`
+
+---
+
+# Tarea 3
+
+#### Cargar la data
+
+
+```r
+library(haven)
+library(dplyr)
+```
+
+
+
+--
+
+
+```r
+esi &lt;- read_sav("data/esi-2019---personas_s.sav")
+```
+
+--
+
+#### 1. ¿Cuántas personas en Chile tienen 65 o más años?
+
+--
+
+Rbase
+
+
+```r
+pregunta1 &lt;- esi[esi$edad&gt;=65,]
+nrow(pregunta1)
+```
+
+```
+## [1] 15092
+```
+--
+
+
+```r
+esi %&gt;% filter(edad&gt;=65) %&gt;% nrow() ## dplyr
+```
+
+
+---
+
+# Tarea 3
+
+#### 2. ¿Cuál es el promedio de ingresos de hombres y mujeres? (use la variable `ing_mon_sb` y la función `group_by()`). Previamente remueva los valores cero de la variable de ingresos.
+
+--
+
+Sin sacar los ceros
+
+
+```r
+esi %&gt;% group_by(sexo) %&gt;% summarise(mean(ing_mon_sb))
+```
+
+```
+## # A tibble: 2 x 2
+##         sexo `mean(ing_mon_sb)`
+##    &lt;dbl+lbl&gt;              &lt;dbl&gt;
+## 1 1 [Hombre]            377027.
+## 2 2 [Mujer]             227941.
+```
+--
+
+Sacando los ceros
+
+
+```r
+esi %&gt;% 
+  filter(ing_mon_sb&gt;0) %&gt;% 
+  group_by(sexo) %&gt;% 
+  summarise(mean(ing_mon_sb))
+```
+
+```
+## # A tibble: 2 x 2
+##         sexo `mean(ing_mon_sb)`
+##    &lt;dbl+lbl&gt;              &lt;dbl&gt;
+## 1 1 [Hombre]            582121.
+## 2 2 [Mujer]             378018.
+```
+
+
+---
+
+# Tarea 3
+
+#### 3. Reste el promedio de ingresos entre hombres y mujeres. ¿Cuál es la brecha de ingresos entre ambos sexos?
+
+Guardar como objeto tabla anterior
+
+
+```r
+pregunta2 &lt;- esi %&gt;% 
+  filter(ing_mon_sb&gt;0) %&gt;% 
+  group_by(sexo) %&gt;% 
+  summarise(mean(ing_mon_sb))
+```
+
+--
+
+
+```r
+pregunta2[2,2] - pregunta2[1,2]
+```
+
+```
+##   mean(ing_mon_sb)
+## 1        -204102.8
+```
+
+---
+
+# Tarea 3
+
+#### 4. Crea 2 tablas con el promedio de ingresos (cualquier variable de ingresos) según región y sector económico
+
+--
+
+
+```r
+esi %&gt;% 
+  group_by(region) %&gt;% 
+  summarise(mean(ing_mon_sb))
+```
+
+```
+## # A tibble: 16 x 2
+##                                                    region `mean(ing_mon_sb)`
+##                                                 &lt;dbl+lbl&gt;              &lt;dbl&gt;
+##  1  1 [Región de Tarapacá]                                           296522.
+##  2  2 [Región de Antofagasta]                                        417337.
+##  3  3 [Región de Atacama]                                            284777.
+##  4  4 [Región de Coquimbo]                                           249269.
+##  5  5 [Región de Valparaíso]                                         306519.
+##  6  6 [Región del Libertador Gral. Bernardo O’Higgins]               252775.
+##  7  7 [Región del Maule]                                             242156.
+##  8  8 [Región del Biobío]                                            231571.
+##  9  9 [Región de La Araucanía]                                       239898.
+## 10 10 [Región de Los Lagos]                                          256319.
+## 11 11 [Región de Aysén del Gral. Carlos Ibáñez del Campo]            363813.
+## 12 12 [Región de Magallanes y Antártica Chilena]                     511584.
+## 13 13 [Región Metropolitana]                                         369421.
+## 14 14 [Región de Los Ríos]                                           305597.
+## 15 15 [Región de Arica y Parinacota]                                 255997.
+## 16 16 [Región de Ñuble]                                              266207.
+```
+
+---
+
+# Tarea 3
+
+#### 4. Crea 2 tablas con el promedio de ingresos (cualquier variable de ingresos) según región y sector económico
+
+--
+
+
+```r
+esi %&gt;% 
+  group_by( b13_rev4cl_caenes) %&gt;% 
+  summarise(mean(ing_mon_sb))
+```
+
+```
+## # A tibble: 22 x 2
+##                                              b13_rev4cl_caenes `mean(ing_mon_sb~
+##                                                      &lt;dbl+lbl&gt;             &lt;dbl&gt;
+##  1  1 [Agricultura, ganadería, silvicultura y pesca]                     297062.
+##  2  2 [Explotación de minas y canteras]                                  836287.
+##  3  3 [Industrias manufactureras]                                        677448.
+##  4  4 [Suministro de electricidad, gas, vapor y aire acondici~           641023.
+##  5  5 [Suministro de agua; evacuación de aguas residuales, ge~           470431.
+##  6  6 [Construcción]                                                     600585.
+##  7  7 [Comercio al por mayor y al por menor; reparación de ve~           505691.
+##  8  8 [Transporte y almacenamiento]                                      569633.
+##  9  9 [Actividades de alojamiento y de servicio de comidas]              451014.
+## 10 10 [Información y comunicaciones]                                     857778.
+## # ... with 12 more rows
+```
+
+---
+
+# Tarea 3
+
+#### 5. Identifica para cada combinación de región y de sector económico el total de casos en el microdato (solo 1 tabla)
+
+
+```r
+esi %&gt;% 
+  group_by(region,b13_rev4cl_caenes) %&gt;% 
+  summarise(n())
+```
+
+```
+## `summarise()` has grouped output by 'region'. You can override using the `.groups` argument.
+```
+
+```
+## # A tibble: 244 x 3
+## # Groups:   region [16]
+##                    region                                b13_rev4cl_caenes `n()`
+##                 &lt;dbl+lbl&gt;                                        &lt;dbl+lbl&gt; &lt;int&gt;
+##  1 1 [Región de Tarapacá]  2 [Explotación de minas y canteras]                 5
+##  2 1 [Región de Tarapacá]  3 [Industrias manufactureras]                      16
+##  3 1 [Región de Tarapacá]  5 [Suministro de agua; evacuación de aguas res~     1
+##  4 1 [Región de Tarapacá]  6 [Construcción]                                   19
+##  5 1 [Región de Tarapacá]  7 [Comercio al por mayor y al por menor; repar~     3
+##  6 1 [Región de Tarapacá]  8 [Transporte y almacenamiento]                    16
+##  7 1 [Región de Tarapacá]  9 [Actividades de alojamiento y de servicio de~    20
+##  8 1 [Región de Tarapacá] 12 [Actividades inmobiliarias]                       1
+##  9 1 [Región de Tarapacá] 13 [Actividades profesionales, científicas y té~     6
+## 10 1 [Región de Tarapacá] 14 [Actividades de servicios administrativos y ~    42
+## # ... with 234 more rows
+```
+
+
+
+---
+
+# Tarea 3
+
+#### 6. **DESAFÍO if_else()**: ¿Cuántas personas tienen entre 0 y 17 años, entre 18 y 29 años, entre 30 y 64 años, y 65 o más años? (cuatro grupos)
+
+--
+
+
+```r
+esi &lt;- esi %&gt;% 
+  mutate(edad_recod=if_else(edad&lt;18,"menos de 18",""),
+         edad_recod=if_else(edad&gt;17 &amp; edad &lt; 30,"entre 18 y 29",edad_recod),
+         edad_recod=if_else(edad&gt;29 &amp; edad &lt; 65,"entre 30 y 64",edad_recod),
+         edad_recod=if_else(edad&gt;64,"65 o más",edad_recod))
+```
+
+--
+
+
+```r
+table(esi$edad_recod)
+```
+
+```
+## 
+##      65 o más entre 18 y 29 entre 30 y 64   menos de 18 
+##         15092         15938         42967         22243
+```
+
+--
+
+
+```r
+esi %&gt;% group_by(edad_recod) %&gt;% summarise(n())
+```
+
+
+
+---
+
+# Tarea 3
+
+#### 7. Crea una nueva data donde cada unidad (fila) sean los hogares y que solo tenga 3 variables: identificador del hogar, decil de los ingresos del hogar y región en la que se ubica el hogar (pista: use `group_by()` y `slice()` ).
+
+--
+
+
+```r
+# sjlabelled::get_label(esi) Para identificar la variable
+hogares &lt;- esi %&gt;% 
+  select(id_identificacion,decilh_sb,region) %&gt;% 
+  group_by(id_identificacion) %&gt;% 
+  slice(1)
+```
+
+
+---
+
+# Tarea 3
+
+#### 8. ¿Cuántos hogares son?, ¿Cómo se distribuyen regionalmente estos hogares?
+
+--
+
+
+```r
+dim(hogares)
+```
+
+```
+## [1] 32664     3
+```
+--
+
+
+```r
+table(hogares$region)
+```
+
+```
+## 
+##    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16 
+##  927  982  911 1960 4314 1983 2267 3347 1838 2702 1055  820 6240 1266 1055  997
+```
+
+
+---
+
+class: inverse, center, middle
+
+# Continuación profundización *dplyr*: 
+
+`if_else()` y `case_when()`
+
+---
+
+# if_else()
+
+La hemos ocupado para crear dos categorías:
+
+--
+
+
+```r
+esi &lt;- esi %&gt;%                        # Data
+           mutate(filtro_mas_de_1M =          # Nueva variable
+                    if_else(ing_t_d&gt;1000000,  # Condición
+                                          1,  # Verdadero
+                                         0))  # Falso 
+```
+
+--
+
+
+```r
+table(esi$filtro_mas_de_1M)
+```
+
+```
+## 
+##     0     1 
+## 92787  3453
+```
+
+--
+
+¿Podríamos usar [if_else()]() para crear variables con más de dos categorías?
+
+---
+
+# if_else()
+
+Pensemos en 4 tramos de ingresos...
+
+--
+
+Podemos usar varios [if_else()]() consecutivamente
+
+--
+
+
+```r
+esi &lt;- esi %&gt;%      
+  
+ mutate(filtro_4 = 
+  if_else(ing_t_d==0, "sin ingresos", ""),
+
+ filtro_4 = 
+  if_else(ing_t_d&gt;0 &amp; ing_t_d&lt;300000, "primer tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d&lt;700000 &amp; ing_t_d&gt;=300000, "segundo tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d&lt;1000000 &amp; ing_t_d&gt;=700000, "tercer tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d&gt;=1000000, "cuarto tramo", filtro_4)
+                  )  
+```
+
+---
+
+# if_else()
+
+
+```r
+table(esi$filtro_4)
+```
+
+```
+## 
+##  cuarto tramo  primer tramo segundo tramo  sin ingresos  tercer tramo 
+##          3641          6674         15597         67011          3317
+```
+
+--
+
+Funciona, pero es bastante código.
+
+Hay otras formas de hacerlo más sencillo. 
+
+--
+
+Una de esas es con [case_when()]()
+
+--
+
+Esta es la lógica (cada línea independiente)
+
+
+```r
+dataframe %&gt;%
+  mutate(nueva = case_when(condicion_1 ~ valor_1,
+                           condicion_2 ~ valor_2,
+                           condicion_3 ~ valor_3))
+```
+
+
+---
+
+# case_when()
+
+Y así su forma general:
+
+&lt;img src="Imagenes/case_when_mutate.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# case_when()
+
+Recodificar ingresos con [case_when()]()
+
+
+```r
+esi &lt;- esi %&gt;%      
+    mutate(filtro_4 = case_when(
+              ing_t_d&gt;0 &amp; ing_t_d&lt;300000 ~ "primer tramo",
+              ing_t_d&lt;700000 &amp; ing_t_d&gt;=300000 ~ "segundo tramo", 
+              ing_t_d&lt;1000000 &amp; ing_t_d&gt;=700000 ~ "tercer tramo", 
+              ing_t_d&gt;=1000000 ~ "cuarto tramo",
+              TRUE ~ "sin ingresos",
+                  )) 
+```
+
+--
+
+
+```r
+table(esi$filtro_4)
+```
+
+```
+## 
+##  cuarto tramo  primer tramo segundo tramo  sin ingresos  tercer tramo 
+##          3641          6674         15597         67011          3317
+```
+
+---
+
+# case_when()
+
+La [virgulilla (~)]() tiene que se utilizada entre la condición y el valor a asignar.
+
+.inverse[`Alt` + `Control` + `+` = `~`]
+
+--
+
+Los valores a asignar deben ser de la misma clase.
+
+--
+
+No funciona con variables factores, tienen que ser *character* o *numeric*
+
+--
+
+La nueva variable debe ser numérica o carácter, no puede ser una combinación.
+
+--
+
+**RECOMENDACIONES:**
+
+--
+
++ Siempre probar la variable creada con `table()` (que tenga sentido)
+
+--
+
++ Llamar con nuevo nombre a la nueva variable (no sobre escribir)
+
+--
+
++ Usar espacios para ordenar y facilitar la lectura
+
+--
+
+Paciencia con la función, al principio saltan varios errores
+
+
+
+---
+
+class: inverse, center, middle
+
+# Prácticas para una buena codificación
+
+`Por Lindsay Carr`
+
+
+---
+
+# Por [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
+--
+
++ Carga de librerías al inicio del código (usando `library()`)
+
+--
+
++ Usa RStudio projects para organizar scripts, data y salidas
+
+--
+
++ Modulariza el código (todavía no)
+
+--
+
++ No guardar *workplace image*
+
+--
+
++ No usar funciones que cambian el computador de otro (`install.package()` o `setwd()`) 
+
+--
+
++ Comenta el código, pero sin pasarte (no incluir interpretaciones o resultados). 
+
+--
+
++ El principal destinatario de tus comentarios eres tú en 3 meses más. 
+
+--
+
++ Si quieres interpretar el código y mostrar los resultados usa RMarkdown
+
+---
+
+# Por [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
++ Aprovecha el autollenado de RStudio (evita errores de tipeo)
+
+--
+
++ Copia y pega código utilizado anteriormente o por otros. 
+
+--
+
++ Utiliza loops o **funciones** cuando te veas copiando y pegando código reemplazando valores
+
++ Las tareas mecánicas en R pueden automatizarse
+
+--
+
++ Evita códigos anchos (sobre todo con pipes)
+
+--
+
+Ideal:
+
+
+```r
+data %&gt;% 
+  funcion1() %&gt;% 
+  funcion2() %&gt;% 
+  funcion3()
+```
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+### Para reforzar y seguir aprendiendo
+
+[Video "¿Cómo usar la función case_when en R? (tidyverse/dplyr)"](https://www.youtube.com/watch?v=skoNV8k4rVU)
+
+Buenas prácticas de codificación de [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
+### Bibliografía utilizada
+
+
+
+&lt;a name=bib-Wickham2021&gt;&lt;/a&gt;[Wickham, H.](#cite-Wickham2021) (2021). _R
+Para Ciencia de Datos_.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

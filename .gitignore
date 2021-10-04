@@ -5,14 +5,10 @@
 
 
 
-clases/clase8/
 clases/clase9/
 clases/clase10/
 clases/clase11/
 
-
-
-_site/clases/clase8/
 _site/clases/clase9/
 _site/clases/clase10/
 _site/clases/clase11/
@@ -29,3 +25,11 @@ clases/clase6/data/esi-2020---personas.sav
 _site/clases/clase6/data/esi-2020---personas.sav
 _site/clases/clase6/data/esi-2020---personas_s.sav
 _site/clases/clase6/data/bbdd-sindicatos-bp.dta
+_site/clases/clase8/data/afganistan.xlsx
+clases/clase7/data/esi-2019---personas.sav
+clases/clase7/data/bbdd-sindicatos-bp.dta
+clases/clase7/data/esi-2019---personas_s.sav
+clases/clase7/data/Latinobarometro_2018_Esp_R_v20190303.rds
+*.dta
+*.sav
+*.rds

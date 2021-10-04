@@ -46,7 +46,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Clase 6. Pipe, profundización dplyr y buen código](https://opso791ucsh2021.netlify.app/clases/clase6/clase6b_pipe_dplyr_codigo#1)
 
-# Ciencia abierta y reproducibilidad (08 de octubre)
+# Pendientes clase 6, revisión tarea 3 y estadística descriptiva (08 de octubre)
 
 [Clase 7. Bloque 1 teórico]()
 
@@ -58,7 +58,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Descargar pauta]()
 
-# Estadística descriptiva I (29 de octubre)
+# Ciencia abierta y reproducibilidad (29 de octubre)
 
 [Clase 8. Bloque 1 teórico]()
 

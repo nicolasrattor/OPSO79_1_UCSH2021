@@ -1,0 +1,540 @@
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Tarea 3, case_when() y prácticas para una buena codificación."
+date: "`08/10/2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("../../bibliografia/bib.bib", check = FALSE)
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(dplyr)
+library(guaguas)
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r echo=FALSE,include=FALSE}
+#pagedown::chrome_print("clase7a_pendiente_dplyr_codigo.html")
+```
+
+class: inverse, center, middle
+
+# Revisión Tarea 3
+
+`Utilizando la Encuesta Suplementaria de Ingresos (ESI)`
+
+---
+
+# Tarea 3
+
+#### Cargar la data
+
+```{r}
+library(haven)
+library(dplyr)
+```
+
+```{r echo=FALSE, eval=FALSE}
+esi <- read_sav("data/esi-2019---personas.sav")
+esi <- esi %>% 
+  select(idrph,id_identificacion, ing_mon_sb,sexo,
+         b13_rev4cl_caenes, region,edad,decilh_sb,ing_t_d,ocup_form)
+write_sav(esi,"data/esi-2019---personas_s.sav")
+```
+
+--
+
+```{r}
+esi <- read_sav("data/esi-2019---personas_s.sav")
+```
+
+--
+
+#### 1. ¿Cuántas personas en Chile tienen 65 o más años?
+
+--
+
+Rbase
+
+```{r}
+pregunta1 <- esi[esi$edad>=65,]
+nrow(pregunta1)
+```
+--
+
+```{r eval=FALSE}
+esi %>% filter(edad>=65) %>% nrow() ## dplyr
+```
+
+
+---
+
+# Tarea 3
+
+#### 2. ¿Cuál es el promedio de ingresos de hombres y mujeres? (use la variable `ing_mon_sb` y la función `group_by()`). Previamente remueva los valores cero de la variable de ingresos.
+
+--
+
+Sin sacar los ceros
+
+```{r}
+esi %>% group_by(sexo) %>% summarise(mean(ing_mon_sb))
+```
+--
+
+Sacando los ceros
+
+```{r}
+esi %>% 
+  filter(ing_mon_sb>0) %>% 
+  group_by(sexo) %>% 
+  summarise(mean(ing_mon_sb))
+```
+
+
+---
+
+# Tarea 3
+
+#### 3. Reste el promedio de ingresos entre hombres y mujeres. ¿Cuál es la brecha de ingresos entre ambos sexos?
+
+Guardar como objeto tabla anterior
+
+```{r}
+pregunta2 <- esi %>% 
+  filter(ing_mon_sb>0) %>% 
+  group_by(sexo) %>% 
+  summarise(mean(ing_mon_sb))
+```
+
+--
+
+```{r}
+pregunta2[2,2] - pregunta2[1,2]
+```
+
+---
+
+# Tarea 3
+
+#### 4. Crea 2 tablas con el promedio de ingresos (cualquier variable de ingresos) según región y sector económico
+
+--
+
+```{r}
+esi %>% 
+  group_by(region) %>% 
+  summarise(mean(ing_mon_sb))
+```
+
+---
+
+# Tarea 3
+
+#### 4. Crea 2 tablas con el promedio de ingresos (cualquier variable de ingresos) según región y sector económico
+
+--
+
+```{r}
+esi %>% 
+  group_by( b13_rev4cl_caenes) %>% 
+  summarise(mean(ing_mon_sb))
+```
+
+---
+
+# Tarea 3
+
+#### 5. Identifica para cada combinación de región y de sector económico el total de casos en el microdato (solo 1 tabla)
+
+```{r}
+esi %>% 
+  group_by(region,b13_rev4cl_caenes) %>% 
+  summarise(n())
+```
+
+
+
+---
+
+# Tarea 3
+
+#### 6. **DESAFÍO if_else()**: ¿Cuántas personas tienen entre 0 y 17 años, entre 18 y 29 años, entre 30 y 64 años, y 65 o más años? (cuatro grupos)
+
+--
+
+```{r}
+esi <- esi %>% 
+  mutate(edad_recod=if_else(edad<18,"menos de 18",""),
+         edad_recod=if_else(edad>17 & edad < 30,"entre 18 y 29",edad_recod),
+         edad_recod=if_else(edad>29 & edad < 65,"entre 30 y 64",edad_recod),
+         edad_recod=if_else(edad>64,"65 o más",edad_recod))
+
+```
+
+--
+
+```{r}
+table(esi$edad_recod)
+```
+
+--
+
+```{r eval=FALSE}
+esi %>% group_by(edad_recod) %>% summarise(n())
+```
+
+
+
+---
+
+# Tarea 3
+
+#### 7. Crea una nueva data donde cada unidad (fila) sean los hogares y que solo tenga 3 variables: identificador del hogar, decil de los ingresos del hogar y región en la que se ubica el hogar (pista: use `group_by()` y `slice()` ).
+
+--
+
+```{r}
+# sjlabelled::get_label(esi) Para identificar la variable
+hogares <- esi %>% 
+  select(id_identificacion,decilh_sb,region) %>% 
+  group_by(id_identificacion) %>% 
+  slice(1)
+
+```
+
+
+---
+
+# Tarea 3
+
+#### 8. ¿Cuántos hogares son?, ¿Cómo se distribuyen regionalmente estos hogares?
+
+--
+
+```{r}
+dim(hogares)
+```
+--
+
+```{r}
+table(hogares$region)
+```
+
+
+---
+
+class: inverse, center, middle
+
+# Continuación profundización *dplyr*: 
+
+`if_else()` y `case_when()`
+
+---
+
+# if_else()
+
+La hemos ocupado para crear dos categorías:
+
+--
+
+```{r} 
+esi <- esi %>%                        # Data
+           mutate(filtro_mas_de_1M =          # Nueva variable
+                    if_else(ing_t_d>1000000,  # Condición
+                                          1,  # Verdadero
+                                         0))  # Falso 
+```
+
+--
+
+```{r}
+table(esi$filtro_mas_de_1M)
+```
+
+--
+
+¿Podríamos usar [if_else()]() para crear variables con más de dos categorías?
+
+---
+
+# if_else()
+
+Pensemos en 4 tramos de ingresos...
+
+--
+
+Podemos usar varios [if_else()]() consecutivamente
+
+--
+
+```{r} 
+esi <- esi %>%      
+  
+ mutate(filtro_4 = 
+  if_else(ing_t_d==0, "sin ingresos", ""),
+
+ filtro_4 = 
+  if_else(ing_t_d>0 & ing_t_d<300000, "primer tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d<700000 & ing_t_d>=300000, "segundo tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d<1000000 & ing_t_d>=700000, "tercer tramo", filtro_4),
+           
+ filtro_4 = 
+  if_else(ing_t_d>=1000000, "cuarto tramo", filtro_4)
+                  )  
+```
+
+---
+
+# if_else()
+
+```{r}
+table(esi$filtro_4)
+```
+
+--
+
+Funciona, pero es bastante código.
+
+Hay otras formas de hacerlo más sencillo. 
+
+--
+
+Una de esas es con [case_when()]()
+
+--
+
+Esta es la lógica (cada línea independiente)
+
+```{r eval=FALSE}
+
+dataframe %>%
+  mutate(nueva = case_when(condicion_1 ~ valor_1,
+                           condicion_2 ~ valor_2,
+                           condicion_3 ~ valor_3))
+```
+
+
+---
+
+# case_when()
+
+Y así su forma general:
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("Imagenes/case_when_mutate.png")
+```
+
+---
+
+# case_when()
+
+Recodificar ingresos con [case_when()]()
+
+```{r} 
+esi <- esi %>%      
+    mutate(filtro_4 = case_when(
+              ing_t_d>0 & ing_t_d<300000 ~ "primer tramo",
+              ing_t_d<700000 & ing_t_d>=300000 ~ "segundo tramo", 
+              ing_t_d<1000000 & ing_t_d>=700000 ~ "tercer tramo", 
+              ing_t_d>=1000000 ~ "cuarto tramo",
+              TRUE ~ "sin ingresos",
+                  )) 
+```
+
+--
+
+```{r}
+table(esi$filtro_4)
+```
+
+---
+
+# case_when()
+
+La [virgulilla (~)]() tiene que se utilizada entre la condición y el valor a asignar.
+
+.inverse[`Alt` + `Control` + `+` = `~`]
+
+--
+
+Los valores a asignar deben ser de la misma clase.
+
+--
+
+No funciona con variables factores, tienen que ser *character* o *numeric*
+
+--
+
+La nueva variable debe ser numérica o carácter, no puede ser una combinación.
+
+--
+
+**RECOMENDACIONES:**
+
+--
+
++ Siempre probar la variable creada con `table()` (que tenga sentido)
+
+--
+
++ Llamar con nuevo nombre a la nueva variable (no sobre escribir)
+
+--
+
++ Usar espacios para ordenar y facilitar la lectura
+
+--
+
+Paciencia con la función, al principio saltan varios errores
+
+
+
+---
+
+class: inverse, center, middle
+
+# Prácticas para una buena codificación
+
+`Por Lindsay Carr`
+
+
+---
+
+# Por [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
+--
+
++ Carga de librerías al inicio del código (usando `library()`)
+
+--
+
++ Usa RStudio projects para organizar scripts, data y salidas
+
+--
+
++ Modulariza el código (todavía no)
+
+--
+
++ No guardar *workplace image*
+
+--
+
++ No usar funciones que cambian el computador de otro (`install.package()` o `setwd()`) 
+
+--
+
++ Comenta el código, pero sin pasarte (no incluir interpretaciones o resultados). 
+
+--
+
++ El principal destinatario de tus comentarios eres tú en 3 meses más. 
+
+--
+
++ Si quieres interpretar el código y mostrar los resultados usa RMarkdown
+
+---
+
+# Por [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
++ Aprovecha el autollenado de RStudio (evita errores de tipeo)
+
+--
+
++ Copia y pega código utilizado anteriormente o por otros. 
+
+--
+
++ Utiliza loops o **funciones** cuando te veas copiando y pegando código reemplazando valores
+
++ Las tareas mecánicas en R pueden automatizarse
+
+--
+
++ Evita códigos anchos (sobre todo con pipes)
+
+--
+
+Ideal:
+
+```{r eval=FALSE}
+data %>% 
+  funcion1() %>% 
+  funcion2() %>% 
+  funcion3()
+```
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+### Para reforzar y seguir aprendiendo
+
+[Video "¿Cómo usar la función case_when en R? (tidyverse/dplyr)"](https://www.youtube.com/watch?v=skoNV8k4rVU)
+
+Buenas prácticas de codificación de [Lindsay Carr](https://waterdata.usgs.gov/blog/intro-best-practices/)
+
+### Bibliografía utilizada
+
+```{r echo=FALSE, results=FALSE}
+Citet(bib, "Wickham2021")
+```
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(bib)
+```
+
+
+
