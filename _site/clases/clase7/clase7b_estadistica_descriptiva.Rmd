@@ -1,6 +1,6 @@
 ---
 title: "OPSO79-1-UCSH2021"
-subtitle: "Estadística descriptiva I (segunda parte, teórica)"
+subtitle: "Estadística descriptiva I"
 date: "`08/10/2021`"
 output:
   xaringan::moon_reader:
@@ -57,7 +57,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-pagedown::chrome_print("clase7b_estadistica_descriptiva.html")
+#pagedown::chrome_print("clase7b_estadistica_descriptiva.html")
 
 ```
 
@@ -148,22 +148,26 @@ Luego introducir tabla a función de gráfico.
 
 --
 
-.pull-left[
 
 ```{r out.width = "50%", fig.align='center', eval=FALSE}
 barplot(table(esi$ocup_form))
 ```
 
-]
 
---
+---
 
-.pull-right[
+# Describir categóricas
 
-```{r out.width = "75%", fig.align='center', echo=FALSE}
-barplot(table(esi$ocup_form),main = "Gráfico de barras frecuencias absolutas")
+```{r eval=FALSE}
+barplot(table(esi$ocup_form))
 ```
-]
+
+```{r out.width = "50%", fig.align='center', echo=FALSE}
+barplot(table(esi$ocup_form),
+        main = "Gráfico de barras frecuencias absolutas",
+        col="forestgreen")
+```
+
 
 ---
 
@@ -177,11 +181,14 @@ Entre cada barra hay un espacio.
 
 --
 
-Para gráfica con frecuencia relativas introducir tabla de proporciones:
+Para gráfica con frecuencia relativas hacer tabla de proporciones:
 
 ```{r eval=FALSE}
 prop.table(table(esi$ocup_form))
 ```
+--
+
+Esta tabla debe ir dentro de `barplot()`
 
 ---
 
@@ -189,9 +196,15 @@ prop.table(table(esi$ocup_form))
 
 --
 
-```{r out.width = "40%", fig.align='center'}
+```{r eval=FALSE}
+barplot(prop.table(table(esi$ocup_form)))
+```
+
+
+```{r out.width = "40%", fig.align='center', echo=FALSE}
 barplot(prop.table(table(esi$ocup_form)),
-        main = "Gráfico de barras frecuencias relativas")
+        main = "Gráfico de barras frecuencias relativas",
+        col="forestgreen")
 ```
 
 
@@ -208,7 +221,8 @@ prop.table(table(esi$ocup_form, useNA = "ifany"))
 --
 
 ```{r out.width = "40%", fig.align='center'}
-barplot(prop.table(table(esi$ocup_form, useNA = "ifany")))
+barplot(prop.table(table(esi$ocup_form, useNA = "ifany")),
+        col="forestgreen")
 ```
 
 
@@ -250,7 +264,7 @@ data <- readRDS("data/Latinobarometro_2018_Esp_R_v20190303.rds")
 Identificar y seleccionar variables
 
 ```{r}
-sjmisc::find_var(data,"Confianza")[2:4,3]
+sjmisc::find_var(data,"Confianza")[2:5,3]
 ```
 ```{r}
 seleccion <- data %>% select(starts_with("P15STGB")) %>% 
@@ -484,7 +498,7 @@ Un histograma es un gráfico que usa barras para representar las frecuencias o l
 
 --
 
-Distribución bimodal y no sesgada de edad
+Distribución bimodal y no sesgada de edad. Media `r round(mean(esi$edad),1)`, Mediana `r round(median(esi$edad),1)` y s `r round(sd(esi$edad),1)`
 
 ```{r out.width = "40%", echo=FALSE, fig.align='center'}
 hist(esi$edad)
@@ -586,7 +600,7 @@ Este indicador, junto a la curtosis, nos informan sobre el grado de normalidad d
 
 --
 
-```{r out.width="35%", fig.align='center'}
+```{r out.width="32%", fig.align='center'}
 plot(density(rnorm(10000,mean = 0,sd=1)))
 ```
 
@@ -628,7 +642,8 @@ datos están muy sesgados.
 --
 
 ```{r}
-moments::skewness(rnorm(10000,mean = 0,sd=1))
+aleatoria <- rnorm(10000,mean = 0,sd=1)
+moments::skewness(aleatoria)
 ```
 
 
@@ -642,11 +657,11 @@ moments::skewness(rnorm(10000,mean = 0,sd=1))
 
 ¿cuándo es demasiado la curtosis?
 
-I Mesocurtica: curtosis similar a la normal
++ Mesocurtica: curtosis similar a la normal
 
-I Leptocurtica (Curtosis > 3): colas son más cortas, pico más alto y agudo (concentración de valores de la variable muy cerca de la media de la distribución)
++ Leptocurtica (Curtosis > 3): colas son más cortas, pico más alto y agudo (concentración de valores de la variable muy cerca de la media de la distribución)
 
-I Platicurtica: (Curtosis < 3): representa un reducido grado de concentración alrededor de los valores centrales de la variable. 
++ Platicurtica: (Curtosis < 3): representa un reducido grado de concentración alrededor de los valores centrales de la variable. 
 
 ]
 
@@ -727,6 +742,23 @@ esi %>% ggplot(aes(edad)) + geom_histogram() +
   labs(title = "Cuartiles dividiendo la distribución de edad")
 ```
 
+
+---
+
+# Describir cuantitativas
+
+```{r out.width = "50%", echo=FALSE, fig.align='center', message=FALSE,warning=FALSE}
+#summary(esi[esi$ing_t_d>0,]$ing_t_d)
+esi %>% 
+  filter(ing_t_d>0) %>% 
+  ggplot(aes(ing_t_d)) + geom_histogram(bins = 100) +
+ geom_vline(xintercept = c(300767,413356,685566), linetype="dotted", 
+                color = "blue", size=1) +
+  labs(title = "Cuartiles dividiendo la distribución de ingresos")
+
+```
+
+
 ---
 
 # Describir cuantitativas
@@ -751,16 +783,31 @@ summary(esi[esi$ing_t_d>0,]$ing_t_d)
 
 # Describir cuantitativas
 
-#### Medidas de variabilidad
-
-IQR calculado a mano
+#### Medidas de variabilidad: IQR a mano
 
 ```{r}
 685566-300767
+```
+
+--
+
+```{r}
 esi %>% filter(ing_t_d>0) %>% count()
+```
+--
+
+```{r}
 esi %>% filter(ing_t_d>0) %>% 
-  filter(ing_t_d<=685566 & ing_t_d>=300767) %>% 
-  count()
+  filter(ing_t_d<=685566 & ing_t_d>=300767) %>%  count()
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad: IQR a mano
+
+```{r}
 14678	/ 29229
 ```
 --
@@ -856,7 +903,7 @@ Los casos fuera de los bigotes son los potenciales outliers.
 
 # Describir cuantitativas
 
-```{r out.width = "50%"}
+```{r out.width = "50%", fig.align='center'}
 boxplot(esi$edad,horizontal = TRUE)
 ```
 
@@ -864,16 +911,9 @@ boxplot(esi$edad,horizontal = TRUE)
 
 # Describir cuantitativas
 
-```{r out.width = "50%"}
+```{r out.width = "50%", fig.align='center'}
 boxplot(esi[esi$ing_t_d>0,]$ing_t_d,horizontal = TRUE)
 ```
-
-
----
-
-# Ejercicios para practicar
-
-Pendiente.
 
 
 ---

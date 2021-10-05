@@ -1,0 +1,50 @@
+---
+title: "Ejercicio practico"
+author: "Nicolás Ratto"
+date: "08-10-2021"
+output: pdf_document
+---
+
+# Instrucciones generales
+
+Descargar y cargar datos de [Latinobarómetro 2018](https://www.latinobarometro.org/latContents.jsp).
+
+```{r message=FALSE, warning=FALSE}
+data <- readRDS("data/Latinobarometro_2018_Esp_R_v20190303.rds")
+```
+
+## Pregunta 1
+
+
+## Pregunta 2
+
+
+## Pregunta 3
+
+
+## Pregunta 4
+
+
+## Pregunta 5
+
+
+## Pregunta 6
+
+
+# Otros temas a tener en consideración
+
+Coeficiente de variación permite comparar la variabilidad de dos variables con unidades de medida distintas y medias diferentes.
+
+Dado que la desviación estándar está en la unidad de medida de una variable particular, y hace referencia a la variabilidad respecto de la media, se necesita de una medida estandarizada.
+
+Esta medida es el **coeficiente de variación**
+
+$$cv=\frac{\sigma}{\bar{x}}$$
+
+Para usarla los datos deben ser positivos. 
+
+A mayor valor del coeficiente de variación mayor heterogeneidad de los valores de la variable; y a menor C.V., mayor homogeneidad en los valores de la variable. 
+
+Si el C.V es menor o igual al 30%, significa que la media aritmética es representativa del conjunto de datos, por ende el conjunto de datos es "Homogéneo". 
+
+Por el contrario, si el C.V supera al 30%, el promedio no será representativo del conjunto de datos (por lo que resultará "Heterogéneo").

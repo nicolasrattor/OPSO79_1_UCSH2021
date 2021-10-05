@@ -12,7 +12,7 @@
 class: center, middle, inverse, title-slide
 
 # OPSO79-1-UCSH2021
-## Estadística descriptiva I (segunda parte, teórica)
+## Estadística descriptiva I
 ### <code>08/10/2021</code>
 
 ---
@@ -129,21 +129,24 @@ Luego introducir tabla a función de gráfico.
 
 --
 
-.pull-left[
 
 
 ```r
 barplot(table(esi$ocup_form))
 ```
 
-]
 
---
+---
 
-.pull-right[
+# Describir categóricas
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-7-1.png" width="75%" style="display: block; margin: auto;" /&gt;
-]
+
+```r
+barplot(table(esi$ocup_form))
+```
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-8-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
@@ -157,12 +160,15 @@ Entre cada barra hay un espacio.
 
 --
 
-Para gráfica con frecuencia relativas introducir tabla de proporciones:
+Para gráfica con frecuencia relativas hacer tabla de proporciones:
 
 
 ```r
 prop.table(table(esi$ocup_form))
 ```
+--
+
+Esta tabla debe ir dentro de `barplot()`
 
 ---
 
@@ -172,11 +178,11 @@ prop.table(table(esi$ocup_form))
 
 
 ```r
-barplot(prop.table(table(esi$ocup_form)),
-        main = "Gráfico de barras frecuencias relativas")
+barplot(prop.table(table(esi$ocup_form)))
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-9-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-11-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -194,10 +200,11 @@ prop.table(table(esi$ocup_form, useNA = "ifany"))
 
 
 ```r
-barplot(prop.table(table(esi$ocup_form, useNA = "ifany")))
+barplot(prop.table(table(esi$ocup_form, useNA = "ifany")),
+        col="forestgreen")
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-11-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-13-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -219,7 +226,7 @@ El tamaño del trozo de pie corresponde al porcentaje de observaciones en cada c
 pie(prop.table(table(esi$region)))
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-12-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-14-1.png" width="35%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -243,13 +250,14 @@ Identificar y seleccionar variables
 
 
 ```r
-sjmisc::find_var(data,"Confianza")[2:4,3]
+sjmisc::find_var(data,"Confianza")[2:5,3]
 ```
 
 ```
 ## [1] "P15STGBSC.A Confianza en: Las Fuerzas Armadas"   
 ## [2] "P15STGBSC.B Confianza en: La policía/Carabineros"
-## [3] "P15STGBSC.C Confianza en: La Iglesia"
+## [3] "P15STGBSC.C Confianza en: La Iglesia"            
+## [4] "P15STGBSC.D Confianza en: Congreso"
 ```
 
 ```r
@@ -267,7 +275,7 @@ plot_likert(seleccion[,1:4],catcount = 4) +
   ggplot2::theme(legend.position = "none")
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-18-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -582,9 +590,9 @@ Un histograma es un gráfico que usa barras para representar las frecuencias o l
 
 --
 
-Distribución bimodal y no sesgada de edad
+Distribución bimodal y no sesgada de edad. Media 38.8, Mediana 38 y s 23.1
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-29-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-31-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -592,7 +600,7 @@ Distribución bimodal y no sesgada de edad
 
 #### Gráficos de densidad
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-30-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-32-1.png" width="55%" style="display: block; margin: auto;" /&gt;
 --
 
 
@@ -612,7 +620,7 @@ Distribución bimodal y no sesgada de edad
 
 #### Histogramas
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-32-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-34-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -647,7 +655,7 @@ Por defecto dividió los datos en 5 intervalos. Hay una interesante variabilidad
 hist(esi[esi$ing_t_d&gt;0,]$ing_t_d, breaks = 100)
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-33-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-35-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 --
 
 .center[¿Como es la distribución de la variable ing_t_d?]
@@ -704,7 +712,7 @@ Este indicador, junto a la curtosis, nos informan sobre el grado de normalidad d
 plot(density(rnorm(10000,mean = 0,sd=1)))
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-35-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-37-1.png" width="32%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -745,11 +753,12 @@ datos están muy sesgados.
 
 
 ```r
-moments::skewness(rnorm(10000,mean = 0,sd=1))
+aleatoria &lt;- rnorm(10000,mean = 0,sd=1)
+moments::skewness(aleatoria)
 ```
 
 ```
-## [1] 0.001534144
+## [1] 0.002995027
 ```
 
 
@@ -763,11 +772,11 @@ moments::skewness(rnorm(10000,mean = 0,sd=1))
 
 ¿cuándo es demasiado la curtosis?
 
-I Mesocurtica: curtosis similar a la normal
++ Mesocurtica: curtosis similar a la normal
 
-I Leptocurtica (Curtosis &gt; 3): colas son más cortas, pico más alto y agudo (concentración de valores de la variable muy cerca de la media de la distribución)
++ Leptocurtica (Curtosis &gt; 3): colas son más cortas, pico más alto y agudo (concentración de valores de la variable muy cerca de la media de la distribución)
 
-I Platicurtica: (Curtosis &lt; 3): representa un reducido grado de concentración alrededor de los valores centrales de la variable. 
++ Platicurtica: (Curtosis &lt; 3): representa un reducido grado de concentración alrededor de los valores centrales de la variable. 
 
 ]
 
@@ -790,7 +799,7 @@ moments::kurtosis(rnorm(10000,mean = 0,sd=1))
 ```
 
 ```
-## [1] 2.959258
+## [1] 3.05084
 ```
 
 ```r
@@ -866,7 +875,15 @@ summary(esi$edad)
 
 # Describir cuantitativas
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-42-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-44-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Describir cuantitativas
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-45-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
@@ -898,9 +915,7 @@ summary(esi[esi$ing_t_d&gt;0,]$ing_t_d)
 
 # Describir cuantitativas
 
-#### Medidas de variabilidad
-
-IQR calculado a mano
+#### Medidas de variabilidad: IQR a mano
 
 
 ```r
@@ -910,6 +925,9 @@ IQR calculado a mano
 ```
 ## [1] 384799
 ```
+
+--
+
 
 ```r
 esi %&gt;% filter(ing_t_d&gt;0) %&gt;% count()
@@ -921,11 +939,12 @@ esi %&gt;% filter(ing_t_d&gt;0) %&gt;% count()
 ##   &lt;int&gt;
 ## 1 29229
 ```
+--
+
 
 ```r
 esi %&gt;% filter(ing_t_d&gt;0) %&gt;% 
-  filter(ing_t_d&lt;=685566 &amp; ing_t_d&gt;=300767) %&gt;% 
-  count()
+  filter(ing_t_d&lt;=685566 &amp; ing_t_d&gt;=300767) %&gt;%  count()
 ```
 
 ```
@@ -934,6 +953,13 @@ esi %&gt;% filter(ing_t_d&gt;0) %&gt;%
 ##   &lt;int&gt;
 ## 1 14678
 ```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad: IQR a mano
+
 
 ```r
 14678	/ 29229
@@ -1070,7 +1096,7 @@ Los casos fuera de los bigotes son los potenciales outliers.
 boxplot(esi$edad,horizontal = TRUE)
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-51-1.png" width="50%" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-57-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1081,14 +1107,7 @@ boxplot(esi$edad,horizontal = TRUE)
 boxplot(esi[esi$ing_t_d&gt;0,]$ing_t_d,horizontal = TRUE)
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-52-1.png" width="50%" /&gt;
-
-
----
-
-# Ejercicios para practicar
-
-Pendiente.
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-58-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 ---
