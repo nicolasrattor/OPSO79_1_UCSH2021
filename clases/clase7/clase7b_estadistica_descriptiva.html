@@ -584,6 +584,58 @@ La **varianza**
 
 # Describir cuantitativas
 
+#### Medidas de variabilidad
+
+.inverse[Coeficiente de variación] permite comparar la variabilidad de dos variables con unidades de medida distintas y medias diferentes.
+
+Dado que `s` está en la unidad de medida de una variable particular, y hace referencia a la variabilidad respecto de la media, se necesita de una medida estandarizada.
+
+Esta medida es el **coeficiente de variación**
+
+`$$cv=\frac{\sigma}{\bar{x}}$$`
+
+Para usarla los datos deben ser positivos. 
+
+A mayor valor de `cv` mayor heterogeneidad de los valores de la variable, a menor cv (30% o menos) mayor homogeneidad (media es informativa).
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de variabilidad
+
+
+```r
+a &lt;- c(1,4,5,6,7,8,6,6,6,6,6,8,9,3,5,6,7,8)
+sd(a)/mean(a)
+```
+
+```
+## [1] 0.3237002
+```
+
+```r
+sd(esi$edad)/mean(esi$edad)
+```
+
+```
+## [1] 0.5967146
+```
+
+```r
+sd(esi[esi$ing_t_d&gt;0,]$ing_t_d)/mean(esi$ing_t_d)
+```
+
+```
+## [1] 3.281442
+```
+
+Si el C.V es menor o igual al 30%, significa que la media aritmética es representativa del conjunto de datos, por ende el conjunto de datos es "Homogéneo". 
+
+---
+
+# Describir cuantitativas
+
 #### Histogramas
 
 Un histograma es un gráfico que usa barras para representar las frecuencias o las frecuencias relativas de los valores de una variable cuantitativa
@@ -592,7 +644,7 @@ Un histograma es un gráfico que usa barras para representar las frecuencias o l
 
 Distribución bimodal y no sesgada de edad. Media 38.8, Mediana 38 y s 23.1
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-31-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-32-1.png" width="40%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -600,7 +652,7 @@ Distribución bimodal y no sesgada de edad. Media 38.8, Mediana 38 y s 23.1
 
 #### Gráficos de densidad
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-32-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-33-1.png" width="55%" style="display: block; margin: auto;" /&gt;
 --
 
 
@@ -620,7 +672,7 @@ Distribución bimodal y no sesgada de edad. Media 38.8, Mediana 38 y s 23.1
 
 #### Histogramas
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-34-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-35-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -655,7 +707,7 @@ Por defecto dividió los datos en 5 intervalos. Hay una interesante variabilidad
 hist(esi[esi$ing_t_d&gt;0,]$ing_t_d, breaks = 100)
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-35-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-36-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 --
 
 .center[¿Como es la distribución de la variable ing_t_d?]
@@ -712,7 +764,7 @@ Este indicador, junto a la curtosis, nos informan sobre el grado de normalidad d
 plot(density(rnorm(10000,mean = 0,sd=1)))
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-37-1.png" width="32%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-38-1.png" width="32%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -758,7 +810,7 @@ moments::skewness(aleatoria)
 ```
 
 ```
-## [1] 0.002995027
+## [1] -0.00384941
 ```
 
 
@@ -799,7 +851,7 @@ moments::kurtosis(rnorm(10000,mean = 0,sd=1))
 ```
 
 ```
-## [1] 3.05084
+## [1] 2.956642
 ```
 
 ```r
@@ -875,14 +927,78 @@ summary(esi$edad)
 
 # Describir cuantitativas
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-44-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+#### Medidas de posición
+
+En R se puede especificar cuál percentil queremos. 
+
+--
+
+
+```r
+quantile(esi$edad, prob=c(.25))
+```
+
+```
+## 25% 
+##  19
+```
+
+```r
+quantile(esi$edad, prob=c(.5))
+```
+
+```
+## 50% 
+##  38
+```
+
+```r
+quantile(esi$edad, prob=c(.75))
+```
+
+```
+## 75% 
+##  57
+```
+
+---
+
+# Describir cuantitativas
+
+#### Medidas de posición
+
+Incluso en el marco de `dplyr` y agrupamientos:
+
+
+```r
+esi %&gt;% group_by(sexo) %&gt;% summarise(p25=quantile(esi$edad, prob=c(.25)),
+                                     p50=quantile(esi$edad, prob=c(.50)),
+                                     p75=quantile(esi$edad, prob=c(.75)))
+```
+
+```
+## # A tibble: 2 x 4
+##         sexo   p25   p50   p75
+##    &lt;dbl+lbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 1 [Hombre]    19    38    57
+## 2 2 [Mujer]     19    38    57
+```
+--
+
+.inverse[Ojo que los percentiles marcan posiciones. Son un estadístico. No son grupos.]
+
+---
+
+# Describir cuantitativas
+
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-47-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 ---
 
 # Describir cuantitativas
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-45-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-48-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1096,7 +1212,7 @@ Los casos fuera de los bigotes son los potenciales outliers.
 boxplot(esi$edad,horizontal = TRUE)
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-57-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-60-1.png" width="50%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1107,7 +1223,35 @@ boxplot(esi$edad,horizontal = TRUE)
 boxplot(esi[esi$ing_t_d&gt;0,]$ing_t_d,horizontal = TRUE)
 ```
 
-&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-58-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+&lt;img src="clase7b_estadistica_descriptiva_files/figure-html/unnamed-chunk-61-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Resumen de lo visto
+
+&lt;img src="imagenes/esquema.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Sobre Prueba 2
+
+22 de octubre (15 de octubre semana de receso)
+
+--
+
+Para practicar hemos dejado una guía que les permitirá además subir nota de prueba 1: &lt;https://opso791ucsh2021.netlify.app/clases/clase7/ejerciciopractico_latinobarometro.pdf&gt;
+
+La prueba será similar. 
+
+--
+
+Para esta prueba solo hay tres capítulos obligatorios:
+
++ Mario Triola (2009) Estadísticas (cap. 2 y 3) 
+
++ Hadley Wickham (2021) R para ciencia de datos (cap 18)
+
+Ambos para descarga en el [siguiente link](https://www.dropbox.com/sh/6ah5yjxcy3psqty/AAC6ZkdF75sbQT5ncfIKNpBRa?dl=0)
 
 
 ---
@@ -1131,6 +1275,10 @@ boxplot(esi[esi$ing_t_d&gt;0,]$ing_t_d,horizontal = TRUE)
 &lt;a name=bib-Agresti2018&gt;&lt;/a&gt;[Agresti, A. and C.
 Franklin](#cite-Agresti2018) (2018). _Statistics the Art and Science of
 Learning from Data_. Pearson Education Limited.
+
+&lt;a name=bib-Triola2009&gt;&lt;/a&gt;[Triola, M. F.](#cite-Triola2009) (2009).
+_Estad\'istica. Décima Edición, Editorial Pearson Educación_. México,
+DF: Pearson.
 
 
 

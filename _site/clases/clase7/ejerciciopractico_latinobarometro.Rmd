@@ -5,46 +5,228 @@ date: "08-10-2021"
 output: pdf_document
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message=FALSE, 
+                      warning=FALSE,
+                      eval = FALSE)
+```
+
+```{r paquetes, eval=TRUE}
+library(dplyr)
+library(ggplot2)
+```
+
 # Instrucciones generales
+
+Los presentes ejercicios son de carácter optativo, pero le resultarán fundamentales para realizar de buena manera la prueba del 22 de octubre de 2021. 
+
+Además, si los ejercicios los envía a profesor y ayudante a más tardar hasta el día martes 19 de octubre a las 23:59 podrá optar hasta por 1,5 puntos para subir la nota de la prueba 1. 
+
+Idealmente responda las preguntas con `dplyr`, pero también puede hacerlo con `R base` y herramientas de `sjmisc` para aprovechar las etiquetas de las bases de datos (sobre todo de Latinobarómetro)
+
+# Modulo Latinobarómetro
 
 Descargar y cargar datos de [Latinobarómetro 2018](https://www.latinobarometro.org/latContents.jsp).
 
-```{r message=FALSE, warning=FALSE}
+```{r echo=TRUE}
 data <- readRDS("data/Latinobarometro_2018_Esp_R_v20190303.rds")
 ```
 
+
 ## Pregunta 1
+
+¿Cuántas personas responden la encuesta en cada país de América Latina?, ¿Cuál es el país con mayor número de casos?
+
+```{r}
+# con dplyr
+data %>% 
+  group_by(IDENPA) %>% 
+  summarise(n=n()) %>% 
+  arrange(-n)
+
+## País 76, que corresponde a Brasil
+
+# con r base y sjmisc
+sjmisc::frq(data[,"IDENPA"])
+
+```
+
 
 
 ## Pregunta 2
 
+¿Cuáles son las religiones que tienen mayor presencia en América Latina?, ¿Como es la distribución de las religiones?
+
+```{r}
+table(data$S5)
+sjmisc::frq(data[,"S5"])
+```
+
 
 ## Pregunta 3
+
+¿Cuáles son las religiones que tienen mayor presencia en Chile (152 en INDENPA)?, ¿Cuáles son las principales diferencias respecto de América Latina en General?
+
+```{r}
+sjmisc::frq(data[data$IDENPA==152,"S5"])
+```
+
+## Pregunta 4
+
+¿De que tipo es la variable P22ST (Escala Izquierda-Derecha)?, ¿Cuáles son sus posibles valores?
+
+```{r}
+table(data$P22ST)
+```
+Quédese solamente con los valores que van de 0 a 10 y suponga que la variable es cuantitativa. ¿Cómo se distribuye la variable?, ¿Que puede decir sobre las posiciones políticas en América Latina? Indique y explique sus principales medidas de tendencia central, de forma, variabilidad y posición. Puede visualizar con un histograma. 
+
+```{r}
+data %>% filter(P22ST>=0) %>% select(P22ST) %>% sjmisc::descr()
+
+data2 <- data %>% 
+  filter(P22ST>=0) %>% 
+  mutate(P22ST=as.numeric(P22ST))
+
+hist(data2$P22ST)
+```
+
+## Pregunta 5
+
+Cree una nueva data agrupada por país con algunas medidas de tendencia central y variabilidad de la variable P22ST. ¿Que elementos le llaman la atención?
+
+```{r}
+data %>% 
+  filter(P22ST>=0) %>% 
+  group_by(IDENPA) %>% 
+  summarise(mean=mean(P22ST),
+            sd=sd(P22ST),
+            quantile(P22ST,c(.25)),
+            quantile(P22ST,c(.5)),
+            quantile(P22ST,c(.75)),
+            cv=sd/mean)
+
+data %>% filter(P22ST>=0) %>% 
+  group_by(IDENPA) %>% 
+  select(P22ST) %>% 
+  sjmisc::descr()
+
+#hist(data2[data2$IDENPA==214,]$P22ST)
+#plot(density(data2[data2$IDENPA==214,]$P22ST))
+
+```
+
+
+# Módulo Covid
+
+Instala y carga el paquete "coronavirus".
+
+El igual que guaguas, el paquete viene con un conjunto de datos sobre casos confirmados y recuperados de Covid-19 en distintos países del mundo para cada día desde enero de 2020 hasta septiembre de 2021. Estos datos se llaman "coronavirus" y se pueden cargar a su computadora de la siguiente forma:
+
+```{r echo=TRUE, eval=TRUE}
+#install.packages("coronavirus")
+coronavirus <- coronavirus::coronavirus
+coronavirus %>% head(5)
+```
+Durante todas las preguntas ignore las variables provincia, lat y long. 
+
+## Pregunta 1
+
+¿Cuantos casos de Covid confirmados ha tenido Chile en total?
+
+```{r}
+coronavirus %>% 
+  filter(country=="Chile") %>% 
+  group_by(type) %>% 
+  summarise(sum(cases,na.rm = TRUE))
+```
+
+## Pregunta 2
+
+¿Cuál país es el que ha tenido más muertes por Covid-19 en todo el periodo?, ¿Cuántas muertes?
+
+```{r}
+coronavirus %>% 
+  filter(type=="death") %>% 
+  group_by(country) %>% 
+  summarise(muertes=sum(cases,na.rm = TRUE)) %>% 
+  arrange(-muertes) %>% 
+  head(1)
+```
+
+
+## Pregunta 3
+
+¿Cuantos casos de Covid recuperados tiene Chile en total? (ojo con los valores NA)
+
+```{r}
+coronavirus %>% 
+  filter(country=="Chile") %>% 
+  group_by(type) %>% 
+  summarise(casos=sum(cases,na.rm = TRUE))
+
+```
+
 
 
 ## Pregunta 4
 
+Cree una nueva data frame que solo tenga los valores de los muertos de 10 países de América Latina y el Caribe.
+
+```{r}
+data <- coronavirus %>%
+  filter(country %in% c("Chile","Argentina","Brazil","Colombia",
+                        "Cuba","Venezuela","Ecuador","Uruguay",
+                        "Paraguay","Bolivia","Peru")) %>% 
+  filter(type=="death")
+```
+
 
 ## Pregunta 5
 
+Agrupe la misma data, calculando para cada país el número de muertes en promedio para cada día.
+
+Guarde la data agrupada en el mismo objeto o en uno nuevo. 
+
+```{r}
+data <- data %>% 
+  group_by(country) %>% 
+  summarise(muertespromedio=mean(cases))
+data
+```
 
 ## Pregunta 6
 
+¿Como se distribuye la variable de muertes promedio de su nueva data?
 
-# Otros temas a tener en consideración
+Indique y explique sus principales medidas de tendencia central, de forma, variabilidad y posición.
 
-Coeficiente de variación permite comparar la variabilidad de dos variables con unidades de medida distintas y medias diferentes.
+Si gusta puede optar por añadir un gráfico para visualizar la distribución.
 
-Dado que la desviación estándar está en la unidad de medida de una variable particular, y hace referencia a la variabilidad respecto de la media, se necesita de una medida estandarizada.
+```{r}
+hist(data$muertespromedio,breaks = 10)
+sjmisc::descr(data$muertespromedio)
+```
 
-Esta medida es el **coeficiente de variación**
+## Pregunta 7
 
-$$cv=\frac{\sigma}{\bar{x}}$$
+¿Para cuántos países existen datos en la data frame coronavirus?
 
-Para usarla los datos deben ser positivos. 
+```{r}
+coronavirus %>% 
+  group_by(country) %>% 
+  summarise(n=n()) %>% 
+  summarise(n=n())
 
-A mayor valor del coeficiente de variación mayor heterogeneidad de los valores de la variable; y a menor C.V., mayor homogeneidad en los valores de la variable. 
+paises <- coronavirus %>% 
+  group_by(country) %>% 
+  summarise(n=n())
+dim(paises)
+```
 
-Si el C.V es menor o igual al 30%, significa que la media aritmética es representativa del conjunto de datos, por ende el conjunto de datos es "Homogéneo". 
 
-Por el contrario, si el C.V supera al 30%, el promedio no será representativo del conjunto de datos (por lo que resultará "Heterogéneo").
+
+
+
+
+
