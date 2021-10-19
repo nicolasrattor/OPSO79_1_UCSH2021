@@ -1,0 +1,103 @@
+---
+title: "Taréa práctica 2"
+subtitle: "Curso OPSO791, UCSH."
+author: "Nicolás Ratto"
+output: pdf_document
+date: "Viernes 27 de agosto de 2021"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Instrucciones generales
+
+Elaborar un script en `.rmd` que permita describir la base de datos guaguas del paquete guaguas en base a las preguntas que se especifican más abajo. 
+
+La tarea debe ser escrita en Rmarkdown (`.rmd`) y debe ser entregada con su respectiva salida en `.html`.
+
+Los documentos deben ser comprimidos en un archivo .zip y enviados a correo de profesor y ayudante. El nombre del archivo **debe** ser el nombre y primer apellido del estudiante.
+
+Entrega a más tardar el martes 31 de agosto a las 23:59 hrs.
+
+
+# Elementos necesarios para hacer la tarea
+
+Cargue la data frame `guaguas`.
+
+Instalar paquete `dplyr` (opcional, eventualmente todo se podría hacer con R base).
+
+Cargar base guaguas desde paquete o creando objeto. 
+
+
+
+# Modulo I. Cuestiones generales
+
+## 1. Explique que representa cada fila en la data frame guaguas
+
+Imagine que le tiene que explicar a alguien que no conoce la data y que no tiene la posibilidad de abrirla en un software. 
+
+...
+
+## 2. ¿Que valor tiene la fila 3 y la columna 5?
+
+...
+
+## 3. ¿Cuáles son los valores de la observación 789.111?
+
+...
+
+## 4. Indique medidas de distribución de la variable `n` e interprete brevemente
+
+...
+
+## 5. Indique la clase de las cinco columnas de la data frame y especifique su nivel de medida
+
+...
+
+
+# Módulo II. El efecto Game of thrones
+
+
+La serie comienza su emisión en 2011 y termina en 2018.
+
+## 1. ¿En que años se ha inscrito el nombre "khaleesi"?
+
+...
+
+## 2. ¿Cuántas guagas se inscribieron con el nombre "Arya", "Daenerys" y "Khaleesi" en el año 2011?
+
+...
+
+## 3. ¿Cuántas guagas se inscribieron con el nombre "Arya", "Daenerys" y "Khaleesi" en el año 2018?
+
+...
+
+## 4. ¿Se inscribió algún "Tyrion"?
+
+...
+
+# Módulo III. Llegar al resultado solicitado
+
+## 1. Llegue al siguiente resultado desde la base guaguas
+
+Pista 1: acotar la data a un año.
+
+Pista 2: utilizar función `sum()` en algún momento.
+
+...
+
+## 2. Crea una nueva data frame desde guaguas que se llame "companers"
+
+Esta data solo puede tener los nombres 3 compañeros o compañeras del curso. La data puede tener hasta 20 nombres. 
+
+...
+
+## 3. ¿Cuál es la distribución de la variable "nombre" de la data "companers"?
+
+...
+
+## 4. En no más de dos líneas, ¿qué puede concluir de la distribución de la variable "nombre" de la data "companers"?
+
+...
+

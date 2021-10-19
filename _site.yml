@@ -22,6 +22,8 @@ navbar:
           href: ejerciciopractico1.html
         - text: "Soluciones ejercicio 2"
           href: ejerciciopractico2.html
+        - text: "Soluciones ejercicios 08 octubre"
+          href: ejerciciopractico_latinobarometro_solucion.html
         - text: "Descarga textos"
           href: descargartextos.html
     - icon: fab fa-github
