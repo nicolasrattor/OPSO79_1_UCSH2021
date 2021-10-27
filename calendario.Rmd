@@ -21,8 +21,8 @@ knitr::opts_chunk$set(echo = FALSE)
 | [**Sesión 5**]() |  10 de septiembre | Continuación diseños causales y construcción de cuestionarios | Pedir ayuda, microdatos para ciencias sociales y cómo importarlos desde excel, spss y otros formatos| @Asun2006 (apartados 1,2,3,4,6), @deRada2007 | @Babbie2014 (cap. 9), @Corbetta2007 (cap. 5) y @Wickham2021 (cap. 11) |
 | [**Sesión 6**]() | 01 de octubre  | Revisión prueba, repaso dplyr y continuación microdatos para ciencias sociales | Pipes y group_by() | @Wickham2021 (cap. 18) |  |
  [**Sesión 7**]() | 08 de octubre  | Estadística descriptiva I   | Revisión tarea 3, case_when() y prácticas para buena codificación | @Triola2009 (cap. 2 y 3) |  @Agresti2018 (cap. 2), @Moore2005 y [Carr (2021)](https://waterdata.usgs.gov/blog/intro-best-practices/) |
- [**Sesión 8**]() | 29 de octubre | Ciencia abierta y reproducibilidad  | Taller búsqueda de bibliografía y uso de Zotero en R  | @Rodriguez-Sanchez2016, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
- [**Sesión 9**]() | 05 noviembre   | Estadística descriptiva II (asociaciones entre variables)   | Trabajar con data frames III: trasponer y unir datos | @Triola2009 (cap. 10) |  @Agresti2018 (cap. 3) y @Moore2005 |
+ [**Sesión 8**]() | 05 noviembre   | Estadística descriptiva II (asociaciones entre variables)   | Trabajar con data frames III: trasponer y unir datos | @Triola2009 (cap. 10, solo parte 1) |  @Agresti2018 (cap. 3) y @Moore2005 |
+  [**Sesión 9**]() | 29 de octubre | Ciencia abierta y reproducibilidad  | Taller búsqueda de bibliografía y uso de Zotero en R  | @Rodriguez-Sanchez2016, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
 | [**Sesión 10**]() | 12 noviembre   | Visualización de datos  | Visualización de datos con ggplot2 |  |  @Wickham2021 (cap. 3), @Agresti2018 (cap. 2) y @Moore2005 (cap. 1.3 y 2.1) |
 | [**Sesión 11**]() | 19 de noviembre   | Diseño de muestras e inferencia I  | Muestreo de datos en R y prueba de hipótesis |  @Lohr2000 (cap. 1) y @Vivanco2006  |   |
 | [**Sesión 12**]() | 03 de diciembre   | Inferencia estadística II |  Reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  |  @Lohr2000 (cap. 7) |  @Lumley2011 (Cap. 1, 2 y 3)   |
@@ -43,9 +43,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%). 01 octubre (entrega 4 días después)
 
-**Tarea práctica 4.**	Crea tu CV o revisión de antecedentes (5%).	29 octubre (entrega 6 días después)
+**Tarea práctica 4.**	Crea tu CV o revisión de antecedentes (5%).	05 noviembre (entrega 6 días después)
 
-**Tarea práctica 5.**	Reproducibilidad e inferencia estadística (5%).	12 noviembre (entrega 13 días después)
+**Tarea práctica 5.**	Reproducibilidad y visualización de datos con ggplot2 (5%).	12 noviembre (entrega 6 días después)
 
 
 ## Evaluaciones tipo prueba:
@@ -54,7 +54,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 22 de octubre (10%) - Estadística descriptiva con R e interpretación de salidas
 
-26 de noviembre (10%) - Ciencia abierta, ggplot2, la lógica del muestreo e inferencia estadística
+26 de noviembre (10%) - Ciencia abierta, la lógica del muestreo e inferencia estadística
 
 10 de diciembre (integrativa final, 30%) - toda la materia
 

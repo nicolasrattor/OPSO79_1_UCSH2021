@@ -2030,7 +2030,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2103,7 +2103,7 @@ Material de apoyo
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haven.tidyverse.org'>haven</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://haven.tidyverse.org'>haven</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2158,27 +2158,28 @@ Material de apoyo
 IDENPA Identificación del País (IDENPA) &lt;numeric&gt;
 # total N=20204  valid N=20204  mean=365.38  sd=260.49
 
- val            label  frq raw.prc valid.prc cum.prc
-  32        Argentina 1200    5.94      5.94    5.94
-  68          Bolivia 1200    5.94      5.94   11.88
-  76           Brasil 1204    5.96      5.96   17.84
- 152            Chile 1200    5.94      5.94   23.78
- 170         Colombia 1200    5.94      5.94   29.72
- 188       Costa Rica 1000    4.95      4.95   34.67
- 214  Rep. Dominicana 1000    4.95      4.95   39.62
- 218          Ecuador 1200    5.94      5.94   45.56
- 222      El Salvador 1000    4.95      4.95   50.50
- 320        Guatemala 1000    4.95      4.95   55.45
- 340         Honduras 1000    4.95      4.95   60.40
- 484           México 1200    5.94      5.94   66.34
- 558        Nicaragua 1000    4.95      4.95   71.29
- 591           Panamá 1000    4.95      4.95   76.24
- 600         Paraguay 1200    5.94      5.94   82.18
- 604             Perú 1200    5.94      5.94   88.12
- 724           España    0    0.00      0.00   88.12
- 858          Uruguay 1200    5.94      5.94   94.06
- 862        Venezuela 1200    5.94      5.94  100.00
-  NA             &lt;NA&gt;    0    0.00        NA      NA</code></pre>
+Value |            Label |    N | Raw % | Valid % | Cum. %
+----------------------------------------------------------
+   32 |        Argentina | 1200 |  5.94 |    5.94 |   5.94
+   68 |          Bolivia | 1200 |  5.94 |    5.94 |  11.88
+   76 |           Brasil | 1204 |  5.96 |    5.96 |  17.84
+  152 |            Chile | 1200 |  5.94 |    5.94 |  23.78
+  170 |         Colombia | 1200 |  5.94 |    5.94 |  29.72
+  188 |       Costa Rica | 1000 |  4.95 |    4.95 |  34.67
+  214 |  Rep. Dominicana | 1000 |  4.95 |    4.95 |  39.62
+  218 |          Ecuador | 1200 |  5.94 |    5.94 |  45.56
+  222 |      El Salvador | 1000 |  4.95 |    4.95 |  50.50
+  320 |        Guatemala | 1000 |  4.95 |    4.95 |  55.45
+  340 |         Honduras | 1000 |  4.95 |    4.95 |  60.40
+  484 |           México | 1200 |  5.94 |    5.94 |  66.34
+  558 |        Nicaragua | 1000 |  4.95 |    4.95 |  71.29
+  591 |           Panamá | 1000 |  4.95 |    4.95 |  76.24
+  600 |         Paraguay | 1200 |  5.94 |    5.94 |  82.18
+  604 |             Perú | 1200 |  5.94 |    5.94 |  88.12
+  724 |           España |    0 |  0.00 |    0.00 |  88.12
+  858 |          Uruguay | 1200 |  5.94 |    5.94 |  94.06
+  862 |        Venezuela | 1200 |  5.94 |    5.94 | 100.00
+ &lt;NA&gt; |             &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 <h2 id="pregunta-2">Pregunta 2</h2>
 <p>¿Cuáles son las religiones que tienen mayor presencia en América Latina?, ¿Como es la distribución de las religiones?</p>
@@ -2201,50 +2202,29 @@ IDENPA Identificación del País (IDENPA) &lt;numeric&gt;
 S5 Religión del entrevistado (S5) &lt;numeric&gt;
 # total N=20204  valid N=19984  mean=17.50  sd=35.22
 
- val                                label   frq raw.prc valid.prc
-  -4                        No preguntada     0    0.00      0.00
-  -3                         No aplicable     0    0.00      0.00
-  -2                          No contesta     0    0.00      0.00
-  -1                              No sabe     0    0.00      0.00
-   1                             Católica 11846   58.63     59.28
-   2           Evangélica sin especificar  3334   16.50     16.68
-   3                  Evangélica bautista    60    0.30      0.30
-   4                 Evangélica metodista     7    0.03      0.04
-   5               Evangélica pentecostal   169    0.84      0.85
-   6                           Adventista   143    0.71      0.72
-   7                   Testigos de Jehová   160    0.79      0.80
-   8                               Mormón   111    0.55      0.56
-   9                                Judía    10    0.05      0.05
-  10                          Protestante   377    1.87      1.89
-  11 Cultos afro/americanos, Umbanda, etc    51    0.25      0.26
-  12     Creyente, no pertenece a Iglesia   186    0.92      0.93
-  13                            Agnóstico    78    0.39      0.39
-  14                                 Ateo   181    0.90      0.91
-  96                                Otros   161    0.80      0.81
-  97                              Ninguno  3110   15.39     15.56
-  NA                                 &lt;NA&gt;   220    1.09        NA
- cum.prc
-    0.00
-    0.00
-    0.00
-    0.00
-   59.28
-   75.96
-   76.26
-   76.30
-   77.14
-   77.86
-   78.66
-   79.21
-   79.26
-   81.15
-   81.41
-   82.34
-   82.73
-   83.63
-   84.44
-  100.00
-      NA</code></pre>
+Value |                                Label |     N | Raw % | Valid % | Cum. %
+-------------------------------------------------------------------------------
+   -4 |                        No preguntada |     0 |  0.00 |    0.00 |   0.00
+   -3 |                         No aplicable |     0 |  0.00 |    0.00 |   0.00
+   -2 |                          No contesta |     0 |  0.00 |    0.00 |   0.00
+   -1 |                              No sabe |     0 |  0.00 |    0.00 |   0.00
+    1 |                             Católica | 11846 | 58.63 |   59.28 |  59.28
+    2 |           Evangélica sin especificar |  3334 | 16.50 |   16.68 |  75.96
+    3 |                  Evangélica bautista |    60 |  0.30 |    0.30 |  76.26
+    4 |                 Evangélica metodista |     7 |  0.03 |    0.04 |  76.30
+    5 |               Evangélica pentecostal |   169 |  0.84 |    0.85 |  77.14
+    6 |                           Adventista |   143 |  0.71 |    0.72 |  77.86
+    7 |                   Testigos de Jehová |   160 |  0.79 |    0.80 |  78.66
+    8 |                               Mormón |   111 |  0.55 |    0.56 |  79.21
+    9 |                                Judía |    10 |  0.05 |    0.05 |  79.26
+   10 |                          Protestante |   377 |  1.87 |    1.89 |  81.15
+   11 | Cultos afro/americanos, Umbanda, etc |    51 |  0.25 |    0.26 |  81.41
+   12 |     Creyente, no pertenece a Iglesia |   186 |  0.92 |    0.93 |  82.34
+   13 |                            Agnóstico |    78 |  0.39 |    0.39 |  82.73
+   14 |                                 Ateo |   181 |  0.90 |    0.91 |  83.63
+   96 |                                Otros |   161 |  0.80 |    0.81 |  84.44
+   97 |                              Ninguno |  3110 | 15.39 |   15.56 | 100.00
+ &lt;NA&gt; |                                 &lt;NA&gt; |   220 |  1.09 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 <h2 id="pregunta-3">Pregunta 3</h2>
 <p>¿Cuáles son las religiones que tienen mayor presencia en Chile (152 en INDENPA)?, ¿Cuáles son las principales diferencias respecto de América Latina en General?</p>
@@ -2258,50 +2238,29 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 S5 Religión del entrevistado (S5) &lt;numeric&gt;
 # total N=1200  valid N=1187  mean=28.99  sd=43.29
 
- val                                label frq raw.prc valid.prc
-  -4                        No preguntada   0    0.00      0.00
-  -3                         No aplicable   0    0.00      0.00
-  -2                          No contesta   0    0.00      0.00
-  -1                              No sabe   0    0.00      0.00
-   1                             Católica 662   55.17     55.77
-   2           Evangélica sin especificar 150   12.50     12.64
-   3                  Evangélica bautista   0    0.00      0.00
-   4                 Evangélica metodista   0    0.00      0.00
-   5               Evangélica pentecostal   0    0.00      0.00
-   6                           Adventista   6    0.50      0.51
-   7                   Testigos de Jehová  10    0.83      0.84
-   8                               Mormón   8    0.67      0.67
-   9                                Judía   1    0.08      0.08
-  10                          Protestante   1    0.08      0.08
-  11 Cultos afro/americanos, Umbanda, etc   1    0.08      0.08
-  12     Creyente, no pertenece a Iglesia   2    0.17      0.17
-  13                            Agnóstico   0    0.00      0.00
-  14                                 Ateo   4    0.33      0.34
-  96                                Otros   8    0.67      0.67
-  97                              Ninguno 334   27.83     28.14
-  NA                                 &lt;NA&gt;  13    1.08        NA
- cum.prc
-    0.00
-    0.00
-    0.00
-    0.00
-   55.77
-   68.41
-   68.41
-   68.41
-   68.41
-   68.91
-   69.76
-   70.43
-   70.51
-   70.60
-   70.68
-   70.85
-   70.85
-   71.19
-   71.86
-  100.00
-      NA</code></pre>
+Value |                                Label |   N | Raw % | Valid % | Cum. %
+-----------------------------------------------------------------------------
+   -4 |                        No preguntada |   0 |  0.00 |    0.00 |   0.00
+   -3 |                         No aplicable |   0 |  0.00 |    0.00 |   0.00
+   -2 |                          No contesta |   0 |  0.00 |    0.00 |   0.00
+   -1 |                              No sabe |   0 |  0.00 |    0.00 |   0.00
+    1 |                             Católica | 662 | 55.17 |   55.77 |  55.77
+    2 |           Evangélica sin especificar | 150 | 12.50 |   12.64 |  68.41
+    3 |                  Evangélica bautista |   0 |  0.00 |    0.00 |  68.41
+    4 |                 Evangélica metodista |   0 |  0.00 |    0.00 |  68.41
+    5 |               Evangélica pentecostal |   0 |  0.00 |    0.00 |  68.41
+    6 |                           Adventista |   6 |  0.50 |    0.51 |  68.91
+    7 |                   Testigos de Jehová |  10 |  0.83 |    0.84 |  69.76
+    8 |                               Mormón |   8 |  0.67 |    0.67 |  70.43
+    9 |                                Judía |   1 |  0.08 |    0.08 |  70.51
+   10 |                          Protestante |   1 |  0.08 |    0.08 |  70.60
+   11 | Cultos afro/americanos, Umbanda, etc |   1 |  0.08 |    0.08 |  70.68
+   12 |     Creyente, no pertenece a Iglesia |   2 |  0.17 |    0.17 |  70.85
+   13 |                            Agnóstico |   0 |  0.00 |    0.00 |  70.85
+   14 |                                 Ateo |   4 |  0.33 |    0.34 |  71.19
+   96 |                                Otros |   8 |  0.67 |    0.67 |  71.86
+   97 |                              Ninguno | 334 | 27.83 |   28.14 | 100.00
+ &lt;NA&gt; |                                 &lt;NA&gt; |  13 |  1.08 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 <h2 id="pregunta-4">Pregunta 4</h2>
 <p>¿De que tipo es la variable P22ST (Escala Izquierda-Derecha)?, ¿Cuáles son sus posibles valores?</p>
@@ -2325,8 +2284,8 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 
    var    type                          label     n NA.prc mean   sd
  P22ST numeric P22ST Escala Izquierda-Derecha 16713      0 5.04 2.98
-   se md trimmed     range skew
- 0.02  5    5.04 10 (0-10) 0.01</code></pre>
+   se md trimmed     range iqr skew
+ 0.02  5    5.04 10 (0-10)   4 0.01</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data2</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
@@ -2353,26 +2312,26 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 </code></pre>
 </div>
 <pre><code># A tibble: 18 x 7
-           IDENPA  mean    sd `quantile(P22ST, c(~ `quantile(P22ST, c~
-        &lt;dbl+lbl&gt; &lt;dbl&gt; &lt;dbl&gt;                &lt;dbl&gt;               &lt;dbl&gt;
- 1 591 [ Panamá]   4.38  3.24                    1                   5
- 2 214 [ Rep. Do~  4.44  4.20                    0                   4
- 3  76 [ Brasil]   4.55  2.89                    3                   5
- 4  68 [ Bolivia]  4.64  2.65                    3                   5
- 5 604 [ Perú]     4.79  2.62                    3                   5
- 6 858 [ Uruguay]  4.80  2.87                    3                   5
- 7 484 [ México]   4.84  2.59                    3                   5
- 8  32 [ Argenti~  4.87  2.46                    3                   5
- 9 152 [ Chile]    5.05  2.27                    3                   5
-10 222 [ El Salv~  5.08  3.08                    4                   5
-11 218 [ Ecuador]  5.27  2.28                    5                   5
-12 558 [ Nicarag~  5.33  3.44                    3                   5
-13 862 [ Venezue~  5.36  2.94                    4                   5
-14 320 [ Guatema~  5.37  3.39                    3                   5
-15 600 [ Paragua~  5.45  2.54                    5                   5
-16 170 [ Colombi~  5.48  2.88                    4                   5
-17 188 [ Costa R~  5.67  2.91                    5                   5
-18 340 [ Hondura~  5.85  3.78                    3                   5
+                   IDENPA  mean    sd `quantile(P22ST~ `quantile(P22ST~
+                &lt;dbl+lbl&gt; &lt;dbl&gt; &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+ 1 591 [ Panamá]           4.38  3.24                1                5
+ 2 214 [ Rep. Dominicana]  4.44  4.20                0                4
+ 3  76 [ Brasil]           4.55  2.89                3                5
+ 4  68 [ Bolivia]          4.64  2.65                3                5
+ 5 604 [ Perú]             4.79  2.62                3                5
+ 6 858 [ Uruguay]          4.80  2.87                3                5
+ 7 484 [ México]           4.84  2.59                3                5
+ 8  32 [ Argentina]        4.87  2.46                3                5
+ 9 152 [ Chile]            5.05  2.27                3                5
+10 222 [ El Salvador]      5.08  3.08                4                5
+11 218 [ Ecuador]          5.27  2.28                5                5
+12 558 [ Nicaragua]        5.33  3.44                3                5
+13 862 [ Venezuela]        5.36  2.94                4                5
+14 320 [ Guatemala]        5.37  3.39                3                5
+15 600 [ Paraguay]         5.45  2.54                5                5
+16 170 [ Colombia]         5.48  2.88                4                5
+17 188 [ Costa Rica]       5.67  2.91                5                5
+18 340 [ Honduras]         5.85  3.78                3                5
 # ... with 2 more variables: quantile(P22ST, c(0.75)) &lt;dbl&gt;, cv &lt;dbl&gt;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Forma alternativa</span>
@@ -2396,24 +2355,12 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 <span class='va'>coronavirus</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>        date province country     lat      long      type cases   uid
-1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401
-2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401
-3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401
-4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401
-5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0 12401
-  iso2 iso3 code3    combined_key population continent_name
-1   CA  CAN   124 Alberta, Canada    4413146  North America
-2   CA  CAN   124 Alberta, Canada    4413146  North America
-3   CA  CAN   124 Alberta, Canada    4413146  North America
-4   CA  CAN   124 Alberta, Canada    4413146  North America
-5   CA  CAN   124 Alberta, Canada    4413146  North America
-  continent_code
-1             NA
-2             NA
-3             NA
-4             NA
-5             NA</code></pre>
+<pre><code>        date province country     lat      long      type cases
+1 2020-01-22  Alberta  Canada 53.9333 -116.5765 confirmed     0
+2 2020-01-23  Alberta  Canada 53.9333 -116.5765 confirmed     0
+3 2020-01-24  Alberta  Canada 53.9333 -116.5765 confirmed     0
+4 2020-01-25  Alberta  Canada 53.9333 -116.5765 confirmed     0
+5 2020-01-26  Alberta  Canada 53.9333 -116.5765 confirmed     0</code></pre>
 </div>
 <p>Durante todas las preguntas ignore las variables provincia, lat y long.</p>
 <h2 id="pregunta-1-1">Pregunta 1</h2>
@@ -2428,10 +2375,10 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 </div>
 <pre><code># A tibble: 3 x 2
   type      `sum(cases, na.rm = TRUE)`
-* &lt;chr&gt;                          &lt;int&gt;
-1 confirmed                    1664725
-2 death                          37578
-3 recovery                           0</code></pre>
+  &lt;chr&gt;                          &lt;int&gt;
+1 confirmed                    1646994
+2 death                          37339
+3 recovered                    1575377</code></pre>
 </div>
 <h2 id="pregunta-2-1">Pregunta 2</h2>
 <p>¿Cuál país es el que ha tenido más muertes por Covid-19 en todo el periodo?, ¿Cuántas muertes?</p>
@@ -2448,7 +2395,7 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 <pre><code># A tibble: 1 x 2
   country muertes
   &lt;chr&gt;     &lt;int&gt;
-1 US       719558</code></pre>
+1 US       673472</code></pre>
 </div>
 <h2 id="pregunta-3-1">Pregunta 3</h2>
 <p>¿Cuantos casos de Covid recuperados tiene Chile en total? (ojo con los valores NA)</p>
@@ -2462,10 +2409,10 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 </div>
 <pre><code># A tibble: 3 x 2
   type        casos
-* &lt;chr&gt;       &lt;int&gt;
-1 confirmed 1664725
-2 death       37578
-3 recovery        0</code></pre>
+  &lt;chr&gt;       &lt;int&gt;
+1 confirmed 1646994
+2 death       37339
+3 recovered 1575377</code></pre>
 </div>
 <h2 id="pregunta-4-1">Pregunta 4</h2>
 <p>Cree una nueva data frame que solo tenga los valores de los muertos de 10 países de América Latina y el Caribe.</p>
@@ -2492,18 +2439,18 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 </div>
 <pre><code># A tibble: 11 x 2
    country   muertespromedio
- * &lt;chr&gt;               &lt;dbl&gt;
- 1 Argentina          183.  
- 2 Bolivia             29.8 
- 3 Brazil             953.  
- 4 Chile               59.6 
- 5 Colombia           201.  
- 6 Cuba                12.6 
- 7 Ecuador             52.1 
- 8 Paraguay            25.7 
- 9 Peru               317.  
-10 Uruguay              9.61
-11 Venezuela            7.37</code></pre>
+   &lt;chr&gt;               &lt;dbl&gt;
+ 1 Argentina          189.  
+ 2 Bolivia             30.8 
+ 3 Brazil             974.  
+ 4 Chile               61.6 
+ 5 Colombia           208.  
+ 6 Cuba                11.1 
+ 7 Ecuador             53.7 
+ 8 Paraguay            26.6 
+ 9 Peru               328.  
+10 Uruguay              9.98
+11 Venezuela            7.05</code></pre>
 </div>
 <h2 id="pregunta-6">Pregunta 6</h2>
 <p>¿Como se distribuye la variable de muertes promedio de su nueva data?</p>
@@ -2523,9 +2470,9 @@ S5 Religión del entrevistado (S5) &lt;numeric&gt;
 ## Basic descriptive statistics
 
  var    type label  n NA.prc   mean     sd    se    md trimmed
-  dd numeric    dd 11      0 168.24 279.24 84.19 52.06   98.88
-                range skew
- 945.99 (7.37-953.37) 2.62</code></pre>
+  dd numeric    dd 11      0 172.73 285.74 86.15 53.73  102.06
+                range     iqr skew
+ 967.38 (7.05-974.44) 179.349  2.6</code></pre>
 </div>
 <h2 id="pregunta-7">Pregunta 7</h2>
 <p>¿Para cuántos países existen datos en la data frame coronavirus?</p>

@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Corrección prueba 2, Estadística descriptiva II y transformación avazanzada de data frames
+### <code>29/10/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Transformación avanzada de datos
+
+`Un poco más de agrupación, pivotear y combinar data frames`
+
+---
+
+# Introducción
+
+La sesión subsiguiente veremos en detalle como elaborar gráficos elegantes en R.
+
+--
+
+Antes es necesario revisar algunos últimos aspectos sobre tranformación de datos. 
+
+--
+
+.inverse[La clave para elaborar buenos gráficos en R es tener una data frame coherente con el gráfico que queremos]
+
+--
+
+Por ejemplo, 
+
+--
+
++ si queremos graficar N de hogares por región, no nos servirá una base de datos de personas.
+  
+--
+  
++ si queremos graficar mediante barras el porcentaje de personas que reciben mas y menos del sueldo mínimo, la variable numérica salario debe ser categorizada
+  
+--
+
++ Si queremos graficar 2 variables, distinguiendo la relación por una tercera, necesitamos tener una base en formato *longer* (hacia abajo), no *wider* (hacia el lado)
+
+---
+
+# Introducción
+
+A continuación veremos herramientas que nos permitirán lidiar con estos y otros problemas:
+
+--
+
++ Funciones de agrupación (`group_by()`, `summarise()`).
+
+--
+
++ Funciones para pivotear la data (`pivot_longer()`, `pivot_wider()`).
+
+--
+
++ Funciones para combinar data (`merge()`, `rbind()` y `cbind()`)
+
+--
+
+Aplicaremos estas funciones a los datos del paquete Gapminder, a datos del Banco Mundial (de donde venían los de Afganistán), entre otros.
+
+---
+
+class: inverse, center, middle
+
+# Agrupación de datos
+
+`profundización función group_by()`
+
+---
+
+# group_by() y summarise()
+
+En conjunto nos permiten resumir información para cada grupo de una variable
+
+--
+
+Podemos obtener edad promedio por sexo, número de personas en cada región, ingresos por hogar, etcétera.
+
+--
+
+Estrategia .inverse[split-apply-combine.]
+
+--
+
+Esta estrategia sucede tras bambalinas (no la vemos). Solo observamos el resultados. 
+
+--
+
+&lt;img src="Imagenes/group_count.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# group_by() y summarise()
+
+
+
+
+
+```r
+data &lt;- readRDS("data/Latinobarometro_2020_Esp_Rds_v1_0.rds")
+```
+
+--
+
+Conteo de frecuencias
+
+
+```r
+data %&gt;% group_by(sexo) %&gt;% summarise(n=n())
+```
+
+```
+## # A tibble: 2 x 2
+##   sexo           n
+##   &lt;hvn_lbll&gt; &lt;int&gt;
+## 1 1           9667
+## 2 2          10537
+```
+
+--
+
+Obtención de estadísitcos para cada grupo
+
+
+```r
+data %&gt;% group_by(sexo) %&gt;% summarise(edad=mean(edad))
+```
+
+```
+## # A tibble: 2 x 2
+##   sexo        edad
+##   &lt;hvn_lbll&gt; &lt;dbl&gt;
+## 1 1           41.6
+## 2 2           40.4
+```
+
+---
+
+# group_by() y mutate()
+
+Con `summarise` "perdemos" la data original. Esta es resumida a una más pequeña. 
+
+
+```r
+data2 &lt;- data %&gt;% group_by(sexo) %&gt;% summarise(edad=mean(edad))
+dim(data2)
+```
+
+```
+## [1] 2 2
+```
+
+```r
+dim(data)
+```
+
+```
+## [1] 20204   408
+```
+--
+
+Pero en ocasiones queremos una medida de resumen sin perder la data, para poder generar nuevos cálculos. 
+
+--
+
+La alternativa es .inverse[agrupar] sin resumir, sino que .inverse[mutando] la data.
+
+
+```r
+data2 &lt;- data %&gt;% group_by(sexo) %&gt;% mutate(edad_promedio=mean(edad))
+dim(data2) 
+```
+
+```
+## [1] 20204   409
+```
+
+---
+
+# group_by() y mutate()
+
+Veamos un pedazo de la nueva data
+
+
+```r
+data2 %&gt;% select(idenpa,sexo,edad,edad_promedio) %&gt;% head()
+```
+
+```
+## # A tibble: 6 x 4
+## # Groups:   sexo [2]
+##   idenpa     sexo       edad       edad_promedio
+##   &lt;hvn_lbll&gt; &lt;hvn_lbll&gt; &lt;hvn_lbll&gt;         &lt;dbl&gt;
+## 1 32         2          63                  40.4
+## 2 32         1          24                  41.6
+## 3 32         1          20                  41.6
+## 4 32         2          54                  40.4
+## 5 32         1          38                  41.6
+## 6 32         2          62                  40.4
+```
+
+--
+
+Edad promedio aparece en cada observación. 
+
+Es el promedio de la edad del grupo (sexo) al que pertenece la observación. 
+
+--
+
+En este caso solo hay valores 41,6 (para los hombres) y 40,4 (para las mujeres)
+
+
+---
+
+# group_by() y mutate()
+
+¿Cuál es la utilidad?
+
+--
+
+Sirve para el procesamiento de datos más que para el análisis.
+
+--
+
+Por ejemplo, identificar casos extraños dentro de un conjunto para luego editarlos.
+
+--
+
+Países que pertenecen a continentes pobres pero que son **MUY** ricos:
+
+--
+
+
+```r
+library(gapminder)
+
+paises_1972 &lt;- gapminder %&gt;% 
+  filter(year==1972 ) %&gt;% 
+  group_by(continent) %&gt;% 
+  mutate(gdpPercap_continente=quantile(gdpPercap,0.90)) %&gt;% 
+  ungroup()
+```
+
+
+---
+
+# group_by() y mutate()
+
+
+```r
+paises_1972  %&gt;% 
+  filter(continent %in% c("Africa","Americas") &amp; 
+        gdpPercap&gt;gdpPercap_continente) %&gt;%
+  arrange(-gdpPercap) %&gt;% select(-year,-continent)                          %&gt;% knitr::kable()
+```
+
+
+
+|country       | lifeExp|       pop| gdpPercap| gdpPercap_continente|
+|:-------------|-------:|---------:|---------:|--------------------:|
+|United States |  71.340| 209896000| 21806.036|            10080.371|
+|Libya         |  52.773|   2183877| 21011.497|             4139.005|
+|Canada        |  72.880|  22284500| 18970.571|            10080.371|
+|Gabon         |  48.690|    537977| 11401.948|             4139.005|
+|Venezuela     |  65.712|  11515649| 10505.260|            10080.371|
+|South Africa  |  53.696|  23935810|  7765.963|             4139.005|
+|Angola        |  37.928|   5894858|  5473.288|             4139.005|
+|Reunion       |  64.274|    461633|  5047.659|             4139.005|
+|Algeria       |  54.518|  14760787|  4182.664|             4139.005|
+
+
+---
+
+class: inverse, center, middle
+
+# Pivotear los datos
+
+`funciones pivot_wider() y pivot_longer()`
+
+---
+
+# Pivotear los datos
+
+Alargamiento o ensanchamiento de una data frame.
+
+--
+
+.pull-left[
+
+**Alargamiento:** incremento en el número de filas y decrecimiento del número de columnas
+
+**Ensanchamiento:** incremento en el número de columnas y decrecimiento del número de filas
+
+Para esto utilizaremos las funciones `pivot_wider()` y `pivot_longer()` del paquete `tidyr`
+
+&lt;img src="https://tidyr.tidyverse.org/logo.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="imagenes/wide-long.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+## Función pivot_wider()
+
+Esta función se utiliza para ordenar un dataframe de forma tal de mostrar categorías de una variable como columnas de un dataframe.
+
+--
+
+Incrementa el número de las columnas y disminuye el número de las filas.
+
+--
+
+Es útil para la presentación de cuadros de resumen con doble entrada.
+
+--
+
+
+| sexo|posicion_politica |    n|
+|----:|:-----------------|----:|
+|    1|centro            | 3740|
+|    1|der               | 2161|
+|    1|izq               | 2245|
+|    1|ninguna           |  979|
+|    2|centro            | 3582|
+|    2|der               | 2187|
+|    2|izq               | 2327|
+|    2|ninguna           | 1415|
+
+
+---
+
+## Función pivot_wider()
+
+Ahora vemos las categorías de sexo hacia la derecha
+
+
+|posicion_politica |    1|    2|
+|:-----------------|----:|----:|
+|centro            | 3740| 3582|
+|der               | 2161| 2187|
+|izq               | 2245| 2327|
+|ninguna           |  979| 1415|
+
+--
+
+Pasamos de un formato largo a uno ancho
+
+--
+
+
+```r
+library(tidyr)
+```
+
+--
+
+
+```r
+data %&gt;%  
+  filter(!is.na(posicion_politica)) %&gt;% 
+  group_by(sexo,posicion_politica) %&gt;% 
+  summarise(n=n()) %&gt;% 
+  pivot_wider(names_from = sexo,
+              values_from = n) 
+```
+
+---
+
+## Función pivot_wider()
+
+Básicamente dos argumentos:
+
++ *names_from:* categorías que se quiere convertir en columnas
+
++ *values_from:* columna desde la cual extraer los valores
+
+--
+
+Además, podemos usar el argumento `names_prefix` cuando tenemos números
+
+
+```r
+data %&gt;% filter(!is.na(posicion_politica)) %&gt;% 
+  group_by(sexo,posicion_politica) %&gt;% 
+  summarise(n=n()) %&gt;% 
+  pivot_wider(names_from = sexo,
+              values_from = n,
+              names_prefix = "sexo_") 
+```
+
+```
+## # A tibble: 4 x 3
+##   posicion_politica sexo_1 sexo_2
+##   &lt;chr&gt;              &lt;int&gt;  &lt;int&gt;
+## 1 centro              3740   3582
+## 2 der                 2161   2187
+## 3 izq                 2245   2327
+## 4 ninguna              979   1415
+```
+
+
+---
+
+## Función pivot_longer()
+
+
+
+
+
+
+---
+
+# Pivotear los datos
+
+Relevante para visualizar (la próxima semana lo entenderemos) y para trabajar datos importados
+
+--
+
+Por ejemplo, descarguemos los datos de Afganistán que usamos clases atrás. Esta vez sin trampa.
+
+--
+
+&lt;a href="https://datos.bancomundial.org/" target="_blank"&gt;&lt;img src="imagenes/wdb.PNG" width="80%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
+
+---
+
+# Pivotear los datos
+
+¿Cómo vienen los datos?
+
+--
+
+
+```r
+afganistan &lt;- readxl::read_excel("data/afganistan.xlsx")
+```
+
+--
+
+
+```
+## # A tibble: 5 x 3
+##   `Indicator Name`                                               `2007`   `2014`
+##   &lt;chr&gt;                                                           &lt;dbl&gt;    &lt;dbl&gt;
+## 1 Internally displaced persons, new displacement associated wit~   NA     1.56e5
+## 2 Mercaderías exportadas hacia economías en desarrollo en Europ~   11.3  NA     
+## 3 Índice de términos netos de intercambio (2000 = 100)            127.    1.44e2
+## 4 Mercaderías importadas desde economías de ingreso alto (% del~   15.2   4.26e0
+## 5 Participación de líneas arancelarias con máximos internaciona~   16.0  NA
+```
+
+--
+
+.inverse[¡Las variables vienen como filas!] (lo contrario a una data tidy u ordenada)
+
+--
+
+¿Como graficamos el PIB de Afganistan si no es una variable? Solo podemos tabular años, lo que no tiene sentido:
+
+--
+
+
+```r
+table(afganistan$`1962`)
+```
+
+
+---
+
+# Pivotear los datos
+
+La solución es pivotear los datos. Hacer que las filas pasen a ser variables. 
+
+
+--
+
+Veamos el código y luego explicamos:
+
+
+```r
+# Alargar la data
+afganistan &lt;- afganistan %&gt;% tidyr::pivot_longer(3:63) %&gt;% 
+  select(-`Country Name`) 
+
+# Quitar filas repetidas para evitar errores
+afganistan &lt;- afganistan %&gt;% 
+  distinct(`Indicator Name`,value,name)
+
+# Ensanchar la data
+afganistan &lt;- afganistan %&gt;% 
+  tidyr::pivot_wider(names_from = `Indicator Name`, 
+                                  values_from = value,
+                                  values_fn = {sum}) 
+
+# Limpiar los nombres
+afganistan &lt;- afganistan %&gt;% 
+  janitor::clean_names() %&gt;% rename(anio=name)
+```
+
+---
+
+# Pivotear los datos
+
+
+```
+## # A tibble: 5 x 3
+##   anio  ingreso_nacional_bruto_ing_us poblacion_total
+##   &lt;chr&gt;                         &lt;dbl&gt;           &lt;dbl&gt;
+## 1 2016                   18197299091.        35383028
+## 2 2017                   19118263186.        36296111
+## 3 2018                   18544615040.        37171922
+## 4 2019                   19598008726.        38041757
+## 5 2020                   19996141020.        38928341
+```
+
+--
+
+
+```r
+boxplot(afganistan$ingreso_nacional_bruto_ing_us, horizontal = TRUE)
+```
+
+&lt;img src="clase8c_agrupar_trasponer_combinar_files/figure-html/unnamed-chunk-25-1.png" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Pivotear los datos
+
+#### pivot_longer()
+
+
+```r
+data %&gt;% pivot_longer(c(col1, col2, col3))
+```
+
+Se especifican las columnas que ahora pasan a ser filas. 
+
+--
+
+#### pivot_wider()
+
+
+```r
+data %&gt;% pivot_wider(names_from = col1, 
+                     values_from = col2) 
+```
+
+Se crean varias columnas.
+
+Se debe especificar de que variable se tomarán los nuevos nombres y los nuevos valores. 
+
+--
+
+Volvamos a la transformación de Afganistán. Paso por paso. 
+
+---
+
+# Pivotear los datos
+
+También podemos ocupar las funciones para hacer tablas de contingencia.
+
+--
+
+Agrupar por dos variables, y luego una pasarlas a columnas.
+
+--
+
+
+```r
+casen %&gt;% 
+  group_by(regiones, sexo) %&gt;% 
+  summarise(n=n()) %&gt;% 
+  pivot_wider(names_from = region, values_from = n)
+```
+
+
+
+---
+
+class: inverse, center, middle
+
+# Combinación de data frames
+
+`funciones cbind(), rbind() y merge()`
+
+---
+
+
+
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+### Para reforzar y seguir aprendiendo
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

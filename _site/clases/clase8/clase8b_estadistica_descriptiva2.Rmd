@@ -1,0 +1,629 @@
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Corrección prueba 2, Estadística descriptiva II y transformación avazanzada de data frames"
+date: "`29/10/2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("../../bibliografia/bib.bib", check = FALSE)
+```
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(dplyr)
+library(guaguas)
+
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+#pagedown::chrome_print("clase8b_estadistica_descriptiva2.html")
+
+```
+
+---
+
+class: inverse, center, middle
+
+# Estadística descriptiva II
+
+`Medidas de asociación entre variables`
+
+
+---
+
+# Introducción
+
+Hace unas semanas vimos análisis descriptivos univariados.
+
+--
+
+Desde hoy comenzaremos con el análisis de dos (y más) variables, con propósito de investigar la .inverse[asociación] entre estas.
+
+--
+
+Una asociación existe entre dos o más variables si valores particulares de una son más probables que ocurran cuando ocurren ciertos valores en otra variable.
+
+--
+
+.inverse[Asociación no es causalidad:]
+
+--
+
++ Asociación necesaria pero no suficiente
+
++ Causa antecede al efecto (explicación lógica)
+
++ Control terceras variables (búsqueda de contrafactuales)
+
+--
+
+Hoy veremos métodos para estudiar si las asociaciones existen y para describir que tan fuertes son. 
+
+--
+
+Se pueden distinguir según el tipo de variables (categóricas y numéricas)
+
+---
+
+## Asociación no es causalidad
+
+```{r, out.width = "40%", echo=FALSE, fig.align='center'}
+knitr::include_graphics("Imagenes/corr is not caus.jfif")
+```
+
+---
+
+
+class: inverse, center, middle
+
+# Asociaciones entre categóricas
+
+---
+
+## Tablas de contingencia
+
+Visualización de dos variables categóricas. 
+
+--
+
+Las filas listan las categorías de una variable, mientras que las columnas las categorías de la otra variable.
+
+--
+
+Cada celda en la tabla es el número de observaciones en el set de datos que tiene la particular combinación de categorías de las dos variables.
+
+--
+
+```{r echo=FALSE}
+library(dplyr)
+data <- readRDS("data/Latinobarometro_2020_Esp_Rds_v1_0.rds")
+data <- data %>% mutate(posicion_politica = case_when(p18st %in% c(0,1,2,3) ~ "izq",
+                                              p18st %in% c(4,5,6) ~ "centro",
+                                              p18st %in% c(7,8,9,10) ~ "der",
+                                              p18st %in% c(97) ~ "ninguna",
+                                              TRUE ~ NA_character_
+                                              ))
+
+```
+
+--
+
+¿Que posiciones políticas valoran más la democracia en América Latina?, ¿La izquierda, el centro, la derecha, los sin posición?
+
+--
+
+```{r}
+table(data$p47st_e,data$posicion_politica)
+```
+
+---
+
+## Tablas de contingencia
+
+Nivel de acuerdo con la frase *La democracia puede tener problemas pero es el mejor sistema de gobierno*, según posición política
+
+```{r}
+library(sjmisc)
+data <- data[data$p20st_a>=0,]  ## ojo, se quitan los valores perdidos
+flat_table(data,p20st_a,posicion_politica)
+```
+--
+
+Dice poco...
+
+--
+
+Veamos con porcentajes...
+
+
+---
+
+## Tablas de contingencia
+
+Nivel de acuerdo con la frase *La democracia puede tener problemas pero es el mejor sistema de gobierno*, según posición política.
+
+Porcentajes por filas (cada fila suma 100%)
+
+```{r}
+flat_table(data,p20st_a,posicion_politica,margin = c("row")) 
+```
+
+
+---
+
+## Tablas de contingencia
+
+Nivel de acuerdo con la frase *La democracia puede tener problemas pero es el mejor sistema de gobierno*, según posición política.
+
+Porcentajes por columnas (cada columna suma 100%)
+
+```{r}
+flat_table(data,p20st_a,posicion_politica,margin = c("col"))
+```
+--
+
+En los de derecha es donde hay más autopercibidos "demócratas" (73,6%), en la izquierda un un 63%
+
+---
+
+## Tablas de contingencia
+
+.inverse[En Chile: ] nivel de acuerdo con la frase *La democracia puede tener problemas pero es el mejor sistema de gobierno*, según posición política.
+
+Porcentajes por columnas (cada columna suma 100%)
+
+```{r}
+flat_table(data[data$idenpa==152,],
+           p20st_a,posicion_politica,margin = c("col"))
+```
+--
+
+La izquierda, el centro y los sin posición son más democráticos que la derecha
+
+---
+
+## Gráficos de barras bivariados
+
+```{r message=FALSE, warning=FALSE, out.width="50%", fig.align='center'}
+library(sjPlot)
+chile <- data[data$idenpa==152,]
+plot_xtab(chile$posicion_politica,chile$p20st_a,margin = c("row"))
+```
+
+---
+
+## Gráficos de barras apilados
+
+```{r message=FALSE, warning=FALSE, out.width="50%", fig.align='center'}
+plot_xtab(chile$posicion_politica,chile$p20st_a,margin = c("row"),bar.pos = "stack")
+```
+
+---
+
+## Asociaciones entre categóricas
+
+En conclusión, **existe asociación** entre la posición política las personas y su valoración a la democracia. 
+
+--
+
+¿Como se vería si no existiese asociación? Algo así:
+
+--
+
+|   |centro   | der  |  izq | ninguna   | 
+|---|---|---|---|---|
+| Muy de acuerdo     | 20%  | 20%  |  20% | 20%  |
+| De acuerdo         | 50%  | 50%  |  50% | 50%  |
+| En desacuerdo      | 15%  | 15%  |  15% | 15%  |
+|Muy en desacuerdo   | 15%  | 15%  |  15% | 15%  |
+
+--
+
+Para todas las posiciones políticas, los porcentajes de cada categoría de valoración de la democracia son iguales.
+
+---
+
+## La fuerza de las asociaciones
+
+#### Ratio entre las proporciones condicionales
+
+¿Que tanta diferencia hay entre derecha e izquierda en el estar muy de acuerdo con la democracia?
+
+--
+
+Cuando no hay asociación: 
+
+```{r}
+0.20/0.20
+```
+--
+
+Cuando hay asociación (entre izq y derecha)
+
+```{r}
+0.28/0.21
+```
+
+--
+
+La proporción de personas de izquierda muy de acuerdo con la democracia es 1,3 veces la de personas de derecha democráticas. 
+
+```{r eval=FALSE, echo=FALSE}
+## Para ver luego de pasar muestreo
+## http://www.sthda.com/english/wiki/chi-square-test-of-independence-in-r
+chi <- chisq.test(table(data$p47st_e,data$posicion_politica))
+chi$observed
+chi$expected
+prop.table(chi$expected,margin = 2)
+
+# Cells with the highest absolute standardized residuals contribute the most to the total Chi-square score.
+round(chi$residuals, 3)
+
+#The contribution (in %) of a given cell to the total Chi-square score is calculated as follow:
+# Contibution in percentage (%)
+contrib <- 100*chi$residuals^2/chi$statistic
+round(contrib, 3)
+```
+
+
+---
+
+
+class: inverse, center, middle
+
+## Asociaciones entre numérica y categórica
+
+---
+
+### Asoc. entre categóricas y numéricas
+
+La misma lógica que la descripción univariada, pero para cada grupo de interés.
+
+--
+
+Relación entre edad y posición política
+
+--
+
+```{r}
+chile %>% 
+  group_by(posicion_politica) %>% 
+  summarise(mean=mean(edad),median=median(edad),sd=sd(edad), 
+            q25=quantile(edad,probs=0.25),q75=quantile(edad,probs=0.75))              %>% knitr::kable() 
+```
+
+
+
+---
+
+## Gráfico de cajas con categórica
+
+```{r fig.align='center', out.width="50%"}
+boxplot(chile$edad ~ chile$posicion_politica)
+```
+
+
+---
+
+
+class: inverse, center, middle
+
+## Asociaciones entre numéricas
+
+
+---
+
+## Asociaciones entre numéricas
+
+Lo más común es buscar una tendencia con un .inverse[gráfico de puntos]
+
+--
+
+Aunque no busquemos causalidad, por convención en el eje Y va la variable respuesta y en el X la variable explicativa.
+
+--
+
+¿Que tan asociada está la edad de una personas y sus ingresos?
+
+```{r}
+esi <- sample_n(haven::read_sav("data/esi-2019---personas_s.sav"),2000)
+```
+
+--
+
+Se espera que a mayor edad mayores ingesos (hasta cierta edad). 
+
+Sin duda que los ingresos serían la dependiente (por lógica)
+
+---
+
+## Asociaciones entre numéricas
+
+```{r fig.align='center', out.width="50%"}
+plot(esi$edad,esi$ing_t_d)
+```
+
+---
+
+## Asociaciones entre numéricas
+
+```{r fig.align='center', out.width="50%"}
+library(gapminder)
+paises2007 <- gapminder %>% filter(year==2007)
+plot(paises2007$lifeExp,paises2007$gdpPercap)
+```
+
+---
+
+## Asociaciones entre numéricas
+
+La asociación será **positiva** si a medida que aumentan los valores en X aumentan los valores en Y.
+
+--
+
+La asociación será **negativa** si a medida que aumentan los valores en X disminuyen los valores en Y.
+
+--
+
+El paso siguiente es resumir la fuerza de la asociación.
+
+--
+
+Cuando la relación entre los datos sigue una tendencia de línea recta, se dice que los datos tienen una .inverse[relación lineal].
+
+--
+
+A veces los toman una forma muy cercana a la recta (r = 1 o r = -1), otras veces ni se le parecen
+
+--
+
+La .inverse[correlación] mide la fuerza de esta asociación lineal. 
+
+---
+
+## Asociaciones entre numéricas
+
+```{r fig.align='center', out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+library("car")
+scatterplot(paises2007$lifeExp,paises2007$gdpPercap , smooth = FALSE)
+```
+
+--
+
+Hay mejores representaciones, pero una recta sirve. 
+
+Para edad e ingresos definitivamente no es lo más certero. 
+
+---
+
+## Asociaciones entre numéricas
+
+```{r fig.align='center', out.width="50%", echo=FALSE, message=FALSE, warning=FALSE}
+scatterplot(esi$edad,esi$ing_t_d , smooth = FALSE)
+```
+
+---
+
+## Correlaciones
+
+```{r, out.width = "80%", echo=FALSE, fig.align='center'}
+knitr::include_graphics("Imagenes/correlaciones.png")
+```
+
+---
+
+## Correlaciones
+
+Se obtiene el valor Z de cada observación en X y en Y. 
+
+--
+
+Ambos valores se multiplican y luego se suman. El resultado se divide por el tamaño de la muestra.
+
+--
+
+$$r=\frac{1}{n-1}\sum(\frac{x-\bar{x}}{s_x})(\frac{y-\bar{y}}{s_y})$$
+
+--
+
+Valores Z para Brasil
+
+```{r}
+brazil <- paises2007[15,c(1,4,6)]
+brazil %>% 
+  mutate(z_lifeExp=(lifeExp-mean(paises2007$lifeExp))/sd(paises2007$lifeExp),
+   z_gdpPercap=(gdpPercap-mean(paises2007$gdpPercap))/sd(paises2007$gdpPercap))   %>% knitr::kable()
+```
+
+---
+
+## Correlaciones
+
+En R ya escribieron la función:
+
+--
+
+```{r}
+cor(paises2007$lifeExp,paises2007$gdpPercap)
+```
+--
+
+A mano algo así:
+
+```{r}
+zeta <- paises2007 %>% 
+  select(country,lifeExp,gdpPercap) %>% 
+  mutate(
+    meanlifeExp=mean(lifeExp),
+    meangdpPercap=mean(gdpPercap),
+    sdlifeExp=sd(lifeExp),
+     sdgdpPercap=sd(gdpPercap),
+    z_lifeExp=(lifeExp-mean(paises2007$lifeExp))/sd(paises2007$lifeExp),
+   z_gdpPercap=(gdpPercap-mean(paises2007$gdpPercap))/sd(paises2007$gdpPercap))
+
+sum(zeta$z_gdpPercap*zeta$z_lifeExp)/(nrow(zeta)-1)
+
+
+```
+
+---
+
+## Correlaciones
+
+También hay muchos paquetes que permiten visualizar las correlaciones
+
+```{r fig.align='center', out.width="40%", message=FALSE, warning=FALSE}
+library(GGally)
+ggpairs(paises2007[,c("lifeExp","pop","gdpPercap")])
+```
+
+---
+
+## Correlaciones
+
+```{r fig.align='center', out.width="50%"}
+ggpairs(esi[,c("ing_mon_sb","edad","ing_t_d")])
+```
+
+---
+
+## Correlaciones
+
+La correlación siempre cae entre 1 y -1
+
+--
+
+Mientras más cercana sea al valor absoluto de 1 más fuerte será la asociación lineal
+
+--
+
+Correlación positiva indica asociación positiva. Correlación negativa indica asociación negativa.
+
+
+--
+
+El valor de la correlación se encuentra estandarizado (se calcula desde valores z). Por tanto no depende de la unidad de medida de las variables
+
+--
+
+La correlación no depende cuál variable es considerada como de respuesta o explicativa.
+
+--
+
+Correlación entre 0.3 y 0.5 es de fuerza media, aceptable en ciencias sociales.
+
+--
+
+Correlación de 0.6 o más excelente (de 1 imposible)
+
+--
+
+El valor de $r^2$ es la proporción de la variación de y que está explicada por la relación lineal entre x y y.
+
+
+---
+
+# Conclusiones
+
+Existen distintos estadísticos y visualizaciones para conocer la asociación entre variables (dependen del tipo de variable)
+
+--
+
+Por muy fuerte que sea una asociación, **correlación no implica causalidad** 
+
+--
+
+Puede existir una relación entre x y y, aun cuando no haya una correlación lineal
+
+--
+
+Los análisis realizados son solamente representativos del conjunto de datos
+
+Hasta ahora no hemos realizado ninguna inferencia hacia la población
+
+--
+
+En clase subsiguiente comenzaremos con muestras e inferencia, para así poder sacar conclusiones sobre la población chilena o latinoamericana desde los datos.
+
+Para esto hay que considerar el cómo se seleccionó la muestra, el peso de cada caso (factor de expansión) y los niveles de error asociados a las estimaciones. 
+
+```{r eval=FALSE, echo=FALSE}
+# Valor t desde correlación
+0.6786624/(sqrt((1-(0.6786624*0.6786624))/140))
+# Valor p desde valor t
+pt(q=10.9334, df=140, lower.tail=FALSE)
+
+# En simple:
+cor.test(paises2007$lifeExp,paises2007$gdpPercap)
+
+# Llegando a lo mismo desde regresion simple
+a<-lm(paises2007$lifeExp~paises2007$gdpPercap)
+summary(a)
+```
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+### Para seguir aprendiendo
+
+[Boxplot por grupo](https://r-charts.com/es/distribucion/box-plot-grupo/)
+
+
+### Bibliografía utilizada
+
+```{r echo=FALSE, results=FALSE}
+Citet(bib, "Agresti2018")
+Citet(bib, "Triola2009")
+```
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(bib)
+```
+
+
+

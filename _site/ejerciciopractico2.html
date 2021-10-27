@@ -2030,7 +2030,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.7/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.10/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2107,9 +2107,9 @@ Material de apoyo
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://haven.tidyverse.org'>haven</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://haven.tidyverse.org'>haven</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
-<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://strengejacke.github.io/sjmisc'>sjmisc</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://strengejacke.github.io/sjmisc/'>sjmisc</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2149,10 +2149,11 @@ Material de apoyo
 x &lt;numeric&gt;
 # total N=96240  valid N=96240  mean=0.81  sd=0.39
 
- val   frq raw.prc valid.prc cum.prc
-   0 18283      19        19      19
-   1 77957      81        81     100
-  NA     0       0        NA      NA</code></pre>
+Value |     N | Raw % | Valid % | Cum. %
+----------------------------------------
+    0 | 18283 |    19 |      19 |     19
+    1 | 77957 |    81 |      81 |    100
+ &lt;NA&gt; |     0 |     0 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 <h2 id="crea-la-variable-ocu-ocupados-que-tome-el-valor-1-si-la-variable-cae_especifico-se-encuentra-en-el-rango-extremos-incluidos-entre-1-y-7-y-que-tome-el-valor-0-en-cualquier-otro-caso.">Crea la variable ocu (ocupados) que tome el valor 1 si la variable cae_especifico se encuentra en el rango (extremos incluidos) entre 1 y 7, y que tome el valor 0 en cualquier otro caso.</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -2166,10 +2167,11 @@ x &lt;numeric&gt;
 x &lt;numeric&gt;
 # total N=96240  valid N=96240  mean=0.45  sd=0.50
 
- val   frq raw.prc valid.prc cum.prc
-   0 53384   55.47     55.47   55.47
-   1 42856   44.53     44.53  100.00
-  NA     0    0.00        NA      NA</code></pre>
+Value |     N | Raw % | Valid % | Cum. %
+----------------------------------------
+    0 | 53384 | 55.47 |   55.47 |  55.47
+    1 | 42856 | 44.53 |   44.53 | 100.00
+ &lt;NA&gt; |     0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 <h2 id="cuantas-personas-pet-y-ocu-hay-en-la-muestra">¿Cuantas personas pet y ocu hay en la muestra?</h2>
 <div class="layout-chunk" data-layout="l-body">
@@ -2193,10 +2195,11 @@ x &lt;numeric&gt;
 x &lt;numeric&gt;
 # total N=96240  valid N=96240  mean=0.81  sd=0.39
 
- val   frq raw.prc valid.prc cum.prc
-   0 18283      19        19      19
-   1 77957      81        81     100
-  NA     0       0        NA      NA</code></pre>
+Value |     N | Raw % | Valid % | Cum. %
+----------------------------------------
+    0 | 18283 |    19 |      19 |     19
+    1 | 77957 |    81 |      81 |    100
+ &lt;NA&gt; |     0 |     0 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>ocu</span><span class='op'>)</span>
 </code></pre>
@@ -2205,10 +2208,11 @@ x &lt;numeric&gt;
 x &lt;numeric&gt;
 # total N=96240  valid N=96240  mean=0.45  sd=0.50
 
- val   frq raw.prc valid.prc cum.prc
-   0 53384   55.47     55.47   55.47
-   1 42856   44.53     44.53  100.00
-  NA     0    0.00        NA      NA</code></pre>
+Value |     N | Raw % | Valid % | Cum. %
+----------------------------------------
+    0 | 53384 | 55.47 |   55.47 |  55.47
+    1 | 42856 | 44.53 |   44.53 | 100.00
+ &lt;NA&gt; |     0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 <h2 id="cuál-es-la-tasa-de-ocupación-en-noviembre-de-2019-ocu-pet-100">¿Cuál es la tasa de ocupación en noviembre de 2019? (ocu / pet * 100)</h2>
 <div class="layout-chunk" data-layout="l-body">

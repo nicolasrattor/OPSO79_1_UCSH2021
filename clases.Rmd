@@ -56,17 +56,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Prueba 2 (22 de octubre)
 
-[Descargar pauta]()
+[Descargar pauta](pruebas/prueba2.pdf)
 
-# Ciencia abierta y reproducibilidad (29 de octubre)
+# Estadística descriptiva II (29 de octubre)
 
-[Clase 8. Bloque 1 teórico]()
+# Ciencia abierta y reproducibilidad (05 de noviembre)
 
-[Clase 8. Bloque 2 práctico]()
+# Visualización de datos (12 de noviembre)
 
-# Estadística descriptiva II (05 de noviembre)
+# Diseño de muestras e inferencia (19 de noviembre)
 
-[Clase 9. Bloque 1 teórico]()
+# Prueba 3 (26 de noviembre)
 
-[Clase 9. Bloque 2 práctico]()
-
+# Muestras complejas (03 de diciembre)
