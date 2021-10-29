@@ -405,8 +405,59 @@ data %>% filter(!is.na(posicion_politica)) %>%
 
 ## Función pivot_longer()
 
+Esta función se puede considerar como la opuesta a pivot_wider().
+
+--
+
+Esta función incrementa el número de filas y disminuye el número de columnas.
+
+--
+
+Los dataframes obtenidos por esta función son más fáciles de manipular, pero no de visualizar
+
+--
+
+```{r}
+df1 <- data.frame(region = c(1, 2),
+                  hombres = c(100, 200),
+                  mujeres = c(50, 300))
+df1
+```
+
+---
+
+## Función pivot_longer()
+
+```{r}
+df1 %>%
+  pivot_longer(cols = c(hombres,mujeres) )
+```
 
 
+--
+
+El argumento principal es cols:
+
++ *cols:* columnas a las que se le aplicará la operación (que se convertirán en categorías de una nueva variable)
+
+---
+
+## Función pivot_longer()
+
+Además, se pueden especificar los nombres de las columnas "name" y "value"
+
++ *names_to:* indica el nombre de la variable que será creada para "guardar" los nombres de las categorías.
+
++ *values_to:* indica el nombre de la variable que será creada para "guardar" los valores asociados a las categorías.
+
+
+--
+
+```{r}
+df1 %>%
+  pivot_longer(cols = c(hombres,mujeres) , 
+               names_to = "sexo", values_to = "total_sexo")
+```
 
 
 
@@ -414,7 +465,7 @@ data %>% filter(!is.na(posicion_politica)) %>%
 
 # Pivotear los datos
 
-Relevante para visualizar (la próxima semana lo entenderemos) y para trabajar datos importados
+Relevante para visualizar (ggplot2) y para trabajar datos importados
 
 --
 
@@ -435,18 +486,25 @@ knitr::include_graphics("imagenes/wdb.PNG")
 --
 
 ```{r}
-afganistan <- readxl::read_excel("data/afganistan.xlsx")
+afganistan <- readxl::read_excel("data/API_AFG_DS2_es_excel_v2_3162018.xls",
+                                 skip = 3)
 ```
 
 --
 
 ```{r echo=FALSE}
-afganistan[1:5,c(2,50,57)]
+afganistan[1:5,c(2,50,57)]                                                %>% knitr::kable()
 ```
 
 --
 
-.inverse[¡Las variables vienen como filas!] (lo contrario a una data tidy u ordenada)
+.inverse[¡Las variables vienen como filas!]
+
+---
+
+# Pivotear los datos
+
+La data no es un dato ordenado (tidy data)
 
 --
 
@@ -465,26 +523,37 @@ table(afganistan$`1962`)
 
 La solución es pivotear los datos. Hacer que las filas pasen a ser variables. 
 
-
 --
-
-Veamos el código y luego explicamos:
 
 ```{r}
 # Alargar la data
-afganistan <- afganistan %>% tidyr::pivot_longer(3:63) %>% 
-  select(-`Country Name`) 
+afganistan <- afganistan %>% pivot_longer(5:ncol(afganistan)) %>% 
+  select(-`Country Name`,`Country Code`,`Indicator Code`) 
 
+```
+
+--
+
+```{r}
 # Quitar filas repetidas para evitar errores
 afganistan <- afganistan %>% 
   distinct(`Indicator Name`,value,name)
 
+```
+
+--
+
+```{r}
 # Ensanchar la data
 afganistan <- afganistan %>% 
   tidyr::pivot_wider(names_from = `Indicator Name`, 
                                   values_from = value,
                                   values_fn = {sum}) 
+```
 
+--
+
+```{r}
 # Limpiar los nombres
 afganistan <- afganistan %>% 
   janitor::clean_names() %>% rename(anio=name)
@@ -495,63 +564,19 @@ afganistan <- afganistan %>%
 # Pivotear los datos
 
 ```{r echo=FALSE}
-afganistan[c(57:61),c("anio","ingreso_nacional_bruto_ing_us","poblacion_total")]
+afganistan[c(53:61),
+           c("anio","ingreso_nacional_bruto_ing_us","poblacion_total")]     %>% knitr::kable()
 ```
 
---
 
-```{r out.width = "30%", fig.align='center'}
-boxplot(afganistan$ingreso_nacional_bruto_ing_us, horizontal = TRUE)
-```
 
 ---
 
 # Pivotear los datos
 
-#### pivot_longer()
-
-```{r eval=FALSE}
-data %>% pivot_longer(c(col1, col2, col3))
+```{r fig.align='center', out.width="50%"}
+plot(afganistan$anio,afganistan$poblacion_total,type = "l")
 ```
-
-Se especifican las columnas que ahora pasan a ser filas. 
-
---
-
-#### pivot_wider()
-
-```{r eval=FALSE}
-data %>% pivot_wider(names_from = col1, 
-                     values_from = col2) 
-```
-
-Se crean varias columnas.
-
-Se debe especificar de que variable se tomarán los nuevos nombres y los nuevos valores. 
-
---
-
-Volvamos a la transformación de Afganistán. Paso por paso. 
-
----
-
-# Pivotear los datos
-
-También podemos ocupar las funciones para hacer tablas de contingencia.
-
---
-
-Agrupar por dos variables, y luego una pasarlas a columnas.
-
---
-
-```{r eval=FALSE}
-casen %>% 
-  group_by(regiones, sexo) %>% 
-  summarise(n=n()) %>% 
-  pivot_wider(names_from = region, values_from = n)
-```
-
 
 
 ---
@@ -564,8 +589,472 @@ class: inverse, center, middle
 
 ---
 
+# Combinación de data frames
+
+```{r echo=FALSE,eval=FALSE}
+library(readxl)
+
+procesar_BM <- function(pais){
+data <- read_excel(paste0("data/API_",pais,"_DS2_es_excel_v2.xls"),skip = 3)
+data <- data[,-c(2,4)] %>% tidyr::pivot_longer(3:(ncol(data)-2)) %>% 
+  select(-`Country Name`) 
+data <- data %>% 
+  distinct(`Indicator Name`,value,name)
+data <- data %>% 
+  tidyr::pivot_wider(names_from = `Indicator Name`, 
+                                  values_from = value,
+                                  values_fn = {sum}) 
+data <- data %>% 
+  janitor::clean_names() %>% rename(anio=name)
+
+data <- data %>%
+  select(anio,
+         poblacion_total,
+         esperanza_de_vida_al_nacer_total_anos,
+         pib_per_capita_us_a_precios_actuales) %>%
+  rename(year=anio,
+         pop=poblacion_total,
+         gdpPercap=pib_per_capita_us_a_precios_actuales,
+         lifeExp=esperanza_de_vida_al_nacer_total_anos)
+
+data
+}
+
+arg <- procesar_BM(pais="ARG") %>% mutate(country="Argentina")
+bol <- procesar_BM(pais="BOL") %>% mutate(country="Bolivia")
+chl <- procesar_BM(pais="CHL") %>% mutate(country="Chile")
+hti <- procesar_BM(pais="HTI") %>% mutate(country="Haiti")
+mex <- procesar_BM(pais="MEX") %>% mutate(country="Mexico")
+
+writexl::write_xlsx(list(arg,
+                         bol,
+                         chl,
+                         hti,
+                         mex), "data/datos_bm/paises_banco_mundial.xlsx")
+
+```
+
+Descarguemos la siguiente base de datos con datos de algunos países de América Latina desde 1960 a 2020: [DATA BANCO MUNDIAL](https://www.dropbox.com/scl/fi/kzujrqzmn9qfoh5kbz9ed/paises_banco_mundial.xlsx?dl=0&rlkey=vvpcu0ic88p9n0w4xjb8iu18v)
+
+--
+
+El archivo excel tiene 5 hojas, una para cada país (Argentina, Bolivia, Chile, Haití y México)
+
+--
+
+```{r}
+library(readxl)
+arg <- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 1)
+bol <- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 2)
+chl <- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 3)
+hti <- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 4)
+mex <- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 5)
+```
+
+--
+
+```{r}
+head(arg,3)
+```
+
+---
+
+# rbind()
+
+Cuando tenemos las mismas variables, lo más sencillo es combinar pegando los datos uno bajo el otro.
+
+--
+
+```{r fig.align='center', out.width = "40%", echo=FALSE}
+knitr::include_graphics("https://opinionessobreciencia.files.wordpress.com/2016/06/bind-abajo.png")
+```
+--
+
+```{r}
+data <- rbind(arg,chl,bol,hti,mex)
+dim(data)
+table(data$country)
+```
+
+---
+
+# rbind()
+
+Con más de un país en la data podemos distinguir distintas series temporales
+
+--
+
+```{r echo=FALSE, fig.align='center',out.width="50%", message=FALSE, warning=FALSE}
+library(ggplot2)
+data$year <- as.numeric(data$year)
+data %>% ggplot(aes(x=year,y=lifeExp,color=country)) + geom_line()
+```
+
+---
+
+### cbind()
+
+Tenemos los datos para el 2018 de la data recién cargada
+
+--
+
+```{r eval=FALSE}
+data %>% filter(year==2018 & country!="Haiti") %>% arrange(country)
+```
+
+```{r echo=FALSE}
+bm2018 <- data %>% filter(year==2018 & country!="Haiti") %>% arrange(country)
+bm2018 %>% knitr::kable()
+```
 
 
+--
+
+Y de latinobarómetro
+
+```{r echo=FALSE}
+lb <- readRDS("data/Latinobarometro_2020_Esp_Rds_v1_0.rds")
+```
+
+--
+
+```{r echo=FALSE, message=FALSE}
+evangelicos <- lb %>% filter(idenpa %in% c(32,152,68,484)) %>% 
+  group_by(idenpa) %>% mutate(gen=n()) %>%
+  ungroup() %>% 
+  group_by(idenpa,s10) %>% summarise(esp=n(),gen=first(gen)) %>% 
+  filter(s10==2) %>% 
+  mutate(evangelicos=esp/gen*100) %>% 
+  select(idenpa,evangelicos)
+```
+
+```{r message=FALSE, echo=FALSE}
+evangelicos                                                         %>% knitr::kable()
+```
+
+
+---
+
+# cbind()
+
+```{r}
+cbind(bm2018,evangelicos)
+```
+
+--
+
+¿Cuál es el gran problema?
+
+--
+
+Los países estaban desordenados.
+
+--
+
+Ordenar países
+
+```{r}
+evangelicos<- evangelicos %>% 
+                mutate(idenpa=case_when(idenpa==32 ~ "Argentina",
+                                        idenpa==68 ~ "Bolivia",
+                                        idenpa==152 ~ "Chile",
+                                        idenpa==484 ~ "Mexico"))
+```
+
+
+---
+
+# cbind()
+
+Ahora sí combinar:
+
+```{r}
+cbind(bm2018,evangelicos) %>% select(-idenpa)
+```
+
+--
+
+`cbind()` y `bind()` tienen limitaciones, solo combinan cuando existe el mismo número de filas y las variables se llaman igual.
+
+--
+
+`bind_rows()` y `col_rows()`, las versiones `dplyr` de las funciones vistas, son un poco más flexibles. 
+
+--
+
+De todas formas `merge()` nos permitirá hacer más cosas, siendo fundamental el uso de variables .inverse[llaves]
+
+---
+
+# merge()
+
+.pull-left[
+
+#### La lógica de bind_rows()
+
+```{r fig.align='center', out.width = "75%", echo=FALSE}
+knitr::include_graphics("Imagenes/merge1.png")
+```
+
+#### Para especificar el tipo de merge()
+
+`all.x=TRUE`
+
+
+`all.y=TRUE`
+
+
+`all=FALSE`
+
+
+`all=TRUE`
+
+
+]
+
+.pull-right[
+
+#### La lógica de merge()
+
+```{r fig.align='center', out.width = "25%", echo=FALSE}
+knitr::include_graphics("Imagenes/merge2.png")
+```
+]
+
+---
+
+# merge()
+
+La función tiene 4 argumentos fundamentales
+
+```{r eval=FALSE}
+merge(x, y, by="key", all.x=FALSE)
+```
+
+--
+
++ `x` es la data 1
+
++ `y` es la data 2
+
++ "key" es la variable llave usada para combinar
+
++ con `all` indicamos si queremos mantener los valores de x, de y, de todas o de ninguna
+
+
+---
+
+# merge()
+
+Crear dos bases de datos
+
+```{r}
+songs <- tibble(song = c("Come Together", "Dream On", 
+                         "Hello,Goodbye", "It's Not Unusual"),
+                album  = c("Abbey Road", "Aerosmith", 
+                           "Magical Mystery Tour", "Along Came Jones"),
+                first = c("John", "Steven", "Paul", "Tom"),
+                last = c("Lennon", "Tyler", "McCartney", "Jones"))
+
+albums <- tibble( album = c("A Hard Day's Night", 
+                         "Magical Mystery Tour", "Beggar's Banquet",
+                        "Abbey Road", "Led Zeppelin IV", 
+                        "The Dark Side of the Moon",
+                        "Aerosmith", "Rumours", "Hotel California"),
+                  band = c("The Beatles", "The Beatles", 
+                           "The Rolling Stones",
+                           "The Beatles", "Led Zeppelin", 
+                           "Pink Floyd", "Aerosmith",
+                           "Fleetwood Mac", "Eagles"),
+               year = c(1964,1967,1968,1969,1971,1973,1973,1977,1982))
+```
+
+
+
+---
+
+# merge()
+
+¿Que variable tienen en común songs y albums?
+
+--
+
+.inverse[album], por lo que será la llave.
+
+--
+
+```{r}
+merge(albums,songs, by="album", all = TRUE)                                      %>% knitr::kable()
+```
+
+---
+
+# merge()
+
+Probemos con `all=FALSE`
+
+```{r}
+merge(albums,songs, by="album", all = FALSE)                                     %>% knitr::kable()
+```
+
+--
+
+¿Que sucedió?
+
+--
+
+Solo se mantienen las observaciones que simultáneamente están en X y en Y
+
+
+---
+
+# merge()
+
+Quedarse con todos los valores de x (`all.x=TRUE`)
+
+```{r}
+merge(albums,songs, by="album", all.x = TRUE)                                      %>% knitr::kable()
+```
+
+---
+
+# merge()
+
+Quedarse con todos los valores de y (`all.y=TRUE`)
+
+```{r}
+merge(albums,songs, by="album", all.y = TRUE)                                    %>% knitr::kable()
+```
+
+
+---
+
+# Ejercicio breve
+
+Agregar afganistán a la base de países de AL (CHL, ARG, BOL, MEX, HTI)
+
+Luego, pegar la variable continente de gapminder
+
+```{r}
+head(data)
+```
+
+
+---
+
+# Ejercicio breve
+
+Adecuar Afganistán al formato de la data
+
+```{r}
+afganistan <- afganistan %>% select(anio,
+                      poblacion_total,
+                      esperanza_de_vida_al_nacer_total_anos,
+                      pib_per_capita_us_a_precios_actuales) %>% 
+  rename(year=anio,
+         pop=poblacion_total,
+         gdpPercap=pib_per_capita_us_a_precios_actuales,
+         lifeExp=esperanza_de_vida_al_nacer_total_anos) %>% 
+  mutate(country="Afghanistan")
+
+```
+
+--
+
+Combinar las dos datas
+
+--
+
+```{r}
+data <- rbind(afganistan,data)
+table(data$country)
+```
+
+---
+
+# Ejercicio breve
+
+Extrae continente de gapminder
+
+```{r}
+continente <- gapminder %>% 
+  filter(year==1952) %>% 
+  select(country,continent)
+
+table(continente$continent)
+```
+
+--
+
+Pegar el continente
+
+```{r}
+dataconcontinente <- merge(data,continente,by=c("country"),all.x = TRUE)
+```
+
+
+---
+
+# Ejercicio breve
+
+```{r}
+head(dataconcontinente)
+```
+
+--
+
+```{r}
+tail(dataconcontinente)
+```
+
+---
+
+# Ejercicio breve
+
+¿Que pasaría con `all.y=TRUE`?
+
+```{r eval=FALSE}
+merge(data,continente,by=c("country"),all.y = TRUE)
+```
+
+--
+
+¿Con cuantas observaciones nos quedaríamos? (desafío para la casa)
+
+
+---
+
+# merge()
+
+#### Para cerrar
+
+--
+
+¿Podemos usar más de una llave?
+
+--
+
+Sí, con `by=c("var1","var2")`
+
+--
+
+¿Se puede combinar más de una data frame al mismo tiempo? 
+
+--
+
+Sí, teóricamente infinitas hasta que colapse la memoria del pc:
+
+--
+
+```{r eval=FALSE}
+Reduce(function(x, y) merge(x, y), list(x, y, z, etc))
+```
+
+Deben escribirse dentro de `list()`
+
+--
+
+Con comandos más avanzados se pueden leer y combinar todas las bases de datos de una carpeta del computador o del ambiente.
 
 
 ---
@@ -578,8 +1067,9 @@ class: inverse, center, middle
 
 ### Para reforzar y seguir aprendiendo
 
+[Funciones merge() en R](https://r-coder.com/funcion-merge-r/)
 
-
+[Video "el juego de las estadísticas"](https://www.youtube.com/watch?v=V8lbiiTF2P0) (utiliza gapminder)
 
 
 
