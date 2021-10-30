@@ -2119,21 +2119,21 @@ Material de apoyo
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ene</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_spss.html'>read_spss</a></span><span class='op'>(</span><span class='st'>"practicas/ene-2019-11.sav"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ene</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/haven/man/read_spss.html'>read_spss</a></span><span class='op'>(</span><span class='st'>"practicas/ene-2019-11.sav"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <h2 id="genera-un-cuadro-de-resumen-de-b14_rev4cl_canes">Genera un cuadro de resumen de b14_rev4cl_canes</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>b14_rev4cl_caenes</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>b14_rev4cl_caenes</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <h2 id="cruza-las-variables-b14_rev4cl_caenes-y-b1-haz-una-tabla-de-contingencia.">Cruza las variables b14_rev4cl_caenes y b1 (haz una tabla de contingencia).</h2>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/flat_table.html'>flat_table</a></span><span class='op'>(</span><span class='va'>ene</span>,<span class='va'>b1</span>,<span class='va'>b14_rev4cl_caenes</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/flat_table.html'>flat_table</a></span><span class='op'>(</span><span class='va'>ene</span>,<span class='va'>b1</span>,<span class='va'>b14_rev4cl_caenes</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2141,8 +2141,8 @@ Material de apoyo
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Población en edad de trabajar (PET)</span>
-<span class='va'>ene</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>ene</span>, pet<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>edad</span><span class='op'>&gt;=</span><span class='fl'>15</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>pet</span><span class='op'>)</span>
+<span class='va'>ene</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>ene</span>, pet<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>edad</span><span class='op'>&gt;=</span><span class='fl'>15</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>pet</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2159,8 +2159,8 @@ Value |     N | Raw % | Valid % | Cum. %
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Ocupados (ocu)</span>
-<span class='va'>ene</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>ene</span>, ocu<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>cae_especifico</span><span class='op'>&gt;=</span><span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>cae_especifico</span><span class='op'>&lt;=</span><span class='fl'>7</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>ocu</span><span class='op'>)</span>
+<span class='va'>ene</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span><span class='va'>ene</span>, ocu<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/if_else.html'>if_else</a></span><span class='op'>(</span><span class='va'>cae_especifico</span><span class='op'>&gt;=</span><span class='fl'>1</span> <span class='op'>&amp;</span> <span class='va'>cae_especifico</span><span class='op'>&lt;=</span><span class='fl'>7</span>,<span class='fl'>1</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>ocu</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2188,7 +2188,7 @@ Value |     N | Raw % | Valid % | Cum. %
 <pre><code>[1] 42856</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Forma 2</span>
-<span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>pet</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>pet</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2201,7 +2201,7 @@ Value |     N | Raw % | Valid % | Cum. %
     1 | 77957 |    81 |      81 |    100
  &lt;NA&gt; |     0 |     0 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>ocu</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>ene</span><span class='op'>$</span><span class='va'>ocu</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>

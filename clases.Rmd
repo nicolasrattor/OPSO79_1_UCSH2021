@@ -64,11 +64,11 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Clase 8. Estadística descriptiva II](https://opso791ucsh2021.netlify.app/clases/clase8/clase8b_estadistica_descriptiva2#1)
 
-[Clase 8. Pivotaer y combinar data frames](https://opso791ucsh2021.netlify.app/clases/clase8/clase8c_agrupar_trasponer_combinar#1)
+[Clase 8. Continuar agrupación y pivotaer data frames](https://opso791ucsh2021.netlify.app/clases/clase8/clase8c_agrupar_trasponer#1)
 
-# Ciencia abierta y reproducibilidad (05 de noviembre)
+# Visualización de datos (y continuar trasponer y combinar data) (05 de noviembre)
 
-# Visualización de datos (12 de noviembre)
+# Ciencia abierta y reproducibilidad (12 de noviembre)
 
 # Diseño de muestras e inferencia (19 de noviembre)
 
