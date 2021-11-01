@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-05-11" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Visualización de datos con ggplot2 (y combinación de data frames)
+### <code>05/11/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Visualización de datos
+
+`Su relevancia, malos ejemplos y recomendaciones`
+
+---
+
+## La importancia de la visualización
+
+La visualización juega un rol importante en las etapas del análisis de datos:
+
+- Exploración
+
+
+- Modelamiento
+
+
+- Comunicación
+
+--
+
+El tipo de gráfico a elaborar se desprende naturalmente de estos objetivos.
+
+--
+
+La visualización permite 
+
++ Descubrir relaciones donde no creíamos que habían (o a la inversa)
+
+--
+
++ comparar estimaciones y determinar si existen diferencias significativas
+
+--
+
++ Comunicar y atraer la atención de una audiencia.
+
+
+
+---
+
+## La importancia de la visualización
+
+### Mismos estadísticos, diferentes diagramas
+
+&lt;img src="https://raw.githubusercontent.com/rweekly/image/master/2017-03/AllDinosGrey_1_scale.png" width="55%" style="display: block; margin: auto;" /&gt;
+--
+
+.center[
+## [Matejka &amp; Fitzmaurice, 2017](https://www.autodeskresearch.com/publications/samestats) 
+]
+
+---
+
+## ¿Qué hace a un mal gráfico?
+
+--
+
+Mal gusto
+
+--
+
+.pull-left[
+
+&lt;img src="Imagenes/1.bad_taste_a.PNG" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="https://excelcharts.com/wp-content/uploads/2011/06/639px-K%C3%BChlschifffahrt_Bananen_Exporte_20071.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+## ¿Qué hace a un mal gráfico?
+
+--
+
+Mal manejo de los datos
+
+--
+
+&lt;img src="Imagenes/essential_democracy.PNG" width="60%" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="Imagenes/mega_cadem.PNG" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## ¿Qué hace a un mal gráfico?
+
+--
+
+Mala percepción
+
+--
+
+&lt;img src="Imagenes/3d.PNG" width="50%" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="Imagenes/balance covid.jpeg" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ¿Qué hace a un mal gráfico?
+
+Mala percepción
+
+&lt;img src="Imagenes/be_aware_dual_axis.PNG" width="50%" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="Imagenes/evsemanal.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## ¿Qué hace a un mal gráfico?
+
+¿El problema?
+
+&lt;img src="Imagenes/preocupacionescovid.jfif" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+--
+
+Otros problemas: no colocar etiquetas en los ejes (o no colocar leyendas)
+
+&lt;img src="Imagenes/graphcrimesportada.jfif" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+## ¿Qué hace a un mal gráfico?
+
+Ignorar el gráfico
+
+--
+
+&lt;img src="Imagenes/kast2.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+--
+
+&lt;img src="Imagenes/kast1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Algunos consejos sobre visualización
+
+--
+
+Las mejores visualizaciones son aquellas que requieren el uso de la *"visión instantánea"*, que no requieren de un esfuerzo visual para ser comprendidas.
+
+--
+
+Los elementos del gráfico varían en la dificultad de estimar variables cuantitativas. 
+--
+
+Elementos como la posición a lo largo de una escala son más sencillos de percibir que el área de una figura o el tono del color [(Cleveland &amp; McGuill, 1985)](http://webspace.ship.edu/pgmarr/Geo441/Readings/Cleveland%20and%20McGill%201985%20-%20Graphical%20Perception%20and%20Graphical%20Methods%20for%20Analyzing%20Scientific%20Data.pdf).
+
+--
+
+Todo lo visualizado nos debe servir para explicar algo pertinente (evita confundir con demasiada información)
+
+--
+
+Cuidado con incluir muchos atributos (posición, color, tamaño, textura, forma)
+
+--
+
+No usar gráficos de torta (algunos/as dicen que son [solo para comer](https://www.richardhollins.com/blog/why-pie-charts-suck/))
+
+--
+
+Para comparar más de un gráfico utiliza las mismas escalas (y los mismos límites en los ejes)
+
+--
+
+Para ver activamente malos gráficos: [Graph Crimes](https://twitter.com/graphcrimes)
+
+
+
+---
+
+class: inverse, center, middle
+
+# ggplot2
+
+`Introducción a su gramática y algunos consejos`
+
+---
+
+# ggplot2
+
+.pull-left[
+
+Es una de las muchas formas de hacer gráficos en R. 
+
+Es parte del conjunto de paquete `tidyverse`.
+
+
+```r
+install.packages("ggplot2")
+library(ggplot2)
+```
+
+
+]
+
+.pull-right[
+&lt;img src="https://github.com/rstudio/hex-stickers/raw/master/PNG/ggplot2.png" width="200"&gt;
+]
+
+--
+
+La visualización implica representar datos usando lineas, formas, colores y otras cosas más.
+
+--
+
+El uso de estos signos depende de lo que vamos representar (evitar sobrecargar).
+
+--
+
+La gramática de ggplot funciona por "capas".
+
+--
+
+Las capas dentro de la función ggplot se concatenan con signos `+`
+
+---
+
+# ggplot2
+
+.center[
+
+&lt;img src="Imagenes/heiss_capas_ggplot.png" width="600"&gt;
+
+]
+
+--
+
+.center[
+
+[Andrew Heiss. Curso *Data Visualization*](https://datavizs21.classes.andrewheiss.com/)
+
+]
+
+
+---
+
+# ggplot2
+
+`La gramática de ggplot`
+
+--
+
+Memorizar las funciones es una mala estrategia para mejorar en ggplot. 
+
+--
+
+Mejor ocupar el tiempo en comprender la lógica, hay mucho material en esta presentación y en internet para consultar.
+
+--
+
+A lo menos, debemos considerar 4 elementos para generar un gráfico. 
+
++ Lo primero y fundamental: la dataframe que queremos graficar.
+
+--
+
+
+```r
+*data
+```
+
+--
+
++ Lo segundo, llamar a la función `ggplot()` del paquete `ggplot2`.
+
+
+```r
+*data %&gt;% ggplot()
+```
+
+---
+
+# ggplot2
+
++ Lo tercero, definir las variable que queremos graficar.
+
+--
+
+
+```r
+*data %&gt;% ggplot(aes(x=var1, y=var2))
+```
+
+--
+
++ Lo cuarto, definir si queremos visualizar líneas, barras, cajas, puntos, etc. 
+
+--
+
+
+```r
+*data %&gt;% ggplot(aes(x=var1, y=var2)) + geom_point()
+```
+
+--
+
+
+```r
+*data %&gt;% ggplot(aes(x=var1, y=var2)) + geom_line()
+```
+
+--
+
+
+```r
+*data %&gt;% ggplot(aes(x=var1, y=var2)) + geom_bar()
+```
+
+--
+
+
+```r
+*data %&gt;% ggplot(aes(x=var1, y=var2)) + geom_boxplot()
+```
+
+---
+
+## Aplicación simple de ggplot2
+
+
+```r
+library(ggplot2) ; library(dplyr) ; library(tidyr)
+```
+
+--
+
+
+```r
+library(gapminder)
+```
+
+--
+
+
+```r
+head(gapminder)
+```
+
+```
+## # A tibble: 6 x 6
+##   country     continent  year lifeExp      pop gdpPercap
+##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
+## 1 Afghanistan Asia       1952    28.8  8425333      779.
+## 2 Afghanistan Asia       1957    30.3  9240934      821.
+## 3 Afghanistan Asia       1962    32.0 10267083      853.
+## 4 Afghanistan Asia       1967    34.0 11537966      836.
+## 5 Afghanistan Asia       1972    36.1 13079460      740.
+## 6 Afghanistan Asia       1977    38.4 14880372      786.
+```
+
+
+```r
+dim(gapminder)
+```
+
+```
+## [1] 1704    6
+```
+
+---
+
+
+
+
+
+
+---
+
+## Aplicación simple de ggplot2
+
+
+```r
+gapminder %&gt;% ggplot()
+```
+
+![](clase9b_visualizacion_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+
+---
+
+## Aplicación simple de ggplot2
+
+
+```r
+gapminder %&gt;% ggplot(aes(x=year,y=pop))
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Aplicación simple de ggplot2
+
+
+```r
+gapminder %&gt;% ggplot(aes(x=lifeExp,y=pop)) + geom_point()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-30-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Agregar terceras variables
+
+--
+
+
+```r
+gapminder %&gt;% ggplot(aes(x=lifeExp,y=pop,color=continent)) + 
+  geom_point()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-31-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2: otras capas
+
+Para mapear terceras, cuartas o quintas variables no ocupamos "z=".
+
+--
+
+Para llamar a estas terceras variables aplicamos alguna función o argumento que indique que cosa queremos hacer con la variable
+
+--
+
+En el caso anterior, ocupamos el argumento `color=` (colorear contornos).
+
+--
+
+También se podría ocupar el argumento `fill=` (llenar con color la figura)
+
+--
+
+También se podría ocupar el argumento `size=` (var numéricas)
+
+--
+
+O también, la función `facet_wrap()` (dividir en paneles, var categóricas)
+
+--
+
+Hay otras muchas formas de agregar terceras variables.
+
+---
+
+## Variable para el color y paneles
+
+
+```r
+gapminder %&gt;% ggplot(aes(x=lifeExp,y=pop,color=country)) + 
+  geom_point() +
+* facet_wrap(~continent) +
+  theme(legend.position = "none")   
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-32-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Filtrar data y luego visualizar
+
+
+```r
+gapminder %&gt;% 
+* filter(year %in% c(1952,1977,1992,2007)) %&gt;%
+  ggplot(aes(x=lifeExp,y=log(gdpPercap),color=continent)) + 
+  geom_point() +
+  facet_wrap(~year) 
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-33-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Barras
+
+Cargar data de interés
+
+
+```r
+data &lt;- readRDS("data/Latinobarometro_2020_Esp_Rds_v1_0.rds")
+```
+
+--
+
+*¿Quien tiene más poder en Chile?*
+
++ Crear tabla
+
+--
+
+
+```r
+tabla &lt;- data %&gt;% 
+  filter(idenpa==152) %&gt;% 
+  group_by(p48st_1) %&gt;% 
+  summarise(n=n()) %&gt;% 
+  mutate(porcentaje=n/sum(n)) %&gt;% 
+  arrange(-n)
+```
+
+
+|p48st_1                 |   n| porcentaje|
+|:-----------------------|---:|----------:|
+|Las grandes empresas    | 537|      44.75|
+|Los partidos polÃ­ticos | 151|      12.58|
+|El Gobierno             | 131|      10.92|
+
+
+---
+
+# ggplot2. Barras
+
++ Con el dato agrupado ya podemos visualizar...
+
+--
+
+.pull-left[
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=p48st_1,
+             y=porcentaje)) +
+  geom_bar()
+```
+
+.inverse[Error: stat_count() can only have an x or y aesthetic.]
+
+]
+
+.pull-right[
+
+&lt;img src="https://media.giphy.com/media/a5viI92PAF89q/giphy.gif" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+Por defecto `geom_bar()` visualiza una variable.
+
+--
+
+En argumento "stat" hay que señalar que queremos visualizar dos variables. 
+
+--
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=p48st_1,
+             y=porcentaje)) +
+* geom_bar(stat = "identity")
+```
+
+
+---
+
+# ggplot2. Barras
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-40-1.png" width="55%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# ggplot2. Barras
+
+Sin el argumento `stat` hay que colocar una variable y el conteo lo hace ggplot
+
+--
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(p48st_1)) +
+  geom_bar()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-41-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Barras ordendas
+
+Volviendo a nuestro gráfico
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=p48st_1, y=porcentaje)) +
+* geom_bar(stat = "identity")
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-42-1.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# ggplot2. Barras ordendas
+
+
+```r
+*library(forcats)
+tabla %&gt;% 
+* ggplot(aes(x=fct_reorder(p48st_1, desc(-n)),
+             y=porcentaje)) +
+  geom_bar(stat = "identity")
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-43-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Invertir el gráfico
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=fct_reorder(p48st_1, desc(-n)),
+             y=porcentaje)) +
+  geom_bar(stat = "identity") +
+* coord_flip()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-44-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Agregar etiquetas
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=fct_reorder(p48st_1, desc(-n)),
+             y=porcentaje)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+* labs(x="Instituciones",y="Porcentaje",
+*      title = "Instituciones percibidas como las más poderosas en Chile")
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-45-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Agregar valores
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=fct_reorder(p48st_1, desc(-n)),
+             y=porcentaje)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+* geom_text(aes(label=porcentaje))
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-46-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Definir ejes
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=fct_reorder(p48st_1, desc(-n)),
+             y=porcentaje)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  geom_text(aes(label=porcentaje),hjust=-0.1,size=3) +
+* scale_y_continuous(limits = c(0,50))
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-47-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Tema y color
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=fct_reorder(p48st_1, desc(-n)),
+             y=porcentaje)) +
+* geom_bar(stat = "identity",fill="darkred") +
+  coord_flip() +
+  geom_text(aes(label=porcentaje),hjust=-0.1,size=3) +
+  scale_y_continuous(limits = c(0,50))
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-48-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Signo porcentaje
+
+
+```r
+tabla %&gt;% 
+  ggplot(aes(x=fct_reorder(p48st_1, desc(-n)),
+             y=porcentaje)) +
+  geom_bar(stat = "identity",fill="darkred") +
+  coord_flip() +
+* geom_text(aes(label=paste0(porcentaje,"%")),hjust=-0.1,size=3) +
+  scale_y_continuous(limits = c(0,50))
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-49-1.png" width="35%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Graf. de cajas
+
+
+```r
+data %&gt;% 
+  ggplot(aes(y=edad)) + geom_boxplot()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-50-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Graf. de cajas
+
+
+```r
+data %&gt;% 
+  filter(idenpa %in% c(152,76,32)) %&gt;%  # Chile, Brasil, Argentina
+* ggplot(aes(y=edad,x=as.factor(idenpa))) +
+  geom_boxplot()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-51-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+# ggplot2. Histograma
+
+
+```r
+esi &lt;- haven::read_sav("data/esi-2019---personas_s.sav")
+```
+
+--
+
+
+```r
+esi %&gt;% ggplot(aes(ing_mon_sb)) +
+  geom_histogram()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-53-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+# ggplot2. Histograma
+
+Indicar número de barras
+
+
+```r
+esi %&gt;% ggplot(aes(ing_mon_sb)) +
+  geom_histogram(bins = 100)   
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-54-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+# ggplot2. Histograma
+
+Indicar anchura de las barras
+
+
+```r
+esi %&gt;% ggplot(aes(ing_mon_sb)) +
+  geom_histogram(binwidth = 200000)  # Rangos de $200.000  
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-55-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+--- 
+
+# ggplot2. Histograma
+
+Distinguir por tercera variable
+
+
+```r
+esi %&gt;% ggplot(aes(ing_mon_sb,
+                   fill=as.factor(sexo))) +
+  geom_histogram(binwidth = 200000)   
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-56-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+# ggplot2. Histograma
+
+Distinguir por tercera variable y detalle
+
+
+```r
+esi %&gt;% ggplot(aes(ing_mon_sb,
+                   fill=as.factor(sexo))) +
+  geom_histogram(binwidth = 200000,alpha=0.5, position="identity") 
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-57-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+--- 
+
+# ggplot2. Histograma
+
+Logaritmo de ingresos para normalizar
+
+
+```r
+esi %&gt;% ggplot(aes(log(ing_mon_sb),
+                   fill=as.factor(sexo))) +
+  geom_histogram(alpha=0.5, position="identity") 
+```
+
+```
+## Warning: Removed 36150 rows containing non-finite values (stat_bin).
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-58-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2. Otras capas
+
+Volvamos al gráfico de países (*gapminder*)
+
+
+```r
+gapminder %&gt;% filter(year==2007) %&gt;%  
+  ggplot(aes(x=lifeExp,y=pop,color=continent)) + 
+  geom_point() +
+  facet_wrap(~continent)
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-59-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+## ggplot2. Otras capas 
+
+
+```r
+gapminder %&gt;% filter(year==2007) %&gt;%  
+  ggplot(aes(x=lifeExp,y=pop,color=continent)) + 
+  geom_point() +
+  facet_wrap(~continent) +
+* theme_bw()
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-60-1.png" style="display: block; margin: auto;" /&gt;
+
+--
+
+Acá [listado y visualización de distintos temas](https://www.datanovia.com/en/blog/ggplot-themes-gallery/).
+
+
+---
+
+# ggplot2. Otras capas
+
+### Titulos, leyendas hacia abajo, separador de miles y colores para cada gusto
+
+
+```r
+gapminder %&gt;% filter(year==2007) %&gt;%  
+  ggplot(aes(x=lifeExp,y=pop,color=continent)) + 
+  geom_point() +
+*scale_color_manual(values=c("#0D5FA6","#24733F","#F2B705","#F21D1D","black"))+
+  facet_wrap(~continent) +
+* scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE)) +
+  theme_bw() +
+  labs(title = "Grafico 1. Relación entre tamaño de población y expectativa de vida en países entre 1960 y 2010",
+*      subtitle = "Según continente de los países",
+       x="Expectativa de vida",y="Población") +
+* theme(legend.position = "bottom")
+```
+
+---
+
+# ggplot2. Otras capas
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-62-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2 y transf. de datos
+
+El ejemplo fue sencillo. La data frame tenía la estructura exacta para el gráfico que queríamos hacer.
+
+--
+
+¿Y sí queremos comparar la trayectoria de la expectativa de vida?
+
+--
+
+
+```r
+*gapminder %&gt;% ggplot(aes(x=year,y=lifeExp)) +
+* geom_line()
+```
+
+--
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-64-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2 y transf. de datos
+
+Muchas soluciones. Depende de nuestros objetivos. Para algunas el dato esta perfecto. Para otras requiere manipulación. 
+
+--
+
++ I. Quedarnos con un solo país. 
+
+--
+
+
+```r
+*gapminder %&gt;% filter(country=="Chile")  %&gt;%
+  ggplot(aes(x=year,y=lifeExp)) + 
+  geom_line()                             
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-65-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2 y transf. de datos
+
++ II. Intentar visualizar todos los países (A)
+
+--
+
+
+```r
+gapminder %&gt;%
+* ggplot(aes(x=year,y=lifeExp,color=country)) +
+  geom_line() + theme(legend.position = "none")                         
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-66-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# ggplot2 y transf. de datos
+
++ II. Intentar visualizar algunos países (B)
+
+--
+
+
+```r
+gapminder %&gt;% 
+  filter(country=="Chile"|
+           country=="Brazil"|
+           country=="Argentina") %&gt;%
+* ggplot(aes(x=year,y=lifeExp,color=country)) +
+  geom_line()                             
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-67-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2 y transf. de datos
+
++ III. Agrupar la base a nivel de continentes-año y visualizar por continentes
+
+--
+
+
+```r
+*gapminder %&gt;% group_by(continent,year) %&gt;%
+* summarise(lifeExp=mean(lifeExp)) %&gt;%
+  ggplot(aes(x=year,y=lifeExp,color=continent)) + 
+  geom_line()                             
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-68-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# ggplot2 y transf. de datos
+
+También podemos centrarnos en un solo año y algunos países. 
+
+--
+
+
+```r
+gapminder %&gt;% filter(year==2007&amp; country %in% c("Chile","Brazil","Argentina","Peru","Bolivia","Mexico")) %&gt;%
+  ggplot(aes(x=country,y=lifeExp)) + 
+* geom_bar(stat = "identity")
+```
+
+&lt;img src="clase9b_visualizacion_files/figure-html/unnamed-chunk-69-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Exportar gráficos
+
+Función para exportar el último gráfico efecutado en R.
+
+--
+
+Sirve para pegarlos en informes en word o presentaciones,
+
+--
+
+
+```r
+ggsave(
+  plot = last_plot(),
+* filename = "graphs/grafico1.png",
+  device = "png",
+  dpi = "retina",
+  units = "cm",
+  width = 25,
+  height = 15
+)
+```
+
+--
+
+En RMarkdown es recomendable exportarlos y luego cargarlos como imagen (control dimensiones)
+
+--
+
+
+```r
+knitr::include_graphics('graphs/grafico1.png') # lo mismo que ![]()
+```
+
+---
+
+# Últimos consejos
+
+--
+
+Muchas veces nos vamos a encontrar con la necesidad de hacer un gráfico, pero no sabremos:
+
++ Cuál de todos es el más adecuado.
+
++ Cómo realizarlo.
+
+--
+
+Para ello, es esencial saber cómo buscar en Internet.
+
+--
+
++ Si no sabemos que hacer, hacemos un barrido de las gráficas más comunes de ggplot2. Ver [The R Graph Gallery](https://www.r-graph-gallery.com/index.html).
+
+--
+
+Definimos bien lo que queremos: gráfico apilado de barras de porcentajes (e.g.).
+
+--
+
+Buscamos cómo se llama el gráfico en inglés, dado que hay mucha más documentación.
+
+--
+
+Probamos con una sintaxis previa y la adaptamos a nuestros datos, fijándonos en la estructura de éstos.
+
+
+---
+
+# Para tema/apariencia
+
+--
+
+
+```r
+install.packages("ggThemeAssist")
+```
+
+--
+
+&lt;img src="Imagenes/ggtheme.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+# Para modificar el tema
+
+&lt;a href="https://github.com/calligross/ggthemeassist" target="_blank"&gt;&lt;img src="https://github.com/calligross/ggthemeassist/raw/master/examples/ggThemeAssist2.gif" width="80%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
+
+
+
+---
+
+
+&lt;img src="https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/ggplot2_masterpiece.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Tarea N°4
+
+## Visualización de datos con ggplot2
+
+[Ver pauta acá](https://opso791ucsh2021.netlify.app/clases/clase9/tarea_visualizacion.pdf)
+
+La tarea debe ser escrita en Rmarkdown (`.rmd`) y debe ser entregada con su respectiva salida en `.html`.
+
+Entrega a más tardar el martes 16 de noviembre a las 23:59 hrs (más de una semana).
+
+
+---
+
+# Material consultado, utilizado o recomendado*
+
+Carvajal, R. (2021) [Introducción a R para el razonamiento cuantitativo de datos](https://bookdown.org/rodolfo_carvajal/apunte/visualizaci%C3%B3n-de-datos.html)*.
+
+Healy, K. Make a plot. Capítulo en [*Data visualization. A practical introduction*](https://socviz.co/).
+
+Heiss, A. Course [*Data Visualization. Use R, ggplot2, and the principles of graphic design to create beautiful and truthful visualizations of data*](https://datavizs21.classes.andrewheiss.com/).
+
+Rosling, H. Video ["The joy of Stats"](https://www.youtube.com/watch?v=V8lbiiTF2P0) (Con subtítulos)*.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

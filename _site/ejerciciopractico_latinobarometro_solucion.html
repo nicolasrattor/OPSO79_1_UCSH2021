@@ -2111,7 +2111,7 @@ Material de apoyo
 <p>Descargar y cargar datos de <a href="https://www.latinobarometro.org/latContents.jsp">Latinobarómetro 2018</a>.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/haven/man/read_spss.html'>read_sav</a></span><span class='op'>(</span><span class='st'>"clases/clase7/data/Latinobarometro_2018_Esp_Spss_v20190303.sav"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://haven.tidyverse.org/reference/read_spss.html'>read_sav</a></span><span class='op'>(</span><span class='st'>"clases/clase7/data/Latinobarometro_2018_Esp_Spss_v20190303.sav"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2121,9 +2121,9 @@ Material de apoyo
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># con dplyr</span>
 <span class='va'>data</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>IDENPA</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/arrange.html'>arrange</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>n</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>IDENPA</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>n</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 18 x 2
@@ -2151,7 +2151,7 @@ Material de apoyo
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## País 76, que corresponde a Brasil</span>
 
 <span class='co'># con r base y sjmisc</span>
-<span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span>,<span class='st'>"IDENPA"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span>,<span class='st'>"IDENPA"</span><span class='op'>]</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2195,7 +2195,7 @@ Value |            Label |    N | Raw % | Valid % | Cum. %
    12    13    14    96    97 
   186    78   181   161  3110 </code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span>,<span class='st'>"S5"</span><span class='op'>]</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span>,<span class='st'>"S5"</span><span class='op'>]</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2231,7 +2231,7 @@ Value |                                Label |     N | Raw % | Valid % | Cum. %
 <p>La católica es la principal, con 55% de preferencias (5 puntos porcentuales bajo lo que alcanza en América Latina). LOs evangélicos solo alcanzan un 12,64%. La segunda religión con mayor importancia es “ninguna”, con un 28,14% de las preferencias.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span><span class='va'>data</span><span class='op'>$</span><span class='va'>IDENPA</span><span class='op'>==</span><span class='fl'>152</span>,<span class='st'>"S5"</span><span class='op'>]</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/frq.html'>frq</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>[</span><span class='va'>data</span><span class='op'>$</span><span class='va'>IDENPA</span><span class='op'>==</span><span class='fl'>152</span>,<span class='st'>"S5"</span><span class='op'>]</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2276,7 +2276,7 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <p>Quédese solamente con los valores que van de 0 a 10 y suponga que la variable es cuantitativa. ¿Cómo se distribuye la variable?, ¿Que puede decir sobre las posiciones políticas en América Latina? Indique y explique sus principales medidas de tendencia central, de forma, variabilidad y posición. Puede visualizar con un histograma.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/select.html'>select</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/descr.html'>descr</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/descr.html'>descr</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2288,8 +2288,8 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
  0.02  5    5.04 10 (0-10)   4 0.01</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data2</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/mutate.html'>mutate</a></span><span class='op'>(</span>P22ST<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>P22ST<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='fu'><a href='https://rdrr.io/r/graphics/hist.html'>hist</a></span><span class='op'>(</span><span class='va'>data2</span><span class='op'>$</span><span class='va'>P22ST</span><span class='op'>)</span>
 </code></pre>
@@ -2301,14 +2301,14 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>IDENPA</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>)</span>,
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>&gt;=</span><span class='fl'>0</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>IDENPA</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>)</span>,
             sd<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='va'>P22ST</span><span class='op'>)</span>,
             <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>P22ST</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.25</span><span class='op'>)</span><span class='op'>)</span>,
             <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>P22ST</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.5</span><span class='op'>)</span><span class='op'>)</span>,
             <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span><span class='op'>(</span><span class='va'>P22ST</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>.75</span><span class='op'>)</span><span class='op'>)</span>,
-            cv<span class='op'>=</span><span class='va'>sd</span><span class='op'>/</span><span class='va'>mean</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>mean</span><span class='op'>)</span>
+            cv<span class='op'>=</span><span class='va'>sd</span><span class='op'>/</span><span class='va'>mean</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>mean</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 18 x 7
@@ -2368,9 +2368,9 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>coronavirus</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>==</span><span class='st'>"Chile"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>cases</span>,na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>==</span><span class='st'>"Chile"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>cases</span>,na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 3 x 2
@@ -2385,10 +2385,10 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>coronavirus</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>==</span><span class='st'>"death"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>muertes<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>cases</span>,na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/arrange.html'>arrange</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>muertes</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>==</span><span class='st'>"death"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>muertes<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>cases</span>,na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>muertes</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
   <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2402,9 +2402,9 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>coronavirus</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>==</span><span class='st'>"Chile"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>casos<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>cases</span>,na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>==</span><span class='st'>"Chile"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>casos<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>cases</span>,na.rm <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 3 x 2
@@ -2419,10 +2419,10 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>coronavirus</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Chile"</span>,<span class='st'>"Argentina"</span>,<span class='st'>"Brazil"</span>,<span class='st'>"Colombia"</span>,
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>country</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Chile"</span>,<span class='st'>"Argentina"</span>,<span class='st'>"Brazil"</span>,<span class='st'>"Colombia"</span>,
                         <span class='st'>"Cuba"</span>,<span class='st'>"Venezuela"</span>,<span class='st'>"Ecuador"</span>,<span class='st'>"Uruguay"</span>,
                         <span class='st'>"Paraguay"</span>,<span class='st'>"Bolivia"</span>,<span class='st'>"Peru"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>==</span><span class='st'>"death"</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>type</span><span class='op'>==</span><span class='st'>"death"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2432,8 +2432,8 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='va'>data</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>muertespromedio<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>muertespromedio<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='va'>cases</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>data</span>
 </code></pre>
 </div>
@@ -2463,7 +2463,7 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 </div>
 <img src="ejerciciopractico_latinobarometro_solucion_files/figure-html5/unnamed-chunk-14-1.png" width="624" />
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sjmisc/man/descr.html'>descr</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>muertespromedio</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>sjmisc</span><span class='fu'>::</span><span class='fu'><a href='https://strengejacke.github.io/sjmisc/reference/descr.html'>descr</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>muertespromedio</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>
@@ -2480,9 +2480,9 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Una forma</span>
 <span class='va'>coronavirus</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 1 x 1
@@ -2492,8 +2492,8 @@ Value |                                Label |   N | Raw % | Valid % | Cum. %
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># Otra forma</span>
 <span class='va'>paises</span> <span class='op'>&lt;-</span> <span class='va'>coronavirus</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/dplyr/man/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>country</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>paises</span><span class='op'>)</span>
 </code></pre>
 </div>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <meta name="date" content="2021-05-11" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Visualización de datos con ggplot2 (y combinación de data frames)
+### <code>05/11/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Transformación avanzada de datos
+
+`pendiente pivotear datos y combinar data frames`
+
+---
+
+# Pivotear los datos
+
+Alargamiento o ensanchamiento de una data frame.
+
+--
+
+.pull-left[
+
+**Alargamiento:** incremento en el número de filas y decrecimiento del número de columnas
+
+**Ensanchamiento:** incremento en el número de columnas y decrecimiento del número de filas
+
+Para esto utilizaremos las funciones `pivot_wider()` y `pivot_longer()` del paquete `tidyr`
+
+&lt;img src="https://tidyr.tidyverse.org/logo.png" width="20%" style="display: block; margin: auto;" /&gt;
+
+]
+
+--
+
+.pull-right[
+
+&lt;img src="imagenes/wide-long.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+# Pivotear los datos
+
+Relevante para visualizar (ggplot2) y para trabajar datos importados
+
+--
+
+Por ejemplo, descarguemos los datos de Afganistán que usamos clases atrás. Esta vez sin trampa.
+
+--
+
+&lt;a href="https://datos.bancomundial.org/" target="_blank"&gt;&lt;img src="imagenes/wdb.PNG" width="80%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
+
+---
+
+# Pivotear los datos
+
+¿Cómo vienen los datos?
+
+--
+
+
+```r
+afganistan &lt;- readxl::read_excel("data/API_AFG_DS2_es_excel_v2_3162018.xls",
+                                 skip = 3)
+```
+
+--
+
+
+|Country Code |       2005|        2012|
+|:------------|----------:|-----------:|
+|AFG          |         NA|          NA|
+|AFG          |   3.910455|   0.5579121|
+|AFG          | 210.115520| 771.2416744|
+|AFG          |         NA|   1.9269141|
+|AFG          |         NA|   0.0000000|
+
+--
+
+.inverse[¡Las variables vienen como filas!]
+
+---
+
+# Pivotear los datos
+
+La solución es trasponer los datos. 
+
+Hacer que las filas pasen a ser variables (*to wider*), y columnas variables (*to longer*).
+
+--
+
++ Quitamos variables innecesarias
+
+
+```r
+afganistan &lt;- afganistan %&gt;%  
+  select(-`Country Name`,-`Country Code`,-`Indicator Code`) 
+```
+
+--
+
++ Las variables que indicaban los años pasan a ser categorías de variable "anio"
+
+
+```r
+afganistan &lt;- afganistan %&gt;% pivot_longer(2:ncol(afganistan),
+                                          names_to = "anio")
+```
+
+--
+
+
+|Indicator Name                                                                                           |anio |  value|
+|:--------------------------------------------------------------------------------------------------------|:----|------:|
+|Flujos oficiales netos procedentes de organismos de las Naciones Unidas, UNICEF (US$ a precios actuales) |1970 | 440000|
+|Flujos oficiales netos procedentes de organismos de las Naciones Unidas, UNICEF (US$ a precios actuales) |1971 | 760000|
+
+---
+
+# Pivotear los datos
+
++ Quitar filas repetidas para evitar errores
+
+
+```r
+afganistan &lt;- afganistan %&gt;% 
+  distinct(`Indicator Name`,value,anio)
+```
+
+--
+
++ Ensanchar la data
+
+
+```r
+afganistan &lt;- afganistan %&gt;% 
+  tidyr::pivot_wider(names_from = `Indicator Name`, 
+                     values_from = value,
+                     values_fn = {mean}) 
+```
+
+
+
+
+
+--
+
+
+|anio | Población rural| Población entre 0 y 14 años de edad, total|
+|:----|---------------:|------------------------------------------:|
+|1960 |         8241132|                                    3791398|
+|1961 |         8373135|                                    3892774|
+|1962 |         8512057|                                    3987207|
+
+---
+
+# Pivotear los datos
+
++ Limpiar los nombres
+
+
+```r
+# Limpiar los nombres
+afganistan &lt;- afganistan %&gt;% 
+  janitor::clean_names()
+```
+
+--
+
+
+|anio | poblacion_rural| poblacion_entre_0_y_14_anos_de_edad_total|
+|:----|---------------:|-----------------------------------------:|
+|1960 |         8241132|                                   3791398|
+|1961 |         8373135|                                   3892774|
+|1962 |         8512057|                                   3987207|
+
+
+---
+
+# Pivotear los datos
+
+
+```r
+plot(afganistan$anio,afganistan$poblacion_total,type = "l")
+```
+
+&lt;img src="clase9a_trasponer_combinar_files/figure-html/unnamed-chunk-16-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+class: inverse, center, middle
+
+# Combinación de data frames
+
+`funciones cbind(), rbind() y merge()`
+
+---
+
+# Combinación de data frames
+
+
+
+Descarguemos la siguiente base de datos con datos de algunos países de América Latina desde 1960 a 2020: [DATA BANCO MUNDIAL](https://www.dropbox.com/scl/fi/kzujrqzmn9qfoh5kbz9ed/paises_banco_mundial.xlsx?dl=0&amp;rlkey=vvpcu0ic88p9n0w4xjb8iu18v)
+
+--
+
+El archivo excel tiene 5 hojas, una para cada país (Argentina, Bolivia, Chile, Haití y México)
+
+--
+
+
+```r
+library(readxl)
+arg &lt;- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 1)
+bol &lt;- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 2)
+chl &lt;- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 3)
+hti &lt;- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 4)
+mex &lt;- read_excel("data/datos_bm/paises_banco_mundial.xlsx",sheet = 5)
+```
+
+--
+
+
+```r
+head(arg,3)
+```
+
+```
+## # A tibble: 3 x 5
+##   year       pop lifeExp gdpPercap country  
+##   &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;    
+## 1 1960  20481781    65.1       NA  Argentina
+## 2 1961  20817270    65.2       NA  Argentina
+## 3 1962  21153042    65.3     1156. Argentina
+```
+
+---
+
+# rbind()
+
+Cuando tenemos las mismas variables, lo más sencillo es combinar pegando los datos uno bajo el otro.
+
+--
+
+&lt;img src="https://opinionessobreciencia.files.wordpress.com/2016/06/bind-abajo.png" width="40%" style="display: block; margin: auto;" /&gt;
+--
+
+
+```r
+data &lt;- rbind(arg,chl,bol,hti,mex)
+dim(data)
+```
+
+```
+## [1] 305   5
+```
+
+```r
+table(data$country)
+```
+
+```
+## 
+## Argentina   Bolivia     Chile     Haiti    Mexico 
+##        61        61        61        61        61
+```
+
+---
+
+# rbind()
+
+Con más de un país en la data podemos distinguir distintas series temporales
+
+--
+
+&lt;img src="clase9a_trasponer_combinar_files/figure-html/unnamed-chunk-22-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+### cbind()
+
+Tenemos los datos para el 2018 de la data recién cargada
+
+--
+
+
+```r
+data %&gt;% filter(year==2018 &amp; country!="Haiti") %&gt;% arrange(country)
+```
+
+
+| year|       pop| lifeExp| gdpPercap|country   |
+|----:|---------:|-------:|---------:|:---------|
+| 2018|  44494502|  76.520| 11633.498|Argentina |
+| 2018|  11353140|  71.239|  3548.591|Bolivia   |
+| 2018|  18729166|  80.042| 15888.144|Chile     |
+| 2018| 126190782|  74.992|  9686.514|Mexico    |
+
+
+--
+
+Y de latinobarómetro
+
+
+
+--
+
+
+
+
+| idenpa| evangelicos|
+|------:|-----------:|
+|     32|    3.750000|
+|     68|   15.666667|
+|    152|    9.583333|
+|    484|    2.500000|
+
+
+---
+
+# cbind()
+
+
+```r
+cbind(bm2018,evangelicos)
+```
+
+```
+##   year       pop lifeExp gdpPercap   country idenpa evangelicos
+## 1 2018  44494502  76.520 11633.498 Argentina     32    3.750000
+## 2 2018  11353140  71.239  3548.591   Bolivia     68   15.666667
+## 3 2018  18729166  80.042 15888.144     Chile    152    9.583333
+## 4 2018 126190782  74.992  9686.514    Mexico    484    2.500000
+```
+
+--
+
+¿Cuál es el gran problema?
+
+--
+
+Los países estaban desordenados.
+
+--
+
+Ordenar países
+
+
+```r
+evangelicos&lt;- evangelicos %&gt;% 
+                mutate(idenpa=case_when(idenpa==32 ~ "Argentina",
+                                        idenpa==68 ~ "Bolivia",
+                                        idenpa==152 ~ "Chile",
+                                        idenpa==484 ~ "Mexico"))
+```
+
+
+---
+
+# cbind()
+
+Ahora sí combinar:
+
+
+```r
+cbind(bm2018,evangelicos) %&gt;% select(-idenpa)
+```
+
+```
+##   year       pop lifeExp gdpPercap   country evangelicos
+## 1 2018  44494502  76.520 11633.498 Argentina    3.750000
+## 2 2018  11353140  71.239  3548.591   Bolivia   15.666667
+## 3 2018  18729166  80.042 15888.144     Chile    9.583333
+## 4 2018 126190782  74.992  9686.514    Mexico    2.500000
+```
+
+--
+
+`cbind()` y `bind()` tienen limitaciones, solo combinan cuando existe el mismo número de filas y las variables se llaman igual.
+
+--
+
+`bind_rows()` y `col_rows()`, las versiones `dplyr` de las funciones vistas, son un poco más flexibles. 
+
+--
+
+De todas formas `merge()` nos permitirá hacer más cosas, siendo fundamental el uso de variables .inverse[llaves]
+
+---
+
+# merge()
+
+.pull-left[
+
+#### La lógica de bind_rows()
+
+&lt;img src="Imagenes/merge1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+#### Para especificar el tipo de merge()
+
+`all.x=TRUE`
+
+
+`all.y=TRUE`
+
+
+`all=FALSE`
+
+
+`all=TRUE`
+
+
+]
+
+.pull-right[
+
+#### La lógica de merge()
+
+&lt;img src="Imagenes/merge2.png" width="25%" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+# merge()
+
+La función tiene 4 argumentos fundamentales
+
+
+```r
+merge(x, y, by="key", all.x=FALSE)
+```
+
+--
+
++ `x` es la data 1
+
++ `y` es la data 2
+
++ "key" es la variable llave usada para combinar
+
++ con `all` indicamos si queremos mantener los valores de x, de y, de todas o de ninguna
+
+
+---
+
+# merge()
+
+Crear dos bases de datos
+
+
+```r
+songs &lt;- tibble(song = c("Come Together", "Dream On", 
+                         "Hello,Goodbye", "It's Not Unusual"),
+                album  = c("Abbey Road", "Aerosmith", 
+                           "Magical Mystery Tour", "Along Came Jones"),
+                first = c("John", "Steven", "Paul", "Tom"),
+                last = c("Lennon", "Tyler", "McCartney", "Jones"))
+
+albums &lt;- tibble( album = c("A Hard Day's Night", 
+                         "Magical Mystery Tour", "Beggar's Banquet",
+                        "Abbey Road", "Led Zeppelin IV", 
+                        "The Dark Side of the Moon",
+                        "Aerosmith", "Rumours", "Hotel California"),
+                  band = c("The Beatles", "The Beatles", 
+                           "The Rolling Stones",
+                           "The Beatles", "Led Zeppelin", 
+                           "Pink Floyd", "Aerosmith",
+                           "Fleetwood Mac", "Eagles"),
+               year = c(1964,1967,1968,1969,1971,1973,1973,1977,1982))
+```
+
+
+
+---
+
+# merge()
+
+¿Que variable tienen en común songs y albums?
+
+--
+
+.inverse[album], por lo que será la llave.
+
+--
+
+
+```r
+merge(albums,songs, by="album", all = TRUE)                                      %&gt;% knitr::kable()
+```
+
+
+
+|album                     |band               | year|song             |first  |last      |
+|:-------------------------|:------------------|----:|:----------------|:------|:---------|
+|A Hard Day's Night        |The Beatles        | 1964|NA               |NA     |NA        |
+|Abbey Road                |The Beatles        | 1969|Come Together    |John   |Lennon    |
+|Aerosmith                 |Aerosmith          | 1973|Dream On         |Steven |Tyler     |
+|Along Came Jones          |NA                 |   NA|It's Not Unusual |Tom    |Jones     |
+|Beggar's Banquet          |The Rolling Stones | 1968|NA               |NA     |NA        |
+|Hotel California          |Eagles             | 1982|NA               |NA     |NA        |
+|Led Zeppelin IV           |Led Zeppelin       | 1971|NA               |NA     |NA        |
+|Magical Mystery Tour      |The Beatles        | 1967|Hello,Goodbye    |Paul   |McCartney |
+|Rumours                   |Fleetwood Mac      | 1977|NA               |NA     |NA        |
+|The Dark Side of the Moon |Pink Floyd         | 1973|NA               |NA     |NA        |
+
+---
+
+# merge()
+
+Probemos con `all=FALSE`
+
+
+```r
+merge(albums,songs, by="album", all = FALSE)                                     %&gt;% knitr::kable()
+```
+
+
+
+|album                |band        | year|song          |first  |last      |
+|:--------------------|:-----------|----:|:-------------|:------|:---------|
+|Abbey Road           |The Beatles | 1969|Come Together |John   |Lennon    |
+|Aerosmith            |Aerosmith   | 1973|Dream On      |Steven |Tyler     |
+|Magical Mystery Tour |The Beatles | 1967|Hello,Goodbye |Paul   |McCartney |
+
+--
+
+¿Que sucedió?
+
+--
+
+Solo se mantienen las observaciones que simultáneamente están en X y en Y
+
+
+---
+
+# merge()
+
+Quedarse con todos los valores de x (`all.x=TRUE`)
+
+
+```r
+merge(albums,songs, by="album", all.x = TRUE)                                      %&gt;% knitr::kable()
+```
+
+
+
+|album                     |band               | year|song          |first  |last      |
+|:-------------------------|:------------------|----:|:-------------|:------|:---------|
+|A Hard Day's Night        |The Beatles        | 1964|NA            |NA     |NA        |
+|Abbey Road                |The Beatles        | 1969|Come Together |John   |Lennon    |
+|Aerosmith                 |Aerosmith          | 1973|Dream On      |Steven |Tyler     |
+|Beggar's Banquet          |The Rolling Stones | 1968|NA            |NA     |NA        |
+|Hotel California          |Eagles             | 1982|NA            |NA     |NA        |
+|Led Zeppelin IV           |Led Zeppelin       | 1971|NA            |NA     |NA        |
+|Magical Mystery Tour      |The Beatles        | 1967|Hello,Goodbye |Paul   |McCartney |
+|Rumours                   |Fleetwood Mac      | 1977|NA            |NA     |NA        |
+|The Dark Side of the Moon |Pink Floyd         | 1973|NA            |NA     |NA        |
+
+---
+
+# merge()
+
+Quedarse con todos los valores de y (`all.y=TRUE`)
+
+
+```r
+merge(albums,songs, by="album", all.y = TRUE)                                    %&gt;% knitr::kable()
+```
+
+
+
+|album                |band        | year|song             |first  |last      |
+|:--------------------|:-----------|----:|:----------------|:------|:---------|
+|Abbey Road           |The Beatles | 1969|Come Together    |John   |Lennon    |
+|Aerosmith            |Aerosmith   | 1973|Dream On         |Steven |Tyler     |
+|Along Came Jones     |NA          |   NA|It's Not Unusual |Tom    |Jones     |
+|Magical Mystery Tour |The Beatles | 1967|Hello,Goodbye    |Paul   |McCartney |
+
+
+---
+
+# merge()
+
+#### Para cerrar
+
+--
+
+¿Podemos usar más de una llave?
+
+--
+
+Sí, con `by=c("var1","var2")`
+
+--
+
+¿Se puede combinar más de una data frame al mismo tiempo? 
+
+--
+
+Sí, teóricamente infinitas hasta que colapse la memoria del pc:
+
+--
+
+
+```r
+Reduce(function(x, y) merge(x, y), list(x, y, z, etc))
+```
+
+Deben escribirse dentro de `list()`
+
+--
+
+Con comandos más avanzados se pueden leer y combinar todas las bases de datos de una carpeta del computador o del ambiente.
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Ilustraciones de Allison Horst](https://github.com/allisonhorst/stats-illustrations)
+
+### Para reforzar y seguir aprendiendo
+
+[Funciones merge() en R](https://r-coder.com/funcion-merge-r/)
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
