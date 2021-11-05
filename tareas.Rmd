@@ -25,8 +25,9 @@ Importar data y trasformación avanzada con dplyr. [Descargar pauta aquí](tarea
 
 # Tarea N°4
 
-Estadística descriptiva con R e interpretación de salidas.
+Visualización de datos con ggplot2. [Descargar pauta aquí](https://opso791ucsh2021.netlify.app/clases/clase9/tarea_visualizacion.pdf). 
 
 # Tarea N°5
 
-Reproducir informes o documentos de trabajo cuantitativos. 
+Inferencia estadística con R. 
+

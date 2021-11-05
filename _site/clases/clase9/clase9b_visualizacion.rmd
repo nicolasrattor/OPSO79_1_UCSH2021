@@ -1167,3 +1167,5 @@ Heiss, A. Course [*Data Visualization. Use R, ggplot2, and the principles of gra
 
 Rosling, H. Video ["The joy of Stats"](https://www.youtube.com/watch?v=V8lbiiTF2P0) (Con subtítulos)*.
 
+[Como "animar" gráfico de ggplot2](https://slides.mitchelloharawild.com/onepackagepermeetup-gganimate/#1)
+
