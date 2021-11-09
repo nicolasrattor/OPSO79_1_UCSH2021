@@ -1,30 +1,68 @@
-<!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>OPSO79-1-UCSH2021</title>
-    <meta charset="utf-8" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-# OPSO79-1-UCSH2021
-## Ciencia abierta, RMarkdown y herramientas de gestión bibliográfica. Parte II
-### <code>08 de octubre 2021</code>
-
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Ciencia abierta, RMarkdown y herramientas de gestión bibliográfica. Opcional"
+date: "`12 de noviembre 2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+bibliography: "bib/openscience.bib"
 ---
 
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(pagedown)
+library(tidyverse)
 
 
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
+
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
+
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
+
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+#pagedown::chrome_print("clase10c_zotero_bibtex.html")
+
+```
 
 
-
-
-
-
-
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("bib/openscience.bib", check = FALSE)
+```
 
 class: center, middle, inverse
 
@@ -38,7 +76,9 @@ class: center, middle, inverse
 
 --
 
-&lt;a href="https://scholar.google.com/" target="_blank"&gt;&lt;img src="imagenes/scholar.png" width="70%" style="display: block; margin: auto;" /&gt;&lt;/a&gt;
+```{r fig.align="center", echo=FALSE, out.width="70%", fig.link="https://scholar.google.com/"}
+knitr::include_graphics("imagenes/scholar.png")
+```
 
 --
 
@@ -129,7 +169,7 @@ Con **gestores bibliográficos**.
 
 .pull-left[
 
-Software libre (*open source &amp; non profit*), que funciona como "asistente personal" de investigación. 
+Software libre (*open source & non profit*), que funciona como "asistente personal" de investigación. 
 
 Es un **gestor bibliográfico**, nos permite recolectar citas, organizarlas y citar cuando escribimos. 
 
@@ -139,7 +179,9 @@ Es un **gestor bibliográfico**, nos permite recolectar citas, organizarlas y ci
 
 .pull-right[
 
-&lt;img src="imagenes/zotero-logo-520x245.png" width="75%" style="display: block; margin: auto 0 auto auto;" /&gt;
+```{r fig.align="right", echo=FALSE, out.width="75%"}
+knitr::include_graphics("imagenes/zotero-logo-520x245.png")
+```
 
 ]
 
@@ -204,7 +246,9 @@ Este complemento nos permite guardar directamente las citas que encontremos en n
 
 --
 
-&lt;img src="imagenes/collect_with_click.PNG" width="60%" style="display: block; margin: auto;" /&gt;
+```{r fig.align="center", echo=FALSE, out.width="60%"}
+knitr::include_graphics("imagenes/collect_with_click.PNG")
+```
 
 --
 
@@ -248,7 +292,9 @@ Se requieren 2 insumos básicos:
 
 --
 
-&lt;img src="imagenes/Bibtex.PNG" width="90%" style="display: block; margin: auto auto auto 0;" /&gt;
+```{r fig.align="left", echo=FALSE, out.width="90%"}
+knitr::include_graphics("imagenes/Bibtex.PNG")
+```
 
 --
 
@@ -270,7 +316,7 @@ Ahora exportemos las referencias de Zotero (o las carpetas) que serán nuestro r
 
 --
 
-.inverse[Botón derecho sobre elemento -&gt; exportar elemento en Formato Bibtex (o Better BibTex).]
+.inverse[Botón derecho sobre elemento -> exportar elemento en Formato Bibtex (o Better BibTex).]
 
 Marcar "Keep Updated" y "Ok". 
 
@@ -334,7 +380,7 @@ Si queremos que el anexo aparezca después de la bibliografía
 ``` 
 # References
 
-&lt;div id="refs"&gt;&lt;/div&gt;
+<div id="refs"></div>
 
 # Appendix
 ```
@@ -378,7 +424,9 @@ Si les interesa, revisar el [paquete en github](https://github.com/crsh/citr) (e
 
 ---
 
-&lt;img src="https://raw.githubusercontent.com/crsh/citr/master/tools/images/addin_demo.gif" width="75%" style="display: block; margin: auto;" /&gt;
+```{r fig.align="center", echo=FALSE, out.width="75%"}
+knitr::include_graphics("https://raw.githubusercontent.com/crsh/citr/master/tools/images/addin_demo.gif")
+```
 
 ---
 
@@ -398,7 +446,9 @@ Para poder modificar el "estilo" de nuestra *CiteKey* y mantener actualizados lo
 
 --
 
-&lt;img src="Imagenes/betterbibtex.PNG" width="100%" style="display: block; margin: auto;" /&gt;
+```{r fig.align="center", echo=FALSE, out.width="100%"}
+knitr::include_graphics("Imagenes/betterbibtex.PNG")
+```
 
 ---
 
@@ -406,27 +456,12 @@ Para poder modificar el "estilo" de nuestra *CiteKey* y mantener actualizados lo
 
 Dos ejercicios **optativos**, pero próxima tarea será muy similar.
 
---
-
-
-#### 1. Crea tu CV
-
-Abre un RMarkdown con una plantilla por defecto de los paquetes `stevetemplates`, `vitae` u otro que te interese.
-
---
-
-Reemplaza los valores por tus datos personales, académicos y/o laborales (puedes agregar más campos de ser necesario).
-
---
-
-Renderiza el documento (knit). Adjunta el `.pdf` y el `.rmd` y, envía al correo de equipo docente. 
-
 
 ---
 
 # Ejercicios prácticos
 
-#### 2. Breve revisión de antecedentes
+#### Breve revisión de antecedentes
 
 Identifica un problema sociológico de tu interés y exprésalo en un objetivo general de investigación (3 líneas).
 
@@ -453,7 +488,7 @@ Lo central es que las referencias sean leídas y citadas en el RMarkdown desde e
 
 --
 
-Renderiza el documento (knit). Adjunta el `.pdf` y el `.rmd` y, envía al correo de equipo docente. 
+Renderiza el documento (knit). Adjunta el `.pdf` o `.html` y el `.rmd` y, envía al correo de equipo docente. 
 
 
 ---
@@ -474,126 +509,3 @@ En tanto es posible que después del curso sigas usando word para algún proyect
 
 
 
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>

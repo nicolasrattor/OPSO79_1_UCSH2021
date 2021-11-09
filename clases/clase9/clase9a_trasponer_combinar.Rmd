@@ -207,7 +207,6 @@ afganistan
 afganistan %>% group_by(`Indicator Name`) %>% count() %>% arrange(-n)
 afganistan %>% filter(`Indicator Name`=="Donaciones, excluidas las destinadas a cooperación técnica (balanza de pagos, US$ corrientes)")
 afganistan<-afganistan %>% filter(`Indicator Name`!="Donaciones, excluidas las destinadas a cooperación técnica (balanza de pagos, US$ corrientes)")
-  distinct(`Indicator Name`,name)
 afganistan<-afganistan %>%
   tidyr::pivot_wider(names_from = `Indicator Name`, 
                      values_from = value) 

@@ -26,3 +26,4 @@ clases/clase7/data/Latinobarometro_2018_Esp_R_v20190303.rds
 *.sav
 *.rds
 *.xls
+*.csv

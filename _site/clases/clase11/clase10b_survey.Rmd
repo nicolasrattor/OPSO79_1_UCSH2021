@@ -1,7 +1,7 @@
 ---
 title: "OPSO79-1-UCSH2021"
-subtitle: "Muestreo e inferencia"
-date: "`12/11/2021`"
+subtitle: "Inferencia desde muestras complejas"
+date: "`19/11/2021`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -79,6 +79,11 @@ class: inverse, center, middle
 ### Recursos web utilizados
 
 [Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+
+#### Para seguir aprendiendo 
+
+[Lehmann et al (2021) Presentación paquete "calidad" en LatinR](https://www.youtube.com/watch?v=ch3bg2bhOmc)
 
 
 ### Bibliografía utilizada

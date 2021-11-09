@@ -1,7 +1,7 @@
 ---
 title: "OPSO79-1-UCSH2021"
-subtitle: "Ciencia abierta, RMarkdown y herramientas de gestión bibliográfica. Parte I"
-date: "`08 de octubre 2021`"
+subtitle: "Ciencia abierta y profundización en RMarkdown."
+date: "`12 de noviembre 2021`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -47,7 +47,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-#pagedown::chrome_print("clase7a_csabierta.html")
+#pagedown::chrome_print("clase10a_csabierta.html")
 
 ```
 
@@ -388,6 +388,13 @@ Las pretensiones de la ciencia abierta están en las concepciones de ciencia de 
 #### El movimiento de la ciencia abierta
 
 *"No debe ser un movimiento positivista. Es un movimiento para abrir la caja negra que rodea lo que hacen los sociólogos, sea lo que sea, para crear una comunidad de control de calidad y diálogo."* `r Cite(bib, "Breznau2021")`.
+
+---
+
+# ¿Ciencia abierta en la sociología chilena?
+
+
+
 
 ---
 
@@ -803,6 +810,17 @@ Descargar [formato word](https://github.com/nicolasrattor/formatos/blob/main/For
 
 - Cada chunk puede tener o no tener un nombre. Si los deciden nombrar, 
   los nombres NO DEBEN REPETIRSE (otra fuente de error)
+  
+
+---
+
+# Corrección de ortografía
+
+RStudio lo podemos ocupar como simple editor de texto (libre).
+
+
+
+
 
 
 ---
@@ -843,6 +861,26 @@ Para más información sobre distintos estilos revisar [Create Awesome HTML Tabl
 
 ---
 
+# Herramientas de gestión bibliográfica y R
+
+[Presentación opcional, si alcanzamos en el bloque de clases](https://opso791ucsh2021.netlify.app/clases/clase10/clase10c_zotero_bibtex) 
+
+**Contenidos:**
+
++ Buscar bibliografía
+
++ Acceder a bibliografías (romper barreras de pago)
+
++ Gestionar eficientemente las bibliografías (Zotero)
+
++ Bibtex
+
++ Citar bibliografías desde RMarkdown
+
+
+
+---
+
 # Material de texto y audiovisual de interés
 
 Curso ["Ciencia Social Abierta"](https://cienciasocialabierta.netlify.app/) de Juan Carlos Castillo (en español). 
@@ -852,6 +890,8 @@ Curso ["Ciencia Social Abierta"](https://cienciasocialabierta.netlify.app/) de J
 [Como escribir manuscritos reproducibles.](https://www.youtube.com/watch?v=TKhV3w467RI&t=202s) De Francisco Rodríguez-Sánchez. En español
 
 Documental [Paradojas del nihilismo, La academia.](https://www.youtube.com/watch?v=_3cYAsJClEg) 
+
+
 
 ---
 
