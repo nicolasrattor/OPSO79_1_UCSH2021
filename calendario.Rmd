@@ -23,8 +23,8 @@ knitr::opts_chunk$set(echo = FALSE)
  [**Sesión 7**]() | 08 de octubre  | Estadística descriptiva I   | Revisión tarea 3, case_when() y prácticas para buena codificación | @Triola2009 (cap. 2 y 3) |  @Agresti2018 (cap. 2), @Moore2005 y [Carr (2021)](https://waterdata.usgs.gov/blog/intro-best-practices/) |
  [**Sesión 8**]() | 29 de octubre   | Estadística descriptiva II (asociaciones entre variables)   | Trabajar con data frames III: trasponer datos | @Triola2009 (cap. 10, solo parte 1) |  @Agresti2018 (cap. 3) y @Moore2005 |
 | [**Sesión 9**]() | 05 noviembre   | Combinar data frames  | Visualización de datos con ggplot2 | @Wickham2021 (cap. 3) |   @Agresti2018 (cap. 2) y @Moore2005 (cap. 1.3 y 2.1) |
-[**Sesión 10**]() | 12 de noviembre | Ciencia abierta y reproducibilidad  | Profundización RMarkdown y eventual taller de uso de Zotero en R  | @Rodriguez-Sanchez2016, @Castillo2021, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
-[**Sesión 11**]() | 19 de noviembre   | Diseño de muestras y muestras complejas I |  Inferencia: reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  | @Vivanco2006, @Lohr2000 (cap. 2 y 7) y @Triola2009 (cap. 7) |  @Lumley2011 (Cap. 1, 2 y 3)   |
+[**Sesión 10**]() | 12 de noviembre | Ciencia abierta y reproducibilidad  | Profundización RMarkdown y taller de uso de Zotero en R  | @Rodriguez-Sanchez2016, @Castillo2021, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
+[**Sesión 11**]() | 19 de noviembre   | (clases pese a que es semana de receso) |  Espacio de trabajo en tarea N°5, resolver dudas en general y preparación prueba 3   |   |     |
 | [**Sesión 12**]() | 03 de diciembre   | Diseño de muestras y muestras complejas II |  Inferencia: reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  | @Vivanco2006, @Lohr2000 (cap. 2 y 7) y @Triola2009 (cap. 7) |  @Lumley2011 (Cap. 1, 2 y 3)   |
 
 ## Feriados:
@@ -43,9 +43,9 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%). 01 octubre (entrega 4 días después)
 
-**Tarea práctica 4.**	Visualización de datos con ggplot2 (5%). 05 noviembre (entrega 11 días después)
+**Tarea práctica 4.**	Visualización de datos con ggplot2 (5%). 05 noviembre (entrega 16 de noviembre)
 
-**Tarea práctica 5.** Documentos reproducibles y gestión de bibliografía (5%) 12 noviembre (entrega 29 de noviembre).
+**Tarea práctica 5.** Documentos reproducibles y gestión de bibliografía (5%) 12 o 19 noviembre (entrega 29 de noviembre).
 
 
 ## Evaluaciones tipo prueba:

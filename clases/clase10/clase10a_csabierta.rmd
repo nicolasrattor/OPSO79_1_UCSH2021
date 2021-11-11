@@ -427,6 +427,10 @@ Hiperespecialización en subcampos (educación, trabajo, salud, gestión cultura
 
 Dualismo cuantitativo / cualitativo
 
+--
+
+No hay investigación sobre el tema
+
 ---
 
 # Cs. abierta en soc. chilena
@@ -682,6 +686,18 @@ knitr::include_graphics("imagenes/benefits.png")
 
 ---
 
+# ¿Cómo organizar un proyecto reproducible?
+
+Una opción es el protocolo IPO
+
+```{r echo=FALSE, fig.align='center', out.width = "70%", fig.link="https://cienciasocialabierta.netlify.app/slides/07-flujorep/07_flujorep.html#10"}
+knitr::include_graphics("https://cienciasocialabierta.netlify.app/slides/07-flujorep/ipofolder.png")
+```
+
+
+
+---
+
 class: inverse, center, middle
 
 # RMarkdown
@@ -792,14 +808,36 @@ Toda una discusión al respecto en `r Cite(bib, "Castillo2021")`. [Ver acá](htt
 
 # Rmd como editor de texto
 
-Para que nos sirva como editor de texto, a lo menos, son fundamentales dos cosas:
-
-+ corrección de ortografía (spell check)
-
-+ gestión bibliográfica (taller Zotero)
+Para que nos sirva como editor de texto es fundamental que nos corrija la ortografía (*spell check*)
 
 --
 
+.pull-left[
+
+Tools -> Global Options -> Spelling
+
+Seleccionar idioma español y dar aceptar
+
+Si no está el español apretar "update dictionaries"
+
+Funciona como word. Palabras mal escritas o que no reconoce son subrayadas. 
+
+Botón derecho sugiere alternativas o incluir palabra a diccionario. 
+
+]
+
+--
+
+.pull-right[
+
+```{r fig.align='center', out.width = "80%", echo=FALSE}
+knitr::include_graphics("imagenes/spell.PNG")
+```
+
+
+.center[Todo el detalle [acá](https://blog.rstudio.com/2020/02/11/rstudio-1-3-preview-real-time-spellchecking/). ]
+
+]
 
 
 
@@ -941,8 +979,9 @@ Descargar [formato html](https://github.com/nicolasrattor/formatos/raw/main/Form
 #### Formato tareas UCSH
 
 ```{r echo=FALSE}
-xfun::embed_file("formato_ucsh.Rmd", text = "Descargar formato pdf")
+xfun::embed_file("formato_ucsh.pdf", text = "Descargar formato pdf")
 ```
+ y [proyecto que lo genera](https://github.com/nicolasrattor/formatos/tree/main/Formato%20pdf%20ucsh).
 
 Para utilizarlo se requiere instalar algún distribuidor de latex: `install.packages('tinytex')` [(más información acá)](https://bookdown.org/yihui/rmarkdown/installation.html)
 
@@ -1053,9 +1092,9 @@ Para más información sobre distintos estilos revisar [Create Awesome HTML Tabl
 
 ---
 
-# Herramientas de gestión bibliográfica y R
+# Herramientas de gestión bibliográfica
 
-[Presentación opcional, si alcanzamos en el bloque de clases](https://opso791ucsh2021.netlify.app/clases/clase10/clase10c_zotero_bibtex) 
+[Presentación de Zotero y Bibtex, 12 de noviembre solo si alcanzamos (de lo contrario 19 de noviembre)](https://opso791ucsh2021.netlify.app/clases/clase10/clase10c_zotero_bibtex) 
 
 **Contenidos:**
 
@@ -1065,7 +1104,7 @@ Para más información sobre distintos estilos revisar [Create Awesome HTML Tabl
 
 + Gestionar eficientemente las bibliografías (Zotero)
 
-+ Bibtex
++ Archivos bibtex
 
 + Citar bibliografías desde RMarkdown
 
@@ -1087,12 +1126,10 @@ Documental [Paradojas del nihilismo, La academia.](https://www.youtube.com/watch
 
 ---
 
-# Bibliografía y elementos consultados
+# Bibliografía
 
 ```{r refs, echo=FALSE, results="asis"}
 PrintBibliography(bib)
 ```
 
-[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
 
---

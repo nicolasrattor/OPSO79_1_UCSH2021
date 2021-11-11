@@ -1,0 +1,74 @@
+---
+title: "Untitled"
+author: "Nicolás Ratto"
+date: "10-11-2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Importa a R el microdato de la ENE del trimestre OND 2019 (noviembre)
+
+```{r}
+library(dplyr)
+library(knitr)
+library(tidyr)
+ene <- read.csv2("data/ene-2021-08-jas.csv")
+```
+
+## Genera un cuadro de resumen de b14_rev4cl_canes
+
+```{r}
+ene %>% group_by(b14_rev4cl_caenes) %>% summarise(n=n()) %>% 
+  kable()
+```
+
+## Cruza las variables b14_rev4cl_caenes y b1 (haz una tabla de contingencia).
+
+```{r}
+ene %>% group_by(b1,b14_rev4cl_caenes) %>% summarise(n=n()) %>% 
+  pivot_wider(names_from = b1,values_from = n) %>% 
+  kable()
+```
+
+## Crea la variable pet que tome valor 1 si edad es mayor o igual a 15, y 0 en otro caso.
+
+```{r}
+# Población en edad de trabajar (PET)
+ene <- mutate(ene, pet=if_else(edad>=15,1,0))
+table(ene$pet) %>% kable()
+```
+
+## Crea la variable ocu (ocupados) que tome el valor 1 si la variable cae_especifico se encuentra en el rango (extremos incluidos) entre 1 y 7, y que tome el valor 0 en cualquier otro caso.
+
+```{r}
+# Ocupados (ocu)
+ene <- mutate(ene, ocu=if_else(cae_especifico>=1 & cae_especifico<=7,1,0))
+table(ene$ocu) %>% kable()
+```
+
+## ¿Cuantas personas pet y ocu hay en la muestra?
+
+```{r}
+
+rbind(
+sum(ene$pet),
+sum(ene$ocu)
+) %>% as.data.frame() %>% 
+  mutate(categoria=c("pet","ocu")) %>% 
+  kable()
+
+```
+
+## ¿Cuál es la tasa de ocupación en noviembre de 2019? (ocu / pet * 100)
+
+```{r}
+sum(ene$ocu)/sum(ene$pet)*100
+```
+
+La diferencia con la tasa oficial se da porque estamos trabajando con la muestra, sin inferir a la población utilizando los factores de expansión. 
+
+
+

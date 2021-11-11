@@ -74,11 +74,17 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Ciencia abierta y reproducibilidad (12 de noviembre)
 
-# Terminar atraso y empezar con muestras complejas e inferencia (19 de noviembre)
+[Clase 10. Ciencia abierta, reproducibilidad y profundización RMarkdown](https://opso791ucsh2021.netlify.app/clases/clase10/clase10a_csabierta#1)
+
+# Continuación taller Zotero, espacio de trabajo en tarea N°5, resolución de dudas y preparación prueba 3 (19 de noviembre)
+
+[Clase 11. Gestión de bibliografías](https://opso791ucsh2021.netlify.app/clases/clase10/clase10c_zotero_bibtex#1)
 
 # Prueba 3 (26 de noviembre)
 
 # Muestras complejas e inferencia (03 de diciembre)
+
+[Clase 12. Muestras complejas]()
 
 # Prueba integrativa final (10 de diciembre)
 
