@@ -1,0 +1,69 @@
+---
+title: |
+ | \vspace{5cm} Título 
+subtitle: |
+ Subtítulo
+author: | 
+ | 
+ | \vspace{8cm} Autor
+date: "`r Sys.Date()`"
+header-includes:
+- \usepackage{titling}
+- \pretitle{\begin{center}\LARGE\includegraphics[width=6cm]{imagenes/ucsh1.png}\\[\bigskipamount]}
+- \posttitle{\end{center}}
+
+output:
+  pdf_document: 
+    highlight: tango
+    number_sections: TRUE
+    pandoc_args: !expr rmdfiltr::add_wordcount_filter()
+  html_document:
+    highlight: tango
+bibliography: bib/bib.bib
+linkcolor: blue
+urlcolor: blue
+link-citations: yes
+csl: bib/apa.csl
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE) 
+
+Sys.setlocale("LC_ALL","ES_ES.UTF-8") # para temas de caracteres en español, recomendable
+
+```
+
+\thispagestyle{empty} 
+
+
+\newpage
+
+# Introducción
+
+El curso busca entregar una comprensión general del proceso de investigación social cuantitativa y herramientas que permitan elaborar y ejecutar diseños de investigación utilizando el lenguaje R y otras herramientas que fomentan el desarrollo de la ciencia abierta.
+
+Consultar última versión de programa en web del curso: <https://opso791ucsh2021.netlify.app/programa>.
+
+# Desarrollo
+
+[@Asun2006; @Fardella-Cisternas2020]
+
+
+## Primer apartado
+
+[@Burawoy2005; @Elster2010]
+
+## Segundo apartado
+
+
+# Conclusiones
+
+
+\newpage
+
+# Bibliografía
+

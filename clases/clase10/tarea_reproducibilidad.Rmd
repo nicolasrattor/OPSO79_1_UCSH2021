@@ -1,0 +1,63 @@
+---
+title: "Tarea N°5"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message=FALSE, 
+                      warning=FALSE,
+                      eval = FALSE)
+```
+
+```{r paquetes, eval=TRUE}
+library(dplyr)
+library(ggplot2)
+```
+
+# Instrucciones generales
+
+La tarea debe ser escrita en Rmarkdown (`.rmd`) y debe ser entregada con su respectiva salida en `.html` o `.pdf`.
+
+Los documentos deben ser comprimidos en un archivo .zip y enviados a correo de profesor y ayudante. El nombre del archivo **debe** ser el primer apellido y nombre de el o la estudiante.
+
+Entrega a más tardar el **lunes 29 de noviembre a las 23:59 hrs.**
+
+Tendrá décimas extras si utiliza el formato en `.rmd` de la Universidad Católica Silva Henríquez visto en clases (o uno similar de su gusto que permita exportar a `pdf`).
+
+## Primer ejercicio
+
+Corrige los elementos de la tarea N4 que el equipo docente te hizo. Intenta implementar las recomendaciones de mejora que te sugirieron. 
+
+
+## Segunda ejercicio.
+
+Complejice la introducción de la tarea N4. En esta debe presentar una problematización que anteceda a la presentación del objetivo de investigación (no más de 2 páginas en total). Esta debe justificar y aportar algunos antecedentes a la investigación. Recuerde que toda la tarea N4 debía intentar dar respuesta a este objetivo de manera descriptiva con gráficos. 
+
+
+## Tercer ejercicio
+
+Para elaborar la introducción mencionada debe buscar en *google scholar* las referencias necesarias y guardarlas en Zotero. A lo menos 5 referencias (libros, artículos, documentos de trabajo o tesis). 
+
+
+## Cuarto ejercicio
+
+Crea un RProject. 
+
+Exportar y guarda en la carpeta del RProject el archivo bibtex con las referencias (desde Zotero).
+
+
+## Quinto ejercicio
+
+Desde RMarkdown citar las referencias necesarias en la introducción del texto. Hacer que las referencias recolectadas sean leídas y citadas desde el archivo bibtex, como vimos en clases.
+
+
+## Sexto ejercicio
+
+Renderiza el documento (apretar knit) y asegurate de que se reproduzca.
+
+
+## Última recomendación
+
+Preste especial atención a la tarea, dado que en la prueba integrativa final deberá explicar brevemente su documento. 
+
