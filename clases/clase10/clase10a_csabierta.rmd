@@ -147,6 +147,15 @@ Reflexiones pueden agruparse a lo menos en cinco "escuelas" `r Cite(bib, "Fecher
 
 ---
 
+# El paraguas
+
+```{r, out.width = "100%",fig.align='center', echo=FALSE, fig.link="https://accesoabierto.biblioteca.ulpgc.es/tag/open-science/"}
+knitr::include_graphics("https://accesoabierto.biblioteca.ulpgc.es/wp-content/uploads/2019/02/OpenScience.png")
+```
+
+
+---
+
 # Dimensiones ciencia abierta
 
 --
@@ -367,9 +376,6 @@ Las pretensiones de la ciencia abierta están en las concepciones de ciencia de 
 
 + La apertura nunca puede ser total: dilemas éticos y políticos, y restricciones legales.
 
---
-
-+ Triple vocación de la sociología fragmentada. ¿Como abrir la sociología más allá de la académica? 
 
 --
 
@@ -381,7 +387,7 @@ Las pretensiones de la ciencia abierta están en las concepciones de ciencia de 
 
 --
 
-+ Ayuda a la calidad, legitimidad e impacto de la sociología. Pero no es LA solución. 
++ Ayuda a la calidad, legitimidad e impacto de la sociología. 
   
 --
 
@@ -393,7 +399,119 @@ Las pretensiones de la ciencia abierta están en las concepciones de ciencia de 
 
 # ¿Ciencia abierta en la sociología chilena?
 
+--
 
+Dificultad de dar una única respuesta
+
+--
+
+Multidimensionalidad del concepto de cs. abierta
+
+--
+
+Desarticulación de la triple vocación de la sociología `r Cite(bib, "Garreton2015")`.
+
+--
+
++ la científica (academia, docencia)
+
++ la crítica (militantes, opinión pública, intelectuales orgánicos)
+
++ la profesional (Estado, empresas, ONGs)
+
+--
+
+Hiperespecialización en subcampos (educación, trabajo, salud, gestión cultural, etc.)
+
+--
+
+Dualismo cuantitativo / cualitativo
+
+---
+
+# Cs. abierta en soc. chilena
+
+#### 1. Acceso
+
+Mayor parte de las revistas con acceso abierto. 
+
+Investigadores e instituciones comparten artículos y documentos en plataformas
+
+Con libros hay mayores restricciones. Vía biblioteca universidades se accede. 
+
+Resultados de instituciones públicas y privadas liberados. 
+
+--
+
+#### 2. Impacto / calidad
+
+Academia neoliberal. Publica o perece. 
+
+La centralidad está en indexación de la revista. 
+
+Acumulación de producciones irrelevantes, poco concluyentes y repletas de matices. 
+
+Fenómeno empuja a publicar en el Norte Global (acceso limitado).
+
+---
+
+# Cs. abierta en soc. chilena
+
+#### 3. Apertura proceso investigación
+
+--
+
+**Academia:** caja negra del proceso (solo apartado metodológico) y lejos de ser reproducible
+
+--
+
+Limitado acceso a datos, incluso con financiamiento público
+
+Excepción: <https://dataverse.harvard.edu/dataverse/coes_data_repository>
+
+--
+
+Excusa del anonimato para no liberar datos. 
+
+--
+
+Avance en transparencia desde el **Estado**. No a los procesos, pero sí a los datos. 
+
+Hoy en día el estándar es publicar las bases de datos de encuestas. 
+
+--
+
+Consultoras/empresas no reguladas. Proceso y datos ocultos. Resultados resumidos públicos (ppt)
+
+
+
+---
+
+# Cs. abierta en soc. chilena
+
+--
+
+#### 4. Apertura al mundo social, ¿investigar para quien?
+
+Sociología crítica-intelectual la con mayor impacto
+
+--
+
+Irrelevancia e incomprensibilidad de la producción académica para los sujetos estudiados
+
+Sin duda hay excepciones, sobre todo en estudios de caso.
+
+--
+
+Actividades de extensión separadas del proceso investigativo. Parte de la carta gantt para cumplir.
+
+--
+
+Mayor interés por producciones de organismos estatales y consultoras
+
++ Intención de voto
+
++ Niveles de empleo
 
 
 ---
@@ -550,6 +668,17 @@ knitr::include_graphics("imagenes/reproducible_turing_way.PNG")
 Estos y más argumentos en [video](https://www.youtube.com/watch?v=Hvrb2b7v93w) de D. Ballari.
 
 
+---
+
+# ¿Por qué reproducibilidad?
+
+Argumentos `r Cite(bib, "Rodriguez-Sanchez2016")` para el mundo académico
+
+--
+
+```{r echo=FALSE, fig.align='center', out.width = "100%"}
+knitr::include_graphics("imagenes/benefits.png")
+```
 
 ---
 
@@ -639,6 +768,45 @@ knitr::include_graphics("https://smac-group.github.io/ds/images/rmd_code_chunk.p
 
 ---
 
+# Rmd como editor de texto
+
+RStudio lo podemos ocupar como simple editor de texto (libre).
+
+A diferencia de word, no necesitamos licencia para escribir y somos dueños de nuestros textos.
+
+--
+
+.inverse[¿Han abierto un documento word desde bloc de notas?]
+
+--
+
+```{r fig.align='center', out.width = "65%", echo=FALSE}
+knitr::include_graphics("imagenes/word_bloc.PNG")
+```
+
+--
+
+Toda una discusión al respecto en `r Cite(bib, "Castillo2021")`. [Ver acá](https://juancarloscastillo.github.io/in-socabi/lenguaje-reproducible.html)
+
+---
+
+# Rmd como editor de texto
+
+Para que nos sirva como editor de texto, a lo menos, son fundamentales dos cosas:
+
++ corrección de ortografía (spell check)
+
++ gestión bibliográfica (taller Zotero)
+
+--
+
+
+
+
+
+
+---
+
 # RMarkdown. Nuevas cosas. 
 
 Los chunks tienen muchos argumentos que permiten moldear el output que deseamos.
@@ -678,23 +846,42 @@ library(dplyr)
 
 # RMarkdown. Nuevas cosas. 
 
-Podemos crear títulos (#), énfasis con negrita o cursiva, listas de elementos, agregar imágenes y enlaces.
+Podemos crear títulos (#), énfasis con **negrita** o *cursiva*, listar de elementos, etc:
 
 --
 
-Existe el código R "en línea" (*in line*), lo que nos permite hacer reportes automáticos:
+```
 
---
+# titulo 1
 
-El día de hoy es `r Sys.Date()` y el valor de 5 por 2 es `r 5*10`
+# titulo 2
 
---
+## titulo de segundo nivel
 
-```{r eval=FALSE}
-El día de hoy es `r Sys.Date()` y el valor de 5 por 2 es `r 5*10`
++ elemento listado 1
+
++ elemento listado 2
+
+![](link.png)
+
+[palabra](link.com)
+
 ```
 
 --
+
+Imagenes con mayor control:
+
+```
+{r echo=FALSE, fig.align='center', out.width = "65%"}
+knitr::include_graphics("link.png")
+```
+
+
+
+---
+
+# RMarkdown. Nuevas cosas. 
 
 Para generar el documento se puede utilizar el comando `render` o bien utilizar el botón `Knit` (Tejer).
 
@@ -746,40 +933,36 @@ output:
 
 Descargar [formato html](https://github.com/nicolasrattor/formatos/raw/main/Formato%20html/documento.Rmd) estilizado.
 
-Descargar [formato html distill](https://raw.githubusercontent.com/nicolasrattor/formatos/main/Formato%20html%20distill/Paper.Rmd). Para ocupar instalar paquete `distill`. 
 
 ---
 
 # Documentos en formato pdf
 
-Descargar [formato pdf](https://github.com/nicolasrattor/formatos/blob/main/Formato%20pdf%20uch/Paper.Rmd). Para utilizarlo se requiere instalar latex: `install.packages('tinytex')` [(más información acá)](https://bookdown.org/yihui/rmarkdown/installation.html)
+#### Formato tareas UCSH
+
+```{r echo=FALSE}
+xfun::embed_file("formato_ucsh.Rmd", text = "Descargar formato pdf")
+```
+
+Para utilizarlo se requiere instalar algún distribuidor de latex: `install.packages('tinytex')` [(más información acá)](https://bookdown.org/yihui/rmarkdown/installation.html)
+
 
 --
 
-#### Incluso hay formatos de predeterminados para hacer Currículums
+#### Formatos de tesis
+
+Plantilla para hacer tesis: [Universidad de Chile](https://github.com/juancarloscastillo/tesisfacsodown)
 
 --
 
-La lógica es descargar "plantillas" mediante la instalación de paquetes.
-
---
+#### Incluso hay formatos para hacer Currículums
 
 Acá dos paquetes con varias plantillas o templates (hay muchos más):
 
 ```{r eval=FALSE}
 install.packages("stevetemplates")
-```
-
-```{r eval=FALSE}
 install.packages("vitae")
 ```
-
---
-
-Luego se accede a estas plantillas como "Templates" al crear un nuevo archivo RMarkdown. 
-
-
-
 
 
 ---
@@ -812,14 +995,23 @@ Descargar [formato word](https://github.com/nicolasrattor/formatos/blob/main/For
   los nombres NO DEBEN REPETIRSE (otra fuente de error)
   
 
+
+
 ---
 
-# Corrección de ortografía
+# Código en línea
 
-RStudio lo podemos ocupar como simple editor de texto (libre).
+Existe el código R "en línea" (*in line*), lo que nos permite hacer reportes automáticos:
 
+--
 
+El día de hoy es `r Sys.Date()` y el valor de 5 por 2 es `r 5*10`
 
+--
+
+```{r eval=FALSE}
+El día de hoy es `r Sys.Date()` y el valor de 5 por 2 es `r 5*10`
+```
 
 
 

@@ -74,12 +74,12 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Ciencia abierta y reproducibilidad (12 de noviembre)
 
-# Semana de receso (no hay clases el 19 de noviembre)
+# Terminar atraso y empezar con muestras complejas e inferencia (19 de noviembre)
 
 # Prueba 3 (26 de noviembre)
 
 # Muestras complejas e inferencia (03 de diciembre)
 
-# Sesión de reforzamiento para prueba integrativa final (10 de diciembre)
+# Prueba integrativa final (10 de diciembre)
 
 # Prueba integrativa final (17 de diciembre)

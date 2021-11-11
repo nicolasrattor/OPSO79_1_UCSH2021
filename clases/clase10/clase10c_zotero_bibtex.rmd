@@ -450,45 +450,16 @@ Para poder modificar el "estilo" de nuestra *CiteKey* y mantener actualizados lo
 knitr::include_graphics("Imagenes/betterbibtex.PNG")
 ```
 
----
-
-# Ejercicios prácticos
-
-Dos ejercicios **optativos**, pero próxima tarea será muy similar.
 
 
 ---
 
-# Ejercicios prácticos
+# Tarea N°5
 
-#### Breve revisión de antecedentes
+#### Documentos reproducibles y gestión de bibliografía
 
-Identifica un problema sociológico de tu interés y exprésalo en un objetivo general de investigación (3 líneas).
+[Ver pauta acá](https://opso791ucsh2021.netlify.app/clases/clase10/tarea_reproducibilidad.pdf)
 
---
-
-Busca y guarda en Zotero bibliografía que te podría ayudar a elaborar los antecedentes de una investigación que responda a los objetivos (a lo menos 5 elementos)
-
---
-
-Crea un RProject. 
-
---
-
-Exportar y guarda en la carpeta del RProject el archivo bibtex con las referencias (desde Zotero).
-
---
-
-Crea un documento en RMarkdown de no más de una hoja que resuma brevemente la idea central de cada texto y como aportaría a elaborar los antecedentes.
-
---
-
-Lo central es que las referencias sean leídas y citadas en el RMarkdown desde el archivo bibtex, como vimos en clases.
-
-
---
-
-Renderiza el documento (knit). Adjunta el `.pdf` o `.html` y el `.rmd` y, envía al correo de equipo docente. 
 
 
 ---
