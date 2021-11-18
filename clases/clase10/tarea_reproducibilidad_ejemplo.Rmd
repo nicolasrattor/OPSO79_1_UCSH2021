@@ -1,0 +1,84 @@
+---
+title: |
+ | \vspace{5cm} Ejemplo básico 
+subtitle: |
+ Subtítulo
+author: | 
+ | 
+ | \vspace{8cm} Autor
+date: "`r Sys.Date()`"
+header-includes:
+- \usepackage{titling}
+- \pretitle{\begin{center}\LARGE\includegraphics[width=6cm]{imagenes/ucsh1.png}\\[\bigskipamount]}
+- \posttitle{\end{center}}
+
+output:
+  pdf_document: 
+    highlight: tango
+    number_sections: TRUE
+    pandoc_args: !expr rmdfiltr::add_wordcount_filter()
+  html_document:
+    highlight: tango
+bibliography: bib/sindicatos.bib
+linkcolor: blue
+urlcolor: blue
+link-citations: yes
+csl: bib/apa.csl
+fontsize: 14pt
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(warning = FALSE,
+                      message = FALSE,
+                      echo = FALSE) 
+
+Sys.setlocale("LC_ALL","ES_ES.UTF-8") # para temas de caracteres en español, recomendable
+
+```
+
+\thispagestyle{empty} 
+
+
+\newpage
+
+# Introducción
+
+¿Que tan poderosos son los sindicatos en Chile?
+
+Caracterizar los distintos recursos de poder que tienen los sindicatos en Chile.
+
+**¿Por qué es relevante estudiar sindicatos y su poder?**
+
+**¿Quienes estudian el poder?, ¿Como se puede definir el poder?, ¿Cuáles son las dimensiones de poder?**
+
+**En base a esas dimensiones, ¿que tan poderosos son los sindicatos en Chile?**
+
+A nivel internacional se ha estudiado y encontrado amplia y significativa evidencia de los efectos positivos, aunque decrecientes, de los sindicatos sobre los salarios [@Freeman1984; @Trajtemberg2011; @Gabriel2014; @Barth2020], sin embargo la temática para el caso chileno se encuentra subdesarrollada. 
+
+¿Bajo qué mecanismos los sindicatos consiguen mejores salarios para sus socios?, ¿todos los sindicatos tienen el mismo potencial de obtener una parte de la renta de las empresas en las que se organizan?, ¿Qué explica esta diferencia? El recurso de poder más básico que tienen los sindicatos, y con el que pueden afectar directamente sobre los salarios, son sus trabajadores afiliados [@Korpi1983; @Wright2000; @Silver2005]. Mientras más socios y socias tengan los sindicatos, y mientras más porcentaje representen respecto al total de trabajadores y trabajadoras de un sistema de relaciones industriales (empresa, industria o país), mayor será la posibilidad de que el sindicato pueda infringir costos económicos sobre su contraparte. Al ser mayor este costo, los sindicatos tienen un poder negociación superior y más oportunidades de obtener mejoras salariales. Además, existe la dimensión "estructural" o "posicional" del poder que va más allá del número de socios que puede tener una organización sindical [@Wright2000; @Kimeldorf2013; @Perrone1983]. Las diferentes posiciones que ocupan en los procesos de trabajo de las empresas y en el mercado de trabajo generan que el costo de eventual paralización de algunos trabajadores sea más grande que el de otros, los que los coloca en una mejor posición a la hora de negociar mejores salarios.
+
+Así también, se ha señalado la importancia de otros elementos asociativos para el desarrollo de organizaciones sindicales eficaces, como una adecuada infraestructura material que les permita a los dirigentes y socios reunirse y realizar sus actividades [@Schmalz2019], recursos monetarios que les permitan financiar los servicios y beneficios para sus socios [@Wilmers2017], y una experiencia de negociaciones, conflictos y diálogos que les permitan desarrollar aprendizajes para un mejor desempeño futuro. Si bien este punto no ha sido tematizado directamente para los sindicatos en Chile, en la literatura organizacional se considera a la antigüedad de la organización como una potencial fortaleza.
+
+Por último, los sindicatos no son solamente actores de mercado que actúan al interior de las empresas de manera puramente utilitaria. Históricamente se han orientado hacia la integración social, presionando por agendas sociales a través de la acción política y legislativa [@Borjas2010], y han participado y tomado posición en los principales conflictos sociales que han emergido en las sociedades modernas, como los conflictos entre clases sociales por distintos proyectos de sociedad [@Hyman2001]. En estos espacios fuera del mercado laboral, los sindicatos pueden desarrollar alianzas, aprendizajes, recursos, identidades e intereses más allá de los aumentos salariales de sus afiliados y afiliadas [@Campusano2017a], pero que en paralelo también pueden ser utilizados y movilizados con el objeto de maximizar el bienestar económico de sus socios y socias al interior de las empresas. Estos dos aspectos han sido recientemente teorizados como recursos de poder institucionales y recursos de poder societales [@Dorre2009]. Los primeros se expresan en la institucionalización de derechos y obligaciones a nivel de lugar de trabajo o empresa, industria, nivel nacional, e incluso, internacional (convenios de la Organización Internacional del Trabajo, por ejemplo), representando garantías legales (libertad de asociación, derecho a huelga, entre otras), instituciones de jurisprudencia (como las cortes laborales en las cuales se pueden hacer demandas) y sistemas de negociación colectiva o de representación de los trabajadores. Los segundos tienen que ver con los apoyos y alianzas sociales con las que cuentan los trabajadores. A través de protestas y campañas públicas los sindicatos pueden obtener el apoyo de políticos, consumidores y otras organizaciones sindicales que les permiten negociar en mejor posición al interior de las empresas. O también, pueden lograrlo mediante la participación en instancias suprasindicales como federaciones de sindicatos o centrales sindicales o, incluso, sosteniendo relaciones de cooperación y diálogo con las empresas. 
+
+Para el análisis se utilizan principalmente las bases de datos de los Cuestionario Autoaplicado y a Sindicatos de la Encuesta Laboral 2019.
+
+# Sobre la encuesta
+
+La Encuesta Laboral se enfoca en una muestra representativa a nivel nacional de 3.670 empresas formales con cinco o más trabajadores que operan en el país y cuyo marco normativo, en lo que respecta a las relaciones laborales, es el Código del Trabajo. En cada una de las empresas seleccionadas se aplicaron tres de cuatro posibles cuestionarios (Cuestionario a Sindicatos, Cuestionario a Trabajadores, Cuestionario a Empleadores y Cuestionario Autoaplicado), dependiendo de las características de las relaciones laborales existentes en la misma empresa. 
+
+
+# Desarrollo
+
+Análisis descriptivo.
+
+
+# Conclusiones
+
+Se puede concluir...
+
+\newpage
+
+# Bibliografía
+

@@ -129,7 +129,7 @@ Con el conjunto de seis países de `data`, que ahora tiene la variable continent
 
 Antes de intentarlo transforma a numérica la variable año, de esta forma:
 
-```{r}
+```{r echo=TRUE}
 data$year <- as.numeric(data$year)
 ```
 
