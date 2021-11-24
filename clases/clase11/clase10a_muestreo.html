@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Inferencia desde muestras complejas en R: la lógica del muestreo y la inferencia
+### <code>26/11/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+
+class: inverse, center, middle
+
+# La lógica del muestreo e inferencia
+
+
+---
+
+# Muestreo
+
+Recursos limitados nos impiden encuestar a toda una población. 
+
+--
+
+Una salida es encuestar a una parte. ¿Que parte encuestar?, ¿A cuántas personas encuestar?
+
+--
+
+Si elegimos a la muestra de la forma correcta, podremos inferir hacia la población. 
+
+--
+
+Esta inferencia la haremos con un error conocido. 
+
+--
+
+Toda la lógica del muestreo es conocer y tratar de minimizar este error. 
+
+--
+
+&lt;img src="imagenes/pop_sample.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Un poco de nomenclatura
+
+Para conocer los parámetros usamos estimadores. 
+
+Con el estimador calculamos el parametro poblacional en base a una serie de datos
+observados.
+
+&lt;img src="imagenes/nomenclatura.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Muestra
+
+El supuesto central detrás de una **muestra estadísticamente representativa** es el de una **muestra aleatoria**
+
+--
+
+La selección aleatoria no supone que el grado de imprecisión asociado a las
+estimaciones sea necesariamente pequeño. Sí permite conocer la magnitud de
+la imprecisión.
+
+--
+
+Además, todos los elementos tienen una probabilidad conocida y distinta de cero de ser elegidos
+
+--
+
+Con esto, podemos conocer el error asociado a la estimación
+
+--
+
+No todas las formas de seleccionar a una muestra son "probabilísticas". El muestreo por cuotas, por ejemplo, es "no probabilistico". 
+
+---
+
+# Muestreo probabilístico
+
+Sí tenemos un listado de los elementos (marco muestral), y seleccionamos aleatoriamente solamente algunos elementos a estudiar, estamos en un **muestreo probabilistico**. Esta es la base de otros diseños más complejos. 
+
+--
+
+La función teórica de la distribución normal nos permite establecer un intervalo
+de posibles valores para nuestra estimación.
+
+--
+
+### Un ejemplo simple de selección aleatoria.
+
+--
+
+Creamos una base de datos de 19.678.363 casos, [el número de personas en Chile según el INE](https://www.ine.cl/estadisticas/sociales/demografia-y-vitales/proyecciones-de-poblacion), que contenga 1.492.522 extranjeros.
+
+--
+
+
+```r
+poblacion&lt;-data.frame(id=c(seq(1:19678363)),
+                   extranjers=c(rep("ext",1492522),
+                                rep("nac",19678363-1492522)))
+```
+
+---
+
+# Muestreo probabilístico
+
+
+```r
+table(poblacion$extranjers)
+```
+
+```
+## 
+##      ext      nac 
+##  1492522 18185841
+```
+
+```r
+prop.table(table(poblacion$extranjers))
+```
+
+```
+## 
+##        ext        nac 
+## 0.07584584 0.92415416
+```
+
+---
+
+# La selección aleatoria
+
+Saquemos una muestra de 500, ¿qué % de extranjeros aparecerá?
+
+--
+
+
+```r
+muestra&lt;-sample_n(poblacion,500)
+```
+
+--
+
+Y observamos su distribución:
+
+
+```r
+prop.table(table(muestra$extranjers)) 
+```
+
+```
+## 
+##   ext   nac 
+## 0.068 0.932
+```
+
+
+---
+
+# La selección aleatoria
+
+¿Fue suerte?, veamos de nuevo...
+
+--
+
+
+```r
+muestra&lt;-sample_n(poblacion,500) 
+prop.table(table(muestra$extranjers))  
+```
+
+```
+## 
+##   ext   nac 
+## 0.084 0.916
+```
+
+--
+
+De nuevo
+
+
+```r
+muestra&lt;-sample_n(poblacion,500)
+prop.table(table(muestra$extranjers))    
+```
+
+```
+## 
+##   ext   nac 
+## 0.084 0.916
+```
+
+---
+
+# La selección aleatoria
+
+Cada vez que actualicemos esta presentación, la muestra seleccionada se nos va a modificar. 
+
+--
+
+Esto generará que cualquier análisis que queramos hacer con los datos no será reproducible, ya que cada vez que saquemos una muestra esta se modificará.
+
+--
+
+Manteniendo el azar, `R` nos permite fijar la selección aleatoria. Esto se logra "fijando una semilla".
+
+--
+
+
+```r
+set.seed(17) ## número arbitrario   
+```
+
+Con esto, la distribución de la muestra que saquemos siempre será 0,064 (6,4%).
+
+---
+
+# La selección aleatoria
+
+
+```r
+muestra&lt;-sample_n(poblacion,500)
+prop.table(table(muestra$extranjers)) 
+```
+
+```
+## 
+##   ext   nac 
+## 0.064 0.936
+```
+
+Efectivamente. Veamos de nuevo...
+
+--
+
+
+```r
+set.seed(17)                                       
+muestra&lt;-sample_n(poblacion,500)
+prop.table(table(muestra$extranjers))             
+```
+
+```
+## 
+##   ext   nac 
+## 0.064 0.936
+```
+
+
+---
+
+# La selección aleatoria
+
+Las estimaciones que obtengamos de cada muestra de la población se ubicará en torno al parámetro poblacional. 
+
+--
+
+Ahora veremos que tan cierta es esta afirmación con 500 muestras
+
+--
+
+
+```r
+set.seed(1917)  # semilla
+
+base&lt;-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+
+# loop
+for(i in 1:nrow(base)){                      
+  base[i,2:3]&lt;-sample_n(poblacion,size=500) %&gt;% 
+    select(extranjers) %&gt;%  
+    table() %&gt;% prop.table()                       
+}                                               
+```
+
+---
+
+# La selección aleatoria
+
+
+```r
+head(base,10) %&gt;% knitr::kable() 
+```
+
+
+
+| muestra|   ext|   nac|
+|-------:|-----:|-----:|
+|       1| 0.092| 0.908|
+|       2| 0.080| 0.920|
+|       3| 0.058| 0.942|
+|       4| 0.076| 0.924|
+|       5| 0.062| 0.938|
+|       6| 0.062| 0.938|
+|       7| 0.070| 0.930|
+|       8| 0.078| 0.922|
+|       9| 0.082| 0.918|
+|      10| 0.098| 0.902|
+
+---
+
+# La selección aleatoria
+
+¿El promedio del % de extranjeros entre todas las muestras?
+
+--
+
+
+```r
+mean(base$ext)   ## OMG! en la población era 0.07584584   
+```
+
+```
+## [1] 0.076344
+```
+--
+
+Solo hay una diferencia de 0.049816% (menos de un 1%).
+
+
+---
+
+# La selección aleatoria
+
+&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-16-1.png" 30% style="display: block; margin: auto;" /&gt;
+
+---
+
+# Estimar desde muestra
+
+Cada % de extranjeros estimado con 1 muestra tiene un error asociado. 
+
+--
+
+Por ejemplo: *en la población se estiman entre un 6,5% y 8,5% de extranjeros*
+
+--
+
+Esta forma de medir el error utiliza un "intervalo de confianza" (+-1%)
+
+--
+
+La teoría de muestras nos permite conocer este error, en base a:
+
++ tamaño de la muestra ($n$)
+
++ nivel de confianza en puntaje Z ($z_{a/2}$)
+
++ variabilidad de los datos ($\overline{p}(1-\overline{p})$)
+
+--
+
+`$$[\overline{p} \pm z_{a/2}\sqrt\frac{\overline{p}(1-\overline{p})}{{n}}]$$`
+
+
+---
+
+# Estimar desde muestra
+
+En simple, definamos objetos
+
+
+```r
+p &lt;- as.vector(prop.table(table(muestra$extranjers)))[1]
+n &lt;- nrow(muestra)
+z &lt;- 1.96 # para 95% de confianza
+```
+
+--
+
+Calculamos intervalo
+
+
+```r
+ci &lt;- z * (sqrt(p*(1-p)/n))
+ci
+```
+
+```
+## [1] 0.02145354
+```
+--
+
+Con un 95% de confianza, y con una muestra probabilística de 500 observaciones, calculamos que el porcentaje de extranjeros en la población está entre 0.0425465 y 0.0854535 (0.064 `\(\pm\)` 0.0214535).
+
+La estimación parecer ser correcta. En la población la proporción es 0.075
+
+---
+
+# Estimar desde muestra
+
+¿Que significa el 95% de confianza?
+
+--
+
+Que si sacamos 20 muestras, las estimaciones desde una de estas no contendría dentro de sus intervalos el valor poblacional.
+
+--
+
+&lt;img src="https://cdn-img.scalabs.com.au/uzjYWz5uFA99H9ilh_BLtPqAA1Dq0GhZ05-Iow7qAZM/aHR0cHM6Ly9zdy1o/aXQtcHJkLnNjYWRp/Z2l0YWwuaW8vbWVk/aWEvMTYyNjYvc2lk/ZS1leWUtY2hsb2Uu/anBnP3ByZXNldD1N/YWluSW1hZ2U" width="50%" style="display: block; margin: auto;" /&gt;
+
+--
+
+Veamoslo con 20 de las 500 muestras que sacamos. 
+
+---
+
+# Estimar desde muestra
+
+Calculamos los intervalos de confianza de cada muestra
+
+
+```r
+submuestra &lt;- base[1:20,c(1,2)] %&gt;% 
+  rename(p=ext) %&gt;% 
+  mutate(limite_inferior= p - (z * (sqrt(p*(1-p)/n))),
+         limite_superior= p + (z * (sqrt(p*(1-p)/n))))
+```
+
+
+| muestra|     p| limite_inferior| limite_superior|
+|-------:|-----:|---------------:|---------------:|
+|       1| 0.092|       0.0666658|       0.1173342|
+|       2| 0.080|       0.0562201|       0.1037799|
+|       3| 0.058|       0.0375115|       0.0784885|
+|       4| 0.076|       0.0527719|       0.0992281|
+|       5| 0.062|       0.0408618|       0.0831382|
+
+---
+
+## Visualización estimaciones
+
+&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-22-1.png" 20% style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+# Elementos a destacar
+
+Vimos como estimar proporciones, para medias, medianas, varianzas y totales la formula debe ser ajustada. 
+
+--
+
+Para calcular los IC no hemos consideramos el tamaño de la población. 
+
+¿No es relevante? Lo es, pero marginalmente
+
+--
+
+Lo que es más relevante es el tamaño de la muestra, nivel de confianza y variabilidad de los datos
+
+--
+
+Elementos que la formula ya vista resume y que podemos re estructurar para calcular el tamaño de una muestra:
+
+`$$n=(1-\frac{n}{N})*\frac{z^2_{a/2}(s^2)}{e^2}$$`
+
+---
+
+# Calcular muestras
+
+Hay algunas páginas como [SurveyMonkey](https://www.surveymonkey.com/mp/sample-size-calculator/) o [Calculator](https://www.calculator.net/sample-size-calculator.html) desde donde se puede calcular el tamaño de una muestra en base a los criterios de la formula.
+
+--
+
+Acá utilizaremos un paquete para eso
+
+
+```r
+library(samplingbook)
+```
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Tipos de muestreo
+
+
+---
+
+
+
+
+---
+
+### Recursos web utilizados
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+
+### Bibliografía utilizada
+
+
+
+&lt;a name=bib-Lohr2000&gt;&lt;/a&gt;[Lohr, S. L.](#cite-Lohr2000) (2000).
+_Muestreo: Diseño y Análisis_. 519.52 L6. International Thomson
+Editores.
+
+&lt;a name=bib-Vivanco2006&gt;&lt;/a&gt;[Vivanco, M.](#cite-Vivanco2006) (2006).
+"Diseño de Muestras En Investigación Social". In: _Metodolog\'ias de La
+Investigación Social. Introducción a Los Oficios._ Santiago: LOM, pp.
+141-168.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>OPSO79-1-UCSH2021</title>
+    <meta charset="utf-8" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# OPSO79-1-UCSH2021
+## Inferencia desde muestras complejas
+### <code>26/11/2021</code>
+
+---
+
+
+
+
+
+
+
+
+
+
+---
+
+class: inverse, center, middle
+
+# Muestras complejas en R
+
+`Inferencia a la población`
+
+---
+
+# El desafío de la inferencia
+
+La reducción de costos y esfuerzos que implica estudiar una población mediante una muestra, se compensa con el costo de la "incertidumbre" o "imprecisión".
+
+--
+
+La estadística nos da elementos para conocer y manejar esta incertidumbre.
+
+--
+
+Desde nuestra muestra vamos a estimar o inferir un valor aproximado del parámetro de la población. 
+
+--
+
+Al hacer este proceso, no solo ocuparemos estimaciones puntuales (como medias, quntiles, medianas, etc.)
+
+--
+
+También tendremos que calcular la precisión de estas estimaciones 
+
+--
+
+Todo estimador está compuesto por dos elementos
+
++ Estimación puntual
++ Precisión (ci, se, var, cv)
+
+
+---
+
+# El desafío de la inferencia
+
+&lt;img src="imagenes/population-sample.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+
+# La forma incorrecta
+
+Para estimar el valor del parámetro poblacional existen dos alternativas: 
+
+--
+
+(i) definir un estadístico como estimación del parámetro poblacional (estimación puntual) 
+
+--
+
+(ii) establecer en torno a un estadístico un intervalo de confianza para estimar en términos probabilísticos el parámetro. 
+
+--
+
+La segunda alternativa es la más apropiada. Sin embargo, comprendamos la simplicidad de la primera. 
+
+--
+
+Para la estimación puntual, solo necesitaremos el peso de cada unidad de nuestros datos (`weight`)
+
+--
+
+Este **ponderador** o **factor de expansión (FE)** indica a cuántas unidades representa cada elemento de la muestra. 
+
+--
+
+Los ponderadores suman 1, mientras que los FE suman el tamaño de la población. 
+
+
+---
+
+# Abramos R
+
+Una vez más, trabajaremos con la Encuesta Nacional de Empleo. 
+
+--
+
+¿Cuántes personas ocupadas existían en Chile en trimestre Enero-Marzo 2021? [Consultar acá](https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/cuadros-estadisticos/series-de-tiempo-nueva-calibraci%C3%B3n-proyecciones-de-poblaci%C3%B3n-censo-2017/indicadores_principales.xlsx?sfvrsn=afbd6d15_58)
+
+--
+
+8.148.210 ocupados: 4.826.060 hombres y 3.322.150 mujeres. 
+
+--
+
+¿Como podemos reproducir este resultado desde la base de datos?
+
+--
+
+
+```r
+# Descargar la base de datos
+ene &lt;- read.csv(file = "https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/bbdd/2021/formato-csv/ene-2021-02-efm.csv?sfvrsn=6d3786e2_4&amp;download=true",sep = ";")
+```
+
+
+
+
+--
+
+
+```r
+*ene %&gt;% filter(activ==1) %&gt;%
+* group_by(sexo) %&gt;% summarise(ocupados=n())
+```
+
+```
+## # A tibble: 2 x 2
+##    sexo ocupados
+##   &lt;int&gt;    &lt;int&gt;
+## 1     1    19443
+## 2     2    14716
+```
+
+---
+
+# Abramos R
+
+No nos da lo mismo, ya que solo estamos considerando a los elementos de la muestra.
+
+--
+
+Para estimar el total, tendremos que utilizar la variable factor de expansión.
+
+--
+
+¿Como se comporta esta variable?
+
+--
+
+
+```r
+*summary(ene$fact_cal)
+```
+
+```
+##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##    8.106   85.573  136.782  216.799  239.963 4107.542
+```
+
+```r
+#sum(ene$fact_cal) ¿Cuánto debería sumar aproximadamente?
+```
+
+--
+
+
+```
+## [1] 19595837
+```
+
+
+---
+
+# Abramos R
+
+Ahora filtramos para dejar solo los ocupados y agrupamos por sexo.
+
+--
+
+
+```r
+ene %&gt;% filter(activ==1) %&gt;% 
+  group_by(sexo) %&gt;% 
+* summarise(ocupados=sum(fact_cal))
+```
+
+```
+## # A tibble: 2 x 2
+##    sexo ocupados
+##   &lt;int&gt;    &lt;dbl&gt;
+## 1     1 4826056.
+## 2     2 3322150.
+```
+
+--
+
+Y el total de ocupados
+
+--
+
+
+```r
+sum(ene[ene$activ==1,]$fact_cal,na.rm = TRUE)
+```
+
+```
+## [1] 8148206
+```
+
+---
+
+## Sobre el uso de estimaciones puntuales
+
+Si bien es una mala práctica, tiene buen rendimiento y se usa en estudios descriptivos. 
+
+--
+
+El mismo INE presenta las estimaciones puntuales sin advertencia de su precisión*. 
+
+--
+
+&lt;img src="imagenes/ine_boletin.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+--
+
+*En los tabulados se señala cuando las estimaciones son poco o nada fiables (cv &gt; 15%).
+
+
+---
+
+## Medir la precisión de la estimación
+
+Si solo nos interesa la estimación puntual, podríamos simplemente usar el peso de cada caso y olvidarnos del resto. 
+
+--
+
+Sin embargo, debemos ser capaces de conocer la precisión de nuestras estimaciones y poder determinar, al menos, si son significativamente diferentes de cero.
+
+--
+
+Para esto debemos suponer cosas, conocer la error estándar de nuestra variable, el nivel de confianza con el que estamos trabajando y otros elementos del diseño muestral. 
+
+--
+
+R tiene unos paquetes que nos simplificarán la vida. 
+
+---
+
+
+## La forma correcta: `survey` y `srvyr`
+
+Para trabajar con muestras complejas en R son necesarios dos paquetes:
+
+--
+
+`survey`
+
+--
+
+`srvyr`
+
+--
+
+El primero fue creado por [Thomas Lumley](https://unidirectory.auckland.ac.nz/profile/t-lumley). 
+
+--
+
+El segundo es su adaptación por terceros para que dialogue con la gramática de `dplyr` y los `pipes`. 
+
+--
+
+
+```r
+## Opciones generales
+options(survey.lonely.psu = "certainty" )
+
+## Crear objeto tbl_svy
+ds &lt;- data %&gt;% as_survey_design(ids = conglomerados,  ## ids=1 (no hay conglomerado)
+                              strata = estratos, 
+                              weights = pesos)
+```
+
+
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+Tenemos que poner atención a las siguientes variables, que hasta ahora dejábamos de lado:
+
+--
+
+
+```r
+ene %&gt;% select(ano_trimestre,mes_central,idrph,estrato,conglomerado,fact_cal) %&gt;% str()
+```
+
+```
+## 'data.frame':	90387 obs. of  6 variables:
+##  $ ano_trimestre: int  2021 2021 2021 2021 2021 2021 2021 2021 2021 2021 ...
+##  $ mes_central  : int  2 2 2 2 2 2 2 2 2 2 ...
+##  $ idrph        : int  544011 72737011 736011 719011 15805111 15804111 15807111 15808111 15809111 15789111 ...
+##  $ estrato      : int  5121 5121 5121 5121 10100111 10100111 10100111 10100111 10100111 10100111 ...
+##  $ conglomerado : num  5.80e+12 5.80e+12 5.80e+12 5.80e+12 1.01e+09 ...
+##  $ fact_cal     : num  295 261 270 295 126 ...
+```
+--
+
+
+```r
+library(survey)
+library(srvyr)
+```
+
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+### Crear objeto survey con la ENE
+
+Todas las recodificaciones y ediciones hacerlas antes de crear el objeto `survey`.
+
+--
+
++ Las variables con las que se harán agrupamientos deben mutarse a formato `factor`.  
+
+--
+
+
+```r
+ene$activ&lt;-as.factor(ene$activ) ## ojo
+ene$sexo&lt;-as.factor(ene$sexo) ## ojo
+ene$categoria_ocupacion&lt;-as.factor(ene$categoria_ocupacion)  ## ojo
+```
+
+--
+
+Crear el objeto `survey`
+
+
+```r
+*ds&lt;- ene %&gt;% as_survey_design(ids = conglomerado,
+*                             strata = estrato,
+*                             weights = fact_cal)
+```
+
+
+--
+
+Opciones generales, quedan definidas para toda la sesión de R (como cargar un paquete)
+
+--
+
+
+```r
+options(survey.lonely.psu = "certainty" ) 
+## Evita que el programa tire error por estratos con solo una unidad primaria de muestreo (PSU) o conglomerado
+## La opción certainty indica que los estratos con un conglomerado no aportan varianza a la estimación.
+```
+
+--
+
+Más sobre [unidades primarias de muestreo](http://r-survey.r-forge.r-project.org/survey/exmample-lonely.html) en survey.
+
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+--
+
+
+```r
+class(ds) ## Consultar tipo de objeto
+```
+
+```
+## [1] "tbl_svy"        "survey.design2" "survey.design"
+```
+
+--
+
+### Contar casos por categoría de respuesta
+
+--
+
+
+```r
+# Ocupados - Desocupados - Fuera de la FT
+*ds %&gt;% group_by(activ) %&gt;% summarise(trabajadores=survey_total(na.rm = TRUE))
+```
+
+```
+## # A tibble: 4 x 3
+##   activ trabajadores trabajadores_se
+##   &lt;fct&gt;        &lt;dbl&gt;           &lt;dbl&gt;
+## 1 1         8148206.          91044.
+## 2 2          941088.          26958.
+## 3 3         6763752.          70928.
+## 4 &lt;NA&gt;      3742791.          62359.
+```
+
+--
+
+No solo tenemos estimación puntual del número de trabajadores, ahora tenemos una medida de precisión (se)
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+Error estandar indica la variabilidad de las medias muestrales. 
+
+Tiende a disminuir cuando aumenta el tamaño de las muestras.
+
+--
+
+`$$se=sd/\sqrt{n}$$`
+
+--
+
+Como la desviación estándar de la población rara vez se conoce, el error estándar de la media suele estimarse como la desviación estándar de la muestra dividida por la raíz cuadrada del tamaño de la muestra.
+
+--
+
+Con el error estandar podemos obtener los intervalos de confianza
+
+
+--
+
+`$$[\overline{x} + z_{a/2}\frac{sd}{\sqrt{n}} , \overline{x} - z_{a/2}\frac{sd}{\sqrt{n}}]$$`
+
+--
+
+Survey lo hace por nosotros...
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+--
+
+
+```r
+ds %&gt;% group_by(activ) %&gt;% 
+* summarise(trabajadores=survey_total(na.rm = TRUE,
+*                                     vartype=c("ci")))
+```
+
+```
+## # A tibble: 4 x 4
+##   activ trabajadores trabajadores_low trabajadores_upp
+##   &lt;fct&gt;        &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 1         8148206.         7969723.         8326688.
+## 2 2          941088.          888240.          993936.
+## 3 3         6763752.         6624705.         6902799.
+## 4 &lt;NA&gt;      3742791.         3620543.         3865039.
+```
+
+--
+
+Por defecto `survey` trabaja con nivel de confianza del 95% (z=1,96). Se puede cambiar:
+
+--
+
+
+```r
+ds %&gt;% group_by(activ) %&gt;% 
+  summarise(trabajadores=survey_total(na.rm = TRUE, 
+                                      vartype=c("ci"),
+*                                     level=c(0.90)))
+```
+
+```
+## # A tibble: 4 x 4
+##   activ trabajadores trabajadores_low trabajadores_upp
+##   &lt;fct&gt;        &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 1         8148206.         7998426.         8297985.
+## 2 2          941088.          896739.          985437.
+## 3 3         6763752.         6647066.         6880438.
+## 4 &lt;NA&gt;      3742791.         3640203.         3845379.
+```
+
+
+
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+--
+
+Con esto, la tasa de desocupación publicada de 10,4% en EFM 2021 tendrá un nivel de precisión:
+
+--
+
+
+```r
+tasa&lt;-ds %&gt;% group_by(activ) %&gt;% 
+* summarise(trabajadores=survey_total(na.rm = TRUE,
+                         vartype=c("ci"))) %&gt;% 
+  filter(activ==1|activ==2) %&gt;% # seleccionar solo 2 filas
+  janitor::adorn_totals("row")  # total por columna
+```
+
+Tasas de desocupación:
+
+--
+
+
+```r
+*tasa[2,2:4]/tasa[3,2:4]
+```
+
+```
+##   trabajadores trabajadores_low trabajadores_upp
+## 1    0.1035381        0.1002759        0.1066384
+```
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+### Proporciones por categoría de respuesta
+
+
+--
+
+
+```r
+ds %&gt;% filter(categoria_ocupacion!=0) %&gt;% group_by(categoria_ocupacion) %&gt;% 
+* summarise(proportion = survey_mean(vartype = c("ci"),na.rm = TRUE))
+```
+
+```
+## # A tibble: 7 x 4
+##   categoria_ocupacion proportion proportion_low proportion_upp
+##   &lt;fct&gt;                    &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+## 1 1                      0.0303         0.0276         0.0330 
+## 2 2                      0.202          0.195          0.209  
+## 3 3                      0.598          0.590          0.607  
+## 4 4                      0.135          0.129          0.141  
+## 5 5                      0.0211         0.0187         0.0235 
+## 6 6                      0.00396        0.00278        0.00515
+## 7 7                      0.00885        0.00732        0.0104
+```
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+### Media
+
+Similar a como se programan las proporciones, pero incluyendo una variable numérica dentro de `survey_mean`
+
+--
+
+
+```r
+ds %&gt;% filter(categoria_ocupacion!=0) %&gt;% group_by(categoria_ocupacion) %&gt;% 
+* summarise(media_edad = survey_mean(edad,vartype = c("ci"),na.rm = TRUE))
+```
+
+```
+## # A tibble: 7 x 4
+##   categoria_ocupacion media_edad media_edad_low media_edad_upp
+##   &lt;fct&gt;                    &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;
+## 1 1                         50.4           49.2           51.5
+## 2 2                         45.8           45.3           46.3
+## 3 3                         40.2           40.0           40.5
+## 4 4                         42.2           41.7           42.7
+## 5 5                         48.4           47.1           49.6
+## 6 6                         50.1           45.6           54.6
+## 7 7                         40.8           38.4           43.1
+```
+
+---
+
+### Mediana (2do cuartil)
+
+--
+
+
+```r
+ds %&gt;% filter(categoria_ocupacion!=0) %&gt;% group_by(categoria_ocupacion) %&gt;% 
+* summarise(mediana_edad = survey_median(edad,vartype = c("ci"),na.rm = TRUE))
+```
+
+```
+## # A tibble: 7 x 4
+##   categoria_ocupacion mediana_edad mediana_edad_low mediana_edad_upp
+##   &lt;fct&gt;                      &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;
+## 1 1                             51               49               52
+## 2 2                             45               44               46
+## 3 3                             39               38               39
+## 4 4                             40               40               41
+## 5 5                             49               48               51
+## 6 6                             54               43               57
+## 7 7                             39               36               42
+```
+
+
+---
+
+## La forma correcta: `survey` y `srvyr`
+
+### Cuartiles (y otros percentiles)
+
+--
+
+
+```r
+ds %&gt;% filter(!is.na(activ)) %&gt;% group_by(activ) %&gt;% 
+* summarise(edad=survey_quantile(edad,c(0.25, 0.5, 0.75),na.rm = TRUE))
+```
+
+```
+## # A tibble: 3 x 7
+##   activ edad_q25 edad_q50 edad_q75 edad_q25_se edad_q50_se edad_q75_se
+##   &lt;fct&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+## 1 1           31       41       52       0.255       0.255       0    
+## 2 2           26       34       47       0.255       0.510       0.765
+## 3 3           23       46       67       0.255       0.510       0.255
+```
+
+---
+
+
+### Desviación estándar y varianza
+
+--
+
+
+```r
+ds %&gt;% filter(categoria_ocupacion!=0) %&gt;% group_by(categoria_ocupacion) %&gt;% 
+  summarise(sd_edad=survey_sd(edad,na.rm = TRUE),
+*           varianza_edad=survey_var(edad,vartype = c("ci"),na.rm = TRUE))
+```
+
+```
+## # A tibble: 7 x 5
+##   categoria_ocupacion sd_edad varianza_edad varianza_edad_low varianza_edad_upp
+##   &lt;fct&gt;                 &lt;dbl&gt;         &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;
+## 1 1                      12.8          164.              148.              181.
+## 2 2                      14.0          196.              189.              202.
+## 3 3                      12.6          159.              155.              162.
+## 4 4                      11.9          143.              135.              151.
+## 5 5                      11.2          126.              108.              143.
+## 6 6                      13.8          191.              130.              252.
+## 7 7                      16.4          268.              231.              304.
+```
+
+
+---
+
+class: inverse, center, middle
+
+# Muestras complejas en R
+
+`Visualización de la incertidumbre`
+
+---
+
+# Visualizar la incertidumbre
+
+La forma más común es el gráfico de barras o de líneas con barras de error (A). 
+
+&lt;img src="imagenes/4_mean_ic.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+--
+
+La visualización puede aportar más de un intervalo (B)
+
+--
+
+O incluso se puede ir más allá, visualizando la incertidumbre de forma continua (C y D)
+
+--
+
+La visualización también puede confundir, presentándose errores estándar como si fuesen intervalos. 
+
+--
+
+Revisar Correl, M. [Error bars considered harmful](https://ieeexplore.ieee.org/document/6875915) para conocer la discusión. 
+
+
+---
+
+# Visualizar la incertidumbre
+
+### `geom_bar`
+
+--
+
+
+```r
+ds %&gt;% filter(categoria_ocupacion!=0) %&gt;% group_by(categoria_ocupacion) %&gt;% 
+* summarise(trabajadores=survey_total(na.rm = TRUE, vartype=c("ci"),level=c(0.95))) %&gt;%
+  ggplot(aes(x=categoria_ocupacion,y=trabajadores,fill=categoria_ocupacion))+
+  geom_bar(stat = "identity") + 
+* geom_errorbar(aes(ymin=trabajadores_low, ymax=trabajadores_upp),
+                  width=0.2, position=position_dodge(.9))
+```
+
+--
+
+
+
+&lt;img src="imagenes/grafico1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Visualizar la incertidumbre
+
+### Gráfico de líneas
+
+Data con la evolución de los ocupados (en miles) en Chile entre 2010 y 2021.
+
+
+```
+## # A tibble: 133 x 4
+##    ocupados periodo ocupados_low ocupados_upp
+##       &lt;dbl&gt;   &lt;int&gt;        &lt;dbl&gt;        &lt;dbl&gt;
+##  1    7156.       1        6798.        7514.
+##  2    7199.       2        6839.        7559.
+##  3    7182.       3        6823.        7541.
+##  4    7222.       4        6860.        7583.
+##  5    7257.       5        6894.        7619.
+##  6    7289.       6        6925.        7654.
+##  7    7389.       7        7020.        7759.
+##  8    7414.       8        7044.        7785.
+##  9    7503.       9        7128.        7878.
+## 10    7572.      10        7194.        7951.
+## # ... with 123 more rows
+```
+
+
+
+---
+
+# Visualizar la incertidumbre
+
+### Gráfico de líneas, solo estimaciones puntuales
+
+
+```r
+serie %&gt;%  ggplot(aes(x=periodo, y=ocupados)) + 
+  geom_line() + 
+  geom_point() +
+  theme_bw()
+```
+
+
+
+
+&lt;img src="imagenes/grafico2.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Visualizar la incertidumbre
+
+### Gráfico de líneas, con medidas de precisión
+
+
+```r
+serie %&gt;%  ggplot(aes(x=periodo, y=ocupados)) + 
+  geom_line() + 
+  geom_point() +
+  theme_bw() + 
+* geom_errorbar(aes(ymin=ocupados_low, ymax=ocupados_upp), width=.01)
+```
+
+
+
+
+&lt;img src="imagenes/grafico3.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Gráficos de cajas, estimando a la población
+
+
+```r
+*svyboxplot(edad~categoria_ocupacion, design=ds,all.outliers=TRUE)
+```
+
+&lt;img src="clase10b_survey_files/figure-html/unnamed-chunk-39-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+## Gráficos de cajas, estimando a la población
+
+
+&lt;img src="clase10b_survey_files/figure-html/unnamed-chunk-40-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+## Gráficos de cajas modificados 
+
+[o The Modern Box Plot](https://towardsdatascience.com/better-boxplots-for-psychological-science-5fbe552b2eef)
+
+--
+
+## Para visulizar precisión (IC) en vez cuartiles
+
++ Box center: sample mean (o total)
++ Box edges: standard error of the mean (IC 50% en este caso)
++ Box whiskers: 95% confidence interval
+
+--
+
+
+```r
+## Crear tabla de ocupados por sector económico
+base&lt;-ds %&gt;% filter(categoria_ocupacion==3&amp;r_p_rev4cl_caenes%in%c(1,3,6,7,8)) %&gt;%
+  group_by(r_p_rev4cl_caenes) %&gt;% 
+  summarise(trabajadores=survey_total(na.rm = TRUE, vartype=c("ci"),level=c(0.50,0.95))) %&gt;% 
+  rename(sectores=r_p_rev4cl_caenes) %&gt;% mutate(sectores=as.factor(sectores))
+
+base
+```
+
+```
+## # A tibble: 5 x 6
+##   sectores trabajadores trabajadores_low50 trabajadores_upp50 trabajadores_low95
+## * &lt;fct&gt;           &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;              &lt;dbl&gt;
+## 1 1             441781.            430727.            452834.            409654.
+## 2 3             550973.            537615.            564331.            512149.
+## 3 6             500151.            487932.            512370.            464637.
+## 4 7             917740.            898806.            936674.            862710.
+## 5 8             352051.            341282.            362819.            320752.
+## # ... with 1 more variable: trabajadores_upp95 &lt;dbl&gt;
+```
+
+
+
+
+---
+
+## Gráficos de cajas modificados
+
+
+```r
+base %&gt;% ggplot(aes(y = trabajadores, x = sectores,color=sectores)) + 
+  geom_point() +
+  geom_crossbar(aes(ymin = trabajadores_low50, ymax = trabajadores_upp50)) +
+  geom_errorbar(aes(ymin = trabajadores_low95, ymax =  trabajadores_upp95), width = 0.2) + labs(title = "Grafico de cajas modificado",subtitle = "Bigotes indican IC del 95% y bisagras de la caja un 50%")
+```
+
+--
+
+
+
+&lt;img src="imagenes/grafico5.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+## Correlación con pesos
+
+
+```r
+## Correlación considerando pesos
+library(weights)
+ene2&lt;-ene %&gt;% select(edad,c2_1_1,c2_2_1)
+weighted_corr&lt;-wtd.cor(ene2, weight = ene$fact_cal)
+weighted_corr$correlation
+```
+
+```
+##               edad      c2_1_1    c2_2_1
+## edad    1.00000000 -0.03761003 0.1405247
+## c2_1_1 -0.03761003  1.00000000 0.2348693
+## c2_2_1  0.14052466  0.23486931 1.0000000
+```
+
+--
+
+
+```r
+# Correlación considerando sin considerar pesos
+cor(ene2, use = "complete.obs")
+```
+
+```
+##               edad      c2_1_1     c2_2_1
+## edad    1.00000000 -0.05798551 0.04832614
+## c2_1_1 -0.05798551  1.00000000 0.24264390
+## c2_2_1  0.04832614  0.24264390 1.00000000
+```
+
+
+---
+
+# Bibliografía y elementos consultados
+
+Heiss, A. [Uncertainty](https://datavizs21.classes.andrewheiss.com/content/06-content/). En curso "Data Visualization". 
+
+INE. Boletín Mensual DEF 2021 [Encuesta Nacional de Empleo](https://www.ine.cl/estadisticas/sociales/mercado-laboral/ocupacion-y-desocupacion).
+
+[Xaringan: Presentation Ninja, de Yihui Xie](https://github.com/yihui/xaringan). Para generar esta presentación.
+
+[Lehmann et al (2021) Presentación paquete "calidad" en LatinR](https://www.youtube.com/watch?v=ch3bg2bhOmc)
+
+
+
+
+&lt;a name=bib-Lohr2000&gt;&lt;/a&gt;[Lohr, S. L.](#cite-Lohr2000) (2000).
+_Muestreo: Diseño y Análisis_. 519.52 L6. International Thomson
+Editores.
+
+&lt;a name=bib-Vivanco2006&gt;&lt;/a&gt;[Vivanco, M.](#cite-Vivanco2006) (2006).
+"Diseño de Muestras En Investigación Social". In: _Metodolog\'ias de La
+Investigación Social. Introducción a Los Oficios._ Santiago: LOM, pp.
+141-168.
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
