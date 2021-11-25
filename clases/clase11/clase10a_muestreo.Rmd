@@ -26,6 +26,9 @@ bib <- ReadBib("../../bibliografia/bib.bib", check = FALSE)
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
+
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -106,6 +109,8 @@ Para conocer los parámetros usamos estimadores.
 Con el estimador calculamos el parametro poblacional en base a una serie de datos
 observados.
 
+--
+
 ```{r echo=FALSE, fig.align='center',out.width="80%"}
 knitr::include_graphics('imagenes/nomenclatura.png')
 ```
@@ -115,31 +120,31 @@ knitr::include_graphics('imagenes/nomenclatura.png')
 
 # Muestra
 
-El supuesto central detrás de una **muestra estadísticamente representativa** es el de una **muestra aleatoria**
+Para tener una **muestra estadísticamente representativa** el supuesto de la **muestra aleatoria** es fundamental
 
 --
 
-La selección aleatoria no supone que el grado de imprecisión asociado a las
-estimaciones sea necesariamente pequeño. Sí permite conocer la magnitud de
-la imprecisión.
+La selección aleatoria no supone que el grado de imprecisión asociado a las estimaciones sea necesariamente pequeño. Sí permite conocer la magnitud de la imprecisión.
 
 --
 
-Además, todos los elementos tienen una probabilidad conocida y distinta de cero de ser elegidos
+Además, todos los elementos tienen una **probabilidad conocida y distinta de cero** de ser elegidos
 
 --
 
-Con esto, podemos conocer el error asociado a la estimación
+Con esto, podemos conocer el error asociado a la estimación...
 
 --
 
-No todas las formas de seleccionar a una muestra son "probabilísticas". El muestreo por cuotas, por ejemplo, es "no probabilistico". 
+Y nos movemos dentro del mundo del **muestreo probabilísitico**
 
 ---
 
 # Muestreo probabilístico
 
-Sí tenemos un listado de los elementos (marco muestral), y seleccionamos aleatoriamente solamente algunos elementos a estudiar, estamos en un **muestreo probabilistico**. Esta es la base de otros diseños más complejos. 
+Sí tenemos un listado de los elementos (marco muestral), y seleccionamos aleatoriamente solamente algunos elementos a estudiar, estamos en un **muestreo probabilístico**. 
+
+Esta es la base de otros diseños más complejos. 
 
 --
 
@@ -280,7 +285,9 @@ for(i in 1:nrow(base)){
   base[i,2:3]<-sample_n(poblacion,size=500) %>% 
     select(extranjers) %>%  
     table() %>% prop.table()                       
-}                                               
+}   
+
+baseinicial <- base
 
 ```
 
@@ -289,7 +296,7 @@ for(i in 1:nrow(base)){
 # La selección aleatoria
 
 ```{r}
-head(base,10) %>% knitr::kable() 
+head(baseinicial,10) %>% knitr::kable() 
 ```
 
 ---
@@ -301,22 +308,22 @@ head(base,10) %>% knitr::kable()
 --
 
 ```{r}
-mean(base$ext)   ## OMG! en la población era 0.07584584   
+mean(baseinicial$ext)   ## OMG! en la población era 0.07584584   
 ```
 --
 
-Solo hay una diferencia de `r (mean(base$ext)-0.07584584)*100`% (menos de un 1%).
+Solo hay una diferencia de `r (mean(baseinicial$ext)-0.07584584)*100`% (menos de un 1%).
 
 
 ---
 
-# La selección aleatoria
+## La selección aleatoria
 
-```{r echo=FALSE,warning=FALSE,message=FALSE, out.extra="30%", fig.align='center'}
+```{r echo=FALSE,warning=FALSE,message=FALSE, out.extra="25%", fig.align='center'}
 library(ggplot2)
-base %>% ggplot(aes(x=ext))+
+baseinicial %>% ggplot(aes(x=ext))+
   geom_histogram(fill="darkmagenta")+
-  geom_vline(xintercept = mean(base$ext),
+  geom_vline(xintercept = mean(baseinicial$ext),
              linetype="dashed", color = "red") + 
   theme_bw() 
 
@@ -324,7 +331,217 @@ base %>% ggplot(aes(x=ext))+
 
 ---
 
+# La selección aleatoria
+
+¿Que forma tiene la distribución?
+
+--
+
+Distribución teórica normal. ¿Y que sabemos de esta?
+
+--
+
+El el 68% de los casos se encuentran a +/- 1 SD del promedio, y el 95% a +/- 1.96 SD (puntaje Z)
+
+--
+
+```{r echo=FALSE, fig.align='center',out.width="50%"}
+knitr::include_graphics('imagenes/normal.png')
+```
+
+---
+
 # Estimar desde muestra
+
+Además, mientras más muestras sacamos, más se distribuyen normal (**ley de los grandes números**)
+
+--
+
+Y mientras más grande es cada muestra de las muchas que saquemos, la distribución muestral de este del estadístico tenderá a ser normal (**Teorema del límite central**).
+
+Las medias de muestras grandes y aleatorias son aproximadamente normales
+
+--
+
+Veamos ambas propiedades
+
+---
+
+## Ley de los grandes números
+
+```{r fig.align='center', out.width="60%", echo=FALSE}
+set.seed(1917)  # semilla
+
+n1 <- 10
+n2 <- 50
+n3 <- 100
+n4 <- 1000
+
+
+base<-data.frame(muestra=c(1:n1),  # data vacía
+                 ext=rep(NA,n1),
+                 nac=rep(NA,n1))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot1 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=500, 10 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:n2),  # data vacía
+                 ext=rep(NA,n2),
+                 nac=rep(NA,n2))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot2 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=500, 50 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:n3),  # data vacía
+                 ext=rep(NA,n3),
+                 nac=rep(NA,n3))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot3 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=500, 100 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:n4),  # data vacía
+                 ext=rep(NA,n4),
+                 nac=rep(NA,n4))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot4 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=500, 1000 muestras")
+
+
+
+library(gridExtra)
+gridExtra::grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
+
+```
+
+
+---
+
+## Teorema del límite central
+
+```{r fig.align='center', out.width="60%", echo=FALSE}
+set.seed(1917)  # semilla
+
+n1 <- 10
+n2 <- 50
+n3 <- 100
+n4 <- 1000
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n1) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot1 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=10, 500 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n2) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot2 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=50, 500 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n3) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot3 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=100, 500 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n4) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot4 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=1000, 500 muestras")
+
+
+
+library(gridExtra)
+gridExtra::grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
+
+```
+
+
+
+---
+
+# Estimar desde muestra
+
+Conocemos la teoría de muestras y la demostramos sacando muchas muestras.
+
+--
+
+En la práctica solo tenemos recursos para seleccionar 1 muestra.
+
+Desde los datos de esta muestra debemos **estimar** el valor que nos interesa de la población.
+
+--
 
 Cada % de extranjeros estimado con 1 muestra tiene un error asociado. 
 
@@ -336,19 +553,28 @@ Por ejemplo: *en la población se estiman entre un 6,5% y 8,5% de extranjeros*
 
 Esta forma de medir el error utiliza un "intervalo de confianza" (+-1%)
 
---
+---
+
+# Estimar desde muestra
 
 La teoría de muestras nos permite conocer este error, en base a:
 
-+ tamaño de la muestra ($n$)
++ tamaño de la muestra (n)
 
-+ nivel de confianza en puntaje Z ($z_{a/2}$)
++ nivel de confianza en puntaje Z (z)
 
-+ variabilidad de los datos ($\overline{p}(1-\overline{p})$)
++ variabilidad de los datos (p(1-p))
 
 --
 
 $$[\overline{p} \pm z_{a/2}\sqrt\frac{\overline{p}(1-\overline{p})}{{n}}]$$
+--
+
++ tamaño de la muestra: 500 observaciones
+
++ nivel de confianza en puntaje Z: 1,96
+
++ variabilidad de los datos: 6,4% (o lo que de la muestra)
 
 
 ---
@@ -389,6 +615,10 @@ Que si sacamos 20 muestras, las estimaciones desde una de estas no contendría d
 
 --
 
+O que si sacamos 100 muestras, las estimaciones desde cinco de estas no contendría dentro de sus intervalos el valor poblacional.
+
+--
+
 ```{r echo=FALSE, fig.align='center',out.width="50%"}
 knitr::include_graphics('https://cdn-img.scalabs.com.au/uzjYWz5uFA99H9ilh_BLtPqAA1Dq0GhZ05-Iow7qAZM/aHR0cHM6Ly9zdy1o/aXQtcHJkLnNjYWRp/Z2l0YWwuaW8vbWVk/aWEvMTYyNjYvc2lk/ZS1leWUtY2hsb2Uu/anBnP3ByZXNldD1N/YWluSW1hZ2U')
 ```
@@ -404,7 +634,7 @@ Veamoslo con 20 de las 500 muestras que sacamos.
 Calculamos los intervalos de confianza de cada muestra
 
 ```{r}
-submuestra <- base[1:20,c(1,2)] %>% 
+submuestra <- baseinicial[1:20,c(1,2)] %>% 
   rename(p=ext) %>% 
   mutate(limite_inferior= p - (z * (sqrt(p*(1-p)/n))),
          limite_superior= p + (z * (sqrt(p*(1-p)/n))))
@@ -434,7 +664,9 @@ ggplot(submuestra, aes(x=as.factor(muestra), y = p)) +
 
 # Elementos a destacar
 
-Vimos como estimar proporciones, para medias, medianas, varianzas y totales la formula debe ser ajustada. 
+Vimos como estimar proporciones
+
+Para estimar medias, medianas, varianzas y totales la formula debe ser ajustada. 
 
 --
 
@@ -448,9 +680,115 @@ Lo que es más relevante es el tamaño de la muestra, nivel de confianza y varia
 
 --
 
-Elementos que la formula ya vista resume y que podemos re estructurar para calcular el tamaño de una muestra:
+Elementos que la formula ya vista resume y que podemos re estructurar para calcular el tamaño de una muestra (agregando tamaño de población):
 
 $$n=(1-\frac{n}{N})*\frac{z^2_{a/2}(s^2)}{e^2}$$
+--
+
+Determinando un nivel de confianza (z), un error esperado (e), teniendo antecedentes de la variabilidad de los datos (s2) y conociendo el N de la población... podemos calcular una muestra. 
+
+---
+
+## Tamaño muestra y error
+
+Si definimos errores elevados la muestra es pequeña.
+
+--
+
+```{r echo=FALSE, warning=FALSE, message=FALSE, out.width="50%", fig.align='center'}
+
+library(samplingbook)
+
+## Población 19 millones. 95% nivel de confianza.
+
+d=(19000000*(1.96^2)*(0.5*0.5))
+n=((5^2)*(19000000-1))+(1.96^2)*(0.5*0.5)
+e<-d/n*10000
+
+error<-c(0.35,0.4,0.45,0.5,1,1.5,2,2.5,3,3.5,4)
+n<-c(rep(NA,length(error)))
+base<-data.frame(error,n)
+
+
+for(i in 1:nrow(base)){
+  base[i,2]<-round((19000000*(1.96^2)*(0.5*0.5))/(((error[i]^2)*(19000000-1))+(1.96^2)*(0.5*0.5))*10000)
+}
+
+base %>% ggplot(aes(x=n,y=error))+geom_line()+geom_point() + theme_bw() + labs(title="Tamaño de muestra y error máximo admisible",y="Error (%)",x="Tamaño muestra",subtitle = "Un error de 3% es razonable (n=1067 al 95%)") + 
+  scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+
+```
+
+---
+
+## n muestra y nivel de confianza
+
+```{r echo=FALSE, warning=FALSE, message=FALSE,  out.width="50%", fig.align='center'}
+ncz<-c(1.64,1.96,2.58, 3, 3.5, 3.8)
+nc<-c("90%","95%","99%","99,87%", "99,96%", "99,99%")
+n<-c(rep(NA,length(ncz)))
+base<-data.frame(nc,ncz,n)
+
+
+for(i in 1:nrow(base)){
+  base[i,3]<-round((19000000*(ncz[i]^2)*(0.5*0.5))/(((3^2)*(19000000-1))+(ncz[i]^2)*(0.5*0.5))*10000)
+}
+
+base %>% ggplot(aes(x=n,y=ncz))+geom_line()+geom_point() + theme_bw() + labs(title="Tamaño de muestra y nivel de confianza",y="Puntaje z",x="Tamaño muestra",subtitle = "Error max. admisible fijo en 3%") + 
+  scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+```
+
+---
+
+## n muestra y variabilidad
+
+Se considra la varianza de una pregunta de investigación previa. A mayor varianza, más casos se necesitarán. Si no hay información se supone varianza máxima (`r 0.5^2`)
+
+```{r echo=FALSE, warning=FALSE, message=FALSE,  out.width="50%", fig.align='center'}
+
+P<-c(0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5)
+n<-c(rep(NA,length(P)))
+base<-data.frame(P,n)
+
+for(i in 1:nrow(base)){
+  
+base[i,2]<-sample.size.prop(e=0.01, P = P[i], N = 100000, level = 0.95)$n
+
+}
+
+base %>% ggplot(aes(x=n,y=P))+geom_point()+geom_line() + theme_bw() + labs(title="Tamaño de muestra y varianza",y="Varianza",x="Tamaño muestra",subtitle = "Error max. admisible en 3%, 95% de confianza y población 100.000") + 
+  scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+```
+
+---
+
+## n muestra y N población
+
+En poblaciones superiores a 100.000 casos la influencia del tamaño de la población es ínfima
+
+```{r echo=FALSE, warning=FALSE, message=FALSE,  out.width="50%", fig.align='center'}
+poblacion<-c(100,10000,50000,100000,200000,300000,500000,600000,700000,800000,900000,1000000)
+n<-c(rep(NA,length(poblacion)))
+base<-data.frame(poblacion,n)
+
+library(samplingbook)
+
+for(i in 1:nrow(base)){
+  
+base[i,2]<-sample.size.prop(e=0.01, P = 0.5, N = poblacion[i], level = 0.95)$n
+
+}
+
+base %>% ggplot(aes(y=n,x=poblacion))+geom_line()+geom_point() + theme_bw() + labs(title="Tamaño de muestra y de la poblacion",x="Tamaño población",y="Tamaño muestra",subtitle = "Error max. admisible en 3% y 95% de confianza") + 
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE),limits = c(0,10000))+
+    scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+
+
+```
 
 ---
 
@@ -466,7 +804,21 @@ Acá utilizaremos un paquete para eso
 library(samplingbook)
 ```
 
+--
 
+Si tenemos variabilidad como proporción *dummy* (P)
+
+```{r}
+sample.size.prop(e=0.03, P = 0.75, N = 19000000, level = 0.95)
+```
+
+--
+
+Si tenemos variabilidad de variable numérica (SD) (y no tenemos el N)
+
+```{r eval=FALSE}
+sample.size.mean(e=0.03, S = 0.5, N = Inf, level = 0.95)
+```
 
 
 ---
@@ -475,11 +827,175 @@ class: inverse, center, middle
 
 # Tipos de muestreo
 
+`Presentación general del estratificado y por conglomerados`
 
 ---
 
+# Muestreo
+
+--
+
+### Probabilístico
+
+#### Muestreo aleatorio simple
+
+#### Muestreo estratificado
+
+#### Muestreo por conglomerados
+
+--
+
+### No probabilístico
+
+#### Muestreo por cuotas (no lo veremos)
+
+---
+
+## Muestreo aleatorio simple (MAS)
+
+Se deja actuar libremente al azar (con o **sin reemplazo**, unidades de la muestra distintas)
+
+--
+
+Sirve de referencia y base para los demás tipos de diseños
+
+--
+
+Es monetápica, autoponderada y equiprobable.
+
+--
+
+**Ventaja:**
+
+1. Sencillez de las fórmulas.
+
+2. Precisión de la estimación
+
+--
+
+**Desventaja:**
+
+1. Necesitas el listado de todos los elementos (marco muestral)
+
+2. Aumento de costo por la dispersión geográfica
+
+--
+
+Con diseños más complejos podemos mantener la misma precisión, pero necesitando menos elementos en la muestra e incluso no necesitar un marco muestral
+
+---
+
+## Muestreo estratificado
+
+--
+
+Estrato: Grupo homogéneo de elementos compuesto por una variable auxiliar.
+
+--
+
+Los estratos son diferentes entre si, la varianza dentro de los estratos es pequeña, pero entre los estratos es grande.
+
+--
+
++ sector económico, región y rural/urbano
+
+--
+
+Agrupar en grupos homogéneos, aumenta la precisión de la estimación. Con esto, se puede asegurar precisión para cada estrato. 
+
+--
+
+La selección de elementos se realiza después de establecidos los estratos y asignado cada elemento al estrato de pertenencia.
+
+---
+
+## Muestreo estratificado
+
+Lo más básico es elegir para cada estrato un número proporcional de elementos (**Afijación proporcional**).
+
+Si el estrato es más grande, debemos seleccionar más elementos de ese estrato
+
+--
+
+En la práctica esto nunca se hace. 
+
+--
+
+Se ocupa la **afijación óptima**. 
+
+El tamaño de la muestra seleccionada para cada estrato varía proporcionalmente y por la varianza de cada estrato
+
+Si el estrato es muy heterogéneo necesitamos más casos
+
+--
+
+Como resultado, nuestras distintas observaciones tendrán diferentes "pesos" por lo estratos a los que pertenecen. 
+
+Estrato pequeño y homogeneo tendrá pocos casos en la muestra, los que pesarán mucho (factor de expansión)
 
 
+---
+
+## Muestreo por conglomerados
+
+--
+
+Conglomerado: conjunto de elementos homogéneo entre sí y que se diferencia de otros conjuntos
+
+--
+
+La lógica aplicar dos veces el muestreo:
+
++ para seleccionar conglomerados a estudiar
+
++ para seleccionar a los elementos dentro de los conglomerados seleccionados
+
+--
+
+*"Los conglomerados son parecidos entre sí, por tanto se seleccionan sólo algunos para conformar la muestra. No se requiere de la lista de todos los elementos de la población, sólo el listado de elementos de los conglomerados elegidos."* (Vivanco, 2006: 144).
+
+--
+
+Las manzanas de casas son un típico ejemplo de conglomerado
+
+--
+
+Iglesias luteranas (Ejemplo de Lohr 2000). Queremos conocer a los luteranos pero no tenemos registro de ellos, pero sí de las iglesias. 
+
+
+
+---
+
+## Muestreos no probabilísticos
+
+Se caracterizan por que los elementos **no** tienen una probabilidad conocida de
+selección
+
+--
+
+Esto anula las herramientas elaboradas para inferir de la muestra a la población.
+
+Es imposible conocer la magnitud del error.
+
+--
+
+El más común es el muestreo por cuotas
+
+--
+
+Se sustenta conceptualmente en que si se replican los porcentajes de la población, tendré una muestra representativa (**nunca estadísticamente**)
+
+--
+
+El trabajo del muestrista es establecer las cuotas. El del entrevistador llenarlas.
+
+--
+
+No requiere del marco muestral (listado de elementos)
+
+Resuelve el problema de las no-respuestas.
+
+Sesgo de participación (no todos los elementos tienen probabilidad de ser selccionados y tampoco se conoce esta probabilidad)
 
 ---
 

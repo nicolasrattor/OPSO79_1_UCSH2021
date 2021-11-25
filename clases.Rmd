@@ -82,10 +82,10 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # Prueba 3 (26 de noviembre)
 
-# Muestras complejas e inferencia (03 de diciembre)
+# Muestras complejas e inferencia (26 noviembre o 03 de diciembre)
 
-[Clase 12. Muestras complejas]()
+[Clase 12. La lógica del muestreo y la inferencia](https://opso791ucsh2021.netlify.app/clases/clase11/clase10a_muestreo#1)
 
-# Prueba integrativa final (10 de diciembre)
+[Clase 12. Hacer inferencias en R desde muestras complejas](https://opso791ucsh2021.netlify.app/clases/clase11/clase10b_survey#1)
 
-# Prueba integrativa final (17 de diciembre)
+# Prueba integrativa final (10 y 17 de diciembre)
