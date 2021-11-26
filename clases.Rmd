@@ -76,16 +76,16 @@ knitr::opts_chunk$set(echo = FALSE)
 
 [Clase 10. Ciencia abierta, reproducibilidad y profundización RMarkdown](https://opso791ucsh2021.netlify.app/clases/clase10/clase10a_csabierta#1)
 
-# Continuación taller Zotero, espacio de trabajo en tarea N°5, resolución de dudas y preparación prueba 3 (19 de noviembre)
+# Continuación taller Zotero y espacio de trabajo en tarea N°5 (19 de noviembre)
 
 [Clase 11. Gestión de bibliografías](https://opso791ucsh2021.netlify.app/clases/clase10/clase10c_zotero_bibtex#1)
 
-# Prueba 3 (26 de noviembre)
-
-# Muestras complejas e inferencia (26 noviembre o 03 de diciembre)
+# Muestreo e inferencias I (26 de noviembre)
 
 [Clase 12. La lógica del muestreo y la inferencia](https://opso791ucsh2021.netlify.app/clases/clase11/clase10a_muestreo#1)
 
-[Clase 12. Hacer inferencias en R desde muestras complejas](https://opso791ucsh2021.netlify.app/clases/clase11/clase10b_survey#1)
+# Muestreo e inferencias II y cierre de curso (03 de diciembre)
+
+[Clase 13. Hacer inferencias en R desde muestras complejas](https://opso791ucsh2021.netlify.app/clases/clase11/clase10b_survey#1)
 
 # Prueba integrativa final (10 y 17 de diciembre)

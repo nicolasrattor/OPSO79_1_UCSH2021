@@ -95,8 +95,8 @@ Toda la lógica del muestreo es conocer y tratar de minimizar este error.
 
 --
 
-```{r echo=FALSE, fig.align='center',out.width="40%"}
-knitr::include_graphics('imagenes/pop_sample.png')
+```{r echo=FALSE, fig.align='center',out.width="30%"}
+knitr::include_graphics('imagenes/population-sample.png')
 ```
 
 
@@ -744,7 +744,7 @@ base %>% ggplot(aes(x=n,y=ncz))+geom_line()+geom_point() + theme_bw() + labs(tit
 
 ## n muestra y variabilidad
 
-Se considra la varianza de una pregunta de investigación previa. A mayor varianza, más casos se necesitarán. Si no hay información se supone varianza máxima (`r 0.5^2`)
+Se considra la varianza de una pregunta de investigación previa. A mayor varianza, más casos se necesitarán. Si no hay información se supone varianza máxima (`0.5^2`)
 
 ```{r echo=FALSE, warning=FALSE, message=FALSE,  out.width="50%", fig.align='center'}
 
@@ -877,7 +877,7 @@ Es monetápica, autoponderada y equiprobable.
 
 1. Necesitas el listado de todos los elementos (marco muestral)
 
-2. Aumento de costo por la dispersión geográfica
+2. Aumenta el error al estimar desagregaciones
 
 --
 
@@ -885,11 +885,29 @@ Con diseños más complejos podemos mantener la misma precisión, pero necesitan
 
 ---
 
-## Muestreo estratificado
+## Marcos muestrales
+
+La población esta claramente definida y acotada: alumnas/os del OPSOUCSH. 
 
 --
 
-Estrato: Grupo homogéneo de elementos compuesto por una variable auxiliar.
+
+En cambio, en relación al **marco muestral**, el listado de los elementos de la población, no tenemos la certeza de su cobertura, actualización, etc.
+
+--
+
+Siempre es necesario evaluar la calidad del marco muestral, dado que será la fuente de la
+información.
+
+--
+
+Además, es relevante que se explicite como acceder a las unidades seleccionadas.
+
+---
+
+## Muestreo estratificado
+
+Estrato: Grupo homogéneo de elementos compuesto por una variable auxiliar
 
 --
 
@@ -901,11 +919,17 @@ Los estratos son diferentes entre si, la varianza dentro de los estratos es pequ
 
 --
 
-Agrupar en grupos homogéneos, aumenta la precisión de la estimación. Con esto, se puede asegurar precisión para cada estrato. 
+Agrupar en grupos homogéneos, aumenta la precisión de la estimación. 
+
+Con esto, se puede asegurar precisión para cada estrato. 
 
 --
 
 La selección de elementos se realiza después de establecidos los estratos y asignado cada elemento al estrato de pertenencia.
+
+--
+
+Es clave contar con una variable de estratificación, que asigne un estrato a cada unidad. 
 
 ---
 
@@ -919,9 +943,9 @@ Si el estrato es más grande, debemos seleccionar más elementos de ese estrato
 
 En la práctica esto nunca se hace. 
 
---
-
 Se ocupa la **afijación óptima**. 
+
+--
 
 El tamaño de la muestra seleccionada para cada estrato varía proporcionalmente y por la varianza de cada estrato
 
@@ -929,7 +953,7 @@ Si el estrato es muy heterogéneo necesitamos más casos
 
 --
 
-Como resultado, nuestras distintas observaciones tendrán diferentes "pesos" por lo estratos a los que pertenecen. 
+Como resultado, nuestras distintas observaciones tendrán diferentes "pesos" por los estratos a los que pertenecen. 
 
 Estrato pequeño y homogeneo tendrá pocos casos en la muestra, los que pesarán mucho (factor de expansión)
 
@@ -956,12 +980,49 @@ La lógica aplicar dos veces el muestreo:
 
 --
 
-Las manzanas de casas son un típico ejemplo de conglomerado
+Si no se dispone del listado de elementos a encuestar se recomienda conglomerados.
 
 --
 
-Iglesias luteranas (Ejemplo de Lohr 2000). Queremos conocer a los luteranos pero no tenemos registro de ellos, pero sí de las iglesias. 
+Es más barato producir el marco muestral de los conglomerados seleccionados que de todos. 
 
+--
+
+Reduce los costos y recolección. Facilita supervisión.
+
+--
+
+Desventaja – incrementa el error de estimación (**efecto diseño**).
+
+---
+
+## Muestreo por conglomerados
+
+En ciertas situaciones, las unidades muestrales están “agrupadas” en forma natural. 
+
+--
+
+Por ejemplo:
+
+Viviendas de una ciudad – agrupadas en
+Manzanas.
+
+--
+
+Alumnos de la Universidad – agrupados en
+Facultades (o cursos).
+
+--
+
+Luteranos - agrupados en iglesias
+
+--
+
+Usuarios del metro – agrupados por horario-estación
+
+--
+
+CASEN y ENE
 
 
 ---
@@ -993,9 +1054,39 @@ El trabajo del muestrista es establecer las cuotas. El del entrevistador llenarl
 
 No requiere del marco muestral (listado de elementos)
 
-Resuelve el problema de las no-respuestas.
+Sesgo de participación (no todos los elementos tienen probabilidad de ser seccionados y tampoco se conoce esta probabilidad)
 
-Sesgo de participación (no todos los elementos tienen probabilidad de ser selccionados y tampoco se conoce esta probabilidad)
+---
+
+## Conclusiones
+
+Para inferir estadísticamente necesitamos un muestreo probabilístico
+
+--
+
++ Unidades elegidas aleatoriamente
+
++ Todas las unidades de la población tienen probabilidad conocida y distinta de cero de ser seleccionadas
+
+--
+
+Desafíos del terreno: calidad de respuestas, unidades no elegibles, no contacto y no respuesta
+
+--
+
+Inferir desde muestras seleccionadas con MAS puede ser relativamente simple (similar a como lo vimos acá)
+
+--
+
+Pero hacerlo desde muestreos más complejos como conglomerados y estratos, y cuando las unidades tienen diferentes probabilidades de selección, el tema se complica.
+
+--
+
+Ahí es cuando los paquetes `survey` y `srvyr` en `R` serán fundamentales ([próxima clase los veremos](https://opso791ucsh2021.netlify.app/clases/clase11/clase10b_survey))
+
+
+
+
 
 ---
 

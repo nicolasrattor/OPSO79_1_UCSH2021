@@ -23,17 +23,14 @@ knitr::opts_chunk$set(echo = FALSE)
  [**Sesión 7**]() | 08 de octubre  | Estadística descriptiva I   | Revisión tarea 3, case_when() y prácticas para buena codificación | @Triola2009 (cap. 2 y 3) |  @Agresti2018 (cap. 2), @Moore2005 y [Carr (2021)](https://waterdata.usgs.gov/blog/intro-best-practices/) |
  [**Sesión 8**]() | 29 de octubre   | Estadística descriptiva II (asociaciones entre variables)   | Trabajar con data frames III: trasponer datos | @Triola2009 (cap. 10, solo parte 1) |  @Agresti2018 (cap. 3) y @Moore2005 |
 | [**Sesión 9**]() | 05 noviembre   | Combinar data frames  | Visualización de datos con ggplot2 | @Wickham2021 (cap. 3) |   @Agresti2018 (cap. 2) y @Moore2005 (cap. 1.3 y 2.1) |
-[**Sesión 10**]() | 12 de noviembre | Ciencia abierta y reproducibilidad  | Profundización RMarkdown y taller de uso de Zotero en R  | @Rodriguez-Sanchez2016, @Castillo2021, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
-[**Sesión 11**]() | 19 de noviembre   | (clases pese a que es semana de receso) |  Espacio de trabajo en tarea N°5, resolver dudas en general y preparación prueba 3   |   |     |
-| [**Sesión 12**]() | 03 de diciembre   | Diseño de muestras y muestras complejas II |  Inferencia: reportar estimación puntual, medidas de precisión y visualización de la incertidumbre  | @Vivanco2006, @Lohr2000 (cap. 2 y 7) y @Triola2009 (cap. 7) |  @Lumley2011 (Cap. 1, 2 y 3)   |
+[**Sesión 10**]() | 12 de noviembre | Ciencia abierta y reproducibilidad  | Profundización RMarkdown  | @Rodriguez-Sanchez2016, @Castillo2021, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
+[**Sesión 11**]() | 19 de noviembre   | (clases pese a que es semana de receso) |  Taller de uso de Zotero en R y espacio de trabajo en tarea N°5  |   |     |
+| [**Sesión 12**]() | 26 de noviembre   | La lógica del muestreo e inferencia | Tipos de muestreos  | @Vivanco2006, @Lohr2000 (cap. 2 y 7) y @Triola2009 (cap. 7) |    |
+[**Sesión 13**]() | 26 de noviembre   | Inferencia en R: estimación puntual, medidas de precisión y visualización de la incertidumbre |  Cierre del curso  |  |  @Lumley2011 (Cap. 1, 2 y 3)|
 
 ## Feriados:
 
 17 de septiembre. Fiestas Patrias. 
-
-## Semanas de receso o consolidación:
-
-19 de noviembre semana de receso (se harán clases para cumplir con contenidos).
 
 ## Tareas prácticas
 
@@ -45,7 +42,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 **Tarea práctica 4.**	Visualización de datos con ggplot2 (5%). 05 noviembre (entrega 16 de noviembre)
 
-**Tarea práctica 5.** Documentos reproducibles y gestión de bibliografía (5%) 12 o 19 noviembre (entrega 29 de noviembre).
+**Tarea práctica 5.** Documentos reproducibles y gestión de bibliografía (5%) 19 noviembre (entrega 29 de noviembre).
 
 
 ## Evaluaciones tipo prueba:
@@ -54,7 +51,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 22 de octubre (10%) - Estadística descriptiva con R e interpretación de salidas
 
-26 de noviembre (10%) - Estadística descriptiva II, visualización de datos y Ciencia abierta
+29-30 de noviembre (10%) - Estadística descriptiva II, visualización de datos y Ciencia abierta
 
 10 y 17 de diciembre (integrativa final oral, 30%) - toda la materia
 
