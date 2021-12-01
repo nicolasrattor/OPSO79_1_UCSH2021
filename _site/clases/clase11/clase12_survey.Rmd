@@ -1,7 +1,7 @@
 ---
 title: "OPSO79-1-UCSH2021"
 subtitle: "Inferencia desde muestras complejas en R: pesos y paquetes survey y srvyr"
-date: "`26/11/2021`"
+date: "`03/12/2021`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -61,7 +61,7 @@ style_duo(
 
 ```{r echo=FALSE,include=FALSE}
 #library(pagedown)
-#pagedown::chrome_print("clase10b_survey.html")
+#pagedown::chrome_print("clase12_survey.html")
 
 ```
 

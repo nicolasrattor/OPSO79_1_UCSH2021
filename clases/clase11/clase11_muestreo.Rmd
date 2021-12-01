@@ -1,29 +1,69 @@
-<!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>OPSO79-1-UCSH2021</title>
-    <meta charset="utf-8" />
-    <script src="libs/header-attrs/header-attrs.js"></script>
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-# OPSO79-1-UCSH2021
-## Inferencia desde muestras complejas en R: la lógica del muestreo y la inferencia
-### <code>26/11/2021</code>
-
+---
+title: "OPSO79-1-UCSH2021"
+subtitle: "Inferencia desde muestras complejas en R: la lógica del muestreo y la inferencia"
+date: "`26/11/2021`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [xaringan-themer.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+bibliography: "../../bibliografia/bib.bib"
 ---
 
+```{r, load_refs, include=FALSE, cache=FALSE}
+library(RefManageR)
+BibOptions(check.entries = FALSE,
+           bib.style = "authoryear",
+           cite.style = "authoryear",
+           style = "markdown",
+           hyperlink = "to.bib",
+           dashed = FALSE)
+bib <- ReadBib("../../bibliografia/bib.bib", check = FALSE)
+```
 
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
 
+knitr::opts_chunk$set(message = FALSE,
+                      warning = FALSE)
+```
 
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+library(dplyr)
+library(guaguas)
 
+dark_yellow <- "#EFBE43"
+light_yellow <- "#FDF7E9"
+gray <- "#333333"
+blue <- "#4466B0"
 
+style_duo(
+  # colors
+  primary_color = light_yellow,
+  secondary_color = dark_yellow,
+  header_color = gray,
+  text_color = gray,
+  code_inline_color = colorspace::lighten(gray),
+  text_bold_color = colorspace::lighten(gray),
+  link_color = blue,
+  title_slide_text_color = blue,
 
+  # fonts
+  header_font_google = google_font("Martel", "300", "400"),
+  text_font_google = google_font("Lato"),
+  code_font_google = google_font("Fira Mono")
+)
+```
 
+```{r echo=FALSE,include=FALSE}
+#library(pagedown)
+#pagedown::chrome_print("clase11_muestreo.html")
 
+```
 
 
 class: inverse, center, middle
@@ -55,7 +95,9 @@ Toda la lógica del muestreo es conocer y tratar de minimizar este error.
 
 --
 
-&lt;img src="imagenes/population-sample.png" width="30%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center',out.width="30%"}
+knitr::include_graphics('imagenes/population-sample.png')
+```
 
 
 ---
@@ -69,7 +111,9 @@ observados.
 
 --
 
-&lt;img src="imagenes/nomenclatura.png" width="80%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center',out.width="80%"}
+knitr::include_graphics('imagenes/nomenclatura.png')
+```
 
 
 ---
@@ -117,9 +161,8 @@ Creamos una base de datos de 19.678.363 casos, [el número de personas en Chile 
 
 --
 
-
-```r
-poblacion&lt;-data.frame(id=c(seq(1:19678363)),
+```{r}
+poblacion<-data.frame(id=c(seq(1:19678363)),
                    extranjers=c(rep("ext",1492522),
                                 rep("nac",19678363-1492522)))
 ```
@@ -128,25 +171,9 @@ poblacion&lt;-data.frame(id=c(seq(1:19678363)),
 
 # Muestreo probabilístico
 
-
-```r
+```{r}
 table(poblacion$extranjers)
-```
-
-```
-## 
-##      ext      nac 
-##  1492522 18185841
-```
-
-```r
 prop.table(table(poblacion$extranjers))
-```
-
-```
-## 
-##        ext        nac 
-## 0.07584584 0.92415416
 ```
 
 ---
@@ -157,24 +184,16 @@ Saquemos una muestra de 500, ¿qué % de extranjeros aparecerá?
 
 --
 
-
-```r
-muestra&lt;-sample_n(poblacion,500)
+```{r}
+muestra<-sample_n(poblacion,500)
 ```
 
 --
 
 Y observamos su distribución:
 
-
-```r
+```{r}
 prop.table(table(muestra$extranjers)) 
-```
-
-```
-## 
-##   ext   nac 
-## 0.078 0.922
 ```
 
 
@@ -186,32 +205,18 @@ prop.table(table(muestra$extranjers))
 
 --
 
-
-```r
-muestra&lt;-sample_n(poblacion,500) 
+```{r}
+muestra<-sample_n(poblacion,500) 
 prop.table(table(muestra$extranjers))  
-```
-
-```
-## 
-##  ext  nac 
-## 0.08 0.92
 ```
 
 --
 
 De nuevo
 
-
-```r
-muestra&lt;-sample_n(poblacion,500)
+```{r}
+muestra<-sample_n(poblacion,500)
 prop.table(table(muestra$extranjers))    
-```
-
-```
-## 
-##   ext   nac 
-## 0.076 0.924
 ```
 
 ---
@@ -230,8 +235,7 @@ Manteniendo el azar, `R` nos permite fijar la selección aleatoria. Esto se logr
 
 --
 
-
-```r
+```{r}
 set.seed(17) ## número arbitrario   
 ```
 
@@ -241,33 +245,19 @@ Con esto, la distribución de la muestra que saquemos siempre será 0,064 (6,4%)
 
 # La selección aleatoria
 
-
-```r
-muestra&lt;-sample_n(poblacion,500)
+```{r}
+muestra<-sample_n(poblacion,500)
 prop.table(table(muestra$extranjers)) 
-```
-
-```
-## 
-##   ext   nac 
-## 0.064 0.936
 ```
 
 Efectivamente. Veamos de nuevo...
 
 --
 
-
-```r
+```{r}
 set.seed(17)                                       
-muestra&lt;-sample_n(poblacion,500)
+muestra<-sample_n(poblacion,500)
 prop.table(table(muestra$extranjers))             
-```
-
-```
-## 
-##   ext   nac 
-## 0.064 0.936
 ```
 
 
@@ -283,47 +273,31 @@ Ahora veremos que tan cierta es esta afirmación con 500 muestras
 
 --
 
-
-```r
+```{r}
 set.seed(1917)  # semilla
 
-base&lt;-data.frame(muestra=c(1:500),  # data vacía
+base<-data.frame(muestra=c(1:500),  # data vacía
                  ext=rep(NA,500),
                  nac=rep(NA,500))
 
 # loop
 for(i in 1:nrow(base)){                      
-  base[i,2:3]&lt;-sample_n(poblacion,size=500) %&gt;% 
-    select(extranjers) %&gt;%  
-    table() %&gt;% prop.table()                       
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
 }   
 
-baseinicial &lt;- base
+baseinicial <- base
+
 ```
 
 ---
 
 # La selección aleatoria
 
-
-```r
-head(baseinicial,10) %&gt;% knitr::kable() 
+```{r}
+head(baseinicial,10) %>% knitr::kable() 
 ```
-
-
-
-| muestra|   ext|   nac|
-|-------:|-----:|-----:|
-|       1| 0.092| 0.908|
-|       2| 0.080| 0.920|
-|       3| 0.058| 0.942|
-|       4| 0.076| 0.924|
-|       5| 0.062| 0.938|
-|       6| 0.062| 0.938|
-|       7| 0.070| 0.930|
-|       8| 0.078| 0.922|
-|       9| 0.082| 0.918|
-|      10| 0.098| 0.902|
 
 ---
 
@@ -333,24 +307,27 @@ head(baseinicial,10) %&gt;% knitr::kable()
 
 --
 
-
-```r
+```{r}
 mean(baseinicial$ext)   ## OMG! en la población era 0.07584584   
-```
-
-```
-## [1] 0.076344
 ```
 --
 
-Solo hay una diferencia de 0.049816% (menos de un 1%).
+Solo hay una diferencia de `r (mean(baseinicial$ext)-0.07584584)*100`% (menos de un 1%).
 
 
 ---
 
 ## La selección aleatoria
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-16-1.png" 25% style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE,warning=FALSE,message=FALSE, out.extra="25%", fig.align='center'}
+library(ggplot2)
+baseinicial %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkmagenta")+
+  geom_vline(xintercept = mean(baseinicial$ext),
+             linetype="dashed", color = "red") + 
+  theme_bw() 
+
+```
 
 ---
 
@@ -368,7 +345,9 @@ El el 68% de los casos se encuentran a +/- 1 SD del promedio, y el 95% a +/- 1.9
 
 --
 
-&lt;img src="imagenes/normal.png" width="50%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center',out.width="50%"}
+knitr::include_graphics('imagenes/normal.png')
+```
 
 ---
 
@@ -390,14 +369,163 @@ Veamos ambas propiedades
 
 ## Ley de los grandes números
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-18-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+```{r fig.align='center', out.width="60%", echo=FALSE}
+set.seed(1917)  # semilla
+
+n1 <- 10
+n2 <- 50
+n3 <- 100
+n4 <- 1000
+
+
+base<-data.frame(muestra=c(1:n1),  # data vacía
+                 ext=rep(NA,n1),
+                 nac=rep(NA,n1))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot1 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=500, 10 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:n2),  # data vacía
+                 ext=rep(NA,n2),
+                 nac=rep(NA,n2))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot2 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=500, 50 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:n3),  # data vacía
+                 ext=rep(NA,n3),
+                 nac=rep(NA,n3))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot3 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=500, 100 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:n4),  # data vacía
+                 ext=rep(NA,n4),
+                 nac=rep(NA,n4))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=500) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot4 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=500, 1000 muestras")
+
+
+
+library(gridExtra)
+gridExtra::grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
+
+```
 
 
 ---
 
 ## Teorema del límite central
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-19-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+```{r fig.align='center', out.width="60%", echo=FALSE}
+set.seed(1917)  # semilla
+
+n1 <- 10
+n2 <- 50
+n3 <- 100
+n4 <- 1000
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n1) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot1 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=10, 500 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n2) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot2 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=50, 500 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n3) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot3 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw() + ggtitle("N=100, 500 muestras")
+
+
+set.seed(1917)  # semilla
+
+base<-data.frame(muestra=c(1:500),  # data vacía
+                 ext=rep(NA,500),
+                 nac=rep(NA,500))
+for(i in 1:nrow(base)){                      
+  base[i,2:3]<-sample_n(poblacion,size=n4) %>% 
+    select(extranjers) %>%  
+    table() %>% prop.table()                       
+}    
+plot4 <- base %>% ggplot(aes(x=ext))+
+  geom_histogram(fill="darkslategray3")+
+  geom_vline(xintercept = mean(base$ext),
+             linetype="dashed", color = "red") + theme_bw()  + ggtitle("N=1000, 500 muestras")
+
+
+
+library(gridExtra)
+gridExtra::grid.arrange(plot1, plot2, plot3, plot4, ncol = 2)
+
+```
 
 
 
@@ -439,7 +567,7 @@ La teoría de muestras nos permite conocer este error, en base a:
 
 --
 
-`$$[\overline{p} \pm z_{a/2}\sqrt\frac{\overline{p}(1-\overline{p})}{{n}}]$$`
+$$[\overline{p} \pm z_{a/2}\sqrt\frac{\overline{p}(1-\overline{p})}{{n}}]$$
 --
 
 + tamaño de la muestra: 500 observaciones
@@ -455,29 +583,23 @@ La teoría de muestras nos permite conocer este error, en base a:
 
 En simple, definamos objetos
 
-
-```r
-p &lt;- as.vector(prop.table(table(muestra$extranjers)))[1]
-n &lt;- nrow(muestra)
-z &lt;- 1.96 # para 95% de confianza
+```{r}
+p <- as.vector(prop.table(table(muestra$extranjers)))[1]
+n <- nrow(muestra)
+z <- 1.96 # para 95% de confianza
 ```
 
 --
 
 Calculamos intervalo
 
-
-```r
-ci &lt;- z * (sqrt(p*(1-p)/n))
+```{r}
+ci <- z * (sqrt(p*(1-p)/n))
 ci
-```
-
-```
-## [1] 0.02145354
 ```
 --
 
-Con un 95% de confianza, y con una muestra probabilística de 500 observaciones, calculamos que el porcentaje de extranjeros en la población está entre 0.0425465 y 0.0854535 (0.064 `\(\pm\)` 0.0214535).
+Con un 95% de confianza, y con una muestra probabilística de 500 observaciones, calculamos que el porcentaje de extranjeros en la población está entre `r p-ci` y `r p+ci` (`r p` $\pm$ `r ci`).
 
 La estimación parecer ser correcta. En la población la proporción es 0.075
 
@@ -497,7 +619,9 @@ O que si sacamos 100 muestras, las estimaciones desde cinco de estas no contendr
 
 --
 
-&lt;img src="https://cdn-img.scalabs.com.au/uzjYWz5uFA99H9ilh_BLtPqAA1Dq0GhZ05-Iow7qAZM/aHR0cHM6Ly9zdy1o/aXQtcHJkLnNjYWRp/Z2l0YWwuaW8vbWVk/aWEvMTYyNjYvc2lk/ZS1leWUtY2hsb2Uu/anBnP3ByZXNldD1N/YWluSW1hZ2U" width="50%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, fig.align='center',out.width="50%"}
+knitr::include_graphics('https://cdn-img.scalabs.com.au/uzjYWz5uFA99H9ilh_BLtPqAA1Dq0GhZ05-Iow7qAZM/aHR0cHM6Ly9zdy1o/aXQtcHJkLnNjYWRp/Z2l0YWwuaW8vbWVk/aWEvMTYyNjYvc2lk/ZS1leWUtY2hsb2Uu/anBnP3ByZXNldD1N/YWluSW1hZ2U')
+```
 
 --
 
@@ -509,28 +633,29 @@ Veamoslo con 20 de las 500 muestras que sacamos.
 
 Calculamos los intervalos de confianza de cada muestra
 
-
-```r
-submuestra &lt;- baseinicial[1:20,c(1,2)] %&gt;% 
-  rename(p=ext) %&gt;% 
+```{r}
+submuestra <- baseinicial[1:20,c(1,2)] %>% 
+  rename(p=ext) %>% 
   mutate(limite_inferior= p - (z * (sqrt(p*(1-p)/n))),
          limite_superior= p + (z * (sqrt(p*(1-p)/n))))
 ```
 
-
-| muestra|     p| limite_inferior| limite_superior|
-|-------:|-----:|---------------:|---------------:|
-|       1| 0.092|       0.0666658|       0.1173342|
-|       2| 0.080|       0.0562201|       0.1037799|
-|       3| 0.058|       0.0375115|       0.0784885|
-|       4| 0.076|       0.0527719|       0.0992281|
-|       5| 0.062|       0.0408618|       0.0831382|
+```{r echo=FALSE}
+submuestra[1:5,] %>% knitr::kable()
+```
 
 ---
 
 ## Visualización estimaciones
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-25-1.png" 20% style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, out.extra="20%", fig.align='center'}
+ggplot(submuestra, aes(x=as.factor(muestra), y = p)) +
+      geom_point() +
+      geom_errorbar(data=submuestra, 
+                    aes(ymin=limite_inferior, ymax=limite_superior)) +
+  geom_hline(yintercept=0.07584584, linetype="dashed", color = "red") +
+  theme_bw()
+```
 
 
 
@@ -557,7 +682,7 @@ Lo que es más relevante es el tamaño de la muestra, nivel de confianza y varia
 
 Elementos que la formula ya vista resume y que podemos re estructurar para calcular el tamaño de una muestra (agregando tamaño de población):
 
-`$$n=(1-\frac{n}{N})*\frac{z^2_{a/2}(s^2)}{e^2}$$`
+$$n=(1-\frac{n}{N})*\frac{z^2_{a/2}(s^2)}{e^2}$$
 --
 
 Determinando un nivel de confianza (z), un error esperado (e), teniendo antecedentes de la variabilidad de los datos (s2) y conociendo el N de la población... podemos calcular una muestra. 
@@ -570,13 +695,50 @@ Si definimos errores elevados la muestra es pequeña.
 
 --
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-26-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, warning=FALSE, message=FALSE, out.width="50%", fig.align='center'}
+
+library(samplingbook)
+
+## Población 19 millones. 95% nivel de confianza.
+
+d=(19000000*(1.96^2)*(0.5*0.5))
+n=((5^2)*(19000000-1))+(1.96^2)*(0.5*0.5)
+e<-d/n*10000
+
+error<-c(0.35,0.4,0.45,0.5,1,1.5,2,2.5,3,3.5,4)
+n<-c(rep(NA,length(error)))
+base<-data.frame(error,n)
+
+
+for(i in 1:nrow(base)){
+  base[i,2]<-round((19000000*(1.96^2)*(0.5*0.5))/(((error[i]^2)*(19000000-1))+(1.96^2)*(0.5*0.5))*10000)
+}
+
+base %>% ggplot(aes(x=n,y=error))+geom_line()+geom_point() + theme_bw() + labs(title="Tamaño de muestra y error máximo admisible",y="Error (%)",x="Tamaño muestra",subtitle = "Un error de 3% es razonable (n=1067 al 95%)") + 
+  scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+
+```
 
 ---
 
 ## n muestra y nivel de confianza
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-27-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, warning=FALSE, message=FALSE,  out.width="50%", fig.align='center'}
+ncz<-c(1.64,1.96,2.58, 3, 3.5, 3.8)
+nc<-c("90%","95%","99%","99,87%", "99,96%", "99,99%")
+n<-c(rep(NA,length(ncz)))
+base<-data.frame(nc,ncz,n)
+
+
+for(i in 1:nrow(base)){
+  base[i,3]<-round((19000000*(ncz[i]^2)*(0.5*0.5))/(((3^2)*(19000000-1))+(ncz[i]^2)*(0.5*0.5))*10000)
+}
+
+base %>% ggplot(aes(x=n,y=ncz))+geom_line()+geom_point() + theme_bw() + labs(title="Tamaño de muestra y nivel de confianza",y="Puntaje z",x="Tamaño muestra",subtitle = "Error max. admisible fijo en 3%") + 
+  scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+```
 
 ---
 
@@ -584,7 +746,22 @@ Si definimos errores elevados la muestra es pequeña.
 
 Se considra la varianza de una pregunta de investigación previa. A mayor varianza, más casos se necesitarán. Si no hay información se supone varianza máxima (`0.5^2`)
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-28-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, warning=FALSE, message=FALSE,  out.width="50%", fig.align='center'}
+
+P<-c(0.1,0.15,0.2,0.25,0.3,0.35,0.4,0.45,0.5)
+n<-c(rep(NA,length(P)))
+base<-data.frame(P,n)
+
+for(i in 1:nrow(base)){
+  
+base[i,2]<-sample.size.prop(e=0.01, P = P[i], N = 100000, level = 0.95)$n
+
+}
+
+base %>% ggplot(aes(x=n,y=P))+geom_point()+geom_line() + theme_bw() + labs(title="Tamaño de muestra y varianza",y="Varianza",x="Tamaño muestra",subtitle = "Error max. admisible en 3%, 95% de confianza y población 100.000") + 
+  scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+```
 
 ---
 
@@ -592,7 +769,26 @@ Se considra la varianza de una pregunta de investigación previa. A mayor varian
 
 En poblaciones superiores a 100.000 casos la influencia del tamaño de la población es ínfima
 
-&lt;img src="clase10a_muestreo_files/figure-html/unnamed-chunk-29-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+```{r echo=FALSE, warning=FALSE, message=FALSE,  out.width="50%", fig.align='center'}
+poblacion<-c(100,10000,50000,100000,200000,300000,500000,600000,700000,800000,900000,1000000)
+n<-c(rep(NA,length(poblacion)))
+base<-data.frame(poblacion,n)
+
+library(samplingbook)
+
+for(i in 1:nrow(base)){
+  
+base[i,2]<-sample.size.prop(e=0.01, P = 0.5, N = poblacion[i], level = 0.95)$n
+
+}
+
+base %>% ggplot(aes(y=n,x=poblacion))+geom_line()+geom_point() + theme_bw() + labs(title="Tamaño de muestra y de la poblacion",x="Tamaño población",y="Tamaño muestra",subtitle = "Error max. admisible en 3% y 95% de confianza") + 
+  scale_y_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE),limits = c(0,10000))+
+    scale_x_continuous(labels=function(x) format(x, big.mark = ".", scientific = FALSE))
+
+
+
+```
 
 ---
 
@@ -604,8 +800,7 @@ Hay algunas páginas como [SurveyMonkey](https://www.surveymonkey.com/mp/sample-
 
 Acá utilizaremos un paquete para eso
 
-
-```r
+```{r message=FALSE,warning=FALSE}
 library(samplingbook)
 ```
 
@@ -613,25 +808,15 @@ library(samplingbook)
 
 Si tenemos variabilidad como proporción *dummy* (P)
 
-
-```r
+```{r}
 sample.size.prop(e=0.03, P = 0.75, N = 19000000, level = 0.95)
-```
-
-```
-## 
-## sample.size.prop object: Sample size for proportion estimate
-## With finite population correction: N=1.9e+07, precision e=0.03 and expected proportion P=0.75
-## 
-## Sample size needed: 801
 ```
 
 --
 
 Si tenemos variabilidad de variable numérica (SD) (y no tenemos el N)
 
-
-```r
+```{r eval=FALSE}
 sample.size.mean(e=0.03, S = 0.5, N = Inf, level = 0.95)
 ```
 
@@ -912,139 +1097,15 @@ Ahí es cuando los paquetes `survey` y `srvyr` en `R` serán fundamentales ([pr�
 
 ### Bibliografía utilizada
 
+```{r echo=FALSE, results=FALSE}
+Citet(bib, "Lohr2000")
+Citet(bib, "Vivanco2006")
+
+```
+
+```{r refs, echo=FALSE, results="asis"}
+PrintBibliography(bib)
+```
 
 
-&lt;a name=bib-Lohr2000&gt;&lt;/a&gt;[Lohr, S. L.](#cite-Lohr2000) (2000).
-_Muestreo: Diseño y Análisis_. 519.52 L6. International Thomson
-Editores.
 
-&lt;a name=bib-Vivanco2006&gt;&lt;/a&gt;[Vivanco, M.](#cite-Vivanco2006) (2006).
-"Diseño de Muestras En Investigación Social". In: _Metodolog\'ias de La
-Investigación Social. Introducción a Los Oficios._ Santiago: LOM, pp.
-141-168.
-
-
-
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": false
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>

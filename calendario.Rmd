@@ -16,17 +16,17 @@ knitr::opts_chunk$set(echo = FALSE)
 |---|---|---|---|---|---|
 | Sesión 1  |  13 de agosto | Introducción al curso | [Introducción a R, R-Studio y Markdown para generar documentos](clases/clase1/clase1.html) | - | - |   
 | Sesión 2 | 20 de agosto | [Introducción a la metodología cuantitativa](clases/clase2/clase2a.html) | [Repaso lenguaje R y Data frames I (con R base)](clases/clase2/clase2b.html) |  @Asun2006a, @Wickham2021 (cap. 1 y 2) y @Schmitter2013 | @Corbetta2007 (cap. 1 y 2)  |
-| Sesión 3 |  27 de agosto | [Tipos de datos cuantitativos y el proceso estadístico en general](clases/clase3/clase3a_tipos.html) | [Data frames II (con dplyr)]((clases/clase3/clase3b_dplyr.html)) |  @Asun2006a, @Corbetta2007 (cap. 3)  y @Wickham2021 (cap. 5) | @Agresti2018 (cap. 1 y 2)  |
+| Sesión 3 |  27 de agosto | [Tipos de datos cuantitativos y el proceso estadístico en general](clases/clase3/clase3a_tipos.html) | [Data frames II (con dplyr)](clases/clase3/clase3b_dplyr.html) |  @Asun2006a, @Corbetta2007 (cap. 3)  y @Wickham2021 (cap. 5) | @Agresti2018 (cap. 1 y 2)  |
 | Sesión 4 |  03 de septiembre | [Diseños de investigación](clases/clase4/clase4a_diseno.html) | [R project e importar data a R desde formato .rds](clases/clase4/clase4b_rproj.html) |  @Corbetta2007 (cap. 4) y @Wickham2021 (cap. 8) | @Babbie2014 (cap. 8)  |  |
 | Sesión 5 |  10 de septiembre | [Continuación diseños causales y construcción de cuestionarios](clases/clase5/clase5a_cuestionarios.html#1) | [Pedir ayuda, microdatos para ciencias sociales y cómo importarlos desde excel, spss y otros formatos](clases/clase5/clase5b_help_import.html#1) | @Asun2006 (apartados 1,2,3,4,6), @deRada2007 | @Babbie2014 (cap. 9), @Corbetta2007 (cap. 5) y @Wickham2021 (cap. 11) |
 | Sesión 6 | 01 de octubre  | [Revisión prueba, repaso dplyr y continuación microdatos para ciencias sociales](clases/clase6/clase6a_correccion_prueba#1) | [Pipes y group_by()](clases/clase6/clase6b_pipe_dplyr_codigo#1) | @Wickham2021 (cap. 18) |  |
- Sesión 7 | 08 de octubre  | [Estadística descriptiva I]((clases/clase7/clase7b_estadistica_descriptiva#1))   | [Revisión tarea 3, case_when() y prácticas para buena codificación](clases/clase7/clase7a_pendiente_dplyr_codigo#1) | @Triola2009 (cap. 2 y 3) |  @Agresti2018 (cap. 2), @Moore2005 y [Carr (2021)](https://waterdata.usgs.gov/blog/intro-best-practices/) |
+ Sesión 7 | 08 de octubre  | [Estadística descriptiva I](clases/clase7/clase7b_estadistica_descriptiva#1)   | [Revisión tarea 3, case_when() y prácticas para buena codificación](clases/clase7/clase7a_pendiente_dplyr_codigo#1) | @Triola2009 (cap. 2 y 3) |  @Agresti2018 (cap. 2), @Moore2005 y [Carr (2021)](https://waterdata.usgs.gov/blog/intro-best-practices/) |
  Sesión 8 | 29 de octubre   | [Estadística descriptiva II](clases/clase8/clase8b_estadistica_descriptiva2#1) | [Trabajar con data frames III: trasponer datos](clases/clase8/clase8c_agrupar_trasponer#1) | @Triola2009 (cap. 10, solo parte 1) |  @Agresti2018 (cap. 3) y @Moore2005 |
 | Sesión 9 | 05 noviembre   | [Combinar data frames](clases/clase9/clase9a_trasponer_combinar#1)  | [Visualización de datos con ggplot2](clases/clase9/clase9b_visualizacion#1) | @Wickham2021 (cap. 3) |   @Agresti2018 (cap. 2) y @Moore2005 (cap. 1.3 y 2.1) |
 Sesión 10 | 12 de noviembre | [Ciencia abierta y reproducibilidad](clases/clase10/clase10a_csabierta#1) | [Profundización RMarkdown](clases/clase10/clase10a_csabierta#116)  | @Rodriguez-Sanchez2016, @Castillo2021, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
 Sesión 11 | 19 de noviembre   | [Taller de uso de Zotero en R y espacio de trabajo en tarea N°5](clases/clase10/clase10c_zotero_bibtex#1)  |   |   |     |
-| Sesión 12 | 26 de noviembre   | [La lógica del muestreo e inferencia](clases/clase11/clase10a_muestreo#1) | [Tipos de muestreos](clases/clase11/clase10a_muestreo#83)  | @Vivanco2006, @Lohr2000 (cap. 2 y 7) y @Triola2009 (cap. 7) |    |
-Sesión 13 | 26 de noviembre   | [Inferencia en R: estimación puntual, medidas de precisión y visualización de la incertidumbre]() |  Cierre del curso y autoevaluación  |  |  @Lumley2011 (Cap. 1, 2 y 3)|
+| Sesión 12 | 26 de noviembre   | [La lógica del muestreo e inferencia](clases/clase11/clase11_muestreo#1) | [Tipos de muestreos](clases/clase11/clase11_muestreo#83)  | @Vivanco2006, @Lohr2000 (cap. 2) y @Triola2009 (cap. 7) |  @Lohr2000 (cap. 4 y 5)  |
+Sesión 13 | 26 de noviembre   | [Inferencia en R: estimación puntual, medidas de precisión y visualización de la incertidumbre]() |  Cierre del curso y autoevaluación  |  |  @Lumley2011 (Cap. 1, 2 y 3) y @Lohr2000 (cap. 7) |
 
 ## Tareas prácticas
 
@@ -38,13 +38,13 @@ Sesión 13 | 26 de noviembre   | [Inferencia en R: estimación puntual, medidas 
 
 **Tarea práctica 4.**	Visualización de datos con ggplot2 (5%). 05 noviembre (entrega 16 de noviembre)
 
-**Tarea práctica 5.** Documentos reproducibles y gestión de bibliografía (5%) 19 noviembre (entrega 29 de noviembre).
+**Tarea práctica 5.** Documentos reproducibles y gestión de bibliografía (5%) 19 noviembre (entrega hasta 03 de diciembre).
 
 ## Nota participación (autoevaluación)
 
-Se busca que el o la estudiante haga una autoevaluación de su participación en el curso. Este ítem representa el 10% de la nota final y se desarrolla en clases (03 de diciembre). 
+Se busca que el o la estudiante haga una autoevaluación de su participación en el curso. Este ítem representa el 10% de la nota final y se debe enviar el 03 de diciembre. 
 
-[Descargar pauta de autoevaluación]()
+[Descargar pauta de autoevaluación](tareas/autoevaluacion.docx)
 
 ## Evaluaciones tipo prueba:
 

@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+author: "OPSOUCSH"
+date: "30-11-2021"
+output: html_document
+---
+
+Lohr
+
+Los pesos son el inverso o recíproco de la probabilidad de selección de la unidad. 
+
+Los pesos contienen al diseño.
+
+La suma de los pesos de muestreo en el muestreo estratificado es igual al tamaño de la población
+
+El peso se puede pensar como la cantidad de observaciones en la población representadas por la observación muestral y. 
+
+Toda la información necesaria para construir las estimaciones puntuales se incluye en los pesos de muestreo.
+
+No obstante, los pesos no dan información acerca de la forma de determinar los errores estándar. 
+
+Los pesos de muestreo son los mismos para todas las unidades de muestreo en las encuestas autoponderadas
+
+
+Muestreo estratificado garantinza que queden unidades para seleccionadas en la muestra para cada estrato y con un error conocido
+
+La varianza tiende a ser menor con el estratificado que con MAS (errores y por ende IC más paqueños, mayor precisión)
+
+
