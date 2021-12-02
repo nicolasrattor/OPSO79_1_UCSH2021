@@ -9,7 +9,7 @@ navbar:
       href: programa.html
     - text: "Calendario y clases"
       href: calendario.html
-    - text: "Tareas"
+    - text: "Tareas y pruebas"
       href: tareas.html
     - text: "Material de apoyo"
       href: material.html

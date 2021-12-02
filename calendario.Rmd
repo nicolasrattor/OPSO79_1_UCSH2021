@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-## Calendario sesiones
+## Calendario sesiones y link a presentaciones
 
 |  Sesiones | Fecha  |  1er bloque | 2do bloque | Lectura obligatoria  | Lectura complementaria |
 |---|---|---|---|---|---|
@@ -26,43 +26,6 @@ knitr::opts_chunk$set(echo = FALSE)
 Sesión 10 | 12 de noviembre | [Ciencia abierta y reproducibilidad](clases/clase10/clase10a_csabierta#1) | [Profundización RMarkdown](clases/clase10/clase10a_csabierta#116)  | @Rodriguez-Sanchez2016, @Castillo2021, @Swartz2008, @Merton1977 (pp. 355-368) | @Breznau2021, @Healy2018 |
 Sesión 11 | 19 de noviembre   | [Taller de uso de Zotero en R y espacio de trabajo en tarea N°5](clases/clase10/clase10c_zotero_bibtex#1)  |   |   |     |
 | Sesión 12 | 26 de noviembre   | [La lógica del muestreo e inferencia](clases/clase11/clase11_muestreo#1) | [Tipos de muestreos](clases/clase11/clase11_muestreo#83)  | @Vivanco2006, @Lohr2000 (cap. 2) y @Triola2009 (cap. 7) |  @Lohr2000 (cap. 4 y 5)  |
-Sesión 13 | 26 de noviembre   | [Inferencia en R: estimación puntual, medidas de precisión y visualización de la incertidumbre]() |  Cierre del curso y autoevaluación  |  |  @Lumley2011 (Cap. 1, 2 y 3) y @Lohr2000 (cap. 7) |
+Sesión 13 | 26 de noviembre   | [Inferencia en R desde muestras con diseño complejo](clases/clase11/clase12_survey#1) |  Cierre del curso  |  |  @Lumley2011 (Cap. 1, 2 y 3) y @Lohr2000 (cap. 7) |
 
-## Tareas prácticas
-
-**Tarea práctica 1.** Uso básico de RMarkdown (5%).	13 de agosto (entrega 3 días después)
-
-**Tarea práctica 2.**	Operaciones elementales sobre un data frame con R base y primera parte dplyr (10%).	27 agosto (entrega 4 días después)
-
-**Tarea práctica 3.**	Importar bases de datos y manipulación de data frame con dplyr (5%). 01 octubre (entrega 4 días después)
-
-**Tarea práctica 4.**	Visualización de datos con ggplot2 (5%). 05 noviembre (entrega 16 de noviembre)
-
-**Tarea práctica 5.** Documentos reproducibles y gestión de bibliografía (5%) 19 noviembre (entrega hasta 03 de diciembre).
-
-## Nota participación (autoevaluación)
-
-Se busca que el o la estudiante haga una autoevaluación de su participación en el curso. Este ítem representa el 10% de la nota final y se debe enviar el 03 de diciembre. 
-
-[Descargar pauta de autoevaluación](tareas/autoevaluacion.docx)
-
-## Evaluaciones tipo prueba:
-
-24 de septiembre (10%) - Diseños de investigación, tipos de datos y trabajo con *data frames* en R
-
-[Descargar pauta prueba 1](pruebas/prueba1.pdf)
-
-22 de octubre (10%) - Estadística descriptiva con R e interpretación de salidas
-
-[Descargar pauta prueba 2](pruebas/prueba2.pdf)
-
-29-30 de noviembre (10%) - Estadística descriptiva II, visualización de datos y Ciencia abierta
-
-[Descargar pauta prueba 3](pruebas/prueba3.pdf)
-
-[Descargar esqueleto de prueba 3](https://www.dropbox.com/sh/l1qe5xk4o6er6vv/AABciHSunzw5QAmKKgZ3f1a8a?dl=0)
-
-10 y 17 de diciembre (integrativa final oral y virtual, 30%) - toda la materia
-
-[Descargar horarios de presentación e instrucción general en Aula Virtual](https://ucsh.mrooms.net/login/index.php)
 

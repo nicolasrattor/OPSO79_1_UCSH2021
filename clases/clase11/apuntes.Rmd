@@ -27,3 +27,50 @@ Muestreo estratificado garantinza que queden unidades para seleccionadas en la m
 La varianza tiende a ser menor con el estratificado que con MAS (errores y por ende IC más paqueños, mayor precisión)
 
 
+Peso de muestreo se puede pensar como el número de unidades de la población representadas por el miembro de la muestra (h,j)
+
+Si las varianzas son iguales a lo largo de todos los estratos, lo mejor es asignación proporcional. Cuando varían mucho las varianzas de cada estrato la asignación óptima es menos costosa. 
+
+Deberemos sacar más elementos de un estrato que otro por:
+
++ si el estrato en la población es grande
+
++ estrato muy heterogéneo
+
++ el muestreo en el estrato es poco costoso
+
+Asignación de Neyman similar a la asginación óptima, cuando los costos de los estratos son similares.
+
+Estratificación agrega complejidad a la encuesta. Esta complejidad puede no valer la pena para la ganancia en precisión que se obtiene.
+
+Al construir los estratos queremos que sus medias sean lo más distintas posibles entre sí. 
+
+Conglomerados
+
+Aunque la población esté definida, no necesariamente lo están las unidades a seleccionar.
+
+En muestreo por conglomerados los elementos individuales de la población solo pueden participar en la muestra si pertenecen a un conglomerado incluido en la muestra
+
+La unidad de muestre primario no es igual a la unidad de observación.
+
+¿Por qué utilizarlo?
+
+1. La construcción de una lista de unidades de observación para el marco muestral puede ser muy cara o imposible
+
+2. Más barato. No hay que recorres todas las iglesias luteranas para entrevistar a todos los luteranos seleccionados, sino que solamente hay que ir a las iglesias seleccionadas.
+
+Mientras más conglomerados participen, menor será la varianza. Para mayor precisión, las medias de los diferentes conglomerados deberán ser iguales. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+

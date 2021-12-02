@@ -35,6 +35,7 @@ knitr::opts_chunk$set(message = FALSE,
 library(xaringanthemer)
 library(dplyr)
 library(guaguas)
+library(knitr)
 
 dark_yellow <- "#EFBE43"
 light_yellow <- "#FDF7E9"
@@ -64,8 +65,6 @@ style_duo(
 #pagedown::chrome_print("clase12_survey.html")
 
 ```
-
----
 
 class: inverse, center, middle
 
@@ -102,13 +101,28 @@ Todo estimador está compuesto por dos elementos
 + Estimación puntual
 + Precisión (ci, se, var, cv)
 
+---
+
+# Ej. Reporte de estimación
+
+```{r echo=FALSE, fig.align='center',out.width="70%",fig.link="https://www.ine.cl/docs/default-source/seguridad-ciudadana/publicaciones-y-anuarios/2020/s%C3%ADntesis-de-resultados---17-enusc-2020.pdf?sfvrsn=f57d6dc6_2"}
+knitr::include_graphics('imagenes/enusc.png')
+```
 
 ---
 
-# El desafío de la inferencia
+# Ej. Reporte de estimación
+
+```{r echo=FALSE, fig.align='center',out.width="70%",fig.link="https://www.ine.cl/docs/default-source/seguridad-ciudadana/publicaciones-y-anuarios/2020/s%C3%ADntesis-de-resultados---17-enusc-2020.pdf?sfvrsn=f57d6dc6_2"}
+knitr::include_graphics('imagenes/enusc2.png')
+```
+
+---
+
+## Tipo de muestreo influye en inferencia
 
 ```{r echo=FALSE, fig.align='center',out.width="70%"}
-knitr::include_graphics('imagenes/population-sample.png')
+knitr::include_graphics('imagenes/estratos_conglomerados_lohr.png')
 ```
 
 ---
@@ -116,19 +130,19 @@ knitr::include_graphics('imagenes/population-sample.png')
 
 # La forma incorrecta
 
-Para estimar el valor del parámetro poblacional existen dos alternativas: 
+Para estimar el valor del parámetro poblacional se requieren dos pasos: 
 
 --
 
-(i) definir un estadístico como estimación del parámetro poblacional (estimación puntual) 
++ definir un estadístico como estimación del parámetro poblacional (estimación puntual) 
 
 --
 
-(ii) establecer en torno a un estadístico un intervalo de confianza para estimar en términos probabilísticos el parámetro. 
++ establecer en torno a un estadístico un intervalo de confianza para estimar en términos probabilísticos el parámetro. 
 
 --
 
-La segunda alternativa es la más apropiada. Sin embargo, comprendamos la simplicidad de la primera. 
+Lo apropiado es reportar ambas cosas, pero es difícil cuando tenemos un **diseño muestral complejo**.
 
 --
 
@@ -140,7 +154,11 @@ Este **ponderador** o **factor de expansión (FE)** indica a cuántas unidades r
 
 --
 
-Los ponderadores suman 1, mientras que los FE suman el tamaño de la población. 
+Los pesos **no** dan información acerca de la forma de determinar los errores estándar, siendo centrales para calcular los IC (precisión). 
+
+--
+
+**Desv Est.** tiende a aumentar con conglomerados y a disminuir con estratos...
 
 
 ---
@@ -155,7 +173,7 @@ Una vez más, trabajaremos con la Encuesta Nacional de Empleo.
 
 --
 
-8.148.210 ocupados: 4.826.060 hombres y 3.322.150 mujeres. 
+8.148.210 ocupados: 4.826.060 hombres (59,2%) y 3.322.150 mujeres (40,8%). 
 
 --
 
@@ -177,19 +195,23 @@ ene <- read.csv(file = "data/ene-2021-02-efm.csv",sep = ";")
 --
 
 ```{r}
-ene %>% filter(activ==1) %>%   #<<
-  group_by(sexo) %>% summarise(ocupados=n())  #<<
+ene %>% filter(activ==1) %>%
+  group_by(sexo) %>% summarise(ocup=n()) %>% mutate(prop=ocup/sum(ocup))
 ```
+
+
 
 ---
 
 # Abramos R
 
-No nos da lo mismo, ya que solo estamos considerando a los elementos de la muestra.
+No nos da lo mismo, ya que no estamos considerando el diseño complejo con el que se levanta la ENE
 
 --
 
-Para estimar el total, tendremos que utilizar la variable factor de expansión.
+ENE es un diseño por conglomerados, bietápico y estratificado. 
+
+Para estimar puntualmente de manera correcta necesitamos los **factores de expansión**
 
 --
 
@@ -198,14 +220,13 @@ Para estimar el total, tendremos que utilizar la variable factor de expansión.
 --
 
 ```{r}
-summary(ene$fact_cal)   #<<
-#sum(ene$fact_cal) ¿Cuánto debería sumar aproximadamente?
+summary(ene$fact_cal) # ¿Cuánto debería sumar?
 ```
 
 --
 
 ```{r echo=FALSE}
-sum(ene$fact_cal)  #<<
+sum(ene$fact_cal)  
 ```
 
 
@@ -220,7 +241,7 @@ Ahora filtramos para dejar solo los ocupados y agrupamos por sexo.
 ```{r}
 ene %>% filter(activ==1) %>% 
   group_by(sexo) %>% 
-  summarise(ocupados=sum(fact_cal)) #<<
+  summarise(ocupados=sum(fact_cal)) 
 ```
 
 --
@@ -235,7 +256,7 @@ sum(ene[ene$activ==1,]$fact_cal,na.rm = TRUE)
 
 ---
 
-## Sobre el uso de estimaciones puntuales
+## Uso de estimaciones puntuales
 
 Si bien es una mala práctica, tiene buen rendimiento y se usa en estudios descriptivos. 
 
@@ -251,7 +272,7 @@ knitr::include_graphics('imagenes/ine_boletin.png')
 
 --
 
-*En los tabulados se señala cuando las estimaciones son poco o nada fiables (cv > 15%).
+*En los tabulados se señala cuando las estimaciones son poco o nada fiables (cv > 15%). A nivel nacional el error es bajo. 
 
 
 ---
@@ -268,9 +289,34 @@ Sin embargo, debemos ser capaces de conocer la precisión de nuestras estimacion
 
 Para esto debemos suponer cosas, conocer la error estándar de nuestra variable, el nivel de confianza con el que estamos trabajando y otros elementos del diseño muestral. 
 
+
+---
+
+## Medir la precisión de la estimación
+
+Si la ENE fuera un simple Muestreo Aleatorio Simple, el intervalo en torno a las proporciones de hombres y mujeres se podría obtener definiendo:
+
 --
 
-R tiene unos paquetes que nos simplificarán la vida. 
+n = 90.387, z = 1.96, (pxq): 0.4691383*0.5308617
+
+--
+
+```{r}
+p <- as.vector(prop.table(table(ene$sexo)))[1]
+n <- nrow(ene)
+z <- 1.96 # para 95% de confianza
+```
+
+--
+
+```{r}
+ci_p <- z * (sqrt(p*(1-p)/n))
+(p-ci_p)*100 ; p*100 ; (p+ci_p)*100
+```
+--
+
+Estimamos mal tanto el error como el valor puntual. 
 
 ---
 
@@ -281,46 +327,97 @@ Para trabajar con muestras complejas en R son necesarios dos paquetes:
 
 --
 
+.pull-left[
+
 `survey`
+
+`srvyr`
+
+]
 
 --
 
-`srvyr`
+.pull-right[
+
+```{r echo=FALSE, out.width="30%", fig.link="https://unidirectory.auckland.ac.nz/profile/t-lumley"}
+knitr::include_graphics('https://unidirectory.auckland.ac.nz/people/imageraw/t-lumley/10506857/biggest')
+```
+
+]
 
 --
 
 El primero fue creado por [Thomas Lumley](https://unidirectory.auckland.ac.nz/profile/t-lumley). 
-
---
 
 El segundo es su adaptación por terceros para que dialogue con la gramática de `dplyr` y los `pipes`. 
 
 --
 
 ```{r eval=FALSE}
-## Opciones generales
-options(survey.lonely.psu = "certainty" )
 
 ## Crear objeto tbl_svy
-ds <- data %>% as_survey_design(ids = conglomerados,  ## ids=1 (no hay conglomerado)
-                              strata = estratos, 
-                              weights = pesos)
+ds <- data %>% 
+  as_survey_design(ids = conglomerados, # ids=1 (no hay conglomerado)
+                   strata = estratos, 
+                   weights = pesos)
 ```
 
 
 
 ---
 
+# Diseño ENE
+
+Muestreo bietápico -> conglomerados -> vivienda
+
+--
+
++ Unidad primaria de muestreo (UPM) definida como un conglomerado homogéneo, en
+términos de la cantidad de viviendas particulares que los componen. 35.140 upm
+
+--
+
++ Unidad secundaria de muestreo (USM) que corresponde a viviendas particulares ocupadas dentro de las UPM seleccionadas. 6.145.493 viviendas
+
+--
+
+La muestra de la ENE fue seleccionada desde el **Marco Muestral** de Viviendas (MMV) elaborado con Censo 2017.
+
+--
+
+El MMV contiene variables que permiten la clasificación de las UPM en:
+
++ area rural / urbana
+
++ comuna
+
++ Tres niveles socioeconómicos
+
+--
+
+Se seleccionan 39.000 viviendas en 5.000 UPM aprox. 
+
+
+
+--
+
+Fuente: [Diseño metodológico ENE](https://www.ine.cl/docs/default-source/ocupacion-y-desocupacion/metodologia/espanol/metodolog%C3%ADa-encuesta-nacional-de-empleo-ene-2020.pdf?sfvrsn=793380e9_8)
+
+---
+
 ## La forma correcta: `survey` y `srvyr`
 
-Tenemos que poner atención a las siguientes variables, que hasta ahora dejábamos de lado:
+Todo este diseño se contiene en variables de la base de datos
 
 --
 
 ```{r}
-ene %>% select(ano_trimestre,mes_central,idrph,estrato,conglomerado,fact_cal) %>% str()
+ene %>% select(idrph,id_identificacion,estrato,
+               conglomerado,fact_cal) %>% head()
 ```
 --
+
++ Primer paso es cargar los paquetes
 
 ```{r message=FALSE, warning=FALSE}
 library(survey)
@@ -330,15 +427,21 @@ library(srvyr)
 
 ---
 
-## La forma correcta: `survey` y `srvyr`
+## `survey` y `srvyr`
 
-### Crear objeto survey con la ENE
++ Lo segundo es crear objeto .inverse[survey] con la ENE
+
+--
+
+Este objeto será del tipo `lista` en R y lo utilizaremos como si fuese la data frame
+
+--
 
 Todas las recodificaciones y ediciones hacerlas antes de crear el objeto `survey`.
 
 --
 
-+ Las variables con las que se harán agrupamientos deben mutarse a formato `factor`.  
+Las variables con las que se harán agrupamientos deben mutarse a formato `factor`.  
 
 --
 
@@ -353,32 +456,45 @@ ene$categoria_ocupacion<-as.factor(ene$categoria_ocupacion)  ## ojo
 Crear el objeto `survey`
 
 ```{r}
-ds<- ene %>% as_survey_design(ids = conglomerado,   #<<
-                              strata = estrato,     #<<
-                              weights = fact_cal)   #<<
+ds <- ene %>% as_survey_design(ids = conglomerado,   
+                              strata = estrato,     
+                              weights = fact_cal)   
 ```
 
-
---
-
-Opciones generales, quedan definidas para toda la sesión de R (como cargar un paquete)
-
---
-
-```{r}
-options(survey.lonely.psu = "certainty" ) 
-## Evita que el programa tire error por estratos con solo una unidad primaria de muestreo (PSU) o conglomerado
-## La opción certainty indica que los estratos con un conglomerado no aportan varianza a la estimación.
-```
-
---
-
-Más sobre [unidades primarias de muestreo](http://r-survey.r-forge.r-project.org/survey/exmample-lonely.html) en survey.
 
 
 ---
 
-## La forma correcta: `survey` y `srvyr`
+## `survey` y `srvyr`
+
+--
+
+Podemos agregar la corrección población finita para cada estrato con el argumento `fpc`
+
+--
+
+Esto aumenta la precisión de las estimaciones, pero no lo haremos acá para no complicar más las cosas (ver anexo al final con código)
+
+--
+
++ Lo tercero es definir algunas opciones generales
+
+Cuando solo hay un conglomerado en un estrato, R no consigue calcular la varianza y arroja error (no se puede calcular varianza con una sola unidad). 
+
+--
+
+Para solucionarlo indicamos que estos conglomerados solitarios no aporten a la varianza.
+
+```{r}
+options(survey.lonely.psu = "certainty" ) 
+```
+
+
+---
+
+## `survey` y `srvyr`
+
+Y tenemos nuestro objeto `survey` llamado ds
 
 --
 
@@ -388,31 +504,28 @@ class(ds) ## Consultar tipo de objeto
 
 --
 
-### Contar casos por categoría de respuesta
++ Hagamos nuestra primera estimación: número de personas por actividad
 
 --
 
 ```{r}
 # Ocupados - Desocupados - Fuera de la FT
-ds %>% group_by(activ) %>% summarise(trabajadores=survey_total(na.rm = TRUE))  #<<
+ds %>% 
+  group_by(activ) %>% 
+  summarise(trabajadores=survey_total(na.rm = TRUE))  
 
 ```
 
---
-
-No solo tenemos estimación puntual del número de trabajadores, ahora tenemos una medida de precisión (se)
 
 ---
 
-## La forma correcta: `survey` y `srvyr`
+## `survey` y `srvyr`
 
-Error estandar indica la variabilidad de las medias muestrales. 
-
-Tiende a disminuir cuando aumenta el tamaño de las muestras.
+Ya no solo aparece la estimación puntual, se agrega medida de precisión.
 
 --
 
-$$se=sd/\sqrt{n}$$
+Error estándar indica la variabilidad de las medias muestrales. 
 
 --
 
@@ -429,95 +542,230 @@ $$[\overline{x} + z_{a/2}\frac{sd}{\sqrt{n}} , \overline{x} - z_{a/2}\frac{sd}{\
 
 --
 
-Survey lo hace por nosotros...
+¿Hay que seguir haciendo cálculos a mano?
+
+--
+
+No, `survey` lo hace por nosotros...
 
 ---
 
-## La forma correcta: `survey` y `srvyr`
+## `survey` y `srvyr`
 
 --
 
 ```{r}
 ds %>% group_by(activ) %>% 
-  summarise(trabajadores=survey_total(na.rm = TRUE,      #<<
-                                      vartype=c("ci")))   #<<
-
+  summarise(trabajadores=survey_total(na.rm = TRUE,      
+                                      vartype=c("ci")))   
 ```
 
 --
 
-Por defecto `survey` trabaja con nivel de confianza del 95% (z=1,96). Se puede cambiar:
+Por defecto `survey` trabaja con nivel de confianza del 95% (z=1,96).
 
---
+---
+
+## `survey` y `srvyr`
+
+Podemos cambiar el nivel de confianza también. Por ejemplo al 90%
 
 ```{r}
 ds %>% group_by(activ) %>% 
   summarise(trabajadores=survey_total(na.rm = TRUE, 
-                                      vartype=c("ci"),
-                                      level=c(0.90)))   #<<
-
+                                      vartype=c("ci"),level=c(0.90)))   
 ```
-
-
-
-
----
-
-## La forma correcta: `survey` y `srvyr`
 
 --
 
-Con esto, la tasa de desocupación publicada de 10,4% en EFM 2021 tendrá un nivel de precisión:
+O al 99% (mucha confianza, poca precisión)
+
+--
+
+```{r echo=FALSE}
+ds %>% group_by(activ) %>% 
+  summarise(trabajadores=survey_total(na.rm = TRUE, 
+                                      vartype=c("ci"),level=c(0.99)))   
+```
+
+---
+
+## `survey` y `srvyr`
+
+--
+
+Con esto, la tasa de desocupación publicada de 10,4% tendrá incertidumbre.
 
 --
 
 ```{r}
 tasa<-ds %>% group_by(activ) %>% 
-  summarise(trabajadores=survey_total(na.rm = TRUE,  #<<
-                         vartype=c("ci"))) %>% 
-  filter(activ==1|activ==2) %>% # seleccionar solo 2 filas
-  janitor::adorn_totals("row")  # total por columna
-
+  summarise(trabajadores=survey_total(na.rm = TRUE,  
+                         vartype=c("ci")))
 ```
+
+--
+
+```{r}
+tasa <- tasa %>% 
+  filter(activ==1|activ==2) %>% # seleccionar ocup y desocup
+  janitor::adorn_totals("row")  # total por columna
+```
+--
 
 Tasas de desocupación:
 
---
-
 ```{r}
-tasa[2,2:4]/tasa[3,2:4]  #<<
+tasa[2,2:4]/tasa[3,2:4]  
 ```
+
+El error es mínimo (+-0,3%) por el alto número de observaciones (37.589).
 
 ---
 
-## La forma correcta: `survey` y `srvyr`
+## `survey` y `srvyr`
 
-### Proporciones por categoría de respuesta
+¿Cuál sería la tasa de desocupación en la submuestra de las personas de la Región de la Araucanía? (4.728 personas en la muestra)
 
+--
+
+```{r}
+tasa<-ds %>% filter(region==9) %>% group_by(activ) %>% 
+  summarise(trabajadores=survey_total(na.rm = TRUE,  
+                         vartype=c("ci"))) %>% 
+  filter(activ==1|activ==2) %>% # seleccionar ocup y desocup
+  janitor::adorn_totals("row")
+```
+```{r echo=FALSE}
+tasa
+```
+
+--
+
+```{r echo=FALSE}
+tasa[2,2:4]/tasa[3,2:4] ## +-1,3%
+```
+
+--
+
+Intervalo de +- 1,3%, ya comienza a ser más relevante.
+
+(imaginen el error para una comuna o un grupo específico)
+
+---
+
+## `survey` y `srvyr`
+
+Podemos también estimar los totales de una variable, no solo de las unidades.
+
+--
+
+Horas semanales trabajadas en el país
+
+```{r}
+ds %>%
+  summarise(c2_1_3= survey_total(c2_1_3,na.rm = TRUE,vartype=c("ci")))
+```
+
+--
+
+Teniendo el NT
+
+```{r}
+ds %>% filter(activ==1) %>% 
+  summarise(nt= survey_total(na.rm = TRUE,vartype=c("ci")))
+```
+--
+
+Sabemos que en promedio se trabajan 45,6 horas semanales (+- 0,6 horas).
+
+---
+
+## `survey` y `srvyr`
+
+No solo podemos estimar totales, también proporciones, medias, etc.
+
+--
+
+#### Proporciones por categoría de respuesta
+
+--
+
+```{r}
+
+ds %>% filter(categoria_ocupacion!=0) %>% 
+  group_by(categoria_ocupacion) %>% 
+  summarise(proportion = survey_prop(vartype = c("ci"),na.rm = TRUE)) %>% kable()
+
+```
+
+
+---
+
+## `survey` y `srvyr`
+
+¿Y que tanto cambian las proporciones sin diseño complejo?
+
+--
+
+.pull-left[
+
+**Con survey**
+
+```{r echo=FALSE}
+
+ds %>% filter(categoria_ocupacion!=0) %>% 
+  group_by(categoria_ocupacion) %>% 
+  summarise(proportion = survey_prop(na.rm = TRUE)) %>% kable()
+
+```
+
+]
+
+.pull-right[
+
+**Sin survey**
+
+```{r echo=FALSE}
+
+ene %>% filter(categoria_ocupacion!=0) %>% 
+  group_by(categoria_ocupacion) %>% 
+  summarise(n=n()) %>% mutate(prop=n/sum(n))%>% 
+  select(prop) %>% kable()
+
+```
+
+]
+
+---
+
+## `survey` y `srvyr`
+
+#### Media
+
+Función `survey_mean`, incluyendo variable numérica
 
 --
 
 ```{r}
 
 ds %>% filter(categoria_ocupacion!=0) %>% group_by(categoria_ocupacion) %>% 
-  summarise(proportion = survey_mean(vartype = c("ci"),na.rm = TRUE)) #<<
+  summarise(media_edad = survey_mean(edad,vartype = c("ci"),na.rm = TRUE))   
 
 ```
 
 ---
 
-## La forma correcta: `survey` y `srvyr`
+## `survey` y `srvyr`
 
-### Media
+#### Media
 
-Similar a como se programan las proporciones, pero incluyendo una variable numérica dentro de `survey_mean`
-
---
+Horas semanales promedio en actividad principal
 
 ```{r}
 
 ds %>% filter(categoria_ocupacion!=0) %>% group_by(categoria_ocupacion) %>% 
-  summarise(media_edad = survey_mean(edad,vartype = c("ci"),na.rm = TRUE))   #<<
+  summarise(c2_1_3 = survey_mean(c2_1_3,vartype = c("ci"),na.rm = TRUE))   
 
 ```
 
@@ -529,40 +777,34 @@ ds %>% filter(categoria_ocupacion!=0) %>% group_by(categoria_ocupacion) %>%
 
 ```{r}
 
-ds %>% filter(categoria_ocupacion!=0) %>% group_by(categoria_ocupacion) %>% 
-  summarise(mediana_edad = survey_median(edad,vartype = c("ci"),na.rm = TRUE))   #<<
+ds %>% filter(categoria_ocupacion!=0) %>% 
+  group_by(categoria_ocupacion) %>% 
+  summarise(c2_1_3 = survey_median(c2_1_3,vartype = c("ci"),na.rm = TRUE))   
 
 ```
 
 
 ---
 
-## La forma correcta: `survey` y `srvyr`
+## `survey` y `srvyr`
 
-### Cuartiles (y otros percentiles)
+También se pueden calcular:
 
---
+#### Cuartiles (y otros percentiles)
 
-```{r}
-
+```{r eval=FALSE}
 ds %>% filter(!is.na(activ)) %>% group_by(activ) %>% 
-  summarise(edad=survey_quantile(edad,c(0.25, 0.5, 0.75),na.rm = TRUE))   #<<
-
+  summarise(edad=survey_quantile(edad,c(0.25, 0.5, 0.75),na.rm = TRUE))   
 ```
-
----
-
-
-### Desviación estándar y varianza
 
 --
 
-```{r}
+#### Desviación estándar y varianza
 
-ds %>% filter(categoria_ocupacion!=0) %>% group_by(categoria_ocupacion) %>% 
+```{r eval=FALSE}
+ds %>% group_by(categoria_ocupacion) %>% 
   summarise(sd_edad=survey_sd(edad,na.rm = TRUE),
-            varianza_edad=survey_var(edad,vartype = c("ci"),na.rm = TRUE))   #<<
-
+            varianza_edad=survey_var(edad,na.rm = TRUE))   
 ```
 
 
@@ -580,7 +822,7 @@ class: inverse, center, middle
 
 La forma más común es el gráfico de barras o de líneas con barras de error (A). 
 
-```{r echo=FALSE,fig.align='center', out.width="80%"}
+```{r echo=FALSE,fig.align='center', out.width="70%"}
 knitr::include_graphics("imagenes/4_mean_ic.png")
 ```
 
@@ -594,38 +836,60 @@ O incluso se puede ir más allá, visualizando la incertidumbre de forma continu
 
 --
 
-La visualización también puede confundir, presentándose errores estándar como si fuesen intervalos. 
+La visualización puede confundir, presentándose EE como si fuesen intervalos 
 
 --
 
-Revisar Correl, M. [Error bars considered harmful](https://ieeexplore.ieee.org/document/6875915) para conocer la discusión. 
+Si solo se reporta el EE como IC, se está utilizando un nivel de confianza del 68% (z=1). Si no se explicita, se hace pasar como si fuese de 95% (z=1.96).
+
+IC al 95% es el doble que un IC al 68%.
 
 
 ---
 
 # Visualizar la incertidumbre
 
-### `geom_bar`
+#### Gráfico de barras
+
+Para visualizar datos utilizando diseños complejos, el "input" que agreguemos a `ggplot2` ya debe haber sido calculado con `survey`
 
 --
 
-```{r eval=FALSE}
+Por ejemplo, trabajadores por categoría en la ocupación.
 
-ds %>% filter(categoria_ocupacion!=0) %>% group_by(categoria_ocupacion) %>% 
-  summarise(trabajadores=survey_total(na.rm = TRUE, vartype=c("ci"),level=c(0.95))) %>%   #<<
-  ggplot(aes(x=categoria_ocupacion,y=trabajadores,fill=categoria_ocupacion))+
+Primero creamos la tabla con la inferencia. 
+
+--
+
+```{r}
+tabla1 <- ds %>% filter(categoria_ocupacion!=0) %>% 
+  group_by(categoria_ocupacion) %>% 
+  summarise(trabajadores=survey_total(na.rm = TRUE, 
+                                      vartype=c("ci")))
+tabla1[1:3,] %>% kable()
+```
+
+---
+
+# Visualizar la incertidumbre
+
+#### Gráfico de barras
+
+```{r eval=FALSE}
+tabla1 %>%   
+  ggplot(aes(x=categoria_ocupacion,
+             y=trabajadores,
+             fill=categoria_ocupacion))+
   geom_bar(stat = "identity") + 
-  geom_errorbar(aes(ymin=trabajadores_low, ymax=trabajadores_upp),  #<<
+  geom_errorbar(aes(ymin=trabajadores_low, ymax=trabajadores_upp),  
                   width=0.2, position=position_dodge(.9))
 
 ```
 
---
-
 ```{r eval=FALSE, echo=FALSE}
 ggsave(
   plot = last_plot(),
-  filename = "imagenes/grafico1.png", #<< 
+  filename = "imagenes/grafico1.png",  
   device = "png",
   dpi = "retina",
   units = "cm",
@@ -634,7 +898,9 @@ ggsave(
 )
 ```
 
-```{r echo=FALSE,fig.align='center', out.width="70%"}
+--
+
+```{r echo=FALSE,fig.align='center', out.width="50%"}
 knitr::include_graphics("imagenes/grafico1.png")
 ```
 
@@ -643,7 +909,7 @@ knitr::include_graphics("imagenes/grafico1.png")
 
 # Visualizar la incertidumbre
 
-### Gráfico de líneas
+#### Gráfico de líneas
 
 Data con la evolución de los ocupados (en miles) en Chile entre 2010 y 2021.
 
@@ -666,7 +932,7 @@ serie
 
 # Visualizar la incertidumbre
 
-### Gráfico de líneas, solo estimaciones puntuales
+#### Gráfico de líneas sin IC
 
 ```{r results=FALSE, eval=FALSE}
 serie %>%  ggplot(aes(x=periodo, y=ocupados)) + 
@@ -679,7 +945,7 @@ serie %>%  ggplot(aes(x=periodo, y=ocupados)) +
 ```{r echo=FALSE, eval=FALSE}
 ggsave(
   plot = last_plot(),
-  filename = "imagenes/grafico2.png", #<< 
+  filename = "imagenes/grafico2.png",  
   device = "png",
   dpi = "retina",
   units = "cm",
@@ -688,7 +954,7 @@ ggsave(
 )
 ```
 
-```{r echo=FALSE,fig.align='center', out.width="70%"}
+```{r echo=FALSE,fig.align='center', out.width="50%"}
 knitr::include_graphics("imagenes/grafico2.png")
 ```
 
@@ -696,21 +962,21 @@ knitr::include_graphics("imagenes/grafico2.png")
 
 # Visualizar la incertidumbre
 
-### Gráfico de líneas, con medidas de precisión
+#### Gráfico de líneas, con medidas de precisión
 
 ```{r results=FALSE, eval=FALSE}
 serie %>%  ggplot(aes(x=periodo, y=ocupados)) + 
   geom_line() + 
   geom_point() +
   theme_bw() + 
-  geom_errorbar(aes(ymin=ocupados_low, ymax=ocupados_upp), width=.01) #<<
+  geom_errorbar(aes(ymin=ocupados_low, ymax=ocupados_upp), width=.01) 
 ```
 
 
 ```{r echo=FALSE, eval=FALSE}
 ggsave(
   plot = last_plot(),
-  filename = "imagenes/grafico3.png", #<< 
+  filename = "imagenes/grafico3.png",  
   device = "png",
   dpi = "retina",
   units = "cm",
@@ -719,95 +985,8 @@ ggsave(
 )
 ```
 
-```{r echo=FALSE,fig.align='center', out.width="65%"}
+```{r echo=FALSE,fig.align='center', out.width="60%"}
 knitr::include_graphics("imagenes/grafico3.png")
-```
-
-
----
-
-## Gráficos de cajas, estimando a la población
-
-```{r fig.align='center',out.width="50%"}
-svyboxplot(edad~categoria_ocupacion, design=ds,all.outliers=TRUE)  #<< 
-```
-
-
-
----
-
-## Gráficos de cajas, estimando a la población
-
-
-```{r echo=FALSE,fig.align='center',out.width="65%"}
-par(mfrow=c(2,1)) 
-boxplot(edad~categoria_ocupacion,data=ene)
-svyboxplot(edad~categoria_ocupacion, design=ds,all.outliers=TRUE)  #<< 
-```
-
-
-
-
----
-
-## Gráficos de cajas modificados 
-
-[o The Modern Box Plot](https://towardsdatascience.com/better-boxplots-for-psychological-science-5fbe552b2eef)
-
---
-
-## Para visulizar precisión (IC) en vez cuartiles
-
-+ Box center: sample mean (o total)
-+ Box edges: standard error of the mean (IC 50% en este caso)
-+ Box whiskers: 95% confidence interval
-
---
-
-```{r}
-## Crear tabla de ocupados por sector económico
-base<-ds %>% filter(categoria_ocupacion==3&r_p_rev4cl_caenes%in%c(1,3,6,7,8)) %>%
-  group_by(r_p_rev4cl_caenes) %>% 
-  summarise(trabajadores=survey_total(na.rm = TRUE, vartype=c("ci"),level=c(0.50,0.95))) %>% 
-  rename(sectores=r_p_rev4cl_caenes) %>% mutate(sectores=as.factor(sectores))
-
-base
-
-```
-
-```{r echo=FALSE}
-levels(base$sectores)<- c("Agricultura","Electricidad","Construccion","Comercio","Transporte")
-```
-
-
----
-
-## Gráficos de cajas modificados
-
-```{r eval=FALSE, fig.align='center',out.width="70%"}
-base %>% ggplot(aes(y = trabajadores, x = sectores,color=sectores)) + 
-  geom_point() +
-  geom_crossbar(aes(ymin = trabajadores_low50, ymax = trabajadores_upp50)) +
-  geom_errorbar(aes(ymin = trabajadores_low95, ymax =  trabajadores_upp95), width = 0.2) + labs(title = "Grafico de cajas modificado",subtitle = "Bigotes indican IC del 95% y bisagras de la caja un 50%")
-
-```
-
---
-
-```{r echo=FALSE, eval=FALSE}
-ggsave(
-  plot = last_plot(),
-  filename = "imagenes/grafico5.png", #<< 
-  device = "png",
-  dpi = "retina",
-  units = "cm",
-  width = 25,
-  height = 15
-)
-```
-
-```{r echo=FALSE,fig.align='center', out.width="80%"}
-knitr::include_graphics("imagenes/grafico5.png")
 ```
 
 
@@ -831,6 +1010,46 @@ weighted_corr$correlation
 cor(ene2, use = "complete.obs")
 ```
 
+---
+
+# Anexo 1. FPC
+
+Corrección por población finita
+
+```{r eval=FALSE}
+
+## obtener población de cada estrato
+ene <- ene %>% group_by(estrato) %>% 
+  mutate(pob_estrata=sum(fact_cal)) %>% 
+  ungroup()
+
+## RE crear objeto survey incluyendo argumento fpc
+ds2 <- ene %>% as_survey_design(ids = conglomerado,   
+                              strata = estrato,     
+                              weights = fact_cal,
+                              fpc=pob_estrata)  
+
+ds2 %>%
+  group_by(activ) %>% 
+  summarise(trabajadores=survey_total(na.rm = TRUE)) 
+
+```
+
+```{r eval=FALSE, echo=FALSE}
+ene$unidad <- rep(1,nrow(ene))
+
+ds2<-survey::svydesign(data=ene,
+                       ids=~conglomerado,
+                       strata=~estrato,
+                       weights=~fact_cal,
+                       fpc = ~pob_estrata
+                       )
+
+ds2
+survey::svytotal(~unidad,ds2)
+```
+
+
 
 ---
 
@@ -844,11 +1063,11 @@ INE. Boletín Mensual DEF 2021 [Encuesta Nacional de Empleo](https://www.ine.cl/
 
 [Lehmann et al (2021) Presentación paquete "calidad" en LatinR](https://www.youtube.com/watch?v=ch3bg2bhOmc)
 
+Revisar Correl, M. [Error bars considered harmful](https://ieeexplore.ieee.org/document/6875915) para conocer la discusión
 
 ```{r echo=FALSE, results=FALSE}
 Citet(bib, "Lohr2000")
 Citet(bib, "Vivanco2006")
-
 ```
 
 ```{r refs, echo=FALSE, results="asis"}
