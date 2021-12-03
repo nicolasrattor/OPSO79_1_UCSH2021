@@ -7,57 +7,61 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## Tareas prácticas
+# Tareas prácticas
 
 En total habrán 5 tareas prácticas a lo largo del curso, las cuáles tendrán un componente principalmente práctico de uso de R.
 
-# Tarea N°1
+## Tarea N°1
 
 Elaborar documento desde RMarkdown con presentación de estudiante y foto de científico social favorito. [Descargar pauta aquí](tareas/tarea1/tarea1.pdf). 
 
-# Tarea N°2
+## Tarea N°2
 
 Operaciones elementales sobre un data frame con R base y transformación y visualización básica con dplyr. [Descargar pauta aquí](tareas/tarea2/tarea2_dplyr.pdf). 
 
 `r xfun::embed_file("tareas/tarea2/tarea2_dplyr_formato.rmd", text = "Descargar plantilla opcional para hacer la tarea 2")`
 
-# Tarea N°3
+## Tarea N°3
 
 Importar data y trasformación avanzada con dplyr. [Descargar pauta aquí](tareas/tarea3/tarea3_group_by.pdf). 
 
-# Tarea N°4
+## Tarea N°4
 
 Visualización de datos con ggplot2. [Descargar pauta aquí](https://opso791ucsh2021.netlify.app/clases/clase9/tarea_visualizacion.pdf). 
 
-# Tarea N°5
+## Tarea N°5
 
 Reproducibilidad y gestión de bibliografías. [Descargar pauta aquí](https://opso791ucsh2021.netlify.app/clases/clase10/tarea_reproducibilidad.pdf).
 
-## Evaluaciones tipo prueba:
+# Evaluaciones tipo prueba
+
+## Prueba N°1
 
 24 de septiembre (10%) - Diseños de investigación, tipos de datos y trabajo con *data frames* en R
 
 [Descargar pauta prueba 1](pruebas/prueba1.pdf)
 
+## Prueba N°2
+
 22 de octubre (10%) - Estadística descriptiva con R e interpretación de salidas
 
 [Descargar pauta prueba 2](pruebas/prueba2.pdf)
+
+## Prueba N°3
 
 29-30 de noviembre (10%) - Estadística descriptiva II, visualización de datos y Ciencia abierta
 
 [Descargar pauta prueba 3](pruebas/prueba3.pdf)
 
-[Descargar esqueleto de prueba 3](https://www.dropbox.com/sh/l1qe5xk4o6er6vv/AABciHSunzw5QAmKKgZ3f1a8a?dl=0)
-
-## Nota participación (autoevaluación)
+# Nota participación
 
 Se busca que el o la estudiante haga una autoevaluación de su participación en el curso. Este ítem representa el 10% de la nota final y se debe enviar el 03 de diciembre. 
 
 [Descargar pauta de autoevaluación](tareas/autoevaluacion.docx)
 
-## Examen
+# Examen
 
-10 y 17 de diciembre (prueba integrativa final oral y virtual, 30%) - toda la materia
+17 de diciembre (prueba integrativa final oral y virtual, 30%) - toda la materia
 
-[Descargar horarios de presentación e instrucción general en Aula Virtual](https://ucsh.mrooms.net/login/index.php)
+[Descargar horarios de presentación e instrucción general en Aula Virtual desde semana 06 de diciembre](https://ucsh.mrooms.net/login/index.php)
 
